@@ -1,7 +1,7 @@
 {
     "name": "Lepsza gazeta.pl",
-    "version": "0.0.1",
-    "description": "Ulepszona galeria na Gazeta.pl. Nie wymaga przeladowania calej strony przy przejsciu do kolejnego zdjecia.",
+    "version": "1.0.2",
+    "description": "Ulepszony interfejs galerii zdjęć na Gazeta.pl i deser.pl. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
     "page_action": {
         "default_title": "Galeria Gazeta.pl"
     },
