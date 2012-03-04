@@ -1,0 +1,32 @@
+{
+    "name": "Lepsza gazeta.pl",
+    "version": "0.0.1",
+    "description": "Ulepszona galeria na Gazeta.pl. Nie wymaga przeladowania calej strony przy przejsciu do kolejnego zdjecia.",
+    "page_action": {
+        "default_title": "Galeria Gazeta.pl"
+    },
+    "permissions": [
+        "tabs"
+    ],
+    "incognito": "spanning",
+	"content_security_policy": "default-src 'self' 'unsafe-inline'",
+    "icons": {
+        "16": "icon_16.jpg",
+        "48": "icon_48.jpg",
+        "128": "icon_128.jpg"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*.gazeta.pl/*",
+                "http://deser.pl/*"
+            ],
+            "js": [
+                "jquery-1.7.1.min.js",
+                "contentscript.js"
+            ],
+            "run_at": "document_idle",
+            "all_frames": true
+        }
+    ]
+}
