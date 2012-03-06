@@ -1,37 +1,55 @@
 var self = this;
 var imageContainer;
+var sectionToBeRemovedSelector = ".navigation";
+var navigationNextULRSelector = ".navigation .next:first";
+var navigationPageNumberSelector = ".navigation .page:first";
+var articleBodySelector = "#gazeta_article_body";
+var sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body";
+var headerSectionSelector = ".navigation:first h1 span";
 
 if($("body#pagetype_photo").length > 0){
 	console.log("jestesmy na stronie z galeria #pagetype_photo");
 	$("#gazeta_article_miniatures").empty();
-	imageContainer = $("#gazeta_article_miniatures");
-	$.get($(".navigation .first").attr("first"), function(nextPage){
-		findImageURL(nextPage);
-	});
-	$(".navigation").empty();
+	loadImagesOnPage();
 }else if($("body#pagetype_art_blog").length>0){
 	console.log("jestesmy na stronie z galeria #pagetype_art_blog");
-	$("#gazeta_article_body").after("<div class='imageContainer'></div>");
-	imageContainer = $("#gazeta_article").find(".imageContainer");
-	$.get($(".navigation .next:first").attr("href"), function(nextPage){
-		findImageURL(nextPage);
-	});
-	$(".navigation").empty();
+	loadImagesOnPage();
+}else if($("body#pagetype_art").length>0){
+	console.log("jestesmy na stronie z galeria #pagetype_art");
+	loadImagesOnPage();
+
+}else if($("div#article div#article_body").length>0){
+	console.log("jestesmy na stronie z galeria wyborcza.pl/duzy_kadr/");
+	articleBodySelector = "#article_body";
+	navigationNextULRSelector = "#gal_btn_next a:first";
+	sectionToBeRemovedSelector = "div#article ul";
+	sectionToBeAttached = "div#container_gal";
+	navigationPageNumberSelector="#gal_navi .paging";		
+	loadImagesOnPage();
 }
 
+function loadImagesOnPage(){
+	$(articleBodySelector).after("<div class='imageContainer'></div>");
+	imageContainer = $(articleBodySelector).parent().find(".imageContainer");
+	var nextPageURL = $(navigationNextULRSelector).attr("href");
+	if(nextPageURL){
+		$.get(nextPageURL, function(nextPage){
+			findImageURL(nextPage);
+		});	
+	}
+}
 
 function findImageURL(galleryPage){
-	image  = $(galleryPage).find("#gazeta_article_image img,#gazeta_article_body");
-	if($(image).length>0){
-		imgSrc = $(image).attr("src");
-		console.log("Znaleziono Obrazek SRC=",imgSrc);		
-		$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>"+ $(galleryPage).find(".navigation:first h1 span").text() +"</p>");
-		$(self.imageContainer).append($(image));		
-		pageNumber = $(galleryPage).find(".navigation .page:first").text().split("/");
+	articleSection  = $(galleryPage).find(sectionToBeAttached);
+	if($(articleSection).length>0){		
+		$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>"+ $(galleryPage).find(headerSectionSelector).text() +"</p>");
+		$(self.imageContainer).append($(articleSection));		
+		pageNumber = $(galleryPage).find(navigationPageNumberSelector).text().split("/");
 		if(pageNumber.length==2 && pageNumber[0]!=pageNumber[1]){
-			nextPageURL = $(galleryPage).find(".navigation .next:first").attr("href");
+			nextPageURL = $(galleryPage).find(navigationNextULRSelector).attr("href");
 			$.get(nextPageURL, function(nextPage){
 				findImageURL(nextPage);
+				$(sectionToBeRemovedSelector).empty();
 			});
 		}
 	}	

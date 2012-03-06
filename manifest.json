@@ -1,6 +1,6 @@
 {
     "name": "Lepsza gazeta.pl",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "description": "Ulepszony interfejs galerii zdjęć na Gazeta.pl i deser.pl. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
     "page_action": {
         "default_title": "Galeria Gazeta.pl"
@@ -19,7 +19,9 @@
         {
             "matches": [
                 "http://*.gazeta.pl/*",
-                "http://deser.pl/*"
+                "http://*.tokfm.pl/*",
+                "http://deser.pl/*",
+                "http://wyborcza.pl/duzy_kadr/*"
             ],
             "js": [
                 "jquery-1.7.1.min.js",
