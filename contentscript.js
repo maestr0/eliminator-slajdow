@@ -1,12 +1,12 @@
 (function($){
 var self = this;
-var imageContainer;
-var sectionToBeRemovedSelector = ".navigation";
-var navigationNextULRSelector = ".navigation .next:first";
-var navigationPageNumberSelector = ".navigation .page:first";
-var articleBodySelector = "#gazeta_article_body";
-var sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
-var headerSectionSelector = ".navigation:first h1 span";
+this.imageContainer;
+this.sectionToBeRemovedSelector = ".navigation";
+this.navigationNextULRSelector = ".navigation .next:first";
+this.navigationPageNumberSelector = ".navigation .page:first";
+this.articleBodySelector = "#gazeta_article_body";
+this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
+this.headerSectionSelector = ".navigation:first h1 span";
 
 if($("body#pagetype_photo").length > 0){
 	console.log("jestesmy na stronie z galeria #pagetype_photo");
@@ -21,18 +21,18 @@ if($("body#pagetype_photo").length > 0){
 
 }else if($("div#article div#article_body").length>0){
 	console.log("jestesmy na stronie z galeria wyborcza.pl/duzy_kadr/");
-	articleBodySelector = "#article_body";
-	navigationNextULRSelector = "#gal_btn_next a:first";
-	sectionToBeRemovedSelector = "div#article ul";
-	sectionToBeAttached = "div#container_gal";
-	navigationPageNumberSelector="#gal_navi .paging";		
+	self.articleBodySelector = "#article_body";
+	self.navigationNextULRSelector = "#gal_btn_next a:first";
+	self.sectionToBeRemovedSelector = "div#article ul";
+	self.sectionToBeAttached = "div#container_gal";
+	self.navigationPageNumberSelector="#gal_navi .paging";		
 	loadImagesOnPage();
 }
 
 function loadImagesOnPage(){
 	$(articleBodySelector).after("<div class='imageContainer'></div>");
-	imageContainer = $(articleBodySelector).parent().find(".imageContainer");
-	var nextPageURL = $(navigationNextULRSelector).attr("href");
+	self.imageContainer = $(articleBodySelector).parent().find(".imageContainer");
+	var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 	console.log("link do nastepnej storny",nextPageURL);
 	if(nextPageURL){
 		$.get(nextPageURL, function(nextPage){
@@ -42,20 +42,20 @@ function loadImagesOnPage(){
 }
 
 function findImageURL(galleryPage){
-	articleSection  = $(galleryPage).find(sectionToBeAttached);
+	articleSection  = $(galleryPage).find(self.sectionToBeAttached);
 	if($(articleSection).length>0){		
-		$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>"+ $(galleryPage).find(headerSectionSelector).text() +"</p>");
+		$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>"+ $(galleryPage).find(self.headerSectionSelector).text() +"</p>");
 		$(self.imageContainer).append($(articleSection));		
-		pageNumber = $(galleryPage).find(navigationPageNumberSelector).text().split("/");
+		pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
 		console.log("numer strony",pageNumber);
 		if(pageNumber.length==2 && pageNumber[0]!=pageNumber[1]){
-			nextPageURL = $(galleryPage).find(navigationNextULRSelector).attr("href");
+			nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny",nextPageURL);
 			$.get(nextPageURL, function(nextPage){
 				findImageURL(nextPage);				
 			});
 		}
-		$(sectionToBeRemovedSelector).empty();
+		$(self.sectionToBeRemovedSelector).empty();
 	}	
 }
 })(jQuery);
