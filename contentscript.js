@@ -19,14 +19,25 @@ if($("body#pagetype_photo").length > 0){
 	console.log("jestesmy na stronie z galeria #pagetype_art");
 	loadImagesOnPage();
 
+}else if($("div#art div#container_gal").length>0){
+	console.log("jestesmy na stronie z gazetapraca.pl");
+	self.articleBodySelector = "#art";
+	self.navigationPageNumberSelector = ".paging:first";
+	self.sectionToBeRemovedSelector = "div#gal_navi_wrp";
+	self.navigationNextULRSelector = "#gal_btn_next a:first";
+	self.sectionToBeAttached = "div#container_gal";
+	loadImagesOnPage();
+
 }else if($("div#article div#article_body").length>0){
-	console.log("jestesmy na stronie z galeria wyborcza.pl/duzy_kadr/");
+	console.log("jestesmy na stronie z galeria div#article div#article_body");
 	self.articleBodySelector = "#article_body";
 	self.navigationNextULRSelector = "#gal_btn_next a:first";
 	self.sectionToBeRemovedSelector = "div#article ul";
 	self.sectionToBeAttached = "div#container_gal";
 	self.navigationPageNumberSelector="#gal_navi .paging";		
 	loadImagesOnPage();
+}else {
+	console.log("Nic mi nie pasuje ;(",document.location);
 }
 
 function loadImagesOnPage(){
@@ -45,6 +56,7 @@ function findImageURL(galleryPage){
 	articleSection  = $(galleryPage).find(self.sectionToBeAttached);
 	if($(articleSection).length>0){		
 		$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>"+ $(galleryPage).find(self.headerSectionSelector).text() +"</p>");
+		$(articleSection).find(self.sectionToBeRemovedSelector).empty();
 		$(self.imageContainer).append($(articleSection));		
 		pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
 		console.log("numer strony",pageNumber);
