@@ -1,7 +1,8 @@
 {
-    "name": "Lepsza gazeta.pl",
-    "version": "1.0.7",
-    "description": "Ulepszony interfejs galerii zdjęć na Gazeta.pl i deser.pl. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
+    "name": "Lepsza AGORA",
+    "manifest_version": 2,
+    "version": "1.0.8",
+    "description": "Ulepszony interfejs galerii zdjęc w serwisach AGORY. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
     "page_action": {
         "default_title": "Galeria Gazeta.pl"
     },
@@ -9,7 +10,7 @@
         "tabs"
     ],
     "incognito": "spanning",
-	"content_security_policy": "default-src 'self' 'unsafe-inline'",
+	"content_security_policy": "script-src 'self'; object-src 'self'",
     "icons": {
         "16": "icon_16.jpg",
         "48": "icon_48.jpg",
@@ -26,7 +27,27 @@
                 "http://deser.pl/*",
                 "http://www.sport.pl/*",
                 "http://wyborcza.pl/duzy_kadr/*",
-                "http://*.gazetadom.pl/*"
+                "http://*.gazetadom.pl/*",
+                "http://www.logo24.pl/*",
+                "http://wyborcza.biz/*",
+                "http://lula.pl/*",
+                "http://tuba.pl/*",
+                "http://www.edziecko.pl/*",
+                "http://czterykaty.pl/*",
+                "http://www.alert24.pl/*",
+                "http://www.kotek.pl/*",
+                "http://polygamia.pl/*",
+                "http://www.popcorner.pl/*",
+                "http://www.wysokieobcasy.pl/*",
+                "http://www.e-ogrody.pl/*",
+                "http://ladnydom.pl/*",
+                "http://bryla.gazetadom.pl/*",
+                "http://gazetapraca.pl/*",
+                "http://www.metropraca.pl/*",
+                "http://pracawbiurze.pl/*",
+                "http://www.zczuba.pl/*",
+                "http://www.ciacha.net/*",
+                "http://wyborcza.pl/*"         
             ],
             "js": [
                 "jquery-1.7.1.min.js",
