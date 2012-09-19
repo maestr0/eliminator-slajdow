@@ -1,7 +1,7 @@
 {
-    "name": "Lepsza AGORA",
+    "name": "Wszystkie zdjęcia na raz. GALERIA gazeta.pl",
     "manifest_version": 2,
-    "version": "1.0.8",
+    "version": "1.0.10",
     "description": "Ulepszony interfejs galerii zdjęc w serwisach AGORY. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
     "page_action": {
         "default_title": "Galeria Gazeta.pl"
@@ -18,43 +18,14 @@
     },
     "content_scripts": [
         {
-            "matches": [
-                "http://*.gazeta.pl/*",
-                "http://*.tokfm.pl/*",
-                "http://gazetapraca.pl/*",
-                "http://*.moto.pl/*",
-                "http://*.plotek.pl/*",
-                "http://deser.pl/*",
-                "http://www.sport.pl/*",
-                "http://wyborcza.pl/duzy_kadr/*",
-                "http://*.gazetadom.pl/*",
-                "http://www.logo24.pl/*",
-                "http://wyborcza.biz/*",
-                "http://lula.pl/*",
-                "http://tuba.pl/*",
-                "http://www.edziecko.pl/*",
-                "http://czterykaty.pl/*",
-                "http://www.alert24.pl/*",
-                "http://www.kotek.pl/*",
-                "http://polygamia.pl/*",
-                "http://www.popcorner.pl/*",
-                "http://www.wysokieobcasy.pl/*",
-                "http://www.e-ogrody.pl/*",
-                "http://ladnydom.pl/*",
-                "http://bryla.gazetadom.pl/*",
-                "http://gazetapraca.pl/*",
-                "http://www.metropraca.pl/*",
-                "http://pracawbiurze.pl/*",
-                "http://www.zczuba.pl/*",
-                "http://www.ciacha.net/*",
-                "http://wyborcza.pl/*"         
+            "matches": [ "http://*/*"
             ],
             "js": [
                 "jquery-1.7.1.min.js",
                 "contentscript.js"
             ],
             "run_at": "document_idle",
-            "all_frames": true
+            "all_frames": false
         }
     ]
 }

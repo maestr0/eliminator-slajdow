@@ -8,6 +8,58 @@ this.articleBodySelector = "#gazeta_article_body";
 this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
 this.headerSectionSelector = ".navigation:first h1 span";
 
+var fnRunInThisLocation = function(){
+	var hostname = window.location.hostname;
+	var canRunHere = false;
+	var allowedHosts = new Array(
+		"gazeta.pl",
+                "tokfm.pl",
+                "gazetapraca.pl",
+                "moto.pl",
+                "plotek.pl",
+                "deser.pl",
+                "www.sport.pl",
+                "wyborcza.pl",
+                "gazetadom.pl",
+                "www.logo24.pl",
+                "wyborcza.biz",
+                "lula.pl",
+                "tuba.pl",
+                "www.edziecko.pl",
+                "czterykaty.pl",
+                "www.alert24.pl",
+                "www.kotek.pl",
+                "polygamia.pl",
+                "www.popcorner.pl",
+                "www.wysokieobcasy.pl",
+                "www.e-ogrody.pl",
+                "ladnydom.pl",
+                "bryla.gazetadom.pl",
+                "gazetapraca.pl",
+                "www.metropraca.pl",
+                "pracawbiurze.pl",
+                "www.zczuba.pl",
+                "www.ciacha.net",
+                "wyborcza.pl",
+                "namonciaku.pl",
+                "sport.pl",
+                "magazyn-kuchnia.pl"
+	)
+
+	$.each(allowedHosts, function(index,host){
+		if(window.location.hostname.indexOf(host)!=-1){
+			console.log('Rozszerzenie "Wszystkie zdjęcia na raz. GALERIA gazeta.pl" aktywne na: ' + host);
+			canRunHere = true;
+			return false;
+		};	
+	});
+	return canRunHere;
+}
+
+if(!fnRunInThisLocation()){
+	return;
+}
+
 if($("body#pagetype_photo").length > 0){
 	console.log("jestesmy na stronie z galeria #pagetype_photo");
 	$("#gazeta_article_miniatures").empty();
@@ -36,8 +88,17 @@ if($("body#pagetype_photo").length > 0){
 	self.sectionToBeAttached = "div#container_gal";
 	self.navigationPageNumberSelector="#gal_navi .paging";		
 	loadImagesOnPage();
+}else if($("div#k1 div#k1p div#gal_outer").length>0){
+	console.log("jestesmy na stronie z galeria bez typu ('div#k1 div#k1p div#gal_outer')");
+		self.articleBodySelector = "div#gal_outer";
+		self.navigationNextULRSelector = "li.btn_next a:first";
+	self.sectionToBeRemovedSelector = "div#article ul";
+	self.sectionToBeAttached = "div#gal_picture, div.description";
+	self.navigationPageNumberSelector="#gal_navi .paging";		
+	$("div#gal_miniatures").empty();
+	loadImagesOnPage();
 }else {
-	console.log("Nic mi nie pasuje ;(",document.location);
+	console.log("Nic mi nie pasuje ;(",document.location.hostname);
 }
 
 function loadImagesOnPage(){
