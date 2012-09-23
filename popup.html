@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Ryanair Better Booking</title>
+<script src="jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="jquery.iphone-switch.js" type="text/javascript"></script>
+<script src="jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+<link rel="stylesheet"
+	href="css/ui-lightness/jquery-ui-1.8.16.custom.css">
+<style>
+body {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 14px;
+}
+
+.label {
+	display: inline;
+	line-height: 28px;
+}
+
+.switch {
+	float: right;
+}
+.waning {
+	color:red;
+}
+
+#options {
+	width: 600px;
+}
+
+#domainList span {float:right; margin-top: -4px;}
+#domainList span button {margin-bottom: 3px;}
+#domainList .enabled_false {color: red;}
+#domainList .ui-selecting { background: #FECA40; }
+#domainList .ui-selected { background: #F39814; color: white; }
+#domainList { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+#domainList li { margin: 3px; padding: 0.4em; font-size: 12px; height: 14px; }
+
+</style>
+</head>
+
+<body>
+<div id="options">
+<h3><a  href="#">Opcje</a></h3>
+<div>
+
+<p class="extensionStatus switch">
+<p class="extensionStatusMessage label">Status</p>
+<a class="switch" id="extensionStatus"
+	onclick="javascript:changeStatus();"></a></p>
+	
+
+<p class="showIcon switch">
+<p class="extensionStatusMessage label">Pokazuj ikone jesli rozszerzenie jest aktywne dla danej domeny</p>
+<a class="switch" id="showIcon"
+	onclick="javascript:changeStatus();"></a></p>
+	
+</div>
+<h3><a href="#">Lista domen na ktorych dziala to rozszerzenie</a></h3>	
+<div>
+<ol id="domainList">
+	
+	</ol>
+</div>
+
+<h3><a href="#">O autorze</a></h3>
+<div>
+<p>Autor: Pawel Raszewski</p>
+<p>Email: <a href="mailto:raszewski@gmail.com?Subject=Lepsza%20Gazeta.PL">raszewski@gmail.com</a></p>
+<p>Strona projektu: <a href="https://code.google.com/p/lepsza-gazeta-pl/" target="_new" >https://code.google.com/p/lepsza-gazeta-pl/</a></p>
+<p>Zgłoś błąd: <a href="https://code.google.com/p/lepsza-gazeta-pl/issues/list" target="_new" >https://code.google.com/p/lepsza-gazeta-pl/issues/list</a></p>
+<p>Licencja: GPL3</p>
+</div>
+</div>
+
+   <script src="popup.js"></script>
+</body>
+</html>
+
