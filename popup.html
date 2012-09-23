@@ -32,7 +32,7 @@ body {
 
 #domainList span {float:right; margin-top: -4px;}
 #domainList span button {margin-bottom: 3px;}
-#domainList .enabled_false {color: red;}
+#domainList .disabled {color: red;}
 #domainList .ui-selecting { background: #FECA40; }
 #domainList .ui-selected { background: #F39814; color: white; }
 #domainList { list-style-type: none; margin: 0; padding: 0; width: 100%; }
@@ -43,31 +43,46 @@ body {
 
 <body>
 <div id="options">
+
 <h3><a  href="#">Opcje</a></h3>
 <div>
 
 <p class="extensionStatus switch">
-<p class="extensionStatusMessage label">Status</p>
+<p class="extensionStatusMessage label">Glówny włącznik</p>
 <a class="switch" id="extensionStatus"
 	onclick="javascript:changeStatus();"></a></p>
 	
 
 <p class="showIcon switch">
-<p class="extensionStatusMessage label">Pokazuj ikone jesli rozszerzenie jest aktywne dla danej domeny</p>
+<p class="extensionStatusMessage label">Pokazuj ikone jesli rozszerzenie jest aktywne w danej domenie</p>
 <a class="switch" id="showIcon"
 	onclick="javascript:changeStatus();"></a></p>
-	
+	<p>W razie wyłączenia tego dodatku lub wyłączenia ikonki ten panel konfiguracyjny można znaleźć w Ustawienia -> Narzędzia -> Rozszerzenia -> Wszystkie zdjęcia na raz. GALERIA gazeta.pl -> Opcje</p>
 </div>
+
+
+
 <h3><a href="#">Lista domen na ktorych dziala to rozszerzenie</a></h3>	
 <div>
 <ol id="domainList">
 	
 	</ol>
+	
+<p>Uwaga: Rozszerzenie dziala TYLKO na stronach opartych o CMS ktory uzywa Gazeta.pl. Jesli myslisz, że na standardowej liscie brakuje jakiejs domeny to możesz ją dodać poniżej.</p>
+<label for="newDomain">Nazwa domeny:</label>
+	<input id="newDomain"></input>
+	<button id="addNewDomain">Dodaj</button>
+</br>
+<button id="defaultSettings">Przywroc domyślna liste domen</button>
+
 </div>
+
+
+
 
 <h3><a href="#">O autorze</a></h3>
 <div>
-<p>Autor: Pawel Raszewski</p>
+<p>Autor: Paweł Raszewski</p>
 <p>Email: <a href="mailto:raszewski@gmail.com?Subject=Lepsza%20Gazeta.PL">raszewski@gmail.com</a></p>
 <p>Strona projektu: <a href="https://code.google.com/p/lepsza-gazeta-pl/" target="_new" >https://code.google.com/p/lepsza-gazeta-pl/</a></p>
 <p>Zgłoś błąd: <a href="https://code.google.com/p/lepsza-gazeta-pl/issues/list" target="_new" >https://code.google.com/p/lepsza-gazeta-pl/issues/list</a></p>

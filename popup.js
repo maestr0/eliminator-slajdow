@@ -10,6 +10,7 @@ var fnSortAllowedDomainsList = function() {
 			mylist.append(itm);
 		});
 	}
+
 var allowedDomains = JSON.parse(localStorage['allowedDomains']);
 
 var fnBindEvents = function() {
@@ -23,33 +24,59 @@ var fnBindEvents = function() {
 
 		$('#domainList').on("click", "input", function(button) {
 			var selected = $(this).is(':checked');
-			$(this).parent().parent().toggleClass("enabled_false");
+			$(this).parent().parent().toggleClass("disabled");
 			var text = $(this).parent().parent().attr("data-value");
 			allowedDomains[text] = selected;
 			localStorage['allowedDomains'] = JSON.stringify(allowedDomains);
 		});
+
+		$('#addNewDomain').click(function(button) {
+			var newDomain = $("#newDomain").val();
+			if (newDomain !== "") {
+				allowedDomains[newDomain] = true;
+				$("#newDomain").val("");
+			}
+			localStorage['allowedDomains'] = JSON.stringify(allowedDomains);
+			$("#domainList").empty();
+			fnGenerateDomainList();
+		});
+
+		$('#defaultSettings').click(function(button) {
+			var standardAllowedDomains = JSON.parse(localStorage['standardAllowedDomains']);
+			var allowedDomains = JSON.parse(localStorage['allowedDomains']);
+			$.each(standardAllowedDomains, function(index, host) {
+				if (typeof allowedDomains[host] == "undefined") {
+					allowedDomains[host] = true;
+				}
+			});
+			localStorage['allowedDomains'] = JSON.stringify(allowedDomains);
+			$("#domainList").empty();
+			fnGenerateDomainList();
+		});
+
+
+
+	}
+
+var fnGenerateDomainList = function() {
+		var allowedDomains = JSON.parse(localStorage['allowedDomains']);
+		$.each(allowedDomains, function(allowedHost, enabled) {
+			//$("#domainList").append('</li>', {text: allowedHost, class: 'status_' + enabled});
+			$("#domainList").append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") + '" data-value="' + allowedHost + '">' + allowedHost + '<span><input type="checkbox" ' + (enabled ? ' checked ' : '') + '>Aktywna</input><button>Kasuj</button></span></li>');
+		});
+		fnSortAllowedDomainsList();
+
+		fnBindEvents();
 	}
 
 
-$.each(allowedDomains, function(allowedHost, enabled) {
-	//$("#domainList").append('</li>', {text: allowedHost, class: 'status_' + enabled});
-	$("#domainList").append('<li class="ui-widget-content enabled_' + enabled + 
-		'" data-value="' + allowedHost + '">' + allowedHost + 
-		'<span><input type="checkbox" ' + (enabled ? ' checked ' : '' ) + '>Aktywna</input><button>Kasuj</button></span></li>');
-});
-
-fnSortAllowedDomainsList();
-
-$("#domainList").selectable({
-	disabled: true
-});
-
-fnBindEvents();
 
 $("#options").accordion({
 	autoHeight: false,
-	navigation: true
+	navigation: false
 });
+
+fnGenerateDomainList();
 
 /*
 $('input, select').each(function(index, field) {
