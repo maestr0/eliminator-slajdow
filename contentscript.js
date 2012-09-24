@@ -7,6 +7,7 @@
 	this.articleBodySelector = "#gazeta_article_body";
 	this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
 	this.headerSectionSelector = ".navigation:first h1 span";
+	this.hasSlideNumbers = true;
 
 	chrome.extension.sendRequest({
 		"urlName": window.location.hostname
@@ -33,6 +34,11 @@
 			loadImagesOnPage();
 
 		} else if ($("div#art div#container_gal").length > 0) {
+			/*
+			Regresja
+			http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html
+			*/	
+
 			console.log("jestesmy na stronie z gazetapraca.pl");
 			self.articleBodySelector = "#art";
 			self.navigationPageNumberSelector = ".paging:first";
@@ -42,6 +48,10 @@
 			loadImagesOnPage();
 
 		} else if ($("div#article div#article_body").length > 0) {
+			/*
+			Regresja
+			http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html
+			*/			
 			console.log("jestesmy na stronie z galeria div#article div#article_body");
 			self.articleBodySelector = "#article_body";
 			self.navigationNextULRSelector = "#gal_btn_next a:first";
@@ -50,13 +60,18 @@
 			self.navigationPageNumberSelector = "#gal_navi .paging";
 			loadImagesOnPage();
 		} else if ($("div#k1 div#k1p div#gal_outer").length > 0) {
+			/*
+			Regresja
+			http://wyborcza.pl/51,75248,12537285.html?i=0
+			*/
 			console.log("jestesmy na stronie z galeria bez typu ('div#k1 div#k1p div#gal_outer')");
-			self.articleBodySelector = "div#gal_outer";
+			self.articleBodySelector = "div#gal_outer .description";
 			self.navigationNextULRSelector = "li.btn_next a:first";
 			self.sectionToBeRemovedSelector = "div#article ul";
-			self.sectionToBeAttached = "div#gal_picture, div.description";
+			self.sectionToBeAttached = "div#gal_picture, div.description, p.description";
 			self.navigationPageNumberSelector = "#gal_navi .paging";
 			$("div#gal_miniatures").empty();
+			self.hasSlideNumbers = false;
 			loadImagesOnPage();
 		} else {
 			console.log("Nic mi nie pasuje ;(", document.location.hostname);
@@ -69,12 +84,12 @@
 			console.log("link do nastepnej storny", nextPageURL);
 			if (nextPageURL) {
 				$.get(nextPageURL, function(nextPage) {
-					findImageURL(nextPage);
+					findNextSlideURL(nextPage);
 				});
 			}
 		}
 
-		function findImageURL(galleryPage) {
+		function findNextSlideURL(galleryPage) {
 			articleSection = $(galleryPage).find(self.sectionToBeAttached);
 			if ($(articleSection).length > 0) {
 				$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>" + $(galleryPage).find(self.headerSectionSelector).text() + "</p>");
@@ -82,11 +97,13 @@
 				$(self.imageContainer).append($(articleSection));
 				pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
 				console.log("numer strony", pageNumber);
-				if (pageNumber.length == 2 && pageNumber[0] != pageNumber[1]) {
-					nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
+				nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
+
+				if ((pageNumber.length == 2 && pageNumber[0] != pageNumber[1]) || 
+					( !hasSlideNumbers && document.location.href.indexOf(nextPageURL)===-1)) {					
 					console.log("link do nastepnej storny", nextPageURL);
 					$.get(nextPageURL, function(nextPage) {
-						findImageURL(nextPage);
+						findNextSlideURL(nextPage);
 					});
 				}
 				$(self.sectionToBeRemovedSelector).empty();
