@@ -1,7 +1,7 @@
 {
     "name": "Wszystkie zdjęcia na raz. GALERIA gazeta.pl",
     "manifest_version": 2,
-    "version": "1.0.12",
+    "version": "1.0.15",
     "description": "Ulepszony interfejs galerii zdjęc w serwisach AGORY. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
     "page_action": {
         "default_icon": "icon_16.jpg",
