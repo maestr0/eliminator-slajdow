@@ -1,7 +1,7 @@
 (function($) {
 	var self = this;
 	this.imageContainer;
-	this.sectionToBeRemovedSelector = ".navigation";
+	this.sectionToBeRemovedSelector = ".navigation div";
 	this.navigationNextULRSelector = ".navigation .next:first";
 	this.navigationPageNumberSelector = ".navigation .page:first";
 	this.articleBodySelector = "#gazeta_article_body";
@@ -99,7 +99,7 @@
 				console.log("numer strony", pageNumber);
 				nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
 
-				if ((pageNumber.length == 2 && pageNumber[0] != pageNumber[1]) || 
+				if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || 
 					( !hasSlideNumbers && document.location.href.indexOf(nextPageURL)===-1)) {					
 					console.log("link do nastepnej storny", nextPageURL);
 					$.get(nextPageURL, function(nextPage) {
