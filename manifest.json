@@ -1,7 +1,7 @@
 {
-    "name": "Eliminator Slajdów",
+    "name": "Eliminator Slajdów (Lepsza Gazeta.pl)",
     "manifest_version": 2,
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Ulepszony interfejs galerii zdjęc w serwisach AGORY. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
     "page_action": {
         "default_icon": "icon_16.jpg",
