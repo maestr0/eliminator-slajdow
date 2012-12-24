@@ -1,7 +1,7 @@
 (function($) {
 	var self = this;
 	this.imageContainer;
-	this.sectionToBeRemovedSelector = ".navigation div";
+	this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page";
 	this.navigationNextULRSelector = ".navigation .next:first";
 	this.navigationPageNumberSelector = ".navigation .page:first";
 	this.articleBodySelector = "#gazeta_article_body";
@@ -29,8 +29,9 @@
 		} else if($("body#pagetype_art_blog").length > 0) {
 			/*
 				http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html
+				http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html
 			*/
-			self.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, #gazeta_article_image_C ";
+			self.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')";
 			console.log("jestesmy na stronie z galeria #pagetype_art_blog");
 			loadImagesOnPage();
 		} else if($("body#pagetype_art").length > 0) {
@@ -82,8 +83,8 @@
 		}
 
 		function loadImagesOnPage() {
-			$(articleBodySelector).after("<div style='float:left' class='imageContainer'></div>");
-			self.imageContainer = $(articleBodySelector).parent().find(".imageContainer");
+			$(self.articleBodySelector).after("<div style='float:left' class='imageContainer'></div>");
+			self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
 			var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny", nextPageURL);
 			if(nextPageURL) {
@@ -94,25 +95,33 @@
 		}
 
 		function findNextSlideURL(galleryPage) {
-			articleSection = $(galleryPage).find(self.sectionToBeAttached);
+			var articleSection = $(galleryPage).find(self.sectionToBeAttached);
 			if($(articleSection).length > 0) {
 				pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
 				console.log("numer strony", pageNumber);
 				nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
 
 				if(pageNumber.length===2) {
-					var slideSeparator = $(self.imageContainer).append("<div style='margin-bottom:10px' class='slideNumber_"
+					var slideSeparator = $(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_"
 					 + pageNumber + 
 					 "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>Slajd "
 					  + pageNumber[0] + " z " + pageNumber[1] + "</p><p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
+				}else if(!hasSlideNumbers){
+					var slideSeparator = $(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom=10px' class='slideNumber_"
+					 + pageNumber + 
+					 "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>Slajd"
+					   + "</p><p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
 				}else{
-					var slideSeparator = $(self.imageContainer).append("<div style='margin-bottom=10px' class='slideNumber_"
+					var slideSeparator = $(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom=10px' class='slideNumber_"
 					 + pageNumber + 
 					 "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>Ostatni slajd"
 					   + "</p><p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
 				}
 
-				$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>" + $(galleryPage).find(self.headerSectionSelector).text() + "</p>");
+				var desc = $(galleryPage).find(self.headerSectionSelector).html();
+				if(desc){
+                    $(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>" + desc + "</p>");
+				}
 				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
 				$(self.imageContainer).append($(articleSection));
 
@@ -126,6 +135,10 @@
 			}
 			$(".imageContainer > div").css("float", "left").css("width", "100%");
 		}
+
+
+
+
 
 	}
 })(jQuery);
