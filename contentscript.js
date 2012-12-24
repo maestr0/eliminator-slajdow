@@ -12,7 +12,7 @@
 	chrome.extension.sendRequest({
 		"urlName": window.location.hostname
 	}, function(response) {
-		if(response.canRunOnCurrentUrl === true){
+		if(response.canRunOnCurrentUrl === true) {
 			eliminateSlides();
 		}
 	});
@@ -22,22 +22,26 @@
 */
 	function eliminateSlides() {
 
-		if ($("body#pagetype_photo").length > 0) {
+		if($("body#pagetype_photo").length > 0) {
 			console.log("jestesmy na stronie z galeria #pagetype_photo");
 			$("#gazeta_article_miniatures").empty();
 			loadImagesOnPage();
-		} else if ($("body#pagetype_art_blog").length > 0) {
+		} else if($("body#pagetype_art_blog").length > 0) {
+			/*
+				http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html
+			*/
+			self.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, #gazeta_article_image_C ";
 			console.log("jestesmy na stronie z galeria #pagetype_art_blog");
 			loadImagesOnPage();
-		} else if ($("body#pagetype_art").length > 0) {
+		} else if($("body#pagetype_art").length > 0) {
 			console.log("jestesmy na stronie z galeria #pagetype_art");
 			loadImagesOnPage();
 
-		} else if ($("div#art div#container_gal").length > 0) {
+		} else if($("div#art div#container_gal").length > 0) {
 			/*
 			Regresja
 			http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html
-			*/	
+			*/
 
 			console.log("jestesmy na stronie z gazetapraca.pl");
 			self.articleBodySelector = "#art";
@@ -47,11 +51,11 @@
 			self.sectionToBeAttached = "div#container_gal";
 			loadImagesOnPage();
 
-		} else if ($("div#article div#article_body").length > 0) {
+		} else if($("div#article div#article_body").length > 0) {
 			/*
 			Regresja
 			http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html
-			*/			
+			*/
 			console.log("jestesmy na stronie z galeria div#article div#article_body");
 			self.articleBodySelector = "#article_body";
 			self.navigationNextULRSelector = "#gal_btn_next a:first";
@@ -59,7 +63,7 @@
 			self.sectionToBeAttached = "div#container_gal";
 			self.navigationPageNumberSelector = "#gal_navi .paging";
 			loadImagesOnPage();
-		} else if ($("div#k1 div#k1p div#gal_outer").length > 0) {
+		} else if($("div#k1 div#k1p div#gal_outer").length > 0) {
 			/*
 			Regresja
 			http://wyborcza.pl/51,75248,12537285.html?i=0
@@ -78,11 +82,11 @@
 		}
 
 		function loadImagesOnPage() {
-			$(articleBodySelector).after("<div class='imageContainer'></div>");
+			$(articleBodySelector).after("<div style='float:left' class='imageContainer'></div>");
 			self.imageContainer = $(articleBodySelector).parent().find(".imageContainer");
 			var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny", nextPageURL);
-			if (nextPageURL) {
+			if(nextPageURL) {
 				$.get(nextPageURL, function(nextPage) {
 					findNextSlideURL(nextPage);
 				});
@@ -91,16 +95,28 @@
 
 		function findNextSlideURL(galleryPage) {
 			articleSection = $(galleryPage).find(self.sectionToBeAttached);
-			if ($(articleSection).length > 0) {
-				$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>" + $(galleryPage).find(self.headerSectionSelector).text() + "</p>");
-				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
-				$(self.imageContainer).append($(articleSection));
+			if($(articleSection).length > 0) {
 				pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
 				console.log("numer strony", pageNumber);
 				nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
 
-				if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || 
-					( !hasSlideNumbers && document.location.href.indexOf(nextPageURL)===-1)) {					
+				if(pageNumber.length===2) {
+					var slideSeparator = $(self.imageContainer).append("<div style='margin-bottom:10px' class='slideNumber_"
+					 + pageNumber + 
+					 "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>Slajd "
+					  + pageNumber[0] + " z " + pageNumber[1] + "</p><p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
+				}else{
+					var slideSeparator = $(self.imageContainer).append("<div style='margin-bottom=10px' class='slideNumber_"
+					 + pageNumber + 
+					 "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>Ostatni slajd"
+					   + "</p><p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
+				}
+
+				$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>" + $(galleryPage).find(self.headerSectionSelector).text() + "</p>");
+				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
+				$(self.imageContainer).append($(articleSection));
+
+				if((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);
 					$.get(nextPageURL, function(nextPage) {
 						findNextSlideURL(nextPage);
@@ -108,6 +124,7 @@
 				}
 				$(self.sectionToBeRemovedSelector).empty();
 			}
+			$(".imageContainer > div").css("float", "left").css("width", "100%");
 		}
 
 	}
