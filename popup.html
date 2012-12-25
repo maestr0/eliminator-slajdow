@@ -44,26 +44,19 @@ body {
 <body>
 <div id="options">
 
-<h3><a  href="#">Opcje - Eliminator Slajdów</a></h3>
+
+
+
+
+<h3><a href="#">Opcje - Eliminator Slajdów</a></h3>	
 <div>
-
-<p class="extensionStatus switch">
-<p class="extensionStatusMessage label">Glówny włącznik</p>
-<a class="switch" id="extensionStatus"
-	onclick="javascript:changeStatus();"></a></p>
-	
-
-<p class="showIcon switch">
-<p class="extensionStatusMessage label">Pokazuj ikone jesli rozszerzenie jest aktywne w danej domenie</p>
-<a class="switch" id="showIcon"
-	onclick="javascript:changeStatus();"></a></p>
-	<p>W razie wyłączenia tego dodatku lub wyłączenia ikonki ten panel konfiguracyjny można znaleźć w Ustawienia -> Narzędzia -> Rozszerzenia -> Eliminator Slajdów -> Opcje</p>
-</div>
+	<p class="extensionStatus switch">
+	<p class="extensionStatusMessage label">Slajdy z paskiem przewijania</p>
+	<a class="switch" id="scrollableImageContainer"
+		onclick="javascript:changeStatus();"></a></p>
 
 
-
-<h3><a href="#">Lista domen na ktorych dziala to rozszerzenie</a></h3>	
-<div>
+	<p>Lista domen na ktorych dziala rozszerzenie</p>
 <ol id="domainList">
 	
 	</ol>
@@ -73,9 +66,13 @@ body {
 	<input id="newDomain"></input>
 	<button id="addNewDomain">Dodaj</button>
 <br />
-<button id="defaultSettings">Przywroc domyślne domeny</button>
+<button id="defaultSettings">Przywroc domyślną liste</button>
 
 </div>
+
+
+
+
 
 
 
