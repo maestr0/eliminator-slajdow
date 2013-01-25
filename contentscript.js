@@ -15,7 +15,7 @@
 	chrome.extension.sendRequest({
 		"urlName": window.location.href,
 	}, function(response) {
-		if (response.canRunOnCurrentUrl === true) {
+		if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off")===-1 ) {
 			self.scrollableImageContainer = (response.scrollableImageContainer !== "off");
 			eliminateSlides();
 		}
@@ -37,6 +37,7 @@
 			loadImagesOnPage();
 		} else if ($("body#pagetype_art").length > 0) {
 			console.log("jestesmy na stronie z galeria #pagetype_art (3)");
+			this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, #gazeta_article_image_new"; // sekcja komentarza i obrazek
 			loadImagesOnPage();
 
 		} else if ($("div#art div#container_gal").length > 0) {
@@ -88,9 +89,11 @@
 			console.log("link do nastepnej storny", nextPageURL);
 			if (nextPageURL) {
 				var imageContainerStyle = 'float:left';
-				if (scrollableImageContainer) {
-					imageContainerStyle = 'display: inline-block;margin: 0 -25px 0 0;padding: 0 8px 0 0;overflow:scroll;height:1000px;overflow-x:hidden;overflow-y:scroll;';
+				if (self.scrollableImageContainer) {
+					imageContainerStyle = 'display: inline-block;margin: 0 -25px 0 0;padding: 0 8px 0 0;height:1000px;overflow-y:scroll;';
 				}
+
+				bindSliderSwitch();
 
 				$(self.articleBodySelector).after("<div style='" + imageContainerStyle + "' class='imageContainer'></div>");
 				self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
@@ -98,6 +101,20 @@
 					findNextSlideURL(nextPage);
 				});
 			}
+		}
+
+		function bindSliderSwitch() {
+			$("div.imageContainer").on("click", "span.scrollSwitch", function() {
+				if ($(this).text().indexOf("Ukryj") > -1) {
+					$("div.imageContainer").css("overflow-y", "scroll").css("height", "2000");
+					console.log("slider switch OFF");
+					$(this).text("Pokaż pasek przewijania");
+				} else {
+					$("div.imageContainer").css("overflow-y", "").css("height", "");
+					console.log("slider switch ON");
+					$(this).text("Ukryj pasek przewijania");
+				}
+			});
 		}
 
 		function findNextSlideURL(galleryPage) {
@@ -109,13 +126,13 @@
 
 				if (pageNumber.length === 2) {
 					var pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
-				} else if (!hasSlideNumbers) {
+				} else if (!self.hasSlideNumbers) {
 					var pageNumberLabel = "Slajd";
 				} else {
 					var pageNumberLabel = "Ostatni slajd";
 				}
 
-				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber + "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + pageNumberLabel + "</p><p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
+				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber + "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px'>" + (self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") + "</span></p><p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if (desc) {
@@ -124,16 +141,20 @@
 				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
 				$(self.imageContainer).append($(articleSection));
 
-				if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
+				if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);
 					$.get(nextPageURL, function(nextPage) {
 						findNextSlideURL(nextPage);
 					});
+				} else {
+					// ostatnia strona
+					console.log("Ostatnia Strona")
 				}
 				$(self.sectionToBeRemovedSelector).empty();
 			}
+
 			$(".imageContainer > div").css("float", "left").css("width", "100%");
-			if($(".imageContainer").width()> 950){
+			if ($(".imageContainer").width() > 950) {
 				$(".imageContainer").width(950);
 			}
 		}
