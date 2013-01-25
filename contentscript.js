@@ -36,6 +36,10 @@
 			console.log("jestesmy na stronie z galeria #pagetype_art_blog (2)");
 			loadImagesOnPage();
 		} else if ($("body#pagetype_art").length > 0) {
+			/*
+			Regresja
+			http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html
+			*/
 			console.log("jestesmy na stronie z galeria #pagetype_art (3)");
 			this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, #gazeta_article_image_new"; // sekcja komentarza i obrazek
 			loadImagesOnPage();
@@ -114,7 +118,9 @@
 					$("div.imageContainer").css("overflow-y", "scroll").css("height", "2000");
 					console.log("slider switch ON");
 					$("div.imageContainer span.scrollSwitch").text("Ukryj pasek przewijania");
-					$('html, body').animate({scrollTop: $(this).offset().top-30}, 500);
+					$('html, body').animate({scrollTop: $(".imageContainer").offset().top-30}, 500);
+					$('div.imageContainer').animate({scrollTop: 0}, 0);
+					$('div.imageContainer').animate({scrollTop: $(this).offset().top -$('div.imageContainer').offset().top}, 500);
 					self.scrollableImageContainer = true;
 				}
 			});

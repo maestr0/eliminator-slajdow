@@ -65,6 +65,11 @@ function onInstall() {
 function onUpdate(prevVersion) {
 	console.log("Aktualizacja rozszerzenia 'Wszystkie zdjecia na raz. GALERIA gazeta.pl'");
 	updateAllowedDomainList();
+	if(prevVersion==="1.1.7"){
+		// nadpisz ustawienia z poprzedniej wersji
+		localStorage['scrollableImageContainer']="off";
+		console.log("Scroll wylaczony");
+	}
 }
 
 function getVersion() {
