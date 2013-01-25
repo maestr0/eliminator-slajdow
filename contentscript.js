@@ -15,7 +15,7 @@
 	chrome.extension.sendRequest({
 		"urlName": window.location.href,
 	}, function(response) {
-		if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off")===-1 ) {
+		if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
 			self.scrollableImageContainer = (response.scrollableImageContainer !== "off");
 			eliminateSlides();
 		}
@@ -92,29 +92,39 @@
 				if (self.scrollableImageContainer) {
 					imageContainerStyle = 'display: inline-block;margin: 0 -25px 0 0;padding: 0 8px 0 0;height:1000px;overflow-y:scroll;';
 				}
-
-				bindSliderSwitch();
-
+				
 				$(self.articleBodySelector).after("<div style='" + imageContainerStyle + "' class='imageContainer'></div>");
 				self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
+				bind();
 				$.get(nextPageURL, function(nextPage) {
 					findNextSlideURL(nextPage);
 				});
 			}
 		}
 
-		function bindSliderSwitch() {
+		function bind() {
 			$("div.imageContainer").on("click", "span.scrollSwitch", function() {
-				if ($(this).text().indexOf("Ukryj") > -1) {
-					$("div.imageContainer").css("overflow-y", "scroll").css("height", "2000");
-					console.log("slider switch OFF");
-					$(this).text("Pokaż pasek przewijania");
-				} else {
+				if (self.scrollableImageContainer) {
 					$("div.imageContainer").css("overflow-y", "").css("height", "");
+					console.log("slider switch OFF");
+					$("div.imageContainer span.scrollSwitch").text("Pokaż pasek przewijania");
+					$('html, body').animate({scrollTop: $(this).offset().top-30}, 500);
+					self.scrollableImageContainer = false;
+				} else {
+					$("div.imageContainer").css("overflow-y", "scroll").css("height", "2000");
 					console.log("slider switch ON");
-					$(this).text("Ukryj pasek przewijania");
+					$("div.imageContainer span.scrollSwitch").text("Ukryj pasek przewijania");
+					$('html, body').animate({scrollTop: $(this).offset().top-30}, 500);
+					self.scrollableImageContainer = true;
 				}
 			});
+
+			$("div.imageContainer").on("click", "span.bugreport", function() {
+				window.open("https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl");
+			});
+			
+
+
 		}
 
 		function findNextSlideURL(galleryPage) {
@@ -132,7 +142,13 @@
 					var pageNumberLabel = "Ostatni slajd";
 				}
 
-				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber + "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px'>" + (self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") + "</span></p><p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
+				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber + 
+					"'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" 
+					+ pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px'>" 
+					+ (self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania")
+					+ "</span><span style='float: right;margin-right: 5px;'>|</span><span class='bugreport' style='cursor: pointer;float:right;margin-right:5px'>" + 
+					"Zgłoś problem</span></p>" + 
+					"<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if (desc) {
