@@ -8,6 +8,7 @@
 		}
 	});
 	this.scrollableImageContainer = false;
+	this.spinningIconUrl = chrome.extension.getURL("ajax-loader.gif");
 
 
 	/* SHARED CODE BEGIN */
@@ -102,10 +103,19 @@
 				$(self.articleBodySelector).after("<div style='" + imageContainerStyle + "' class='imageContainer'></div>");
 				self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
 				bind();
+				showSpinnier();
 				$.get(nextPageURL, function(nextPage) {
 					findNextSlideURL(nextPage, nextPageURL);
 				});
 			}
+		}
+
+		function showSpinnier() {
+			$("div.imageContainer").append("<p class='eliminatorSlajdowSpinner' style='text-align:center'><img style='padding:150px' src='" + self.spinningIconUrl + "'></img></p>");
+		}
+
+		function hideSpinner() {
+			$("div.imageContainer p.eliminatorSlajdowSpinner").remove();
 		}
 
 		function bind() {
@@ -133,6 +143,8 @@
 					}, 500);
 					self.scrollableImageContainer = true;
 				}
+
+				adjustImageContainerSize();
 			});
 
 			$("div.imageContainer").on("click", "span.bugreport", function() {
@@ -143,7 +155,26 @@
 
 		}
 
+		function disableES(url) {
+			if (url.indexOf("?") > -1) {
+				return url.replace("?", "?es=off&");
+			} else {
+				return url + "?es=off";
+			}
+		}
+
+		function adjustImageContainerSize() {
+			var contentHeight = 0;
+			$("div.imageContainer").children().each(function() {
+				contentHeight += $(this).height();
+			});
+			if (contentHeight < $("div.imageContainer").height()) {
+				$("div.imageContainer").height('auto');
+			}
+		}
+
 		function findNextSlideURL(galleryPage, url) {
+			hideSpinner();
 			var articleSection = $(galleryPage).find(self.sectionToBeAttached);
 			if ($(articleSection).length > 0) {
 				pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
@@ -165,7 +196,7 @@
 				"Zgłoś problem</span>" + //
 				"<span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
 				"<span class='directLink' style='cursor: pointer;float:right;margin-right:5px;color:white'>" + //
-				"<a style='color:white;text-decoration:none' target='_new' href='" + url + "?es=off'>Bezpośredni link<a></span>" + //
+				"<a style='color:white;text-decoration:none' target='_blank' href='" + disableES(url) + "'>Bezpośredni link<a></span>" + //
 				"</p>" + //
 				// FIXME: slaby pomysl na pozbycie sie a:hover :/
 				"<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>").find("span.directLink a").hover(function() {
@@ -181,12 +212,14 @@
 
 				if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);
+					showSpinnier();
 					$.get(nextPageURL, function(nextPage) {
 						findNextSlideURL(nextPage, nextPageURL);
 					});
 				} else {
 					// ostatnia strona
 					console.log("Ostatnia Strona");
+					adjustImageContainerSize();
 				}
 				$(self.sectionToBeRemovedSelector).empty();
 			}
