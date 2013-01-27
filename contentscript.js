@@ -1,4 +1,16 @@
 (function($) {
+	chrome.extension.sendRequest({
+		"urlName": window.location.href
+	}, function(response) {
+		if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
+			self.scrollableImageContainer = (response.scrollableImageContainer !== "off");
+			eliminateSlides();
+		}
+	});
+	this.scrollableImageContainer = false;
+
+
+	/* SHARED CODE BEGIN */
 	var self = this;
 	this.imageContainer = null;
 	this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page, #gal_navi_wrp";
@@ -8,18 +20,8 @@
 	this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
 	this.headerSectionSelector = ".navigation:first h1 span";
 	this.hasSlideNumbers = true;
-	this.scrollableImageContainer = false;
 
 	/* START HERE */
-
-	chrome.extension.sendRequest({
-		"urlName": window.location.href
-	}, function(response) {
-		if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
-			self.scrollableImageContainer = (response.scrollableImageContainer !== "off");
-			eliminateSlides();
-		}
-	});
 
 	function eliminateSlides() {
 
@@ -96,7 +98,7 @@
 				if (self.scrollableImageContainer) {
 					imageContainerStyle = 'display: inline-block;margin: 0 -25px 0 0;padding: 0 8px 0 0;height:1000px;overflow-y:scroll;';
 				}
-				
+
 				$(self.articleBodySelector).after("<div style='" + imageContainerStyle + "' class='imageContainer'></div>");
 				self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
 				bind();
@@ -112,15 +114,23 @@
 					$("div.imageContainer").css("overflow-y", "").css("height", "");
 					console.log("slider switch OFF");
 					$("div.imageContainer span.scrollSwitch").text("Pokaż pasek przewijania");
-					$('html, body').animate({scrollTop: $(this).offset().top-30}, 500);
+					$('html, body').animate({
+						scrollTop: $(this).offset().top - 30
+					}, 500);
 					self.scrollableImageContainer = false;
 				} else {
 					$("div.imageContainer").css("overflow-y", "scroll").css("height", "2000");
 					console.log("slider switch ON");
 					$("div.imageContainer span.scrollSwitch").text("Ukryj pasek przewijania");
-					$('html, body').animate({scrollTop: $(".imageContainer").offset().top-30}, 500);
-					$('div.imageContainer').animate({scrollTop: 0}, 0);
-					$('div.imageContainer').animate({scrollTop: $(this).offset().top -$('div.imageContainer').offset().top}, 500);
+					$('html, body').animate({
+						scrollTop: $(".imageContainer").offset().top - 30
+					}, 500);
+					$('div.imageContainer').animate({
+						scrollTop: 0
+					}, 0);
+					$('div.imageContainer').animate({
+						scrollTop: $(this).offset().top - $('div.imageContainer').offset().top
+					}, 500);
 					self.scrollableImageContainer = true;
 				}
 			});
@@ -128,7 +138,7 @@
 			$("div.imageContainer").on("click", "span.bugreport", function() {
 				window.open("https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl");
 			});
-			
+
 
 
 		}
@@ -146,20 +156,21 @@
 					pageNumberLabel = "Slajd";
 				}
 
-				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber +
-					"'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" +
-					pageNumberLabel +
-					"<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px;color:white'>" +
-					(self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") +
-					"</span><span style='color:white;float:right;margin-right: 5px;'>|</span>" +
-					"<span class='bugreport' style='color:white;cursor: pointer;float:right;margin-right:5px'>" +
-					"Zgłoś problem</span>" +
-					"<span style='color:white;float:right;margin-right: 5px;'>|</span>" +
-					"<span class='directLink' style='cursor: pointer;float:right;margin-right:10px;color:white'>" +
-					"<a style='margin-right: -4px;color:white;text-decoration:none' target='_new' href='" + url + "?es=off'>Bezpośredni link<a></span>"+
-					"</p>" +
-					// FIXME: slaby pomysl na pozbycie sie a:hover :/
-					"<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>").find("span.directLink a").hover(function(){$(this).css('background','grey');});
+				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber + //
+				"'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + //
+				pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px;color:white'>" + //
+				(self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") + //
+				"</span><span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
+				"<span class='bugreport' style='color:white;cursor: pointer;float:right;margin-right:5px'>" + //
+				"Zgłoś problem</span>" + //
+				"<span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
+				"<span class='directLink' style='cursor: pointer;float:right;margin-right:5px;color:white'>" + //
+				"<a style='color:white;text-decoration:none' target='_new' href='" + url + "?es=off'>Bezpośredni link<a></span>" + //
+				"</p>" + //
+				// FIXME: slaby pomysl na pozbycie sie a:hover :/
+				"<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>").find("span.directLink a").hover(function() {
+					$(this).css('background', 'grey');
+				});
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if (desc) {
@@ -185,5 +196,7 @@
 				$(".imageContainer").width(950);
 			}
 		}
+
+		/* SHARED CODE END */
 	}
 })(jQuery);
