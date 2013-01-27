@@ -1,6 +1,6 @@
 (function($) {
 	var self = this;
-	this.imageContainer;
+	this.imageContainer = null;
 	this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page, #gal_navi_wrp";
 	this.navigationNextULRSelector = ".navigation .next:first";
 	this.navigationPageNumberSelector = ".navigation .page:first";
@@ -13,7 +13,7 @@
 	/* START HERE */
 
 	chrome.extension.sendRequest({
-		"urlName": window.location.href,
+		"urlName": window.location.href
 	}, function(response) {
 		if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
 			self.scrollableImageContainer = (response.scrollableImageContainer !== "off");
@@ -66,7 +66,7 @@
 			console.log("jestesmy na stronie z galeria div#article div#article_body (5)");
 			self.articleBodySelector = "#article_body";
 			self.navigationNextULRSelector = "#gal_btn_next a:first";
-			self.sectionToBeRemovedSelector = "#gal_navi_wrp"; // div#article ul, 
+			self.sectionToBeRemovedSelector = "#gal_navi_wrp"; // div#article ul,
 			self.sectionToBeAttached = "div#container_gal";
 			self.navigationPageNumberSelector = "#gal_navi .paging";
 			loadImagesOnPage();
@@ -101,7 +101,7 @@
 				self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
 				bind();
 				$.get(nextPageURL, function(nextPage) {
-					findNextSlideURL(nextPage);
+					findNextSlideURL(nextPage, nextPageURL);
 				});
 			}
 		}
@@ -133,28 +133,33 @@
 
 		}
 
-		function findNextSlideURL(galleryPage) {
+		function findNextSlideURL(galleryPage, url) {
 			var articleSection = $(galleryPage).find(self.sectionToBeAttached);
 			if ($(articleSection).length > 0) {
 				pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
 				console.log("numer strony", pageNumber);
 				nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
-
+				var pageNumberLabel = "Ostatni slajd";
 				if (pageNumber.length === 2) {
-					var pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
+					pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
 				} else if (!self.hasSlideNumbers) {
-					var pageNumberLabel = "Slajd";
-				} else {
-					var pageNumberLabel = "Ostatni slajd";
+					pageNumberLabel = "Slajd";
 				}
 
-				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber + 
-					"'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" 
-					+ pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px'>" 
-					+ (self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania")
-					+ "</span><span style='float: right;margin-right: 5px;'>|</span><span class='bugreport' style='cursor: pointer;float:right;margin-right:5px'>" + 
-					"Zgłoś problem</span></p>" + 
-					"<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>");
+				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber +
+					"'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" +
+					pageNumberLabel +
+					"<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px;color:white'>" +
+					(self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") +
+					"</span><span style='color:white;float:right;margin-right: 5px;'>|</span>" +
+					"<span class='bugreport' style='color:white;cursor: pointer;float:right;margin-right:5px'>" +
+					"Zgłoś problem</span>" +
+					"<span style='color:white;float:right;margin-right: 5px;'>|</span>" +
+					"<span class='directLink' style='cursor: pointer;float:right;margin-right:10px;color:white'>" +
+					"<a style='margin-right: -4px;color:white;text-decoration:none' target='_new' href='" + url + "?es=off'>Bezpośredni link<a></span>"+
+					"</p>" +
+					// FIXME: slaby pomysl na pozbycie sie a:hover :/
+					"<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>").find("span.directLink a").hover(function(){$(this).css('background','grey');});
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if (desc) {
@@ -166,11 +171,11 @@
 				if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);
 					$.get(nextPageURL, function(nextPage) {
-						findNextSlideURL(nextPage);
+						findNextSlideURL(nextPage, nextPageURL);
 					});
 				} else {
 					// ostatnia strona
-					console.log("Ostatnia Strona")
+					console.log("Ostatnia Strona");
 				}
 				$(self.sectionToBeRemovedSelector).empty();
 			}
