@@ -187,7 +187,7 @@
 					pageNumberLabel = "Slajd";
 				}
 
-				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber + //
+				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideHeader_" + pageNumber + //
 				"'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + //
 				pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px;color:white'>" + //
 				(self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") + //
@@ -208,7 +208,7 @@
 					$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>" + desc + "</p>");
 				}
 				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
-				$(self.imageContainer).append($(articleSection));
+				$(self.imageContainer).append("<div class='slide_" + pageNumber + "'></div>").children().last().append($(articleSection));
 
 				if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);
