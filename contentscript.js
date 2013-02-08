@@ -9,7 +9,7 @@
 	});
 	this.scrollableImageContainer = false;
 	this.spinningIconUrl = chrome.extension.getURL("ajax-loader.gif");
-
+	this.cssPath = chrome.extension.getURL('eliminatorSlajdow.css');
 
 	/* SHARED CODE BEGIN */
 	var self = this;
@@ -21,7 +21,11 @@
 	this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
 	this.headerSectionSelector = ".navigation:first h1 span";
 	this.hasSlideNumbers = true;
-	this.spinner = $("<a>",{"class": "eliminatorSlajdowSpinner"}).append($("<img>",{src: self.spinningIconUrl}));
+	this.spinner = $("<div>", {
+		"class": "eliminatorSlajdowSpinner"
+	}).append($("<img>", {
+		src: self.spinningIconUrl
+	}));
 
 	/* START HERE */
 
@@ -30,7 +34,7 @@
 		if($("body#pagetype_photo").length > 0) {
 			console.log("jestesmy na stronie z galeria #pagetype_photo (1)");
 			$("#gazeta_article_miniatures").empty();
-			loadImagesOnPage();
+			start();
 		} else if($("body#pagetype_art_blog").length > 0) {
 			/*
 				http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html
@@ -38,7 +42,7 @@
 			*/
 			self.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')";
 			console.log("jestesmy na stronie z galeria #pagetype_art_blog (2)");
-			loadImagesOnPage();
+			start();
 		} else if($("body#pagetype_art").length > 0) {
 			/*
 			Regresja
@@ -46,7 +50,7 @@
 			*/
 			console.log("jestesmy na stronie z galeria #pagetype_art (3)");
 			this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, #gazeta_article_image_new"; // sekcja komentarza i obrazek
-			loadImagesOnPage();
+			start();
 
 		} else if($("div#art div#container_gal").length > 0) {
 			/*
@@ -60,7 +64,7 @@
 			self.sectionToBeRemovedSelector = "div#gal_navi_wrp, #gal_navi_wrp";
 			self.navigationNextULRSelector = "#gal_btn_next a:first";
 			self.sectionToBeAttached = "div#container_gal";
-			loadImagesOnPage();
+			start();
 
 		} else if($("div#article div#article_body").length > 0) {
 			/*
@@ -73,7 +77,7 @@
 			self.sectionToBeRemovedSelector = "#gal_navi_wrp"; // div#article ul,
 			self.sectionToBeAttached = "div#container_gal";
 			self.navigationPageNumberSelector = "#gal_navi .paging";
-			loadImagesOnPage();
+			start();
 		} else if($("div#k1 div#k1p div#gal_outer").length > 0) {
 			/*
 			Regresja
@@ -87,12 +91,17 @@
 			self.navigationPageNumberSelector = "#gal_navi .paging";
 			$("div#gal_miniatures").empty();
 			self.hasSlideNumbers = false;
-			loadImagesOnPage();
+			start();
 		} else {
 			console.log("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
 		}
 
-		function loadImagesOnPage() {
+		function start() {
+			$('head').append($('<link>', {
+				"rel": "stylesheet",
+				"type": "text/css",
+				"href": self.cssPath
+			}));
 			var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny", nextPageURL);
 			if(nextPageURL) {
@@ -101,7 +110,9 @@
 					imageContainerClass = 'scroll';
 				}
 
-				$(self.articleBodySelector).after($("<div>",{"class": imageContainerClass + ' imageContainer'}));
+				$(self.articleBodySelector).after($("<div>", {
+					"class": imageContainerClass + ' imageContainer'
+				}));
 				self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
 				bind();
 				showSpinnier();
@@ -116,7 +127,7 @@
 		}
 
 		function hideSpinner() {
-			$("div.imageContainer p.eliminatorSlajdowSpinner").remove();
+			$("div.imageContainer div.eliminatorSlajdowSpinner").remove();
 		}
 
 		function bind() {
@@ -126,14 +137,14 @@
 					console.log("slider switch OFF");
 					$("div.imageContainer span.scrollSwitch").text("Pokaż pasek przewijania");
 					$('html, body').animate({
-						scrollTop: $(this).offset().top - 30
+						scrollTop: $(this).offset().top - 40
 					}, 500);
 					self.scrollableImageContainer = false;
 				} else {
 					console.log("slider switch ON");
 					$("div.imageContainer span.scrollSwitch").text("Ukryj pasek przewijania");
 					$('html, body').animate({
-						scrollTop: $(".imageContainer").offset().top - 30
+						scrollTop: $(".imageContainer").offset().top - 40
 					}, 500);
 					$('div.imageContainer').animate({
 						scrollTop: 0
@@ -205,10 +216,15 @@
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if(desc) {
-					$(self.imageContainer).append($("<p>",{"class": "slideTitle", text: desc}));
+					$(self.imageContainer).append($("<p>", {
+						"class": "slideTitle",
+						text: desc
+					}));
 				}
 				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
-				$(self.imageContainer).append($("<div>", {"class": "slide_" + pageNumber})).children().last().append($(articleSection));
+				$(self.imageContainer).append($("<div>", {
+					"class": "slide_" + pageNumber
+				})).children().last().append($(articleSection));
 
 				if((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);
@@ -219,7 +235,9 @@
 				} else {
 					// ostatnia strona
 					console.log("Ostatnia Strona");
-					adjustImageContainerSize();
+					//adjustImageContainerSize();
+					hideSpinner();
+
 				}
 				$(self.sectionToBeRemovedSelector).empty();
 			}

@@ -1,5 +1,5 @@
 div.eliminatorSlajdowSpinner { text-align: center; }
-div.eliminatorSlajdowSpinner img { width: 200px; }
+div.eliminatorSlajdowSpinner img { padding: 100px; }
 
 div.imageContainer.scroll {
 		display: inline-block;
@@ -17,3 +17,4 @@ div.imageContainer p.slideTitle {
 	padding:20px;
 	font-size:20px;
 }
+
