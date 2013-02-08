@@ -1,0 +1,14 @@
+div.eliminatorSlajdowSpinner { text-align: center; }
+div.eliminatorSlajdowSpinner img { width: 200px; }
+
+div.imageContainer.scroll {
+		display: inline-block;
+		height: 1000px;
+		margin: 0 -25px 0 0;
+		overflow-y: scroll;
+		padding: 0 8px 0 0;
+	}
+	
+div.imageContainer.noScroll {
+	float:left;
+}

@@ -21,7 +21,6 @@
 	this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
 	this.headerSectionSelector = ".navigation:first h1 span";
 	this.hasSlideNumbers = true;
-
 	this.spinner = $("<a>",{className: "eliminatorSlajdowSpinner"}).append("<img>",{src: self.spinningIconUrl});
 
 	/* START HERE */
@@ -97,12 +96,12 @@
 			var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny", nextPageURL);
 			if(nextPageURL) {
-				var imageContainerStyle = 'float:left';
+				var imageContainerClass = 'noScroll';
 				if(self.scrollableImageContainer) {
-					imageContainerStyle = 'display: inline-block;margin: 0 -25px 0 0;padding: 0 8px 0 0;height:1000px;overflow-y:scroll;';
+					imageContainerClass = 'scroll';
 				}
 
-				$(self.articleBodySelector).after("<div style='" + imageContainerStyle + "' class='imageContainer'></div>");
+				$(self.articleBodySelector).after("<div>",{className: imageContainerClass + 'imageContainer'});
 				self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
 				bind();
 				showSpinnier();
@@ -189,7 +188,7 @@
 					pageNumberLabel = "Slajd";
 				}
 
-				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideNumber_" + pageNumber + //
+				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideHeader_" + pageNumber + //
 				"'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + //
 				pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px;color:white'>" + //
 				(self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") + //
@@ -210,7 +209,7 @@
 					$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>" + desc + "</p>");
 				}
 				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
-				$(self.imageContainer).append($(articleSection));
+				$(self.imageContainer).append("<div class='slide_" + pageNumber + "'></div>").children().last().append($(articleSection));
 
 				if((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);
@@ -231,8 +230,6 @@
 				$(".imageContainer").width(950);
 			}
 		}
-
-		function escapeHTML(str) str.replace(/[&"<>]/g, function (m) ({ "&": "&amp;", '"': "&quot", "<": "&lt;", ">": "&gt;" })[m]);
 
 		/* SHARED CODE END */
 	}
