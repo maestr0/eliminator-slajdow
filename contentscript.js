@@ -21,7 +21,7 @@
 	this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
 	this.headerSectionSelector = ".navigation:first h1 span";
 	this.hasSlideNumbers = true;
-	this.spinner = $("<a>",{className: "eliminatorSlajdowSpinner"}).append("<img>",{src: self.spinningIconUrl});
+	this.spinner = $("<a>",{"class": "eliminatorSlajdowSpinner"}).append($("<img>",{src: self.spinningIconUrl}));
 
 	/* START HERE */
 
@@ -101,7 +101,7 @@
 					imageContainerClass = 'scroll';
 				}
 
-				$(self.articleBodySelector).after("<div>",{className: imageContainerClass + 'imageContainer'});
+				$(self.articleBodySelector).after($("<div>",{"class": imageContainerClass + ' imageContainer'}));
 				self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
 				bind();
 				showSpinnier();
@@ -121,8 +121,8 @@
 
 		function bind() {
 			$("div.imageContainer").on("click", "span.scrollSwitch", function() {
+				$("div.imageContainer").toggleClass("noScroll").toggleClass("scroll");
 				if(self.scrollableImageContainer) {
-					$("div.imageContainer").css("overflow-y", "").css("height", "");
 					console.log("slider switch OFF");
 					$("div.imageContainer span.scrollSwitch").text("Pokaż pasek przewijania");
 					$('html, body').animate({
@@ -130,7 +130,6 @@
 					}, 500);
 					self.scrollableImageContainer = false;
 				} else {
-					$("div.imageContainer").css("overflow-y", "scroll").css("height", "2000");
 					console.log("slider switch ON");
 					$("div.imageContainer span.scrollSwitch").text("Ukryj pasek przewijania");
 					$('html, body').animate({
@@ -145,7 +144,7 @@
 					self.scrollableImageContainer = true;
 				}
 
-				adjustImageContainerSize();
+				//adjustImageContainerSize();
 			});
 
 			$("div.imageContainer").on("click", "span.bugreport", function() {
@@ -206,10 +205,10 @@
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if(desc) {
-					$(self.imageContainer).append("<p>",{className: "slideTitle", text: desc});
+					$(self.imageContainer).append($("<p>",{"class": "slideTitle", text: desc}));
 				}
 				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
-				$(self.imageContainer).append("<div>", {className: "slide_" + pageNumber}).children().last().append($(articleSection));
+				$(self.imageContainer).append($("<div>", {"class": "slide_" + pageNumber})).children().last().append($(articleSection));
 
 				if((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);
