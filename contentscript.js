@@ -154,8 +154,6 @@
 					}, 500);
 					self.scrollableImageContainer = true;
 				}
-
-				//adjustImageContainerSize();
 			});
 
 			$("div.imageContainer").on("click", "span.bugreport", function() {
@@ -174,16 +172,6 @@
 			}
 		}
 
-		function adjustImageContainerSize() {
-			var contentHeight = 0;
-			$("div.imageContainer").children().each(function() {
-				contentHeight += $(this).height();
-			});
-			if(contentHeight < $("div.imageContainer").height()) {
-				$("div.imageContainer").height('auto');
-			}
-		}
-
 		function findNextSlideURL(galleryPage, url) {
 			hideSpinner();
 			var articleSection = $(galleryPage).find(self.sectionToBeAttached);
@@ -198,21 +186,58 @@
 					pageNumberLabel = "Slajd";
 				}
 
-				$(self.imageContainer).append("<div style='float:left;width:100%;margin-bottom:10px' class='slideHeader_" + pageNumber + //
-				"'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + //
-				pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px;color:white'>" + //
-				(self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") + //
-				"</span><span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
-				"<span class='bugreport' style='color:white;cursor: pointer;float:right;margin-right:5px'>" + //
-				"Zgłoś problem</span>" + //
-				"<span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
-				"<span class='directLink' style='cursor: pointer;float:right;margin-right:5px;color:white'>" + //
-				"<a style='color:white;text-decoration:none' target='_blank' href='" + disableES(url) + "'>Bezpośredni link<a></span>" + //
-				"</p>" + //
-				// FIXME: slaby pomysl na pozbycie sie a:hover :/
-				"<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>").find("span.directLink a").hover(function() {
-					$(this).css('background', 'grey');
+				var slideHeader = $("<div>", {
+					"class": "slideHeader slideHeader_" + pageNumber
 				});
+				$("<p>", {
+					"class": "headerBar",
+					text: pageNumberLabel
+				}).append($("<span>", {
+					"class": "scrollSwitch",
+					text: ((self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
+				})).append($("<span>", {
+					"class": "headerSeparator",
+					text: "|"
+				})).append(
+				$("<span>", {
+					"class": "bugreport",
+					text: "Zgłoś problem"
+				})).append(
+				$("<span>", {
+					"class": "headerSeparator",
+					text: "|"
+				})).append(
+				$("<span>", {
+					"class": "directLink"
+				}).append("<a>", {
+					target: "_blank",
+					href: disableES(url),
+					text: "Bezpośredni link"
+				})).append($("<p>", {
+					"class": "headerLogo",
+					text: 'Eliminator Slajdów'
+				}));
+
+
+				$(self.imageContainer).append(slideHeader);
+
+
+
+				// $(self.imageContainer).append("<div style='' class='slideHeader slideHeader_" + pageNumber + //
+				// "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + //
+				// pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px;color:white'>" + //
+				// (self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") + //
+				// "</span><span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
+				// "<span class='bugreport' style='color:white;cursor: pointer;float:right;margin-right:5px'>" + //
+				// "Zgłoś problem</span>" + //
+				// "<span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
+				// "<span class='directLink' style='cursor: pointer;float:right;margin-right:5px;color:white'>" + //
+				// "<a style='color:white;text-decoration:none' target='_blank' href='" + disableES(url) + "'>Bezpośredni link<a></span>" + //
+				// "</p>" + //
+				// // FIXME: slaby pomysl na pozbycie sie a:hover :/
+				// "<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>").find("span.directLink a").hover(function() {
+				// 	$(this).css('background', 'grey');
+				// });
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if(desc) {
@@ -235,7 +260,6 @@
 				} else {
 					// ostatnia strona
 					console.log("Ostatnia Strona");
-					//adjustImageContainerSize();
 					hideSpinner();
 
 				}

@@ -18,3 +18,37 @@ div.imageContainer p.slideTitle {
 	font-size:20px;
 }
 
+div.imageContainer div.slideHeader{
+	float:left;width:100%;margin-bottom:10px;
+}
+
+div.imageContainer span.directLink a:hover{
+	background: grey;
+}
+
+div.imageContainer div.slideHeader p.headerLogo {
+	margin-top:1px;float: right;font-size: 9px;
+}
+
+div.imageContainer div.slideHeader p.headerBar {
+	font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;
+}
+div.imageContainer div.slideHeader span.scrollSwitch{
+	cursor: pointer;float:right;margin-right:10px;color:white
+}
+
+div.imageContainer div.slideHeader span.headerSeparator {
+	color:white;float:right;margin-right: 5px;
+}
+
+
+div.imageContainer div.slideHeader span.bugreport {
+	color:white;cursor: pointer;float:right;margin-right:5px;
+}
+div.imageContainer div.slideHeader span.directLink{
+	cursor: pointer;float:right;margin-right:5px;color:white;
+}
+div.imageContainer div.slideHeader span.directLink a{
+	color:white;text-decoration:none;
+}
+div.imageContainer div.slideHeader
