@@ -5,6 +5,7 @@ chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
 function checkForValidUrl(tabId, changeInfo, tab) {
 	if (canRunOnCurrentUrl(tab.url) === true) {
+		chrome.tabs.insertCSS(tab.id,{file:"eliminatorSlajdow.css"});
 
 		var icon = 'icon_48.jpg';
 		chrome.pageAction.setIcon({
@@ -36,6 +37,8 @@ function onRequest(request, sender, sendResponse) {
 			"canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName),
 			"scrollableImageContainer": localStorage['scrollableImageContainer']
 		});
+
+
 	}
 }
 // Return nothing to let the connection be cleaned up.

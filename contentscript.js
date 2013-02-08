@@ -97,11 +97,11 @@
 		}
 
 		function start() {
-			$('head').append($('<link>', {
-				"rel": "stylesheet",
-				"type": "text/css",
-				"href": self.cssPath
-			}));
+			// $('head').append($('<link>', {
+			// 	"rel": "stylesheet",
+			// 	"type": "text/css",
+			// 	"href": self.cssPath
+			// }));
 			var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny", nextPageURL);
 			if(nextPageURL) {
