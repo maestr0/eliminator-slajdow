@@ -206,10 +206,10 @@
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if(desc) {
-					$(self.imageContainer).append("<p style='padding:20px;font-size:20px;'>" + desc + "</p>");
+					$(self.imageContainer).append("<p>",{className: "slideTitle", text: desc});
 				}
 				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
-				$(self.imageContainer).append("<div class='slide_" + pageNumber + "'></div>").children().last().append($(articleSection));
+				$(self.imageContainer).append("<div>", {className: "slide_" + pageNumber}).children().last().append($(articleSection));
 
 				if((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);

@@ -8,7 +8,12 @@ div.imageContainer.scroll {
 		overflow-y: scroll;
 		padding: 0 8px 0 0;
 	}
-	
+
 div.imageContainer.noScroll {
 	float:left;
+}
+
+div.imageContainer p.slideTitle {
+	padding:20px;
+	font-size:20px;
 }
