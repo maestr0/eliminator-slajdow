@@ -217,7 +217,6 @@
 					text: 'Eliminator Slajdów'
 				}));
 
-
 				$(self.imageContainer).append(slideHeader);
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
