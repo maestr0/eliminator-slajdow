@@ -188,8 +188,7 @@
 
 				var slideHeader = $("<div>", {
 					"class": "slideHeader slideHeader_" + pageNumber
-				});
-				$("<p>", {
+				}).append($("<p>", {
 					"class": "headerBar",
 					text: pageNumberLabel
 				}).append($("<span>", {
@@ -209,35 +208,17 @@
 				})).append(
 				$("<span>", {
 					"class": "directLink"
-				}).append("<a>", {
+				}).append($("<a>", {
 					target: "_blank",
 					href: disableES(url),
 					text: "Bezpośredni link"
-				})).append($("<p>", {
+				})))).append($("<p>", {
 					"class": "headerLogo",
 					text: 'Eliminator Slajdów'
 				}));
 
 
 				$(self.imageContainer).append(slideHeader);
-
-
-
-				// $(self.imageContainer).append("<div style='' class='slideHeader slideHeader_" + pageNumber + //
-				// "'><p style='font-size: 12px;background: grey;padding: 3px;padding-left: 10px;border-radius: 42px;height: 14px;color: white;'>" + //
-				// pageNumberLabel + "<span class='scrollSwitch' style='cursor: pointer;float:right;margin-right:10px;color:white'>" + //
-				// (self.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania") + //
-				// "</span><span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
-				// "<span class='bugreport' style='color:white;cursor: pointer;float:right;margin-right:5px'>" + //
-				// "Zgłoś problem</span>" + //
-				// "<span style='color:white;float:right;margin-right: 5px;'>|</span>" + //
-				// "<span class='directLink' style='cursor: pointer;float:right;margin-right:5px;color:white'>" + //
-				// "<a style='color:white;text-decoration:none' target='_blank' href='" + disableES(url) + "'>Bezpośredni link<a></span>" + //
-				// "</p>" + //
-				// // FIXME: slaby pomysl na pozbycie sie a:hover :/
-				// "<p style='margin-top:1px;float: right;font-size: 9px;'>Eliminator Slajdów</p></div>").find("span.directLink a").hover(function() {
-				// 	$(this).css('background', 'grey');
-				// });
 
 				var desc = $(galleryPage).find(self.headerSectionSelector).html();
 				if(desc) {
