@@ -14,7 +14,7 @@
 	/* SHARED CODE BEGIN */
 	var self = this;
 	this.imageContainer = null;
-	this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page, #gal_navi_wrp";
+	this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay";
 	this.navigationNextULRSelector = ".navigation .next:first";
 	this.navigationPageNumberSelector = ".navigation .page:first";
 	this.articleBodySelector = "#gazeta_article_body";
@@ -26,10 +26,8 @@
 	}).append($("<img>", {
 		src: self.spinningIconUrl
 	}));
-
-	/* START HERE */
-
-	function eliminateSlides() {
+   	
+    function eliminateSlides() {
 
 		if($("body#pagetype_photo").length > 0) {
 			console.log("jestesmy na stronie z galeria #pagetype_photo (1)");
@@ -49,7 +47,7 @@
 			http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html
 			*/
 			console.log("jestesmy na stronie z galeria #pagetype_art (3)");
-			this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, #gazeta_article_image_new"; // sekcja komentarza i obrazek
+			self.sectionToBeAttached = "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')"; // sekcja komentarza i obrazek
 			start();
 
 		} else if($("div#art div#container_gal").length > 0) {
@@ -97,11 +95,7 @@
 		}
 
 		function start() {
-			// $('head').append($('<link>', {
-			// 	"rel": "stylesheet",
-			// 	"type": "text/css",
-			// 	"href": self.cssPath
-			// }));
+            $("head").append($("<link>",{href: self.cssPath, type: "text/css", rel:"stylesheet"}));
 			var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny", nextPageURL);
 			if(nextPageURL) {
@@ -159,9 +153,6 @@
 			$("div.imageContainer").on("click", "span.bugreport", function() {
 				window.open("https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl");
 			});
-
-
-
 		}
 
 		function disableES(url) {
