@@ -9,7 +9,8 @@
 	});
 	this.scrollableImageContainer = false;
 	this.spinningIconUrl = chrome.extension.getURL("ajax-loader.gif");
-	this.cssPath = chrome.extension.getURL('eliminatorSlajdow.css');
+	//this.cssPath = chrome.extension.getURL('eliminatorSlajdow.css');
+	this.cssPath = "http://dl.dropbox.com/u/24730581/eliminator_slajdow_assets/eliminatorSlajdow.css";
 
 	/* SHARED CODE BEGIN */
 	var self = this;
@@ -26,7 +27,7 @@
 	}).append($("<img>", {
 		src: self.spinningIconUrl
 	}));
-   	
+
     function eliminateSlides() {
 
 		if($("body#pagetype_photo").length > 0) {
@@ -131,20 +132,20 @@
 					console.log("slider switch OFF");
 					$("div.imageContainer span.scrollSwitch").text("Pokaż pasek przewijania");
 					$('html, body').animate({
-						scrollTop: $(this).offset().top - 40
+						scrollTop: $(this).offset().top - 30
 					}, 500);
 					self.scrollableImageContainer = false;
 				} else {
 					console.log("slider switch ON");
 					$("div.imageContainer span.scrollSwitch").text("Ukryj pasek przewijania");
 					$('html, body').animate({
-						scrollTop: $(".imageContainer").offset().top - 40
+						scrollTop: $(".imageContainer").offset().top - 25
 					}, 500);
 					$('div.imageContainer').animate({
 						scrollTop: 0
 					}, 0);
 					$('div.imageContainer').animate({
-						scrollTop: $(this).offset().top - $('div.imageContainer').offset().top
+						scrollTop: $(this).offset().top - $('div.imageContainer').offset().top - 5
 					}, 500);
 					self.scrollableImageContainer = true;
 				}
@@ -209,18 +210,21 @@
 				}));
 
 				$(self.imageContainer).append(slideHeader);
+				
+				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
+				var slideWrapper = $(self.imageContainer).append($("<div>", {
+					"class": "slide_" + pageNumber
+				})).children().last();
 
-				var desc = $(galleryPage).find(self.headerSectionSelector).html();
-				if(desc) {
-					$(self.imageContainer).append($("<p>", {
+				if($(galleryPage).find(self.headerSectionSelector).length === 1) {
+					var desc = $(galleryPage).find(self.headerSectionSelector).html();
+					$(slideWrapper).append($("<p>", {
 						"class": "slideTitle",
 						text: desc
 					}));
 				}
-				$(articleSection).find(self.sectionToBeRemovedSelector).empty();
-				$(self.imageContainer).append($("<div>", {
-					"class": "slide_" + pageNumber
-				})).children().last().append($(articleSection));
+
+				$(slideWrapper).append($(articleSection));
 
 				if((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
 					console.log("link do nastepnej storny", nextPageURL);

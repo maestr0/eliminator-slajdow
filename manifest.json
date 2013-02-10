@@ -8,7 +8,7 @@
         "default_title": "Eliminator Slajdów",
         "default_popup": "popup.html"
     },
-    "permissions": ["tabs","http://*/*"],
+    "permissions": ["tabs"],
     "incognito": "spanning",
     "options_page": "popup.html",
     "content_security_policy": "script-src 'self'; object-src 'self'",
