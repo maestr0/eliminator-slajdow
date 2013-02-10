@@ -10,7 +10,7 @@
 	this.scrollableImageContainer = false;
 	this.spinningIconUrl = chrome.extension.getURL("ajax-loader.gif");
 	//this.cssPath = chrome.extension.getURL('eliminatorSlajdow.css');
-	this.cssPath = "http://dl.dropbox.com/u/24730581/eliminator_slajdow_assets/eliminatorSlajdow.css";
+	this.cssPath = "";// "http://dl.dropbox.com/u/24730581/eliminator_slajdow_assets/eliminatorSlajdow.css";
 
 	/* SHARED CODE BEGIN */
 	var self = this;
