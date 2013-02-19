@@ -1,5 +1,5 @@
 (function($) {
-	chrome.extension.sendRequest({
+    chrome.extension.sendRequest({
 		"urlName": window.location.href
 	}, function(response) {
 		if(response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
@@ -13,7 +13,7 @@
 	this.cssPath = "";// "http://dl.dropbox.com/u/24730581/eliminator_slajdow_assets/eliminatorSlajdow.css";
 
 	/* SHARED CODE BEGIN */
-	var self = this;
+	this.self = this;
 	this.imageContainer = null;
 	this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay";
 	this.navigationNextULRSelector = ".navigation .next:first";
@@ -126,32 +126,33 @@
 		}
 
 		function bind() {
-			$("div.imageContainer").on("click", "span.scrollSwitch", function() {
-				$("div.imageContainer").toggleClass("noScroll").toggleClass("scroll");
+            var imageContainer = $("div.imageContainer");
+            imageContainer.on("click", "span.scrollSwitch", function() {
+                imageContainer.toggleClass("noScroll").toggleClass("scroll");
 				if(self.scrollableImageContainer) {
 					console.log("slider switch OFF");
-					$("div.imageContainer span.scrollSwitch").text("Pokaż pasek przewijania");
+                    imageContainer.find("span.scrollSwitch").text("Pokaż pasek przewijania");
 					$('html, body').animate({
 						scrollTop: $(this).offset().top - 30
 					}, 500);
 					self.scrollableImageContainer = false;
 				} else {
 					console.log("slider switch ON");
-					$("div.imageContainer span.scrollSwitch").text("Ukryj pasek przewijania");
+                    imageContainer.find("span.scrollSwitch").text("Ukryj pasek przewijania");
 					$('html, body').animate({
 						scrollTop: $(".imageContainer").offset().top - 25
 					}, 500);
-					$('div.imageContainer').animate({
+                    imageContainer.animate({
 						scrollTop: 0
 					}, 0);
-					$('div.imageContainer').animate({
-						scrollTop: $(this).offset().top - $('div.imageContainer').offset().top - 5
+                    imageContainer.animate({
+						scrollTop: $(this).offset().top - imageContainer.offset().top - 5
 					}, 500);
 					self.scrollableImageContainer = true;
 				}
 			});
 
-			$("div.imageContainer").on("click", "span.bugreport", function() {
+			imageContainer.on("click", "span.bugreport", function() {
 				window.open("https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl");
 			});
 		}
@@ -168,9 +169,13 @@
 			hideSpinner();
 			var articleSection = $(galleryPage).find(self.sectionToBeAttached);
 			if($(articleSection).length > 0) {
-				pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
+				var pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
 				console.log("numer strony", pageNumber);
-				nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
+				var nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
+				if(url===nextPageURL){
+					console.log("Chyba cos jest zle. URL do nastepnego slajdu jest taki sam jak do obecnego :/");
+					return;
+				}
 				var pageNumberLabel = "Ostatni slajd";
 				if(pageNumber.length === 2) {
 					pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
@@ -242,9 +247,10 @@
 			}
 
 			$(".imageContainer > div").css("float", "left").css("width", "100%");
-			if($(".imageContainer").width() > 950) {
-				$(".imageContainer").width(950);
-			}
+            var imageContainer = $(".imageContainer");
+            if(imageContainer.width() > 950){
+				imageContainer.width(950);
+            }
 		}
 
 		/* SHARED CODE END */
