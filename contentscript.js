@@ -13,7 +13,7 @@
 	this.cssPath = "";// "http://dl.dropbox.com/u/24730581/eliminator_slajdow_assets/eliminatorSlajdow.css";
 
 	/* SHARED CODE BEGIN */
-	this.self = this;
+	var self = this;
 	this.imageContainer = null;
 	this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay";
 	this.navigationNextULRSelector = ".navigation .next:first";
