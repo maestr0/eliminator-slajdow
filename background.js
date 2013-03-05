@@ -93,7 +93,7 @@ if (currVersion != prevVersion) {
 }
 
 function updateAllowedDomainList() {
-	var standardAllowedDomains = new Array("groszki.pl","ugotuj.to", "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "www.sport.pl", "wyborcza.pl", "gazetadom.pl", "www.logo24.pl", "wyborcza.biz", "lula.pl", "tuba.pl", "www.edziecko.pl", "czterykaty.pl", "www.alert24.pl", "www.kotek.pl", "polygamia.pl", "www.popcorner.pl", "www.wysokieobcasy.pl", "www.e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl", "gazetapraca.pl", "www.metropraca.pl", "pracawbiurze.pl", "www.zczuba.pl", "www.ciacha.net", "wyborcza.pl", "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl");
+	var standardAllowedDomains = new Array("avanti24.pl","groszki.pl","ugotuj.to", "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "www.sport.pl", "wyborcza.pl", "gazetadom.pl", "www.logo24.pl", "wyborcza.biz", "lula.pl", "tuba.pl", "www.edziecko.pl", "czterykaty.pl", "www.alert24.pl", "www.kotek.pl", "polygamia.pl", "www.popcorner.pl", "www.wysokieobcasy.pl", "www.e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl", "gazetapraca.pl", "www.metropraca.pl", "pracawbiurze.pl", "www.zczuba.pl", "www.ciacha.net", "wyborcza.pl", "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl");
 	localStorage['standardAllowedDomains'] = JSON.stringify(standardAllowedDomains);
 
 	var allowedDomains = {};
