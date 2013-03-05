@@ -1,1 +1,5 @@
 .DS_Store
+.idea
+jquery-1.8.3.js
+lepsza-gazeta-pl.iml
+test.js

@@ -30,7 +30,7 @@ div.imageContainer div.slideHeader {
 }
 
 div.imageContainer span.directLink a:hover {
-	background: grey;
+	background: none;
 }
 
 div.imageContainer div.slideHeader p.headerLogo {
@@ -74,9 +74,12 @@ div.imageContainer div.slideHeader span.directLink {
 	float: right;
 	margin-right: 5px;
 	color: white;
+	height: 16px;
 }
 
 div.imageContainer div.slideHeader span.directLink a {
 	color: white;
 	text-decoration: none;
+	height: 14px;
+	font: 12px Arial;
 }
