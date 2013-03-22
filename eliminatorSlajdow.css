@@ -83,3 +83,8 @@ div.imageContainer div.slideHeader span.directLink a {
 	height: 14px;
 	font: 12px Arial;
 }
+
+span.directLink a {
+    font-size:12px;
+    line-height: 12px;
+}
