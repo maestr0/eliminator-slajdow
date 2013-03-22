@@ -5,11 +5,11 @@ var fnSortAllowedDomainsList = function() {
 		var listitems = mylist.children('li').get();
 		listitems.sort(function(a, b) {
 			return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
-		})
+		});
 		$.each(listitems, function(idx, itm) {
 			mylist.append(itm);
 		});
-	}
+	};
 
 var allowedDomains = JSON.parse(localStorage['allowedDomains']);
 
@@ -56,7 +56,7 @@ var fnBindEvents = function() {
 
 
 
-	}
+	};
 
 var fnGenerateDomainList = function() {
 		var allowedDomains = JSON.parse(localStorage['allowedDomains']);
@@ -67,7 +67,7 @@ var fnGenerateDomainList = function() {
 		fnSortAllowedDomainsList();
 
 		fnBindEvents();
-	}
+	};
 
 
 
@@ -78,45 +78,10 @@ $("#options").accordion({
 
 fnGenerateDomainList();
 
-/*
-$('input, select').each(function(index, field) {
-	var fieldId = $(field).attr("id");
-	if (fieldId == null) {
-		fieldId = $(this).attr("name");
-	}
-	var value = localStorage[fieldId];
-
-	if (value != undefined && value != '') {
-		$(field).val(value);
-	}
-
-});
-
-$('input, select').change(function() {
-	var fieldId = $(this).attr("id");
-	if (fieldId == null) {
-		fieldId = $(this).attr("name");
-	}
-	var value = $(this).val();
-	localStorage[fieldId] = value;
-	// Update status to let user know options were saved.
-	$(this).animate({
-		backgroundColor: "green"
-	}, 600);
-	var field = this;
-	setTimeout(function() {
-		$(field).animate({
-			backgroundColor: "white"
-		}, 600);
-	}, 600);
-	console.log('field changed ' + fieldId + '. New value=' + value);
-});
-*/
-
 function changeStatus() {
 	chrome.tabs.getSelected(null, function(tab) {
 		var icon = 'fr.ico';
-		if (self.getStatus('extensionStatus') == 'on') {
+		if (self.getStatus('extensionStatus') === 'on') {
 			icon = 'fr_off.ico';
 		}
 		chrome.pageAction.setIcon({
@@ -132,10 +97,10 @@ $('a.switch').each(function(index, item) {
 
 	$(item).iphoneSwitch(self.getStatus(id), function() {
 		localStorage.setItem(id, "on");
-		console.log(id + " = on")
+		console.log(id + " = on");
 	}, function() {
 		localStorage.setItem(id, "off");
-		console.log(id + " = off")
+		console.log(id + " = off");
 	}, {
 		switch_on_container_path: 'iphone_switch_container_off.png'
 	});
@@ -144,8 +109,8 @@ $('a.switch').each(function(index, item) {
 
 function getStatus(key) {
 	var extensionStatus = localStorage[key];
-	if (extensionStatus == undefined) {
-		extensionStatus = "on";
+	if (typeof extensionStatus === 'undefined') {
+		extensionStatus = "off";
 	}
 	return extensionStatus;
 }

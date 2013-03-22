@@ -3,7 +3,7 @@
 		"urlName": window.location.href
 	}, function(response) {
 		if(response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
-			self.scrollableImageContainer = (response.scrollableImageContainer !== "off");
+			self.scrollableImageContainer = (response.scrollableImageContainer === "on");
 			eliminateSlides();
 		}
 	});
