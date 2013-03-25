@@ -97,6 +97,9 @@
 
 		function start() {
             $("head").append($("<link>",{href: self.cssPath, type: "text/css", rel:"stylesheet"}));
+            if($(self.sectionToBeAttached).width()>620){
+				$("#content_wrap #columns_wrap #col_right").css("float","none");
+			}
 			var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny", nextPageURL);
 			if(nextPageURL) {
@@ -241,7 +244,6 @@
 					// ostatnia strona
 					console.log("Ostatnia Strona");
 					hideSpinner();
-
 				}
 				$(self.sectionToBeRemovedSelector).empty();
 			}

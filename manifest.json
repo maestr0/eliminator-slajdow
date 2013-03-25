@@ -1,7 +1,7 @@
 {
     "name": "Eliminator Slajdów",
     "manifest_version": 2,
-    "version": "1.4.2",
+    "version": "1.4.3",
     "description": "Ulepszony interfejs galerii zdjęc w serwisach AGORY. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
     "page_action": {
         "default_icon": "icon_16.jpg",
