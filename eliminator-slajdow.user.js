@@ -1,8 +1,12 @@
 // ==UserScript==
+// @author 			Pawel Raszewski
+// @email			raszewski@gmail.com
 // @name			Eliminator Slajdow
 // @namespace       Eliminator Slajdow
 // @description 	Eliminuje slajdy na stronach Agory
 // @version			1.4.3
+// @icon        	https://code.google.com/p/lepsza-gazeta-pl/logo?cct=1364168924
+// @updateURL		https://lepsza-gazeta-pl.googlecode.com/git/eliminator-slajdow.user.js
 
 // @include			http://*.gazeta.pl/*
 // @include			http://*.avanti24.pl/*       
