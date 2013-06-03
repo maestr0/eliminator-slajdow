@@ -9,6 +9,7 @@
 // @updateURL		https://lepsza-gazeta-pl.googlecode.com/git/eliminator-slajdow.user.js
 
 // @include			http://*.gazeta.pl/*
+// @include			http://*.bryla.pl/*
 // @include			http://*.avanti24.pl/*       
 // @include			http://*.groszki.pl/*       
 // @include			http://*.ugotuj.to/*       
