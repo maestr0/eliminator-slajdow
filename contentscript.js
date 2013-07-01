@@ -9,24 +9,27 @@
 	});
 	this.scrollableImageContainer = false;
 	this.spinningIconUrl = chrome.extension.getURL("ajax-loader.gif");
-	//this.cssPath = chrome.extension.getURL('eliminatorSlajdow.css');
-	this.cssPath = "";// "http://dl.dropbox.com/u/24730581/eliminator_slajdow_assets/eliminatorSlajdow.css";
+    var facebookIconUrl = chrome.extension.getURL("icon_facebook.gif");
+	this.cssPath = "";
+    var fbRef = "chrome.extension";
 
-	/* SHARED CODE BEGIN */
-	var self = this;
-	this.imageContainer = null;
-	this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay";
-	this.navigationNextULRSelector = ".navigation .next:first";
-	this.navigationPageNumberSelector = ".navigation .page:first";
-	this.articleBodySelector = "#gazeta_article_body";
-	this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
+    /* SHARED CODE BEGIN */
+    var self = this;
+    this.imageContainer = null;
+    this.sectionToBeRemovedSelector = ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay";
+    this.navigationNextULRSelector = ".navigation .next:first";
+    this.navigationPageNumberSelector = ".navigation .page:first";
+    this.articleBodySelector = "#gazeta_article_body";
+    this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
 	this.headerSectionSelector = ".navigation:first h1 span";
-	this.hasSlideNumbers = true;
-	this.spinner = $("<div>", {
+    this.hasSlideNumbers = true;
+    this.spinner = $("<div>", {
 		"class": "eliminatorSlajdowSpinner"
 	}).append($("<img>", {
 		src: self.spinningIconUrl
 	}));
+    var facebookUrl="https://www.facebook.com/pages/Eliminator-Slajdów/235272129951576?ref=" + fbRef;
+    var bugReportUrl="https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl";
 
     function eliminateSlides() {
 
@@ -158,8 +161,12 @@
 			});
 
 			imageContainer.on("click", "span.bugreport", function() {
-				window.open("https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl");
+				window.open(bugReportUrl);
 			});
+
+            imageContainer.on("click", "p.headerLogo", function() {
+                window.open(facebookUrl);
+            });
 		}
 
 		function disableES(url) {
@@ -216,7 +223,8 @@
 					text: "Bezpośredni link"
 				})))).append($("<p>", {
 					"class": "headerLogo",
-					text: 'Eliminator Slajdów'
+					text: 'Eliminator Slajdów',
+                    style:"background-image:url('" + facebookIconUrl + "')"
 				}));
 
 				$(self.imageContainer).append(slideHeader);

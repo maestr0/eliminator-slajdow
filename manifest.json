@@ -27,5 +27,5 @@
         "all_frames": false,
         "css": ["eliminatorSlajdow.css"]
     }],
-    "web_accessible_resources": ["ajax-loader.gif"]
+    "web_accessible_resources": ["ajax-loader.gif","icon_facebook.gif"]
 }

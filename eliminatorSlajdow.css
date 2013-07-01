@@ -37,14 +37,16 @@ div.imageContainer div.slideHeader p.headerLogo {
 	margin-top: 1px;
 	float: right;
 	font-size: 9px;
+    cursor: pointer;
+    background: url('icon_facebook.gif') no-repeat 0 2px;
+    padding-left: 12px;
 }
 
 div.imageContainer div.slideHeader p.headerBar {
 	font-size: 12px;
 	background: grey;
-	padding: 3px;
-	padding-left: 10px;
-	border-radius: 42px;
+    padding: 1px 3px 3px 10px;
+    border-radius: 42px;
 	height: 14px;
 	color: white;
 }
