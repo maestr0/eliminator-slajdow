@@ -38,6 +38,8 @@
 			/*
 				http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html
 				http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html
+				Szerokie zdjecia, zawija prawa kolumne pod komentarze
+				http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17
 			*/
 			self.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')";
 			console.log("jestesmy na stronie z galeria #pagetype_art_blog (2)");
@@ -98,7 +100,7 @@
 		function start() {
             $("head").append($("<link>",{href: self.cssPath, type: "text/css", rel:"stylesheet"}));
             if($(self.sectionToBeAttached).width()>620){
-				$("#content_wrap #columns_wrap #col_right").css("float","none");
+				$("#content_wrap #columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
 			}
 			var nextPageURL = $(self.navigationNextULRSelector).attr("href");
 			console.log("link do nastepnej storny", nextPageURL);
