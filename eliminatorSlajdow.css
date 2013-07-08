@@ -26,6 +26,7 @@ div.imageContainer p.slideTitle {
 div.imageContainer div.slideHeader {
 	float: left;
 	width: 100%;
+	line-height: 16px;
 	margin-bottom: 10px;
 }
 
@@ -40,6 +41,7 @@ div.imageContainer div.slideHeader p.headerLogo {
     cursor: pointer;
     background: url('icon_facebook.gif') no-repeat 0 2px;
     padding-left: 12px;
+    line-height: 14px;
 }
 
 div.imageContainer div.slideHeader p.headerBar {

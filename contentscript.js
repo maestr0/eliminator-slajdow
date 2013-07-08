@@ -30,6 +30,8 @@
         }));
     this.facebookUrl="https://www.facebook.com/pages/Eliminator-Slajdów/235272129951576?ref=" + self.fbRef;
     this.bugReportUrl="https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl";
+    this.slideURLs = new Array();
+    this.classesToBeRemoved = new Array();
 
     function eliminateSlides() {
 
@@ -96,6 +98,17 @@
             $("div#gal_miniatures").empty();
             self.hasSlideNumbers = false;
             start();
+
+        } else if($("div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc").length > 0) {
+            console.log("autotrader.pl - galeria zdjec samochodu");
+            self.articleBodySelector = "div#Zawartosc div.Detale";
+            self.navigationNextULRSelector = "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a";
+            self.sectionToBeRemovedSelector = "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne";
+            self.sectionToBeAttached = "div.ZdjecieGaleriaMaxWielkosc";
+            self.navigationPageNumberSelector = "div.PasekZjecieOdstep";
+            self.hasSlideNumbers = false;
+            self.classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
+            start();
         } else {
             console.log("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
         }
@@ -119,6 +132,7 @@
                 self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
                 bind();
                 showSpinnier();
+                slideURLs.push(document.location.pathname);
                 $.get(nextPageURL, function(nextPage) {
                     findNextSlideURL(nextPage, nextPageURL);
                 });
@@ -184,10 +198,11 @@
                 var pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
                 console.log("numer strony", pageNumber);
                 var nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
-                if(url===nextPageURL){
-                    console.log("Chyba cos jest zle. URL do nastepnego slajdu jest taki sam jak do obecnego :/");
+                if(url===nextPageURL || $.inArray(url, slideURLs) >-1){
+                    console.log("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy :/", url, nextPageURL);
                     return;
                 }
+                slideURLs.push(url);
                 var pageNumberLabel = "Ostatni slajd";
                 if(pageNumber.length === 2) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
@@ -224,7 +239,7 @@
                                 })))).append($("<p>", {
                         "class": "headerLogo",
                         text: 'Eliminator Slajdów',
-                        style:"background:url('" + self.facebookIconUrl + "')"
+                        style:"background:url('" + self.facebookIconUrl + "') no-repeat 0 2px"
                     }));
 
                 $(self.imageContainer).append(slideHeader);
@@ -256,6 +271,11 @@
                     hideSpinner();
                 }
                 $(self.sectionToBeRemovedSelector).empty();
+                
+                for(var i in self.classesToBeRemoved) {
+                    $("." + self.classesToBeRemoved[i]).removeClass(self.classesToBeRemoved[i]);
+                }
+                
             }
 
             $(".imageContainer > div").css("float", "left").css("width", "100%");
