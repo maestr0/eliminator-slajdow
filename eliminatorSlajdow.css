@@ -1,3 +1,7 @@
+html, body {
+    overflow: auto;
+}
+
 div.eliminatorSlajdowSpinner {
 	text-align: center;
 }

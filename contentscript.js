@@ -100,6 +100,10 @@
             start();
 
         } else if($("div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc").length > 0) {
+            /*
+            Regresja
+            http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg
+            */
             console.log("autotrader.pl - galeria zdjec samochodu");
             self.articleBodySelector = "div#Zawartosc div.Detale";
             self.navigationNextULRSelector = "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a";
@@ -132,7 +136,7 @@
                 self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
                 bind();
                 showSpinnier();
-                slideURLs.push(document.location.pathname);
+                self.slideURLs.push(document.location.pathname);
                 $.get(nextPageURL, function(nextPage) {
                     findNextSlideURL(nextPage, nextPageURL);
                 });
@@ -198,11 +202,11 @@
                 var pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
                 console.log("numer strony", pageNumber);
                 var nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
-                if(url===nextPageURL || $.inArray(url, slideURLs) >-1){
+                if(url===nextPageURL || $.inArray(url, self.slideURLs) >-1){
                     console.log("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy :/", url, nextPageURL);
                     return;
                 }
-                slideURLs.push(url);
+                self.slideURLs.push(url);
                 var pageNumberLabel = "Ostatni slajd";
                 if(pageNumber.length === 2) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
