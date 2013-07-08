@@ -1,16 +1,16 @@
-(function($) {
+(function ($) {
     chrome.extension.sendRequest({
-		"urlName": window.location.href
-	}, function(response) {
-		if(response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
-			self.scrollableImageContainer = (response.scrollableImageContainer === "on");
-			eliminateSlides();
-		}
-	});
-	this.scrollableImageContainer = false;
-	this.spinningIconUrl = chrome.extension.getURL("ajax-loader.gif");
+        "urlName": window.location.href
+    }, function (response) {
+        if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
+            self.scrollableImageContainer = (response.scrollableImageContainer === "on");
+            eliminateSlides();
+        }
+    });
+    this.scrollableImageContainer = false;
+    this.spinningIconUrl = chrome.extension.getURL("ajax-loader.gif");
     this.facebookIconUrl = chrome.extension.getURL("icon_facebook.gif");
-	this.cssPath = "";
+    this.cssPath = "";
     this.fbRef = "chrome.extension";
 
     /* SHARED CODE BEGIN */
@@ -28,18 +28,18 @@
     }).append($("<img>", {
             src: self.spinningIconUrl
         }));
-    this.facebookUrl="https://www.facebook.com/pages/Eliminator-Slajdów/235272129951576?ref=" + self.fbRef;
-    this.bugReportUrl="https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl";
-    this.slideURLs = new Array();
-    this.classesToBeRemoved = new Array();
+    this.facebookUrl = "https://www.facebook.com/pages/Eliminator-Slajdów/235272129951576?ref=" + self.fbRef;
+    this.bugReportUrl = "https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl";
+    this.slideURLs = [];
+    this.classesToBeRemoved = [];
 
     function eliminateSlides() {
 
-        if($("body#pagetype_photo").length > 0) {
+        if ($("body#pagetype_photo").length > 0) {
             console.log("jestesmy na stronie z galeria #pagetype_photo (1)");
             $("#gazeta_article_miniatures").empty();
             start();
-        } else if($("body#pagetype_art_blog").length > 0) {
+        } else if ($("body#pagetype_art_blog").length > 0) {
             /*
              http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html
              http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html
@@ -49,7 +49,7 @@
             self.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')";
             console.log("jestesmy na stronie z galeria #pagetype_art_blog (2)");
             start();
-        } else if($("body#pagetype_art").length > 0) {
+        } else if ($("body#pagetype_art").length > 0) {
             /*
              Regresja
              http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html
@@ -58,7 +58,7 @@
             self.sectionToBeAttached = "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')"; // sekcja komentarza i obrazek
             start();
 
-        } else if($("div#art div#container_gal").length > 0) {
+        } else if ($("div#art div#container_gal").length > 0) {
             /*
              Regresja
              http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html
@@ -72,7 +72,7 @@
             self.sectionToBeAttached = "div#container_gal";
             start();
 
-        } else if($("div#article div#article_body").length > 0) {
+        } else if ($("div#article div#article_body").length > 0) {
             /*
              Regresja
              http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html
@@ -84,7 +84,7 @@
             self.sectionToBeAttached = "div#container_gal";
             self.navigationPageNumberSelector = "#gal_navi .paging";
             start();
-        } else if($("div#k1 div#k1p div#gal_outer").length > 0) {
+        } else if ($("div#k1 div#k1p div#gal_outer").length > 0) {
             /*
              Regresja
              http://wyborcza.pl/51,75248,12537285.html?i=0
@@ -99,11 +99,11 @@
             self.hasSlideNumbers = false;
             start();
 
-        } else if($("div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc").length > 0) {
+        } else if ($("div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc").length > 0) {
             /*
-            Regresja
-            http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg
-            */
+             Regresja
+             http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg
+             */
             console.log("autotrader.pl - galeria zdjec samochodu");
             self.articleBodySelector = "div#Zawartosc div.Detale";
             self.navigationNextULRSelector = "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a";
@@ -118,15 +118,15 @@
         }
 
         function start() {
-            $("head").append($("<link>",{href: self.cssPath, type: "text/css", rel:"stylesheet"}));
-            if($(self.sectionToBeAttached).width()>620){
+            $("head").append($("<link>", {href: self.cssPath, type: "text/css", rel: "stylesheet"}));
+            if ($(self.sectionToBeAttached).width() > 620) {
                 $("#content_wrap #columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
             }
             var nextPageURL = $(self.navigationNextULRSelector).attr("href");
             console.log("link do nastepnej storny", nextPageURL);
-            if(nextPageURL) {
+            if (nextPageURL) {
                 var imageContainerClass = 'noScroll';
-                if(self.scrollableImageContainer) {
+                if (self.scrollableImageContainer) {
                     imageContainerClass = 'scroll';
                 }
 
@@ -137,7 +137,7 @@
                 bind();
                 showSpinnier();
                 self.slideURLs.push(document.location.pathname);
-                $.get(nextPageURL, function(nextPage) {
+                $.get(nextPageURL, function (nextPage) {
                     findNextSlideURL(nextPage, nextPageURL);
                 });
             }
@@ -153,9 +153,9 @@
 
         function bind() {
             var imageContainer = $("div.imageContainer");
-            imageContainer.on("click", "span.scrollSwitch", function() {
+            imageContainer.on("click", "span.scrollSwitch", function () {
                 imageContainer.toggleClass("noScroll").toggleClass("scroll");
-                if(self.scrollableImageContainer) {
+                if (self.scrollableImageContainer) {
                     console.log("slider switch OFF");
                     imageContainer.find("span.scrollSwitch").text("Pokaż pasek przewijania");
                     $('html, body').animate({
@@ -178,17 +178,17 @@
                 }
             });
 
-            imageContainer.on("click", "span.bugreport", function() {
+            imageContainer.on("click", "span.bugreport", function () {
                 window.open(self.bugReportUrl);
             });
 
-            imageContainer.on("click", "p.headerLogo", function() {
+            imageContainer.on("click", "p.headerLogo", function () {
                 window.open(self.facebookUrl);
             });
         }
 
         function disableES(url) {
-            if(url.indexOf("?") > -1) {
+            if (url.indexOf("?") > -1) {
                 return url.replace("?", "?es=off&");
             } else {
                 return url + "?es=off";
@@ -198,19 +198,19 @@
         function findNextSlideURL(galleryPage, url) {
             hideSpinner();
             var articleSection = $(galleryPage).find(self.sectionToBeAttached);
-            if($(articleSection).length > 0) {
+            if ($(articleSection).length > 0) {
                 var pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
                 console.log("numer strony", pageNumber);
                 var nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
-                if(url===nextPageURL || $.inArray(url, self.slideURLs) >-1){
+                if (url === nextPageURL || $.inArray(url, self.slideURLs) > -1) {
                     console.log("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy :/", url, nextPageURL);
                     return;
                 }
                 self.slideURLs.push(url);
                 var pageNumberLabel = "Ostatni slajd";
-                if(pageNumber.length === 2) {
+                if (pageNumber.length === 2) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
-                } else if(!self.hasSlideNumbers) {
+                } else if (!self.hasSlideNumbers) {
                     pageNumberLabel = "Slajd";
                 }
 
@@ -243,7 +243,7 @@
                                 })))).append($("<p>", {
                         "class": "headerLogo",
                         text: 'Eliminator Slajdów',
-                        style:"background:url('" + self.facebookIconUrl + "') no-repeat 0 2px"
+                        style: "background:url('" + self.facebookIconUrl + "') no-repeat 0 2px"
                     }));
 
                 $(self.imageContainer).append(slideHeader);
@@ -253,7 +253,7 @@
                     "class": "slide_" + pageNumber
                 })).children().last();
 
-                if($(galleryPage).find(self.headerSectionSelector).length === 1) {
+                if ($(galleryPage).find(self.headerSectionSelector).length === 1) {
                     var desc = $(galleryPage).find(self.headerSectionSelector).html();
                     $(slideWrapper).append($("<p>", {
                         "class": "slideTitle",
@@ -263,10 +263,10 @@
 
                 $(slideWrapper).append($(articleSection));
 
-                if((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
+                if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!self.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     console.log("link do nastepnej storny", nextPageURL);
                     showSpinnier();
-                    $.get(nextPageURL, function(nextPage) {
+                    $.get(nextPageURL, function (nextPage) {
                         findNextSlideURL(nextPage, nextPageURL);
                     });
                 } else {
@@ -275,20 +275,20 @@
                     hideSpinner();
                 }
                 $(self.sectionToBeRemovedSelector).empty();
-                
-                for(var i in self.classesToBeRemoved) {
+
+                for (var i in self.classesToBeRemoved) {
                     $("." + self.classesToBeRemoved[i]).removeClass(self.classesToBeRemoved[i]);
                 }
-                
+
             }
 
             $(".imageContainer > div").css("float", "left").css("width", "100%");
             var imageContainer = $(".imageContainer");
-            if(imageContainer.width() > 950){
+            if (imageContainer.width() > 950) {
                 imageContainer.width(950);
             }
         }
 
         /* SHARED CODE END */
-	}
+    }
 })(jQuery);
