@@ -107,7 +107,7 @@
             console.log("autotrader.pl - galeria zdjec samochodu");
             self.articleBodySelector = "div#Zawartosc div.Detale";
             self.navigationNextULRSelector = "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a";
-            self.sectionToBeRemovedSelector = "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne";
+            self.sectionToBeRemovedSelector = "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole";
             self.sectionToBeAttached = "div.ZdjecieGaleriaMaxWielkosc";
             self.navigationPageNumberSelector = "div.PasekZjecieOdstep";
             self.hasSlideNumbers = false;
