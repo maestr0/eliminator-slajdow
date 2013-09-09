@@ -5,21 +5,18 @@ chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
 function checkForValidUrl(tabId, changeInfo, tab) {
     if (canRunOnCurrentUrl(tab.url) === true) {
-        var icon = 'icon_48.jpg';
         chrome.pageAction.setIcon({
-            path: icon,
+            path: 'icon_48.jpg',
             tabId: tabId
         });
 
         chrome.pageAction.show(tabId);
 
     } else if (canRunOnCurrentUrl(tab.url) === -1) {
-        var icon = 'icon_48_off.jpg';
         chrome.pageAction.setIcon({
-            path: icon,
+            path: 'icon_48_off.jpg',
             tabId: tabId
         });
-
         chrome.pageAction.show(tabId);
     } else {
         chrome.pageAction.hide(tabId);
@@ -33,17 +30,15 @@ function onRequest(request, sender, sendResponse) {
     if (location.hostname == sender.id && request.urlName !== undefined) {
         sendResponse({
             "canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName),
-            "scrollableImageContainer": localStorage['scrollableImageContainer']
+            "scrollableImageContainer": localStorage.scrollableImageContainer
         });
-
-
     }
 }
 // Return nothing to let the connection be cleaned up.
 
 function canRunOnCurrentUrl(hostname) {
     var canRunHere = false;
-    var allowedDomains = JSON.parse(localStorage['allowedDomains']);
+    var allowedDomains = JSON.parse(localStorage.allowedDomains);
     $.each(allowedDomains, function (allowedHost, enabled) {
         if (hostname.indexOf(allowedHost) != -1) {
             if (enabled) {
@@ -53,21 +48,21 @@ function canRunOnCurrentUrl(hostname) {
                 console.log('Eliminator Slajdow wyłączony na: ' + allowedHost);
                 canRunHere = -1; // flag indicating that the extension is disabled on the current url
             }
-            return false; // brak the loop
+            return false;
         }
     });
     return canRunHere;
 }
 
 function onInstall() {
-    console.log("Zainstalowano rozszerzenie 'Wszystkie zdjecia na raz. GALERIA gazeta.pl'");
+    console.log("Zainstalowano rozszerzenie 'Eliminator Slajdów'");
     updateAllowedDomainList();
 }
 
-function onUpdate(prevVersion) {
-    console.log("Aktualizacja rozszerzenia 'Wszystkie zdjecia na raz. GALERIA gazeta.pl'");
+function onUpdate() {
+    console.log("Aktualizacja rozszerzenia 'Eliminator Slajdów'");
     updateAllowedDomainList();
-    localStorage['scrollableImageContainer'] = "off";
+    localStorage.scrollableImageContainer = "off";
     console.log("Scroll wylaczony");
 }
 
@@ -78,24 +73,24 @@ function getVersion() {
 
 // Check if the version has changed.
 var currVersion = getVersion();
-var prevVersion = localStorage['version'];
+var prevVersion = localStorage.version;
 if (currVersion != prevVersion) {
     // Check if we just installed this extension.
     if (typeof prevVersion == 'undefined') {
-        onInstall();
+        onInstall();//
     } else {
-        onUpdate(prevVersion);
+        onUpdate();
     }
-    localStorage['version'] = currVersion;
+    localStorage.version = currVersion;
 }
 
 function updateAllowedDomainList() {
-    var standardAllowedDomains = new Array("autotrader.pl","avanti24.pl", "groszki.pl", "ugotuj.to", "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl", "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl", "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl", "gazetapraca.pl", "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net", "wyborcza.pl", "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl", "bryla.pl", "domiwnetrze.pl");
-    localStorage['standardAllowedDomains'] = JSON.stringify(standardAllowedDomains);
+    var standardAllowedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to", "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl", "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl", "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl", "gazetapraca.pl", "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net", "wyborcza.pl", "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl", "bryla.pl", "domiwnetrze.pl");
+    localStorage.standardAllowedDomains = JSON.stringify(standardAllowedDomains);
 
     var allowedDomains = {};
-    if (typeof localStorage['allowedDomains'] !== "undefined") {
-        allowedDomains = JSON.parse(localStorage['allowedDomains']);
+    if (typeof localStorage.allowedDomains !== "undefined") {
+        allowedDomains = JSON.parse(localStorage.allowedDomains);
     }
 
     $.each(standardAllowedDomains, function (index, host) {
@@ -103,6 +98,6 @@ function updateAllowedDomainList() {
             allowedDomains[host] = true;
         }
     });
-    localStorage['allowedDomains'] = JSON.stringify(allowedDomains);
+    localStorage.allowedDomains = JSON.stringify(allowedDomains);
 }
 //end

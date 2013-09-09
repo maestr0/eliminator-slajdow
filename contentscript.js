@@ -8,8 +8,8 @@
         }
     });
     this.scrollableImageContainer = false;
-    this.spinningIconUrl = chrome.extension.getURL("ajax-loader.gif");
-    this.facebookIconUrl = chrome.extension.getURL("icon_facebook.gif");
+    this.spinningIconUrl = chrome.extension.getURL("images/ajax-loader.gif");
+    this.facebookIconUrl = chrome.extension.getURL("images/icon_facebook.gif");
     this.cssPath = "";
     this.fbRef = "chrome.extension";
 
@@ -23,15 +23,15 @@
     this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
     this.headerSectionSelector = ".navigation:first h1 span";
     this.hasSlideNumbers = true;
-    this.spinner = $("<div>", {
-        "class": "eliminatorSlajdowSpinner"
-    }).append($("<img>", {
-            src: self.spinningIconUrl
-        }));
-    this.facebookUrl = "https://www.facebook.com/pages/Eliminator-Slajdów/235272129951576?ref=" + self.fbRef;
+    this.facebookUrl = "https://www.facebook.com/pages/Eliminator-Slajdów/235272129951576?ref=" + fbRef;
     this.bugReportUrl = "https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl";
     this.slideURLs = [];
     this.classesToBeRemoved = [];
+    this.spinner = $("<div>", {
+        "class": "eliminatorSlajdowSpinner"
+    }).append($("<img>", {
+            src: spinningIconUrl
+        }));
 
     function eliminateSlides() {
 
@@ -111,16 +111,16 @@
             self.sectionToBeAttached = "div.ZdjecieGaleriaMaxWielkosc";
             self.navigationPageNumberSelector = "div.PasekZjecieOdstep";
             self.hasSlideNumbers = false;
-            self.classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
+            classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
             start();
         } else {
             console.log("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
         }
 
         function start() {
-            $("head").append($("<link>", {href: self.cssPath, type: "text/css", rel: "stylesheet"}));
+            $("head").append($("<link>", {href: cssPath, type: "text/css", rel: "stylesheet"}));
             if ($(self.sectionToBeAttached).width() > 620) {
-                $("#content_wrap #columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
+                $("#content_wrap").find("#columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
             }
             var nextPageURL = $(self.navigationNextULRSelector).attr("href");
             console.log("link do nastepnej storny", nextPageURL);
@@ -136,7 +136,7 @@
                 self.imageContainer = $(self.articleBodySelector).parent().find(".imageContainer");
                 bind();
                 showSpinnier();
-                self.slideURLs.push(document.location.pathname);
+                slideURLs.push(document.location.pathname);
                 $.get(nextPageURL, function (nextPage) {
                     findNextSlideURL(nextPage, nextPageURL);
                 });
@@ -179,11 +179,11 @@
             });
 
             imageContainer.on("click", "span.bugreport", function () {
-                window.open(self.bugReportUrl);
+                window.open(bugReportUrl);
             });
 
             imageContainer.on("click", "p.headerLogo", function () {
-                window.open(self.facebookUrl);
+                window.open(facebookUrl);
             });
         }
 
@@ -202,11 +202,11 @@
                 var pageNumber = $(galleryPage).find(self.navigationPageNumberSelector).text().split("/");
                 console.log("numer strony", pageNumber);
                 var nextPageURL = $(galleryPage).find(self.navigationNextULRSelector).attr("href");
-                if (url === nextPageURL || $.inArray(url, self.slideURLs) > -1) {
+                if (url === nextPageURL || $.inArray(url, slideURLs) > -1) {
                     console.log("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy :/", url, nextPageURL);
                     return;
                 }
-                self.slideURLs.push(url);
+                slideURLs.push(url);
                 var pageNumberLabel = "Ostatni slajd";
                 if (pageNumber.length === 2) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
@@ -243,7 +243,7 @@
                                 })))).append($("<p>", {
                         "class": "headerLogo",
                         text: 'Eliminator Slajdów',
-                        style: "background:url('" + self.facebookIconUrl + "') no-repeat 0 2px"
+                        style: "background:url('" + facebookIconUrl + "') no-repeat 0 2px"
                     }));
 
                 $(self.imageContainer).append(slideHeader);
@@ -253,8 +253,8 @@
                     "class": "slide_" + pageNumber
                 })).children().last();
 
-                if ($(galleryPage).find(self.headerSectionSelector).length === 1) {
-                    var desc = $(galleryPage).find(self.headerSectionSelector).html();
+                if ($(galleryPage).find(headerSectionSelector).length === 1) {
+                    var desc = $(galleryPage).find(headerSectionSelector).html();
                     $(slideWrapper).append($("<p>", {
                         "class": "slideTitle",
                         text: desc
@@ -276,8 +276,8 @@
                 }
                 $(self.sectionToBeRemovedSelector).empty();
 
-                for (var i in self.classesToBeRemoved) {
-                    $("." + self.classesToBeRemoved[i]).removeClass(self.classesToBeRemoved[i]);
+                for (var i in classesToBeRemoved) {
+                    $("." + classesToBeRemoved[i]).removeClass(classesToBeRemoved[i]);
                 }
 
             }
