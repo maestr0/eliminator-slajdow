@@ -7,8 +7,8 @@ module.exports = function (grunt) {
                 separator: ';'
             },
             popup: {
-                src: ['jquery-ui-1.8.16.custom.min.js', 'jquery.iphone-switch.js', 'popup.js'],
-                dest: 'package/js/popup.js'
+                src: ['js/jquery.iphone-switch.js', 'js/popup.js'],
+                dest: 'package/js/popup.min.js'
             }
         },
         compass: {
@@ -21,8 +21,8 @@ module.exports = function (grunt) {
             },
             dev: {                    // Another target
                 options: {
-                    sassDir: 'sass',
-                    cssDir: 'css',
+                    sassDir: 'scss',
+                    cssDir: 'package/css',
                     environment: 'production'
                 }
             }        },
@@ -45,14 +45,14 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'package/js/contentscript.min.js': ['package/js/contentscript.js'],
+                    'package/js/contentscript.min.js': ['js/contentscript.js'],
                     'package/js/popup.min.js': ['package/js/popup.js'],
-                    'package/js/background.min.js': ['package/js/background.js']
+                    'package/js/background.min.js': ['js/background.js']
                 }
             }
         },
         jshint: {
-            files: ['contentscript.js', 'background.js', 'popup.js'],
+            files: ['js/contentscript.js', 'js/background.js', 'js/popup.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
@@ -66,15 +66,14 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 files: [
-                    {expand: true, src: ['css/**', 'background.html', 'popup.html'], dest: 'package/'},
-                    {expand: true, src: ['css/**', 'background.html', 'popup.html'], dest: 'package/'},
+                    {expand: true, src: ['html/background.html', 'html/popup.html'], dest: 'package/'},
                     {expand: true, src: ['icon*.jpg', 'iphone*.png', 'ajax-loader.gif', 'icon_facebook.gif'], dest: 'package/images'}
                 ]
             }
         },
         watch: {
             files: ['<%= jshint.files %>', 'scss/es.scss', '*.html'],
-            tasks: ['jshint', 'concat', 'uglify', 'compass']
+            tasks: ['jshint', 'concat', 'uglify', 'compass','copy']
         }
     });
 

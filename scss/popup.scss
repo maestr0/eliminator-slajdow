@@ -1,0 +1,58 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
+}
+
+.label {
+
+  display: inline;
+  line-height: 28px;
+}
+
+.switch {
+  float: right;
+}
+
+.waning {
+  color: red;
+}
+
+#options {
+  width: 600px;
+}
+
+#domainList span {
+  float: right;
+  margin-top: -4px;
+}
+
+#domainList span button {
+  margin-bottom: 3px;
+}
+
+#domainList .disabled {
+  color: red;
+}
+
+#domainList .ui-selecting {
+  background: #FECA40;
+}
+
+#domainList .ui-selected {
+  background: #F39814;
+  color: white;
+}
+
+#domainList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#domainList li {
+  margin: 3px;
+  padding: 0.4em;
+  font-size: 12px;
+  height: 14px;
+}

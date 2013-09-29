@@ -1,100 +1,62 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Eliminator Slajdów - USTAWIENIA</title>
-<link rel="stylesheet"
-	href="../css/ui-lightness/jquery-ui-1.8.16.custom.css">
-<style>
-body {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 14px;
-}
-
-.label {
-
-	display: inline;
-	line-height: 28px;
-}
-
-.switch {
-	float: right;
-}
-.waning {
-	color:red;
-}
-
-#options {
-	width: 600px;
-}
-
-#domainList span {float:right; margin-top: -4px;}
-#domainList span button {margin-bottom: 3px;}
-#domainList .disabled {color: red;}
-#domainList .ui-selecting { background: #FECA40; }
-#domainList .ui-selected { background: #F39814; color: white; }
-#domainList { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-#domainList li { margin: 3px; padding: 0.4em; font-size: 12px; height: 14px; }
-
-</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Eliminator Slajdów - USTAWIENIA</title>
+    <link rel="stylesheet" href="css/popup.css">
 </head>
 
 <body>
 <div id="options">
+    <h3><a href="#">Opcje - Eliminator Slajdów</a></h3>
 
+    <div>
+        <p class="extensionStatus switch">
 
+        <p class="extensionStatusMessage label">Slajdy z paskiem przewijania</p>
+        <a class="switch" id="scrollableImageContainer"
+           onclick="javascript:changeStatus();"></a></p>
+        <p>Lista domen na ktorych dziala rozszerzenie</p>
+        <ol id="domainList">
+        </ol>
+        <p>Uwaga: W chwili obecnej to rozszerzenie dziala TYLKO na stronach opartych o CMS ktory uzywa Gazeta.pl. Jesli
+            myslisz, że na standardowej liscie brakuje jakiejs domeny to możesz ją dodać poniżej.</p>
+        <label for="newDomain">Nazwa domeny:</label>
+        <input id="newDomain"></input>
+        <button id="addNewDomain">Dodaj</button>
+        <br/>
+        <button id="defaultSettings">Przywroc domyślną liste</button>
+    </div>
+    <h3><a href="#">O autorze</a></h3>
 
+    <div>
+        <p>Autor: Paweł Raszewski</p>
 
+        <p>Email: <a href="mailto:raszewski@gmail.com?Subject=Lepsza%20Gazeta.PL">raszewski@gmail.com</a></p>
 
-<h3><a href="#">Opcje - Eliminator Slajdów</a></h3>	
-<div>
-	<p class="extensionStatus switch">
-	<p class="extensionStatusMessage label">Slajdy z paskiem przewijania</p>
-	<a class="switch" id="scrollableImageContainer"
-		onclick="javascript:changeStatus();"></a></p>
+        <p>Strona projektu: <a href="https://code.google.com/p/lepsza-gazeta-pl/" target="_new">https://code.google.com/p/lepsza-gazeta-pl/</a>
+        </p>
 
+        <p>Zgłoś błąd: <a href="https://code.google.com/p/lepsza-gazeta-pl/issues/list" target="_new">https://code.google.com/p/lepsza-gazeta-pl/issues/list</a>
+        </p>
 
-	<p>Lista domen na ktorych dziala rozszerzenie</p>
-<ol id="domainList">
-	
-	</ol>
-	
-<p>Uwaga: W chwili obecnej to rozszerzenie dziala TYLKO na stronach opartych o CMS ktory uzywa Gazeta.pl. Jesli myslisz, że na standardowej liscie brakuje jakiejs domeny to możesz ją dodać poniżej.</p>
-<label for="newDomain">Nazwa domeny:</label>
-	<input id="newDomain"></input>
-	<button id="addNewDomain">Dodaj</button>
-<br />
-<button id="defaultSettings">Przywroc domyślną liste</button>
+        <p>Licencja: GPL3</p>
 
+        <p>Jeśli podoba Ci się ten dodatek możesz przekazać mi parę złotych w nagrodę ;)</p>
+
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="SMS8WQBP3DU4N">
+            <input type="image" src="https://www.paypalobjects.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif" border="0"
+                   name="submit" alt="PayPal — Płać wygodnie i bezpiecznie">
+            <img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
+        </form>
+
+    </div>
 </div>
 
-
-
-
-
-
-
-
-<h3><a href="#">O autorze</a></h3>
-<div>
-<p>Autor: Paweł Raszewski</p>
-<p>Email: <a href="mailto:raszewski@gmail.com?Subject=Lepsza%20Gazeta.PL">raszewski@gmail.com</a></p>
-<p>Strona projektu: <a href="https://code.google.com/p/lepsza-gazeta-pl/" target="_new" >https://code.google.com/p/lepsza-gazeta-pl/</a></p>
-<p>Zgłoś błąd: <a href="https://code.google.com/p/lepsza-gazeta-pl/issues/list" target="_new" >https://code.google.com/p/lepsza-gazeta-pl/issues/list</a></p>
-<p>Licencja: GPL3</p>
-<p>Jeśli podoba Ci się ten dodatek możesz przekazać mi parę złotych w nagrodę ;)</p>
-
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="SMS8WQBP3DU4N">
-<input type="image" src="https://www.paypalobjects.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal — Płać wygodnie i bezpiecznie">
-<img alt="" border="0" src="https://www.paypalobjects.com/pl_PL/i/scr/pixel.gif" width="1" height="1">
-</form>
-
-</div>
-</div>
-
-   <script src="js/popup.min.js"></script>
+<script src="js/popup.min.js"></script>
 </body>
 </html>
 
