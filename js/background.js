@@ -77,7 +77,7 @@ var prevVersion = localStorage.version;
 if (currVersion != prevVersion) {
     // Check if we just installed this extension.
     if (typeof prevVersion == 'undefined') {
-        onInstall();//
+        onInstall();
     } else {
         onUpdate();
     }
@@ -100,4 +100,3 @@ function updateAllowedDomainList() {
     });
     localStorage.allowedDomains = JSON.stringify(allowedDomains);
 }
-//end

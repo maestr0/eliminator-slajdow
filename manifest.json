@@ -2,27 +2,27 @@
     "name": "Eliminator Slajdów",
     "manifest_version": 2,
     "version": "@@version",
-    "description": "Ulepszony interfejs galerii zdjęc w serwisach AGORY. Wszystkie zdjęcia wyświetlają się na jednej stronie.",
+    "description": "Dodatek eliminuje slajdy w artykulach na stronach koncernu Agory. np. gazeta.pl",
     "page_action": {
-        "default_icon": "icon_16.jpg",
+        "default_icon": "images/icon_48.jpg",
         "default_title": "Eliminator Slajdów",
-        "default_popup": "popup.html"
+        "default_popup": "html/popup.html"
     },
     "permissions": ["tabs"],
     "incognito": "spanning",
-    "options_page": "popup.html",
+    "options_page": "html/popup.html",
     "content_security_policy": "script-src 'self'; object-src 'self'",
     "icons": {
-        "16": "icon_16.jpg",
-        "48": "icon_48.jpg",
-        "128": "icon_128.jpg"
+        "16": "images/icon_16.jpg",
+        "48": "images/icon_48.jpg",
+        "128": "images/icon_128.jpg"
     },
     "background": {
-        "page": "background.html"
+        "page": "html/background.html"
     },
     "content_scripts": [{
         "matches": ["http://*/*"],
-        "js": ["js/contentscript.js"],
+        "js": ["js/contentscript@@min.suffix.js"],
         "run_at": "document_idle",
         "all_frames": false,
         "css": ["css/es.css"]

@@ -8,7 +8,7 @@ module.exports = function (grunt) {
             },
             popup: {
                 src: ['js/jquery.iphone-switch.js', 'js/popup.js'],
-                dest: 'package/js/popup.min.js'
+                dest: 'package/js/popup.js'
             }
         },
         compass: {
@@ -27,21 +27,37 @@ module.exports = function (grunt) {
                 }
             }        },
         replace: {
-            dist: {
+            prod: {
                 options: {
                     variables: {
-                        'version': '<%=pkg.version%>'
+                        'version': '<%=pkg.version%>',
+                        'min.suffix': '.min'
                     },
                     prefix: '@@'
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['manifest.json'], dest: 'package/'}
+                    {expand: true, flatten: true, src: ['manifest.json'], dest: 'package/'},
+                    {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'}
+                ]
+            },
+            dev: {
+                options: {
+                    variables: {
+                        'version': '<%=pkg.version%>',
+                        'min.suffix': ''
+                    },
+                    prefix: '@@'
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['manifest.json'], dest: 'package/'},
+                    {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'}
                 ]
             }
+
         },
         uglify: {
             options: {
-                banner: '/*!\n<%= manifest.name %> v<%=pkg.version %>\nAuthor: <%= pkg.author%>\nBuild: <%= grunt.template.today("dd-mm-yyyy hh:MM:ss") %> */\n'
+                banner: '/*!\n<%= manifest.name %>\nAuthor: <%= pkg.author%>\nBuild: v<%=pkg.version %> <%= grunt.template.today("dd-mm-yyyy HH:MM:ss") %> */\n'
             },
             dist: {
                 files: {
@@ -64,16 +80,23 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            main: {
+            prod: {
                 files: [
-                    {expand: true, src: ['html/background.html', 'html/popup.html'], dest: 'package/'},
-                    {expand: true, src: ['icon*.jpg', 'iphone*.png', 'ajax-loader.gif', 'icon_facebook.gif'], dest: 'package/images'}
+                    {expand: true, src: ['images/icon*.jpg', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
+                    {expand: true, src: ['js/jquery-2.0.3.min.js'], dest: 'package/'}
+                ]
+            },
+            dev: {
+                files: [
+                    {expand: true, src: ['images/icon*.jpg', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
+                    {expand: true, src: ['js/jquery-2.0.3.min.js', 'js/contentscript.js', 'js/background.js'], dest: 'package/'}
+
                 ]
             }
         },
         watch: {
-            files: ['<%= jshint.files %>', 'scss/es.scss', '*.html'],
-            tasks: ['jshint', 'concat', 'uglify', 'compass','copy']
+            files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*','js/*'],
+            tasks: ['jshint', 'concat', 'replace:dev', 'compass', 'copy']
         }
     });
 
@@ -89,6 +112,6 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['jshint']);
 
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass']);
-    grunt.registerTask('package', ['jshint', 'concat', 'uglify', 'compass', 'replace', 'copy']);
+    grunt.registerTask('package', ['jshint', 'concat', 'uglify', 'compass', 'replace:prod', 'copy']);
 
 };

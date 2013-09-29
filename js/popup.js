@@ -69,13 +69,6 @@ var fnGenerateDomainList = function() {
 		fnBindEvents();
 	};
 
-
-
-$("#options").accordion({
-	autoHeight: false,
-	navigation: false
-});
-
 fnGenerateDomainList();
 
 function changeStatus() {
