@@ -1,4 +1,4 @@
-(function ($) {
+(function () {
     chrome.extension.sendRequest({
         "urlName": window.location.href
     }, function (response) {
@@ -291,4 +291,4 @@
 
         /* SHARED CODE END */
     }
-})(jQuery);
+})();

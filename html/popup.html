@@ -1,42 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Eliminator Slajdów - USTAWIENIA</title>
     <link rel="stylesheet" href="../css/popup.css">
 </head>
-
-
 <body>
 <div id="options">
-    <h3><a href="#">Opcje - Eliminator Slajdów</a></h3>
-
-    <div>
-        <p class="extensionStatus switch">
-
-        <p class="extensionStatusMessage label">Slajdy z paskiem przewijania</p>
-        <a class="switch" id="scrollableImageContainer"
-           onclick="javascript:changeStatus();"></a></p>
-        <p>Lista portali na ktorych dziala rozszerzenie</p>
-        <ol id="domainList">
-        </ol>
-        <p>Uwaga: W chwili obecnej to rozszerzenie dziala TYLKO na stronach opartych o CMS ktory uzywa Gazeta.pl. Jesli
-            myslisz, że na standardowej liscie brakuje jakiejs domeny to możesz ją dodać poniżej.</p>
-        <label for="newDomain">Nazwa domeny:</label>
-        <input id="newDomain"></input>
-        <button id="addNewDomain">Dodaj</button>
-        <br/>
-        <button id="defaultSettings">Przywroc domyślną liste</button>
-    </div>
-    <h3><a href="#">O autorze</a></h3>
+    <h3 class="domains">O autorze</h3>
 
     <div>
         <p>Autor: Paweł Raszewski</p>
 
         <p>Email: <a href="mailto:raszewski@gmail.com?Subject=Lepsza%20Gazeta.PL">raszewski@gmail.com</a></p>
 
-        <p>Strona projektu: <a href="https://code.google.com/p/lepsza-gazeta-pl/" target="_new">https://code.google.com/p/lepsza-gazeta-pl/</a>
+        <p>Strona projektu: <a href="https://github.com/maestr0/eliminator-slajdow-chrome" target="_new">https://github.com/maestr0/eliminator-slajdow-chrome</a>
         </p>
 
         <p>Zgłoś błąd: <a href="https://code.google.com/p/lepsza-gazeta-pl/issues/list" target="_new">https://code.google.com/p/lepsza-gazeta-pl/issues/list</a>
@@ -55,9 +33,26 @@
         </form>
 
     </div>
-</div>
 
-<script src="../js/jquery-2.0.3.min.js"></script>
+    <h3>Opcje - Eliminator Slajdów</h3>
+
+    <div>
+        <p class="extensionStatus switch">
+
+        <p class="extensionStatusMessage label">Slajdy z paskiem przewijania</p>
+        <a class="switch" id="scrollableImageContainer"></a></p>
+        <p>Lista portali na ktorych dziala rozszerzenie</p>
+        <ol id="domainList">
+        </ol>
+        <p>Uwaga: W chwili obecnej to rozszerzenie dziala TYLKO na stronach opartych o CMS ktory uzywa Gazeta.pl. Jesli
+            myslisz, że na standardowej liscie brakuje jakiejs domeny to możesz ją dodać poniżej.</p>
+        <label for="newDomain">Nazwa domeny:</label>
+        <input id="newDomain"></input>
+        <button id="addNewDomain">Dodaj</button>
+        <button id="defaultSettings">Przywroc domyślną liste</button>
+    </div>
+</div>
+<script src="../js/jquery-2.0.3@@min.suffix.js"></script>
 <script src="../js/popup@@min.suffix.js"></script>
 </body>
 </html>

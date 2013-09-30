@@ -3,56 +3,65 @@ body {
   font-size: 14px;
 }
 
-.label {
-
-  display: inline;
-  line-height: 28px;
-}
-
-.switch {
-  float: right;
-}
-
-.waning {
-  color: red;
-}
-
 #options {
   width: 600px;
+  h3 {
+    background: -webkit-linear-gradient(top, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
+    padding: 10px;
+    margin-top: 35px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #ffffff;
+  }
+  h3.domains {
+    margin-top: 0;
+  }
+  #defaultSettings {
+    margin: 15px 0;
+  }
+  .label {
+    display: inline;
+    line-height: 28px;
+  }
+  .switch {
+    float: right;
+    margin-right: 5px;
+  }
+  .waning {
+    color: red;
+  }
+  #domainList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    span {
+      float: right;
+      margin-top: -4px;
+    }
+    span button {
+      margin-bottom: 3px;
+    }
+    .disabled {
+      color: red;
+    }
+    .ui-selecting {
+      background: #FECA40;
+    }
+    .ui-selected {
+      background: #F39814;
+      color: white;
+    }
+    li {
+      margin: 3px;
+      padding: 0.4em;
+      font-size: 12px;
+      height: 14px;
+    }
+  }
+  #newDomain {
+    width: 69%;
+  }
 }
 
-#domainList span {
-  float: right;
-  margin-top: -4px;
-}
 
-#domainList span button {
-  margin-bottom: 3px;
-}
-
-#domainList .disabled {
-  color: red;
-}
-
-#domainList .ui-selecting {
-  background: #FECA40;
-}
-
-#domainList .ui-selected {
-  background: #F39814;
-  color: white;
-}
-
-#domainList {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-#domainList li {
-  margin: 3px;
-  padding: 0.4em;
-  font-size: 12px;
-  height: 14px;
-}

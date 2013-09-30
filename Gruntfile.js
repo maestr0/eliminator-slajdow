@@ -89,14 +89,14 @@ module.exports = function (grunt) {
             dev: {
                 files: [
                     {expand: true, src: ['images/icon*.jpg', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
-                    {expand: true, src: ['js/jquery-2.0.3.min.js', 'js/contentscript.js', 'js/background.js'], dest: 'package/'}
+                    {expand: true, src: ['js/jquery-2.0.3.js', 'js/contentscript.js', 'js/background.js'], dest: 'package/'}
 
                 ]
             }
         },
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*','js/*'],
-            tasks: ['jshint', 'concat', 'replace:dev', 'compass', 'copy']
+            tasks: ['jshint', 'concat', 'replace:dev', 'compass', 'copy:dev']
         }
     });
 
@@ -112,6 +112,6 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['jshint']);
 
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass']);
-    grunt.registerTask('package', ['jshint', 'concat', 'uglify', 'compass', 'replace:prod', 'copy']);
+    grunt.registerTask('package', ['jshint', 'concat', 'uglify', 'compass', 'replace:prod', 'copy:prod']);
 
 };
