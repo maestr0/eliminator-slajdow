@@ -1,12 +1,13 @@
 // Listen for any changes to the URL of any tab.
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
+// Listen for the content script to send a message to the background page.
+chrome.extension.onRequest.addListener(onRequest);
 
 // Called when the url of a tab changes.
-
 function checkForValidUrl(tabId, changeInfo, tab) {
     if (canRunOnCurrentUrl(tab.url) === true) {
         chrome.pageAction.setIcon({
-            path: 'icon_48.jpg',
+            path: '../images/icon_48.png',
             tabId: tabId
         });
 
@@ -14,7 +15,7 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 
     } else if (canRunOnCurrentUrl(tab.url) === -1) {
         chrome.pageAction.setIcon({
-            path: 'icon_48_off.jpg',
+            path: '../images/icon_48_off.png',
             tabId: tabId
         });
         chrome.pageAction.show(tabId);
@@ -22,9 +23,6 @@ function checkForValidUrl(tabId, changeInfo, tab) {
         chrome.pageAction.hide(tabId);
     }
 }
-
-// Listen for the content script to send a message to the background page.
-chrome.extension.onRequest.addListener(onRequest);
 
 function onRequest(request, sender, sendResponse) {
     if (location.hostname == sender.id && request.urlName !== undefined) {
@@ -62,8 +60,6 @@ function onInstall() {
 function onUpdate() {
     console.log("Aktualizacja rozszerzenia 'Eliminator Slajdów'");
     updateAllowedDomainList();
-    localStorage.scrollableImageContainer = "off";
-    console.log("Scroll wylaczony");
 }
 
 function getVersion() {
@@ -74,7 +70,7 @@ function getVersion() {
 // Check if the version has changed.
 var currVersion = getVersion();
 var prevVersion = localStorage.version;
-if (currVersion != prevVersion) {
+if (currVersion !== prevVersion) {
     // Check if we just installed this extension.
     if (typeof prevVersion == 'undefined') {
         onInstall();
@@ -85,17 +81,25 @@ if (currVersion != prevVersion) {
 }
 
 function updateAllowedDomainList() {
-    var standardAllowedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to", "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl", "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl", "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl", "gazetapraca.pl", "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net", "wyborcza.pl", "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl", "bryla.pl", "domiwnetrze.pl");
-    localStorage.standardAllowedDomains = JSON.stringify(standardAllowedDomains);
+    var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to",
+        "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl",
+        "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl",
+        "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl",
+        "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl",
+        "gazetapraca.pl", "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net", "wyborcza.pl",
+        "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl",
+        "bryla.pl", "domiwnetrze.pl");
+
+    localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
     var allowedDomains = {};
     if (typeof localStorage.allowedDomains !== "undefined") {
         allowedDomains = JSON.parse(localStorage.allowedDomains);
     }
 
-    $.each(standardAllowedDomains, function (index, host) {
-        if (typeof allowedDomains[host] === "undefined") {
-            allowedDomains[host] = true;
+    $.each(defaultSupportedDomains, function (index, domain) {
+        if (typeof allowedDomains[domain] === "undefined") {
+            allowedDomains[domain] = true;
         }
     });
     localStorage.allowedDomains = JSON.stringify(allowedDomains);
