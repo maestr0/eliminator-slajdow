@@ -35,6 +35,12 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
+    li:nth-child(odd) {
+      background: #ccc;
+    }
+    li:nth-child(even) {
+      background: #f6f6f6;
+    }
     span {
       float: right;
       margin-top: -4px;
@@ -56,7 +62,8 @@ body {
       margin: 3px;
       padding: 0.4em;
       font-size: 12px;
-      height: 14px;
+      height: 15px;
+      border-radius: 5px;
     }
   }
   #newDomain {

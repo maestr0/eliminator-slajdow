@@ -25,4 +25,5 @@ FAQ
         - pracuję nad tym. Nowe portale będą dodawane sukcesywnie w 2014 roku.
 
 Autor: Paweł Raszewski (raszewski@gmail.com)
+
 Licencja: GNU GPL v3 http://www.gnu.org/licenses/gpl.html

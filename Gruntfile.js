@@ -9,6 +9,10 @@ module.exports = function (grunt) {
             popup: {
                 src: ['js/jquery.iphone-switch.js', 'js/popup.js'],
                 dest: 'package/js/popup.js'
+            },
+            dev: {
+                src: ['js/jquery-2.0.3.js', 'js/contentscript.js'],
+                dest: 'package/js/contentscript.js'
             }
         },
         compass: {
@@ -96,7 +100,7 @@ module.exports = function (grunt) {
         },
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*','js/*'],
-            tasks: ['jshint', 'concat', 'replace:dev', 'compass', 'copy:dev']
+            tasks: ['jshint', 'concat:dev', 'replace:dev', 'compass', 'copy:dev']
         }
     });
 
@@ -110,8 +114,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-replace');
 
     grunt.registerTask('test', ['jshint']);
-
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass']);
     grunt.registerTask('package', ['jshint', 'concat', 'uglify', 'compass', 'replace:prod', 'copy:prod']);
-
 };

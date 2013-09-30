@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+    <body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script>
+        console.log(jQuery.fn.jquery, 'first');
+        console.log($.fn.jquery, 'first');
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        (function ($) {
+            console.log($.fn.jquery, 'closure');
+        })(jQuery.noConflict(true));
+    </script>
+    <script>
+        console.log(jQuery.fn.jquery, 'last');
+        console.log($.fn.jquery, 'last');
+    </script>
+    </body>
+</html>
