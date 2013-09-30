@@ -86,21 +86,21 @@ module.exports = function (grunt) {
         copy: {
             prod: {
                 files: [
-                    {expand: true, src: ['images/icon*.jpg', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
+                    {expand: true, src: ['images/icon*.png', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
                     {expand: true, src: ['js/jquery-2.0.3.min.js'], dest: 'package/'}
                 ]
             },
             dev: {
                 files: [
-                    {expand: true, src: ['images/icon*.jpg', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
-                    {expand: true, src: ['js/jquery-2.0.3.js', 'js/contentscript.js', 'js/background.js'], dest: 'package/'}
+                    {expand: true, src: ['images/icon*.png', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
+                    {expand: true, src: ['js/jquery-2.0.3.js', 'js/background.js'], dest: 'package/'}
 
                 ]
             }
         },
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*','js/*'],
-            tasks: ['jshint', 'concat:dev', 'replace:dev', 'compass', 'copy:dev']
+            tasks: ['jshint', 'concat', 'replace:dev', 'compass', 'copy:dev']
         }
     });
 

@@ -4,7 +4,7 @@
     "version": "@@version",
     "description": "Dodatek eliminuje slajdy w artykulach na stronach koncernu Agory. np. gazeta.pl",
     "page_action": {
-        "default_icon": "images/icon_48.jpg",
+        "default_icon": "images/icon_48.png",
         "default_title": "Eliminator Slajdów",
         "default_popup": "html/popup.html"
     },
@@ -13,9 +13,9 @@
     "options_page": "html/popup.html",
     "content_security_policy": "script-src 'self'; object-src 'self'",
     "icons": {
-        "16": "images/icon_16.jpg",
-        "48": "images/icon_48.jpg",
-        "128": "images/icon_128.jpg"
+        "16": "images/icon_16.png",
+        "48": "images/icon_48.png",
+        "128": "images/icon_128.png"
     },
     "background": {
         "page": "html/background.html"
