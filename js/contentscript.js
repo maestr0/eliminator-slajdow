@@ -23,8 +23,8 @@
     this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body"; // sekcja komentarza i obrazek
     this.headerSectionSelector = ".navigation:first h1 span";
     this.hasSlideNumbers = true;
-    this.facebookUrl = "https://www.facebook.com/pages/Eliminator-Slajdów/235272129951576?ref=" + fbRef;
-    this.bugReportUrl = "https://code.google.com/p/lepsza-gazeta-pl/issues/list?hl=pl";
+    this.facebookUrl = "https://www.facebook.com/eliminator-slajdow?ref=" + fbRef;
+    this.bugReportUrl = "https://eliminator-slajdow.sugester.pl/";
     this.slideURLs = [];
     this.classesToBeRemoved = [];
     this.spinner = $("<div>", {

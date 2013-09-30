@@ -19,40 +19,40 @@
                 event.preventDefault();
                 $(this).parent().parent().hide(500);
                 var text = $(this).parent().parent().attr("data-value");
-                delete this.allowedDomains[text];
-                localStorage.allowedDomains = JSON.stringify(this.allowedDomains);
+                delete that.allowedDomains[text];
+                localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
             });
 
             $('#domainList').on("click", "input", function () {
                 var selected = $(this).is(':checked');
                 $(this).parent().parent().toggleClass("disabled");
                 var text = $(this).parent().parent().attr("data-value");
-                this.allowedDomains[text] = selected;
-                localStorage.allowedDomains = JSON.stringify(this.allowedDomains);
+                that.allowedDomains[text] = selected;
+                localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
             });
 
             $('#addNewDomain').click(function () {
                 var newDomain = $("#newDomain").val();
                 if (newDomain !== "") {
-                    this.allowedDomains[newDomain] = true;
+                    that.allowedDomains[newDomain] = true;
                     $("#newDomain").val("");
                 }
-                localStorage.allowedDomains = JSON.stringify(this.allowedDomains);
+                localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
                 $("#domainList").empty();
-                this.fnGenerateDomainList();
+                that.fnGenerateDomainList();
             });
 
             $('#defaultSettings').click(function () {
                     var standardAllowedDomains = JSON.parse(localStorage.standardAllowedDomains);
-                    var allowedDomains = JSON.parse(localStorage.allowedDomains);
+                    var domains = JSON.parse(localStorage.allowedDomains);
                     $.each(standardAllowedDomains, function (index, host) {
-                        if (typeof this.allowedDomains[host] == "undefined") {
-                            this.allowedDomains[host] = true;
+                        if (typeof domains[host] == "undefined") {
+                            domains[host] = true;
                         }
                     });
-                    localStorage.allowedDomains = JSON.stringify(this.allowedDomains);
+                    localStorage.allowedDomains = JSON.stringify(domains);
                     $("#domainList").empty();
-                    this.fnGenerateDomainList();
+                    that.fnGenerateDomainList();
                 }
             );
 
@@ -75,8 +75,9 @@
         fnGenerateDomainList: function () {
             var allowedDomains = JSON.parse(localStorage.allowedDomains);
             $.each(allowedDomains, function (allowedHost, enabled) {
-                //$("#domainList").append('</li>', {text: allowedHost, class: 'status_' + enabled});
-                $("#domainList").append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") + '" data-value="' + allowedHost + '">' + allowedHost + '<span><input type="checkbox" ' + (enabled ? ' checked ' : '') + '>Aktywna</input><button>Kasuj</button></span></li>');
+                $("#domainList").append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") +
+                    '" data-value="' + allowedHost + '">' + allowedHost + '<span><input type="checkbox" ' +
+                    (enabled ? ' checked ' : '') + '>Aktywna</input><button>Kasuj</button></span></li>');
             });
             this.fnSortAllowedDomainsList();
 

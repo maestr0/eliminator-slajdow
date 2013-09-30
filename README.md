@@ -11,6 +11,10 @@ Jeśli podoba Ci się ten dodatek możesz przekazać mi parę złotych w nagrod�
 
 https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SMS8WQBP3DU4N
 
+Wszelkie sugestię proszę zgłaszać na
+
+https://eliminator-slajdow.sugester.pl/
+
 
 FAQ
 
@@ -21,3 +25,4 @@ FAQ
         - pracuję nad tym. Nowe portale będą dodawane sukcesywnie w 2014 roku.
 
 Autor: Paweł Raszewski (raszewski@gmail.com)
+Licencja: GNU GPL v3 http://www.gnu.org/licenses/gpl.html
