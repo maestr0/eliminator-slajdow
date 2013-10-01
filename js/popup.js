@@ -89,7 +89,7 @@ _gaq.push(['_trackPageview']);
 
             $('#enableTracking').each(function (index, item) {
                 var id = $(item).attr("id");
-                $(item).iphoneSwitch(that.getStatus(id), function () {
+                $(item).iphoneSwitch(localStorage[id] === "true" ? "on" : "off", function () {
                     localStorage.setItem(id, true);
                     console.log(id + " = on");
                     that.trackingBeacon('on', 'tracking');
