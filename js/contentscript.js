@@ -1,12 +1,11 @@
 (function ($) {
     var es = {
         scrollableImageContainer: false,
-        spinningIconUrl: chrome.extension.getURL("images/ajax-loader.gif"),
-        facebookIconUrl: chrome.extension.getURL("images/icon_facebook.gif"),
+        spinningIconUrl: "images/ajax-loader.gif",
+        facebookIconUrl: "images/icon_facebook.gif",
+        esLogoUrl: "images/icon_facebook.gif",
         cssPath: "",
         fbRef: "chrome.extension",
-        /* COMMON CODE BEGIN */
-        imageContainer: null,
         sectionToBeRemovedSelector: ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay",
         navigationNextULRSelector: ".navigation .next:first",
         navigationPageNumberSelector: ".navigation .page:first",
@@ -18,7 +17,8 @@
         bugReportUrl: "https://eliminator-slajdow.sugester.pl/",
         slideURLs: [],
         classesToBeRemoved: [],
-        spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.spinningIconUrl})),
+        imageContainer: null,
+        spinner: null,
         start: function () {
             var that = this;
             $("head").append($("<link>", {href: this.cssPath, type: "text/css", rel: "stylesheet"}));
@@ -120,6 +120,9 @@
                         "class": "headerBar",
                         text: pageNumberLabel
                     }).append($("<span>", {
+                            "class": "esLogo",
+                            style: "background:url('" + this.esLogoUrl + "') no-repeat"
+                        })).append($("<span>", {
                             "class": "scrollSwitch",
                             text: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
                         })).append($("<span>", {
@@ -188,7 +191,10 @@
                 imageContainer.width(950);
             }
         },
-        eliminateSlides: function () {
+        eliminateSlides: function (customOptions) {
+            $.extend(true, this, this, customOptions);
+            this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.spinningIconUrl}));
+            this.facebookUrl = "https://www.facebook.com/eliminator-slajdow?ref=" + this.fbRef;
 
             if ($("body#pagetype_photo").length > 0) {
                 console.log("jestesmy na stronie z galeria #pagetype_photo (1)");
@@ -271,17 +277,19 @@
             } else {
                 console.log("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
-
-
-            /* SHARED CODE END */
         }
     };
 
+    /* CHROME SPECIFIC CODE */
     chrome.extension.sendRequest({"urlName": window.location.href},
         function (response) {
             if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
-                es.scrollableImageContainer = (response.scrollableImageContainer === "on");
-                es.eliminateSlides();
+                es.eliminateSlides({
+                    scrollableImageContainer: (response.scrollableImageContainer === "on"),
+                    spinningIconUrl: chrome.extension.getURL("images/ajax-loader.gif"),
+                    facebookIconUrl: chrome.extension.getURL("images/icon_facebook.gif"),
+                    esLogoUrl: chrome.extension.getURL("images/icon_16.png")
+                });
             }
         });
 })(jQuery.noConflict(true));

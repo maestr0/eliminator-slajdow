@@ -46,12 +46,17 @@ div.imageContainer {
     }
 
     p.headerBar {
-      font-size: 12px;
-      background: grey;
-      padding: 1px 3px 3px 10px;
+      font-size: 11px;
+      background: #999;
+      padding: 1px 10px 3px 10px;
       border-radius: 42px;
       height: 14px;
       color: white;
+    }
+    span.esLogo {
+      width: 16px;
+      height: 16px;
+      float: right;
     }
 
     span.scrollSwitch {
@@ -83,8 +88,7 @@ div.imageContainer {
         color: white;
         text-decoration: none;
         height: 14px;
-        font: 12px Arial;
-        font-size: 12px;
+        font: 11px Arial;
         line-height: 12px;
       }
     }
