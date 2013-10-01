@@ -1,3 +1,25 @@
+/* Google Analytics */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-44535901-1']);
+_gaq.push(['_trackPageview']);
+
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+
+// new properties
+if (typeof localStorage.enableTracking === 'undefined') {
+    localStorage.enableTracking = "true";
+}
+
+var enableTracking = (typeof localStorage.enableTracking !== 'undefined') && localStorage.enableTracking === "true";
+
+
 // Listen for any changes to the URL of any tab.
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
 // Listen for the content script to send a message to the background page.
@@ -74,8 +96,14 @@ if (currVersion !== prevVersion) {
     // Check if we just installed this extension.
     if (typeof prevVersion == 'undefined') {
         onInstall();
+        if (enableTracking) {
+            _gaq.push(['_trackEvent', getVersion(), 'extension_install']);
+        }
     } else {
         onUpdate();
+        if (enableTracking) {
+            _gaq.push(['_trackEvent', getVersion(), 'extension_update']);
+        }
     }
     localStorage.version = currVersion;
 }

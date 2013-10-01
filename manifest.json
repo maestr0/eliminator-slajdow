@@ -11,7 +11,7 @@
     "permissions": ["tabs"],
     "incognito": "spanning",
     "options_page": "html/popup.html",
-    "content_security_policy": "script-src 'self'; object-src 'self'",
+    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
     "icons": {
         "16": "images/icon_16.png",
         "48": "images/icon_48.png",

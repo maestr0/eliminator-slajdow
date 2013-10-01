@@ -1,3 +1,16 @@
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-44535901-1']);
+_gaq.push(['_trackPageview']);
+
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
+
 (function () {
     var POPUP = {
         self: this,
@@ -22,6 +35,7 @@
                 var text = $(this).parent().parent().attr("data-value");
                 delete that.allowedDomains[text];
                 localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
+                that.trackingBeacon(text, 'deleted');
             });
 
             this.$domainList.on("click", "input", function () {
@@ -30,6 +44,7 @@
                 var text = $(this).parent().parent().attr("data-value");
                 that.allowedDomains[text] = selected;
                 localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
+                that.trackingBeacon(text, 'disabled');
             });
 
             $('#addNewDomain').click(function () {
@@ -41,6 +56,7 @@
                 localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
                 that.$domainList.empty();
                 that.fnGenerateDomainList();
+                that.trackingBeacon(newDomain, 'added_new');
             });
 
             $('#defaultSettings').click(function () {
@@ -54,6 +70,7 @@
                     localStorage.allowedDomains = JSON.stringify(domains);
                     that.$domainList.empty();
                     that.fnGenerateDomainList();
+                    that.trackingBeacon('reset', 'reset_to_default');
                 }
             );
 
@@ -62,17 +79,33 @@
                 $(item).iphoneSwitch(that.getStatus(id), function () {
                     localStorage.setItem(id, "on");
                     console.log(id + " = on");
+                    that.trackingBeacon('on', 'scroll_switch');
                 }, function () {
                     localStorage.setItem(id, "off");
                     console.log(id + " = off");
+                    that.trackingBeacon('off', 'scroll_switch');
                 });
             });
 
-            $("#scrollableImageContainer").change(function () {
-                that.changeStatus();
+            $('#enableTracking').each(function (index, item) {
+                var id = $(item).attr("id");
+                $(item).iphoneSwitch(that.getStatus(id), function () {
+                    localStorage.setItem(id, true);
+                    console.log(id + " = on");
+                    that.trackingBeacon('on', 'tracking');
+                }, function () {
+                    localStorage.setItem(id, false);
+                    console.log(id + " = off");
+                    that.trackingBeacon('off', 'tracking');
+                });
             });
         },
-
+        trackingBeacon: function (category, action) {
+            var enableTracking = (typeof localStorage.enableTracking !== 'undefined') && localStorage.enableTracking === "true";
+            if (enableTracking) {
+                _gaq.push(['_trackEvent', category, action]);
+            }
+        },
         fnGenerateDomainList: function () {
             var that = this;
             var allowedDomains = JSON.parse(localStorage.allowedDomains);
@@ -82,23 +115,6 @@
                     (enabled ? ' checked ' : '') + '>Aktywna</input><button>Kasuj</button></span></li>');
             });
             this.fnSortAllowedDomainsList();
-
-            this.fnBindEvents();
-        },
-        changeStatus: function () {
-            //noinspection JSUnresolvedFunction,JSUnresolvedVariable
-            chrome.tabs.getSelected(null, function (tab) {
-                var icon = 'fr.ico';
-                if (self.getStatus('extensionStatus') === 'on') {
-                    icon = 'fr_off.ico';
-                }
-                //noinspection JSUnresolvedFunction,JSUnresolvedVariable
-                chrome.pageAction.setIcon({
-                    path: icon,
-                    tabId: tab.id
-                });
-                console.debug('icon=' + icon);
-            });
         },
         getStatus: function (key) {
             var extensionStatus = localStorage[key];
@@ -109,6 +125,7 @@
         },
         init: function () {
             this.fnGenerateDomainList();
+            this.fnBindEvents();
         }
     };
     POPUP.init();
