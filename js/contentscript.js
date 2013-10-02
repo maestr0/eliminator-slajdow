@@ -57,14 +57,14 @@
             imageContainer.on("click", "span.scrollSwitch", function () {
                 imageContainer.toggleClass("noScroll").toggleClass("scroll");
                 if (that.scrollableImageContainer) {
-                    console.log("slider switch OFF");
+                    console.log("scroll switch OFF");
                     imageContainer.find("span.scrollSwitch").text("Pokaż pasek przewijania");
                     $('html, body').animate({
                         scrollTop: $(this).offset().top - 30
                     }, 500);
                     that.scrollableImageContainer = false;
                 } else {
-                    console.log("slider switch ON");
+                    console.log("scroll switch ON");
                     imageContainer.find("span.scrollSwitch").text("Ukryj pasek przewijania");
                     $('html, body').animate({
                         scrollTop: $(".imageContainer").offset().top - 25
@@ -77,14 +77,22 @@
                     }, 500);
                     that.scrollableImageContainer = true;
                 }
+
+                that.tracking(that.scrollableImageContainer ? "ON" : "OFF", "scroll_ui");
             });
 
             imageContainer.on("click", "span.bugreport", function () {
                 window.open(that.bugReportUrl);
+                that.tracking("click", "bug_report_ui");
             });
 
             imageContainer.on("click", "p.headerLogo", function () {
                 window.open(that.facebookUrl);
+                that.tracking("click", "facebook_ui");
+            });
+
+            imageContainer.on("click", "span.directLink a", function () {
+                that.tracking("click", "direct_link_ui");
             });
         },
         disableES: function (url) {
@@ -277,6 +285,9 @@
             } else {
                 console.log("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
+        },
+        tracking: function (action, category) {
+            chrome.extension.sendRequest({"tracking": category, "action": action});
         }
     };
 

@@ -3,14 +3,13 @@ var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-44535901-1']);
 _gaq.push(['_trackPageview']);
 
-(function () {
-    var ga = document.createElement('script');
-    ga.type = 'text/javascript';
-    ga.async = true;
-    ga.src = 'https://ssl.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ga, s);
-})();
+var ga = document.createElement('script');
+ga.type = 'text/javascript';
+ga.async = true;
+ga.src = 'https://ssl.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0];
+s.parentNode.insertBefore(ga, s);
+
 
 // new properties
 if (typeof localStorage.enableTracking === 'undefined') {
@@ -51,6 +50,11 @@ function onRequest(request, sender, sendResponse) {
         sendResponse({
             "canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName),
             "scrollableImageContainer": localStorage.scrollableImageContainer
+        });
+    } else if (location.hostname == sender.id && request.tracking !== undefined) {
+        trackingBeacon(request.tracking, request.action);
+        sendResponse({
+            "status": "ok"
         });
     }
 }
@@ -131,4 +135,11 @@ function updateAllowedDomainList() {
         }
     });
     localStorage.allowedDomains = JSON.stringify(allowedDomains);
+}
+
+function trackingBeacon(category, action) {
+    var enableTracking = (typeof localStorage.enableTracking !== 'undefined') && localStorage.enableTracking === "true";
+    if (enableTracking) {
+        _gaq.push(['_trackEvent', category, action]);
+    }
 }
