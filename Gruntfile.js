@@ -83,6 +83,31 @@ module.exports = function (grunt) {
                 }
             }
         },
+        bump: {
+            options: {
+                files: ['package.json'],
+                updateConfigs: [],
+                commit: true,
+                commitMessage: 'Release v%VERSION%',
+                commitFiles: ['-a'], // '-a' for all files
+                createTag: true,
+                tagName: 'v%VERSION%',
+                tagMessage: 'Version %VERSION%',
+                push: true,
+                pushTo: 'origin',
+                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d' // options to use with '$ git describe'
+            }
+        },
+        compress: {
+            main: {
+                options: {
+                    archive: 'v<%= pkg.version %>.zip'
+                },
+                files: [
+                    {expand: true, cwd: './package/', src: ['./**'], dest: "./"} // includes files in path and its subdirs
+                ]
+            }
+        },
         copy: {
             prod: {
                 files: [
@@ -112,6 +137,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-replace');
+    grunt.loadNpmTasks('grunt-bump');
+    grunt.loadNpmTasks('grunt-contrib-compress');
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass']);

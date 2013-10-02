@@ -78,35 +78,24 @@ function canRunOnCurrentUrl(hostname) {
     return canRunHere;
 }
 
-function onInstall() {
-    console.log("Zainstalowano rozszerzenie 'Eliminator Slajdow'");
-    updateAllowedDomainList();
-}
-
-function onUpdate() {
-    console.log("Aktualizacja rozszerzenia 'Eliminator Slajdow'");
-    updateAllowedDomainList();
-}
+chrome.runtime.onInstalled.addListener(function (details) {
+    if (details.reason === "install") {
+        updateAllowedDomainList();
+        trackingBeacon('ES_install', getVersion());
+    } else if (details.reason === "update") {
+        updateAllowedDomainList();
+        trackingBeacon('ES_update', details.previousVersion + " -> " + getVersion());
+    } else if (details.reason === "chrome_update") {
+        updateAllowedDomainList();
+    }
+});
 
 function getVersion() {
     var details = chrome.app.getDetails();
     return details.version;
 }
 
-// Check if the version has changed.
-var currVersion = getVersion();
-var prevVersion = localStorage.version;
-if (currVersion !== prevVersion) {
-    // Check if we just installed this extension.
-    if (typeof prevVersion == 'undefined') {
-        onInstall();
-        trackingBeacon('ES_install', getVersion());
-    } else {
-        onUpdate();
-        trackingBeacon('ES_update', localStorage.version + " -> " + getVersion());
-    }
-    localStorage.version = currVersion;
-}
+localStorage.version = getVersion();
 
 function updateAllowedDomainList() {
     var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to",
