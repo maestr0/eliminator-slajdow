@@ -123,6 +123,9 @@ module.exports = function (grunt) {
                 ]
             }
         },
+        clean: {
+            notminified: ["package/js/contentscript.js","package/js/popup.js"]
+        },
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*','js/*'],
             tasks: ['jshint', 'concat', 'replace:dev', 'compass', 'copy:dev']
@@ -139,8 +142,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-bump');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass']);
-    grunt.registerTask('package', ['jshint', 'concat', 'uglify', 'compass', 'replace:prod', 'copy:prod']);
+    grunt.registerTask('package', ['jshint', 'concat', 'uglify', 'compass', 'replace:prod', 'copy:prod','clean:notminified']);
 };
