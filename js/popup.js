@@ -126,6 +126,7 @@ _gaq.push(['_trackPageview']);
         init: function () {
             this.fnGenerateDomainList();
             this.fnBindEvents();
+            this.trackingBeacon("option_popup","show");
         }
     };
     POPUP.init();

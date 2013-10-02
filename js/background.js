@@ -16,9 +16,6 @@ if (typeof localStorage.enableTracking === 'undefined') {
     localStorage.enableTracking = "true";
 }
 
-var enableTracking = (typeof localStorage.enableTracking !== 'undefined') && localStorage.enableTracking === "true";
-
-
 // Listen for any changes to the URL of any tab.
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
 // Listen for the content script to send a message to the background page.
@@ -51,6 +48,9 @@ function onRequest(request, sender, sendResponse) {
             "canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName),
             "scrollableImageContainer": localStorage.scrollableImageContainer
         });
+        if (canRunOnCurrentUrl(request.urlName)) {
+            trackingBeacon("ES", "start");
+        }
     } else if (location.hostname == sender.id && request.tracking !== undefined) {
         trackingBeacon(request.tracking, request.action);
         sendResponse({
@@ -69,7 +69,7 @@ function canRunOnCurrentUrl(hostname) {
                 console.log('Eliminator Slajdow aktywny na: ' + allowedHost);
                 canRunHere = true;
             } else {
-                console.log('Eliminator Slajdow wyłączony na: ' + allowedHost);
+                console.log('Eliminator Slajdow wylaczony na: ' + allowedHost);
                 canRunHere = -1; // flag indicating that the extension is disabled on the current url
             }
             return false;
@@ -79,12 +79,12 @@ function canRunOnCurrentUrl(hostname) {
 }
 
 function onInstall() {
-    console.log("Zainstalowano rozszerzenie 'Eliminator Slajdów'");
+    console.log("Zainstalowano rozszerzenie 'Eliminator Slajdow'");
     updateAllowedDomainList();
 }
 
 function onUpdate() {
-    console.log("Aktualizacja rozszerzenia 'Eliminator Slajdów'");
+    console.log("Aktualizacja rozszerzenia 'Eliminator Slajdow'");
     updateAllowedDomainList();
 }
 
@@ -100,14 +100,10 @@ if (currVersion !== prevVersion) {
     // Check if we just installed this extension.
     if (typeof prevVersion == 'undefined') {
         onInstall();
-        if (enableTracking) {
-            _gaq.push(['_trackEvent', getVersion(), 'extension_install']);
-        }
+        trackingBeacon('ES_install', getVersion());
     } else {
         onUpdate();
-        if (enableTracking) {
-            _gaq.push(['_trackEvent', getVersion(), 'extension_update']);
-        }
+        trackingBeacon('ES_update', localStorage.version + " -> " + getVersion());
     }
     localStorage.version = currVersion;
 }
