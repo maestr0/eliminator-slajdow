@@ -48,9 +48,6 @@ function onRequest(request, sender, sendResponse) {
             "canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName),
             "scrollableImageContainer": localStorage.scrollableImageContainer
         });
-        if (canRunOnCurrentUrl(request.urlName)) {
-            trackingBeacon("ES", "start");
-        }
     } else if (location.hostname == sender.id && request.tracking !== undefined) {
         trackingBeacon(request.tracking, request.action);
         sendResponse({

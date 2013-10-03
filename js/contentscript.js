@@ -200,6 +200,7 @@
             }
         },
         eliminateSlides: function (customOptions) {
+            this.tracking("ES","start");
             $.extend(true, this, this, customOptions);
             this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.spinningIconUrl}));
             this.facebookUrl = "https://www.facebook.com/eliminator-slajdow?ref=" + this.fbRef;
