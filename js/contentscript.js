@@ -20,6 +20,7 @@
         imageContainer: null,
         spinner: null,
         start: function () {
+            this.tracking("start", "ES");
             var that = this;
             $("head").append($("<link>", {href: this.cssPath, type: "text/css", rel: "stylesheet"}));
             if ($(this.sectionToBeAttached).width() > 620) {
@@ -200,7 +201,6 @@
             }
         },
         eliminateSlides: function (customOptions) {
-            this.tracking("start", "ES");
             $.extend(true, this, this, customOptions);
             this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.spinningIconUrl}));
             this.facebookUrl = "https://www.facebook.com/eliminator-slajdow?ref=" + this.fbRef;
