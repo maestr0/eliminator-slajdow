@@ -35,7 +35,7 @@ _gaq.push(['_trackPageview']);
                 var text = $(this).parent().parent().attr("data-value");
                 delete that.allowedDomains[text];
                 localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
-                that.trackingBeacon(text, 'deleted');
+                that.trackingBeacon(text + ' DOMAIN', 'deleted');
             });
 
             this.$domainList.on("click", "input", function () {
@@ -44,7 +44,7 @@ _gaq.push(['_trackPageview']);
                 var text = $(this).parent().parent().attr("data-value");
                 that.allowedDomains[text] = selected;
                 localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
-                that.trackingBeacon(text, 'disabled');
+                that.trackingBeacon(text + ' DOMAIN', 'disabled');
             });
 
             $('#addNewDomain').click(function () {
@@ -56,7 +56,7 @@ _gaq.push(['_trackPageview']);
                 localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
                 that.$domainList.empty();
                 that.fnGenerateDomainList();
-                that.trackingBeacon(newDomain, 'added_new');
+                that.trackingBeacon(newDomain + ' DOMAIN', 'added_new');
             });
 
             $('#defaultSettings').click(function () {
@@ -70,7 +70,7 @@ _gaq.push(['_trackPageview']);
                     localStorage.allowedDomains = JSON.stringify(domains);
                     that.$domainList.empty();
                     that.fnGenerateDomainList();
-                    that.trackingBeacon('reset', 'reset_to_default');
+                    that.trackingBeacon('reset_to_default', 'click');
                 }
             );
 
@@ -79,11 +79,11 @@ _gaq.push(['_trackPageview']);
                 $(item).iphoneSwitch(that.getStatus(id), function () {
                     localStorage.setItem(id, "on");
                     console.log(id + " = on");
-                    that.trackingBeacon('on', 'scroll_switch');
+                    that.trackingBeacon('scroll_switch_popup', 'enabled');
                 }, function () {
                     localStorage.setItem(id, "off");
                     console.log(id + " = off");
-                    that.trackingBeacon('off', 'scroll_switch');
+                    that.trackingBeacon('scroll_switch_popup', 'disabled');
                 });
             });
 
@@ -92,11 +92,11 @@ _gaq.push(['_trackPageview']);
                 $(item).iphoneSwitch(localStorage[id] === "true" ? "on" : "off", function () {
                     localStorage.setItem(id, true);
                     console.log(id + " = on");
-                    that.trackingBeacon('on', 'tracking');
+                    that.trackingBeacon('tracking', 'enabled');
                 }, function () {
                     localStorage.setItem(id, false);
                     console.log(id + " = off");
-                    that.trackingBeacon('off', 'tracking');
+                    that.trackingBeacon('tracking', 'disabled');
                 });
             });
         },

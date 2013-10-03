@@ -19,8 +19,9 @@
         classesToBeRemoved: [],
         imageContainer: null,
         spinner: null,
+        pageType: "standard",
         start: function () {
-            this.tracking("start", "ES");
+            this.tracking("ES_start", this.pageType);
             var that = this;
             $("head").append($("<link>", {href: this.cssPath, type: "text/css", rel: "stylesheet"}));
             if ($(this.sectionToBeAttached).width() > 620) {
@@ -79,21 +80,21 @@
                     that.scrollableImageContainer = true;
                 }
 
-                that.tracking(that.scrollableImageContainer ? "ON" : "OFF", "scroll_ui");
+                that.tracking("scroll_ui", that.scrollableImageContainer ? "ON" : "OFF");
             });
 
             imageContainer.on("click", "span.bugreport", function () {
                 window.open(that.bugReportUrl);
-                that.tracking("click", "bug_report_ui");
+                that.tracking("bug_report_ui", "click");
             });
 
             imageContainer.on("click", "p.headerLogo", function () {
                 window.open(that.facebookUrl);
-                that.tracking("click", "facebook_ui");
+                that.tracking("facebook_ui", "click");
             });
 
             imageContainer.on("click", "span.directLink a", function () {
-                that.tracking("click", "direct_link_ui");
+                that.tracking("direct_link_ui", "click");
             });
         },
         disableES: function (url) {
@@ -208,6 +209,7 @@
             if ($("body#pagetype_photo").length > 0) {
                 console.log("jestesmy na stronie z galeria #pagetype_photo (1)");
                 $("#gazeta_article_miniatures").empty();
+                this.pageType = "1";
                 this.start();
             } else if ($("body#pagetype_art_blog").length > 0) {
                 /*
@@ -218,6 +220,7 @@
                  */
                 this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')";
                 console.log("jestesmy na stronie z galeria #pagetype_art_blog (2)");
+                this.pageType = "2";
                 this.start();
             } else if ($("body#pagetype_art").length > 0) {
                 /*
@@ -226,6 +229,7 @@
                  */
                 console.log("jestesmy na stronie z galeria #pagetype_art (3)");
                 this.sectionToBeAttached = "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')"; // sekcja komentarza i obrazek
+                this.pageType = "3";
                 this.start();
 
             } else if ($("div#art div#container_gal").length > 0) {
@@ -240,6 +244,7 @@
                 this.sectionToBeRemovedSelector = "div#gal_navi_wrp, #gal_navi_wrp";
                 this.navigationNextULRSelector = "#gal_btn_next a:first";
                 this.sectionToBeAttached = "div#container_gal";
+                this.pageType = "4";
                 this.start();
 
             } else if ($("div#article div#article_body").length > 0) {
@@ -253,6 +258,7 @@
                 this.sectionToBeRemovedSelector = "#gal_navi_wrp"; // div#article ul,
                 this.sectionToBeAttached = "div#container_gal";
                 this.navigationPageNumberSelector = "#gal_navi .paging";
+                this.pageType = "5";
                 this.start();
             } else if ($("div#k1 div#k1p div#gal_outer").length > 0) {
                 /*
@@ -267,6 +273,7 @@
                 this.navigationPageNumberSelector = "#gal_navi .paging";
                 $("div#gal_miniatures").empty();
                 this.hasSlideNumbers = false;
+                this.pageType = "6";
                 this.start();
 
             } else if ($("div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc").length > 0) {
@@ -282,12 +289,13 @@
                 this.navigationPageNumberSelector = "div.PasekZjecieOdstep";
                 this.hasSlideNumbers = false;
                 this.classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
+                this.pageType = "7";
                 this.start();
             } else {
                 console.log("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
         },
-        tracking: function (action, category) {
+        tracking: function (category, action) {
             chrome.extension.sendRequest({"tracking": category, "action": action});
         }
     };
