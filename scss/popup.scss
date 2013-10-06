@@ -3,6 +3,10 @@ body {
   font-size: 14px;
 }
 
+a {
+  color: #1e5799;
+}
+
 #options {
   width: 600px;
   h3 {
@@ -16,9 +20,6 @@ body {
   h3.domains {
     margin-top: 0;
   }
-  #defaultSettings {
-    margin: 15px 0;
-  }
   .label {
     display: inline;
     line-height: 28px;
@@ -26,15 +27,30 @@ body {
   .switch {
     float: right;
     margin-right: 5px;
+    margin-top: 10px;
   }
   .waning {
     color: red;
   }
+  .extensionStatusMessage.label {
+    width: 472px;
+    float: left;
+    text-align: left;
+    line-height: 18px;
+  }
+  .extensionInfo {
+    float: left;
+  }
+  #enableTracking {
+    margin-top: 37px;
+  }
   #domainList {
     list-style-type: none;
     margin: 0;
+    float: left;
     padding: 0;
     width: 100%;
+    margin-bottom: 20px;
     li:nth-child(odd) {
       background: #ccc;
     }
@@ -65,9 +81,6 @@ body {
       height: 15px;
       border-radius: 5px;
     }
-  }
-  #newDomain {
-    width: 69%;
   }
 }
 

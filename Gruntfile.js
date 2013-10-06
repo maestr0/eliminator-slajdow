@@ -6,13 +6,17 @@ module.exports = function (grunt) {
             options: {
                 separator: ';'
             },
-            popup: {
-                src: ['js/jquery.iphone-switch.js', 'js/popup.js'],
-                dest: 'package/js/popup.js'
-            },
             dev: {
-                src: ['js/jquery-2.0.3.js', 'js/contentscript.js'],
-                dest: 'package/js/contentscript.js'
+                files: {
+                    'package/js/contentscript.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js', 'js/eliminator-slajdow.jquery.widget.js', 'js/contentscript.js'],
+                    'package/js/popup.js': ['js/jquery.iphone-switch.js', 'js/popup.js']
+                }
+            },
+            prod: {
+                files: {
+                    'package/js/contentscript.min.js': ['js/jquery-2.0.3.min.js', 'js/jquery-ui-1.10.3.widget-factory.min.js', 'js/eliminator-slajdow.jquery.widget.min.js', 'js/contentscript.min.js'],
+                    'package/js/popup.js': ['js/jquery.iphone-switch.js', 'js/popup.js']
+                }
             }
         },
         compass: {
@@ -66,6 +70,7 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     'package/js/contentscript.min.js': ['js/contentscript.js'],
+                    'package/js/eliminator-slajdow.jquery.widget.min.js': ['js/eliminator-slajdow.jquery.widget.js'],
                     'package/js/popup.min.js': ['package/js/popup.js'],
                     'package/js/background.min.js': ['js/background.js']
                 }
@@ -124,11 +129,11 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            notminified: ["package/js/contentscript.js","package/js/popup.js"]
+            notminified: ["package/js/contentscript.js", "package/js/popup.js"]
         },
         watch: {
-            files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*','js/*'],
-            tasks: ['jshint', 'concat', 'replace:dev', 'compass', 'copy:dev']
+            files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*', 'js/*'],
+            tasks: ['jshint', 'concat:dev', 'replace:dev', 'compass', 'copy:dev']
         }
     });
 
@@ -145,6 +150,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.registerTask('test', ['jshint']);
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'compass']);
-    grunt.registerTask('package', ['jshint', 'concat', 'uglify', 'compass', 'replace:prod', 'copy:prod','clean:notminified']);
+    grunt.registerTask('default', ['jshint', 'uglify', 'concat:prod', 'compass']);
+    grunt.registerTask('package', ['jshint', 'uglify', 'concat:prod', 'compass', 'replace:prod', 'copy:prod', 'clean:notminified']);
 };

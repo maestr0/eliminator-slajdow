@@ -7,14 +7,29 @@
         console.log($.fn.jquery, 'first');
     </script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script>
         (function ($) {
+            $.widget( "custom.progressbar", {
+                _create: function() {
+                    var progress = this.options.value + "%";
+                    this.element
+                            .addClass( "progressbar" )
+                            .text( progress );
+                    console.log($.fn.jquery, 'widget');
+                }
+            });
+        })(jQuery);
+
+        (function ($) {
             console.log($.fn.jquery, 'closure');
+            $( "<div></div>" ).appendTo( "body" ).progressbar({ value: 123 });
         })(jQuery.noConflict(true));
     </script>
     <script>
         console.log(jQuery.fn.jquery, 'last');
         console.log($.fn.jquery, 'last');
+        $( "<div></div>" ).appendTo( "body" ).progressbar({ value: 666 });
     </script>
     </body>
 </html>

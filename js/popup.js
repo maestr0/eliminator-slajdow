@@ -29,15 +29,6 @@ _gaq.push(['_trackPageview']);
         fnBindEvents: function () {
             var that = this;
 
-            this.$domainList.on("click", "button", function () {
-                event.preventDefault();
-                $(this).parent().parent().hide(500);
-                var text = $(this).parent().parent().attr("data-value");
-                delete that.allowedDomains[text];
-                localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
-                that.trackingBeacon(text + ' DOMAIN', 'deleted');
-            });
-
             this.$domainList.on("click", "input", function () {
                 var selected = $(this).is(':checked');
                 $(this).parent().parent().toggleClass("disabled");
@@ -46,33 +37,6 @@ _gaq.push(['_trackPageview']);
                 localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
                 that.trackingBeacon(text + ' DOMAIN', 'disabled');
             });
-
-            $('#addNewDomain').click(function () {
-                var newDomain = $("#newDomain").val();
-                if (newDomain !== "") {
-                    that.allowedDomains[newDomain] = true;
-                    $("#newDomain").val("");
-                }
-                localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
-                that.$domainList.empty();
-                that.fnGenerateDomainList();
-                that.trackingBeacon(newDomain + ' DOMAIN', 'added_new');
-            });
-
-            $('#defaultSettings').click(function () {
-                    var standardAllowedDomains = JSON.parse(localStorage.standardAllowedDomains);
-                    var domains = JSON.parse(localStorage.allowedDomains);
-                    $.each(standardAllowedDomains, function (index, host) {
-                        if (typeof domains[host] == "undefined") {
-                            domains[host] = true;
-                        }
-                    });
-                    localStorage.allowedDomains = JSON.stringify(domains);
-                    that.$domainList.empty();
-                    that.fnGenerateDomainList();
-                    that.trackingBeacon('reset_to_default', 'click');
-                }
-            );
 
             $('a.switch').each(function (index, item) {
                 var id = $(item).attr("id");
@@ -112,7 +76,7 @@ _gaq.push(['_trackPageview']);
             $.each(allowedDomains, function (allowedHost, enabled) {
                 that.$domainList.append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") +
                     '" data-value="' + allowedHost + '">' + allowedHost + '<span><input type="checkbox" ' +
-                    (enabled ? ' checked ' : '') + '>Aktywna</input><button>Kasuj</button></span></li>');
+                    (enabled ? ' checked ' : '') + '>Aktywna</input></span></li>');
             });
             this.fnSortAllowedDomainsList();
         },

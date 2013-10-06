@@ -1,95 +1,97 @@
-div.eliminatorSlajdowSpinner {
-  text-align: center;
-  img {
-    padding: 100px;
-  }
-}
-
-div.imageContainer.scroll {
-  display: inline-block;
-  max-height: 1500px;
-  margin: 0 -25px 0 0;
-  overflow-y: scroll;
-  padding: 0 8px 0 0;
-}
-
-div.imageContainer.noScroll {
-  float: left;
-}
-
-div.imageContainer {
-  p.slideTitle {
-    padding: 20px;
-    font-size: 20px;
+body.eliminatorSlajdow {
+  div.eliminatorSlajdowSpinner {
+    text-align: center;
+    img {
+      padding: 100px;
+    }
   }
 
-  div.slideHeader {
+  div.imageContainer.scroll {
+    display: inline-block;
+    max-height: 1500px;
+    margin: 0 -25px 0 0;
+    overflow-y: scroll;
+    padding: 0 8px 0 0;
+  }
+
+  div.imageContainer.noScroll {
     float: left;
-    width: 100%;
-    line-height: 16px;
-    margin-bottom: 10px;
   }
 
-  span.directLink a:hover {
-    background: none;
-  }
-
-  div.slideHeader {
-    p.headerLogo {
-      margin-top: 1px;
-      float: right;
-      font-size: 8px;
-      cursor: pointer;
-      background: url('icon_facebook.gif') no-repeat 0 1px;
-      padding-left: 12px;
-      line-height: 14px;
+  div.imageContainer {
+    p.slideTitle {
+      padding: 20px;
+      font-size: 20px;
     }
 
-    p.headerBar {
-      font-size: 11px;
-      background: #999;
-      padding: 1px 10px 3px 10px;
-      border-radius: 42px;
-      height: 14px;
-      color: white;
-    }
-    span.esLogo {
-      width: 16px;
-      height: 16px;
-      float: right;
+    div.slideHeader {
+      float: left;
+      width: 100%;
+      line-height: 16px;
+      margin-bottom: 10px;
     }
 
-    span.scrollSwitch {
-      cursor: pointer;
-      float: right;
-      margin-right: 10px;
-      color: white
-    }
-    span.headerSeparator {
-      color: white;
-      float: right;
-      margin-right: 5px;
+    span.directLink a:hover {
+      background: none;
     }
 
-    span.bugreport {
-      color: white;
-      cursor: pointer;
-      float: right;
-      margin-right: 5px;
-    }
+    div.slideHeader {
+      p.headerLogo {
+        margin-top: 1px;
+        float: right;
+        font-size: 8px;
+        cursor: pointer;
+        background: url('icon_facebook.gif') no-repeat 0 1px;
+        padding-left: 12px;
+        line-height: 14px;
+      }
 
-    span.directLink {
-      cursor: pointer;
-      float: right;
-      margin-right: 5px;
-      color: white;
-      height: 16px;
-      a {
-        color: white;
-        text-decoration: none;
+      p.headerBar {
+        font-size: 11px;
+        background: #999;
+        padding: 1px 10px 3px 10px;
+        border-radius: 42px;
         height: 14px;
-        font: 11px Arial;
-        line-height: 12px;
+        color: white;
+      }
+      span.esLogo {
+        width: 16px;
+        height: 16px;
+        float: right;
+      }
+
+      span.scrollSwitch {
+        cursor: pointer;
+        float: right;
+        margin-right: 10px;
+        color: white
+      }
+      span.headerSeparator {
+        color: white;
+        float: right;
+        margin-right: 5px;
+      }
+
+      span.bugreport {
+        color: white;
+        cursor: pointer;
+        float: right;
+        margin-right: 5px;
+      }
+
+      span.directLink {
+        cursor: pointer;
+        float: right;
+        margin-right: 5px;
+        color: white;
+        height: 16px;
+        a {
+          color: white;
+          text-decoration: none;
+          height: 14px;
+          font: 11px Arial;
+          line-height: 12px;
+        }
       }
     }
   }

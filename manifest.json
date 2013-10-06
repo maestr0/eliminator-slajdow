@@ -23,7 +23,7 @@
     "content_scripts": [
         {
             "matches": ["http://*/*"],
-            "js": ["js/jquery-2.0.3@@min.suffix.js", "js/contentscript@@min.suffix.js"],
+            "js": ["js/contentscript@@min.suffix.js"],
             "run_at": "document_idle",
             "all_frames": false,
             "css": ["css/es.css"]
