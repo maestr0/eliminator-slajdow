@@ -32,7 +32,7 @@
                 $("#content_wrap").find("#columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
             }
             var nextPageURL = $(this.navigationNextULRSelector).attr("href");
-            console.log("link do nastepnej storny", nextPageURL);
+            this._logger("link do nastepnej storny", nextPageURL, this.navigationNextULRSelector);
             if (nextPageURL) {
                 var imageContainerClass = 'noScroll';
                 if (this.options.scrollableImageContainer) {
@@ -63,14 +63,14 @@
             imageContainer.on("click", "span.scrollSwitch", function () {
                 imageContainer.toggleClass("noScroll").toggleClass("scroll");
                 if (that.options.scrollableImageContainer) {
-                    console.log("scroll switch OFF");
+                    that._logger("scroll switch OFF");
                     imageContainer.find("span.scrollSwitch").text("Pokaż pasek przewijania");
                     $('html, body').animate({
                         scrollTop: $(this).offset().top - 30
                     }, 500);
                     that.options.scrollableImageContainer = false;
                 } else {
-                    console.log("scroll switch ON");
+                    that._logger("scroll switch ON");
                     imageContainer.find("span.scrollSwitch").text("Ukryj pasek przewijania");
                     $('html, body').animate({
                         scrollTop: $(".imageContainer").offset().top - 25
@@ -114,10 +114,10 @@
             var articleSection = $(galleryPage).find(this.sectionToBeAttached);
             if ($(articleSection).length > 0) {
                 var pageNumber = $(galleryPage).find(this.navigationPageNumberSelector).text().split("/");
-                console.log("numer strony", pageNumber);
+                this._logger("numer strony", pageNumber);
                 var nextPageURL = $(galleryPage).find(this.navigationNextULRSelector).attr("href");
                 if (url === nextPageURL || $.inArray(url, this.slideURLs) > -1) {
-                    console.log("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy :/", url, nextPageURL);
+                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy :/", url, nextPageURL);
                     return;
                 }
                 this.slideURLs.push(url);
@@ -181,14 +181,13 @@
                 $(slideWrapper).append($(articleSection));
 
                 if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
-                    console.log("link do nastepnej storny", nextPageURL);
+                    this._logger("link do nastepnej storny", nextPageURL);
                     this._showSpinnier();
                     $.get(nextPageURL, function (nextPage) {
                         that._findNextSlideURL(nextPage, nextPageURL);
                     });
                 } else {
-                    // ostatnia strona
-                    console.log("Ostatnia Strona");
+                    this._logger("Ostatnia Strona");
                     this._hideSpinner();
                 }
                 $(this.sectionToBeRemovedSelector).empty();
@@ -210,7 +209,7 @@
             this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.options.spinningIconUrl}));
 
             if ($("body#pagetype_photo").length > 0) {
-                console.log("jestesmy na stronie z galeria #pagetype_photo (1)");
+                this._logger("jestesmy na stronie z galeria #pagetype_photo (1)");
                 $("#gazeta_article_miniatures").empty();
                 this.pageType = "1";
                 this._start();
@@ -222,7 +221,7 @@
                  http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17
                  */
                 this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')";
-                console.log("jestesmy na stronie z galeria #pagetype_art_blog (2)");
+                this._logger("jestesmy na stronie z galeria #pagetype_art_blog (2)");
                 this.pageType = "2";
                 this._start();
             } else if ($("body#pagetype_art").length > 0) {
@@ -230,7 +229,7 @@
                  Regresja
                  http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html
                  */
-                console.log("jestesmy na stronie z galeria #pagetype_art (3)");
+                this._logger("jestesmy na stronie z galeria #pagetype_art (3)");
                 this.sectionToBeAttached = "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')"; // sekcja komentarza i obrazek
                 this.pageType = "3";
                 this._start();
@@ -241,7 +240,7 @@
                  http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html
                  */
 
-                console.log("jestesmy na stronie z gazetapraca.pl (4)");
+                this._logger("jestesmy na stronie z gazetapraca.pl (4)");
                 this.articleBodySelector = "#art";
                 this.navigationPageNumberSelector = ".paging:first";
                 this.sectionToBeRemovedSelector = "div#gal_navi_wrp, #gal_navi_wrp";
@@ -255,7 +254,7 @@
                  Regresja
                  http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html
                  */
-                console.log("jestesmy na stronie z galeria div#article div#article_body (5)");
+                this._logger("jestesmy na stronie z galeria div#article div#article_body (5)");
                 this.articleBodySelector = "#article_body";
                 this.navigationNextULRSelector = "#gal_btn_next a:first";
                 this.sectionToBeRemovedSelector = "#gal_navi_wrp"; // div#article ul,
@@ -268,7 +267,7 @@
                  Regresja
                  http://wyborcza.pl/51,75248,12537285.html?i=0
                  */
-                console.log("jestesmy na stronie z galeria bez typu ('div#k1 div#k1p div#gal_outer') (6)");
+                this._logger("jestesmy na stronie z galeria bez typu ('div#k1 div#k1p div#gal_outer') (6)");
                 this.articleBodySelector = "div#gal_outer .description";
                 this.navigationNextULRSelector = "li.btn_next a:first";
                 this.sectionToBeRemovedSelector = "div#article ul, #gal_navi_wrp";
@@ -284,7 +283,7 @@
                  Regresja
                  http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg
                  */
-                console.log("autotrader.pl - galeria zdjec samochodu");
+                this._logger("autotrader.pl - galeria zdjec samochodu");
                 this.articleBodySelector = "div#Zawartosc div.Detale";
                 this.navigationNextULRSelector = "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a";
                 this.sectionToBeRemovedSelector = "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole";
@@ -295,13 +294,16 @@
                 this.pageType = "7";
                 this._start();
             } else {
-                console.log("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
+                this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
         },
         _tracking: function (category, action) {
             if ($.isFunction(this.options.trackingCallback)) {
                 this.options.trackingCallback.call(this, category, action)
             }
+        },
+        _logger: function () {
+            console.log.apply(console, arguments);
         }
     });
 })(jQuery);

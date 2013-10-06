@@ -1,5 +1,4 @@
 (function ($) {
-    /* CHROME SPECIFIC CODE */
     chrome.extension.sendRequest({"urlName": window.location.href},
         function (response) {
             if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
