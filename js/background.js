@@ -102,7 +102,7 @@ function updateAllowedDomainList() {
         "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl",
         "gazetapraca.pl", "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net", "wyborcza.pl",
         "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl",
-        "bryla.pl", "domiwnetrze.pl");
+        "bryla.pl", "domiwnetrze.pl","foch.pl");
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
