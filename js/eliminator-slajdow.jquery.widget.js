@@ -296,7 +296,7 @@
             } else if ($("#multiGallery #multiGalleryContent #gallery").length > 0) {
                 this._logger("Galeria MultiGallery na ONET.PL");
                 this.articleBodySelector = "#multiGallery #multiGalleryContent #galleryText";
-                this.sectionToBeRemovedSelector = "*[id='mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainer .navBoxClose";
+                this.sectionToBeRemovedSelector = "*[id='mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainer .navBoxClose, .ad_adInfo, .ad_adInfoEnd";
                 this.navigationNextULRSelector = ".navBox .navBoxContainer a.nextFixed";
                 this.navigationPageNumberSelector = "";
                 this.sectionToBeAttached = "#multiGalleryContent #galleryText"; // sekcja komentarza i obrazek
