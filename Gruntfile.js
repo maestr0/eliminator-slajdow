@@ -121,7 +121,7 @@ module.exports = function (grunt) {
             dev: {
                 files: [
                     {expand: true, src: ['images/icon*.png', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
-                    {expand: true, src: ['js/jquery-2.0.3.js', 'js/background.js'], dest: 'package/'}
+                    {expand: true, src: ['js/jquery-2.0.3.js', 'js/background.js','js/popup.js'], dest: 'package/'}
 
                 ]
             }

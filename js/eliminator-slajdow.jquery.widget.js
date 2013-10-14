@@ -116,8 +116,8 @@
                 var pageNumber = $(galleryPage).find(this.navigationPageNumberSelector).text().split("/");
                 this._logger("numer strony", pageNumber);
                 var nextPageURL = $(galleryPage).find(this.navigationNextULRSelector).attr("href");
-                if (url === nextPageURL || $.inArray(url, this.slideURLs) > -1) {
-                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy :/", url, nextPageURL);
+                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.slideURLs) > -1) {
+                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
                     return;
                 }
                 this.slideURLs.push(url);
@@ -178,7 +178,7 @@
                     }));
                 }
 
-                $(slideWrapper).append($(articleSection));
+                $(slideWrapper).append(articleSection);
 
                 if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     this._logger("link do nastepnej storny", nextPageURL);
@@ -200,7 +200,7 @@
 
             $(".imageContainer > div").css("float", "left").css("width", "100%");
             var imageContainer = $(".imageContainer");
-            if (imageContainer.width() > 950) {
+            if (imageContainer.width() > 950 && this.pageType !== "8") {
                 imageContainer.width(950);
             }
         },
@@ -292,6 +292,17 @@
                 this.hasSlideNumbers = false;
                 this.classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
                 this.pageType = "7";
+                this._start();
+            } else if ($("#multiGallery #multiGalleryContent #gallery").length > 0) {
+                this._logger("Galeria MultiGallery na ONET.PL");
+                this.articleBodySelector = "#multiGallery #multiGalleryContent #galleryText";
+                this.sectionToBeRemovedSelector = "*[id='mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainer .navBoxClose";
+                this.navigationNextULRSelector = ".navBox .navBoxContainer a.nextFixed";
+                this.navigationPageNumberSelector = "";
+                this.sectionToBeAttached = "#multiGalleryContent #galleryText"; // sekcja komentarza i obrazek
+                this.headerSectionSelector = "";
+                this.hasSlideNumbers = false;
+                this.pageType = "8";
                 this._start();
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
