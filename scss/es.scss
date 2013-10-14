@@ -54,11 +54,18 @@ body.eliminatorSlajdow {
         height: 14px;
         color: white;
         margin: 0;
+        font-family: Arial;
       }
+
       span.esLogo {
         width: 16px;
         height: 16px;
         float: right;
+      }
+
+      span {
+        font-family: Arial;
+        font-size: 11px;
       }
 
       span.scrollSwitch {
