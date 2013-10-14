@@ -104,7 +104,6 @@ function updateAllowedDomainList() {
         "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl",
         "bryla.pl", "domiwnetrze.pl", "onet.pl");
 
-
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
     var allowedDomains = {};
