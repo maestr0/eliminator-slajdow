@@ -6,7 +6,7 @@ body.eliminatorSlajdow {
     }
   }
 
-  div.imageContainer.scroll {
+  div.imageContainerEliminatorSlajdow.scroll {
     display: inline-block;
     max-height: 1500px;
     margin: 0 -25px 0 0;
@@ -14,11 +14,11 @@ body.eliminatorSlajdow {
     padding: 0 8px 0 0;
   }
 
-  div.imageContainer.noScroll {
+  div.imageContainerEliminatorSlajdow.noScroll {
     float: left;
   }
 
-  div.imageContainer {
+  div.imageContainerEliminatorSlajdow {
     p.slideTitle {
       padding: 20px;
       font-size: 20px;

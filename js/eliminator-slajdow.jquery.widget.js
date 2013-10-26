@@ -41,9 +41,9 @@
                 }
 
                 $(this.articleBodySelector).after($("<div>", {
-                    "class": imageContainerClass + ' imageContainer'
+                    "class": imageContainerClass + ' imageContainerEliminatorSlajdow'
                 }));
-                this.imageContainer = $(this.articleBodySelector).parent().find(".imageContainer");
+                this.imageContainer = $(this.articleBodySelector).parent().find(".imageContainerEliminatorSlajdow");
                 this._bind();
                 this._showSpinnier();
                 this.slideURLs.push(document.location.pathname);
@@ -53,14 +53,14 @@
             }
         },
         _showSpinnier: function () {
-            $("div.imageContainer").append(this.spinner);
+            $("div.imageContainerEliminatorSlajdow").append(this.spinner);
         },
         _hideSpinner: function () {
-            $("div.imageContainer div.eliminatorSlajdowSpinner").remove();
+            $("div.imageContainerEliminatorSlajdow div.eliminatorSlajdowSpinner").remove();
         },
         _bind: function () {
             var that = this;
-            var imageContainer = $("div.imageContainer");
+            var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.on("click", "span.scrollSwitch", function () {
                 imageContainer.toggleClass("noScroll").toggleClass("scroll");
                 if (that.options.scrollableImageContainer) {
@@ -74,7 +74,7 @@
                     that._logger("scroll switch ON");
                     imageContainer.find("span.scrollSwitch").text("Ukryj pasek przewijania");
                     $('html, body').animate({
-                        scrollTop: $(".imageContainer").offset().top - 25
+                        scrollTop: $(".imageContainerEliminatorSlajdow").offset().top - 25
                     }, 500);
                     imageContainer.animate({
                         scrollTop: 0
@@ -200,8 +200,8 @@
 
             }
 
-            $(".imageContainer > div").css("float", "left").css("width", "100%");
-            var imageContainer = $(".imageContainer");
+            $(".imageContainerEliminatorSlajdow > div").css("float", "left").css("width", "100%");
+            var imageContainer = $(".imageContainerEliminatorSlajdow");
             if (imageContainer.width() > 950 && this.pageType !== "8") {
                 imageContainer.width(950);
             }
@@ -298,8 +298,8 @@
             } else if ($("#multiGallery #multiGalleryContent #gallery").length > 0) {
                 this._logger("Galeria MultiGallery na ONET.PL");
                 this.articleBodySelector = "#multiGallery #multiGalleryContent #galleryText";
-                this.sectionToBeEmptySelector = "*[id='mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainer .navBoxClose, .ad_adInfo, .ad_adInfoEnd";
-                this.sectionToBeRemovedSelector = ".imageContainer .navBoxClose, .ad_adInfo, .ad_adInfoEnd";
+                this.sectionToBeEmptySelector = "*[id='mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd";
+                this.sectionToBeRemovedSelector = ".imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd, #multiGalleryContent .navBox";
                 this.navigationNextULRSelector = ".navBox .navBoxContainer a.nextFixed";
                 this.navigationPageNumberSelector = "";
                 this.sectionToBeAttached = "#multiGalleryContent #galleryText"; // sekcja komentarza i obrazek
