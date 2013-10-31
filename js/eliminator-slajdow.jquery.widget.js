@@ -46,15 +46,16 @@
                 this.imageContainer = $(this.articleBodySelector).parent().find(".imageContainerEliminatorSlajdow");
                 this._bind();
                 this._showSpinnier();
-                this.slideURLs.push(document.location.pathname);
+                this.slideURLs.push(document.location.pathname + document.location.search);
                 $.get(nextPageURL, function (nextPage) {
                     that._findNextSlideURL(nextPage, nextPageURL);
                 });
                 if (this.pageType === 3) {
                     this._removeOverlay();
                 }
+            } else {
+                this._logger("Brak slajdow. Galeria typu " + this.pageType);
             }
-            this._logger("Brak slajdow. Galeria typu " + this.pageType);
         },
         _showSpinnier: function () {
             $("div.imageContainerEliminatorSlajdow").append(this.spinner);
@@ -325,6 +326,33 @@
                 this.headerSectionSelector = "";
                 this.hasSlideNumbers = false;
                 this.pageType = "8";
+                this._start();
+            } else if ($("div#page div#pageWrapper div#photo div#photoContainer div.nav a").length > 0) {
+                this._logger("Galeria MediaRegionalne ");
+                this.pageType = "9";
+                // wrapper na caly art
+                this.articleBodySelector = "div#photo";
+
+                this.sectionToBeEmptySelector = "script";
+                this.sectionToBeRemovedSelector = "div#tngallery, p#photoNavigation, .imageContainerEliminatorSlajdow div#photoRelatedArticles, .imageContainerEliminatorSlajdow div#photo p.photoMeta";
+                this.navigationNextULRSelector = "p#photoNavigation a#photoNavigationNext";
+                this.navigationPageNumberSelector = "span#photoNavigationPages";
+                this.sectionToBeAttached = "div#photo"; // sekcja komentarza i obrazek
+                this.headerSectionSelector = "";
+                this.hasSlideNumbers = true;
+                this._start();
+            } else if ($("div#page div#pageWrapper div#article.photostory div#photoContainer div.nav a").length > 0) {
+                this._logger("Galeria MediaRegionalne - artykul");
+                this.pageType = "10";
+                // wrapper na caly art
+                this.articleBodySelector = "div#article";
+                this.sectionToBeEmptySelector = "script";
+                this.sectionToBeRemovedSelector = "p.photoNavigation, div#photoContainer div.nav";
+                this.navigationNextULRSelector = "p.photoNavigation a.photoNavigationNext";
+                this.navigationPageNumberSelector = "span.photoNavigationPages:first";
+                this.sectionToBeAttached = "div#article div.intextAd"; // sekcja komentarza i obrazek
+                this.headerSectionSelector = "";
+                this.hasSlideNumbers = true;
                 this._start();
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
