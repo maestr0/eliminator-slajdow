@@ -50,7 +50,11 @@
                 $.get(nextPageURL, function (nextPage) {
                     that._findNextSlideURL(nextPage, nextPageURL);
                 });
+                if (this.pageType === 3) {
+                    this._removeOverlay();
+                }
             }
+            this._logger("Brak slajdow. Galeria typu " + this.pageType);
         },
         _showSpinnier: function () {
             $("div.imageContainerEliminatorSlajdow").append(this.spinner);
@@ -206,6 +210,19 @@
                 imageContainer.width(950);
             }
         },
+        _updateGalleryLink: function () {
+            var galleryLink = $("#gazeta_article_miniatures .moreImg a");
+            if (galleryLink.length === 1) {
+                var href = galleryLink.attr("href");
+                var suffix = "?i=1";
+                if (href && (href.indexOf(suffix, href.length - suffix.length) !== -1)) {
+                    galleryLink.attr("href", href.substring(0, href.length - suffix.length));
+                }
+            }
+        },
+        _removeOverlay: function () {
+            $("#gazeta_article_image div.overlayBright").remove();
+        },
         _create: function (customOptions) {
             $.extend(true, this, this, customOptions);
             this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.options.spinningIconUrl}));
@@ -234,6 +251,8 @@
                 this._logger("jestesmy na stronie z galeria #pagetype_art (3)");
                 this.sectionToBeAttached = "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')"; // sekcja komentarza i obrazek
                 this.pageType = "3";
+                this._updateGalleryLink();
+                this._removeOverlay();
                 this._start();
 
             } else if ($("div#art div#container_gal").length > 0) {
