@@ -119,7 +119,7 @@
             this._hideSpinner();
             var articleSection = $(galleryPage).find(this.sectionToBeAttached);
             if ($(articleSection).length > 0) {
-                var pageNumber = $(galleryPage).find(this.navigationPageNumberSelector).text().split("/");
+                var pageNumber = $(galleryPage).find(this.navigationPageNumberSelector).text().match(/(\d+)/g);
                 this._logger("numer strony", pageNumber);
                 var nextPageURL = $(galleryPage).find(this.navigationNextULRSelector).attr("href");
                 if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.slideURLs) > -1) {
@@ -328,6 +328,9 @@
                 this.pageType = "8";
                 this._start();
             } else if ($("div#page div#pageWrapper div#photo div#photoContainer div.nav a").length > 0) {
+                /*
+                * http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20131029&Category=GALERIA01&ArtNo=102909998&Ref=PH&Params=Itemnr=1
+                * */
                 this._logger("Galeria MediaRegionalne ");
                 this.pageType = "9";
                 // wrapper na caly art
@@ -342,6 +345,9 @@
                 this.hasSlideNumbers = true;
                 this._start();
             } else if ($("div#page div#pageWrapper div#article.photostory div#photoContainer div.nav a").length > 0) {
+                /*
+                * http://www.wspolczesna.pl/apps/pbcs.dll/article?AID=/20131029/REG00/131029705
+                * */
                 this._logger("Galeria MediaRegionalne - artykul");
                 this.pageType = "10";
                 // wrapper na caly art
@@ -351,6 +357,22 @@
                 this.navigationNextULRSelector = "p.photoNavigation a.photoNavigationNext";
                 this.navigationPageNumberSelector = "span.photoNavigationPages:first";
                 this.sectionToBeAttached = "div#article div.intextAd"; // sekcja komentarza i obrazek
+                this.headerSectionSelector = "";
+                this.hasSlideNumbers = true;
+                this._start();
+            } else if ($("div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next").length > 0) {
+                /*
+                * http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013
+                * */
+                this._logger("Galeria MojeMiasto");
+                this.pageType = "11";
+                // wrapper na caly art
+                this.articleBodySelector = "div#photo div.photo-item";
+                this.sectionToBeEmptySelector = "script";
+                this.sectionToBeRemovedSelector = "div.photo-item div.photoElem a";
+                this.navigationNextULRSelector = "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next";
+                this.navigationPageNumberSelector = "div#photo.common-box div.top-slider div.slider";
+                this.sectionToBeAttached = "div.photo-item"; // sekcja komentarza i obrazek
                 this.headerSectionSelector = "";
                 this.hasSlideNumbers = true;
                 this._start();
