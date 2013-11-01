@@ -2,7 +2,7 @@
     "name": "Eliminator Slajdów",
     "manifest_version": 2,
     "version": "@@version",
-    "description": "Dodatek eliminuje slajdy w artykulach na stronach koncernu Agory. np. gazeta.pl",
+    "description": "Dodatek eliminuje slajdy w artykulach na portalach grup Agora, Onet, MojeMiasto i MediaRegionalne",
     "page_action": {
         "default_icon": "images/icon_48.png",
         "default_title": "Eliminator Slajdów",
