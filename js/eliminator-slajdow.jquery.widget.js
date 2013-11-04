@@ -128,7 +128,7 @@
                 }
                 this.slideURLs.push(url);
                 var pageNumberLabel = "Ostatni slajd";
-                if (pageNumber.length === 2) {
+                if (pageNumber && pageNumber.length === 2) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
                 } else if (!this.hasSlideNumbers) {
                     pageNumberLabel = "Slajd";
@@ -186,7 +186,7 @@
 
                 $(slideWrapper).append(articleSection);
 
-                if ((pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
+                if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     this._logger("link do nastepnej storny", nextPageURL);
                     this._showSpinnier();
                     $.get(nextPageURL, function (nextPage) {
@@ -243,6 +243,7 @@
                 this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')";
                 this._logger("jestesmy na stronie z galeria #pagetype_art_blog (2)");
                 this.pageType = "2";
+                this._updateGalleryLink();
                 this._start();
             } else if ($("body#pagetype_art").length > 0) {
                 /*

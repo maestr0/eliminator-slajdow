@@ -8,12 +8,12 @@ module.exports = function (grunt) {
             },
             dev: {
                 files: {
-                    'package/js/contentscript.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js', 'js/eliminator-slajdow.jquery.widget.js', 'js/contentscript.js']
+                    'package/js/jquery.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js']
                 }
             },
             prod: {
                 files: {
-                    'package/js/contentscript.min.js': ['js/jquery-2.0.3.min.js', 'js/jquery-ui-1.10.3.widget.factory.min.js', 'package/js/eliminator-slajdow.jquery.widget.min.js', 'package/js/contentscript.min.js']
+                    'package/js/jquery.min.js': ['js/jquery-2.0.3.min.js', 'js/jquery-ui-1.10.3.widget.factory.min.js']
                 }
             }
         },
@@ -33,20 +33,7 @@ module.exports = function (grunt) {
                 }
             }        },
         replace: {
-            prod: {
-                options: {
-                    variables: {
-                        'version': '<%=pkg.version%>',
-                        'min.suffix': '.min'
-                    },
-                    prefix: '@@'
-                },
-                files: [
-                    {expand: true, flatten: true, src: ['manifest.json'], dest: 'package/'},
-                    {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'}
-                ]
-            },
-            dev: {
+            main: {
                 options: {
                     variables: {
                         'version': '<%=pkg.version%>',
@@ -58,20 +45,6 @@ module.exports = function (grunt) {
                     {expand: true, flatten: true, src: ['manifest.json'], dest: 'package/'},
                     {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'}
                 ]
-            }
-
-        },
-        uglify: {
-            options: {
-                banner: '/*!\n<%= manifest.name %>\nAuthor: <%= pkg.author%>\nBuild: v<%=pkg.version %> <%= grunt.template.today("dd-mm-yyyy HH:MM:ss") %> */\n'
-            },
-            dist: {
-                files: {
-                    'package/js/contentscript.min.js': ['js/contentscript.js'],
-                    'package/js/eliminator-slajdow.jquery.widget.min.js': ['js/eliminator-slajdow.jquery.widget.js'],
-                    'package/js/popup.min.js': ['js/jquery.iphone-switch.js', 'js/popup.js'],
-                    'package/js/background.min.js': ['js/background.js']
-                }
             }
         },
         jshint: {
@@ -112,27 +85,23 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            prod: {
+            main: {
                 files: [
                     {expand: true, src: ['images/icon*.png', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
-                    {expand: true, src: ['js/jquery-2.0.3.min.js'], dest: 'package/'}
-                ]
-            },
-            dev: {
-                files: [
-                    {expand: true, src: ['images/icon*.png', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/icon_facebook.gif'], dest: 'package/'},
-                    {expand: true, src: ['js/jquery-2.0.3.js', 'js/background.js','js/popup.js'], dest: 'package/'}
-
+                    {expand: true, src: ['js/contentscript.js'], dest: 'package/'},
+                    {expand: true, src: ['js/background.js'], dest: 'package/'},
+                    {expand: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'package/'},
+                    {expand: true, src: ['js/popup.js'], dest: 'package/'},
+                    {expand: true, src: ['js/jquery.iphone-switch.js'], dest: 'package/'}
                 ]
             }
         },
         clean: {
-            notminified: ["package/js/contentscript.js", "package/js/popup.js","package/js/eliminator-slajdow.jquery.widget.min.js"],
             package_dir: ["package/*"]
         },
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*', 'js/*'],
-            tasks: ['jshint', 'concat:dev', 'replace:dev', 'compass', 'copy:dev']
+            tasks: ['jshint', 'concat', 'replace', 'compass', 'copy']
         }
     });
 
@@ -149,6 +118,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.registerTask('test', ['jshint']);
-    grunt.registerTask('default', ['jshint', 'uglify', 'concat:prod', 'compass']);
-    grunt.registerTask('package', ['clean:package_dir','jshint', 'uglify', 'concat:prod', 'compass', 'replace:prod', 'copy:prod', 'clean:notminified']);
+    grunt.registerTask('default', ['jshint', 'concat', 'compass']);
+    grunt.registerTask('package', ['clean:package_dir', 'jshint', 'concat', 'compass', 'replace', 'copy']);
 };
