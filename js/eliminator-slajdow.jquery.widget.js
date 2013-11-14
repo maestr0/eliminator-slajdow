@@ -25,7 +25,6 @@
         spinner: null,
         pageType: "standard",
         _start: function () {
-            this._tracking("ES_start", this.pageType);
             var that = this;
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
@@ -35,6 +34,7 @@
             var nextPageURL = $(this.navigationNextULRSelector).attr("href");
             this._logger("link do nastepnej storny", nextPageURL, this.navigationNextULRSelector);
             if (nextPageURL) {
+                this._tracking("ES_start", this.pageType);
                 var imageContainerClass = 'noScroll';
                 if (this.options.scrollableImageContainer) {
                     imageContainerClass = 'scroll';
@@ -207,7 +207,7 @@
 
             $(".imageContainerEliminatorSlajdow > div").css("float", "left").css("width", "100%");
             var imageContainer = $(".imageContainerEliminatorSlajdow");
-            if (imageContainer.width() > 950 && this.pageType !== "8") {
+            if (imageContainer.width() > 950 && this.pageType !== "8" && this.pageType !== "12") {
                 imageContainer.width(950);
             }
         },
@@ -239,18 +239,19 @@
                  http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html
                  Szerokie zdjecia, zawija prawa kolumne pod komentarze
                  http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17
+                 http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html
                  */
                 this.sectionToBeAttached = "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')";
                 this._logger("jestesmy na stronie z galeria #pagetype_art_blog (2)");
                 this.pageType = "2";
                 this._updateGalleryLink();
                 this._start();
-            } else if ($("body#pagetype_art").length > 0) {
+            } else if ($("body#pagetype_art #gazeta_article_tools").length > 0) {
                 /*
                  Regresja
-                 http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html
+                 http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html
                  */
-                this._logger("jestesmy na stronie z galeria #pagetype_art (3)");
+                this._logger("jestesmy na stronie z galeria body#pagetype_art #gazeta_article_image (3)");
                 this.sectionToBeAttached = "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')"; // sekcja komentarza i obrazek
                 this.pageType = "3";
                 this._updateGalleryLink();
@@ -330,8 +331,8 @@
                 this._start();
             } else if ($("div#page div#pageWrapper div#photo div#photoContainer div.nav a").length > 0) {
                 /*
-                * http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20131029&Category=GALERIA01&ArtNo=102909998&Ref=PH&Params=Itemnr=1
-                * */
+                 * http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20131029&Category=GALERIA01&ArtNo=102909998&Ref=PH&Params=Itemnr=1
+                 * */
                 this._logger("Galeria MediaRegionalne ");
                 this.pageType = "9";
                 // wrapper na caly art
@@ -347,8 +348,8 @@
                 this._start();
             } else if ($("div#page div#pageWrapper div#article.photostory div#photoContainer div.nav a").length > 0) {
                 /*
-                * http://www.wspolczesna.pl/apps/pbcs.dll/article?AID=/20131029/REG00/131029705
-                * */
+                 * http://www.wspolczesna.pl/apps/pbcs.dll/article?AID=/20131029/REG00/131029705
+                 * */
                 this._logger("Galeria MediaRegionalne - artykul");
                 this.pageType = "10";
                 // wrapper na caly art
@@ -363,8 +364,8 @@
                 this._start();
             } else if ($("div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next").length > 0) {
                 /*
-                * http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013
-                * */
+                 * http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013
+                 * */
                 this._logger("Galeria MojeMiasto");
                 this.pageType = "11";
                 // wrapper na caly art
@@ -377,6 +378,25 @@
                 this.headerSectionSelector = "";
                 this.hasSlideNumbers = true;
                 this._start();
+            } else if ($("body#pagetype_art #content_wrap .photostoryNextPage").length > 0) {
+                /*
+                 Regresja
+                 http://technologie.gazeta.pl/internet/56,104530,14940595,Panel_sterowania__gdzie_ja_do_diaska_jestem,,1.html
+                 */
+                this._logger("jestesmy na stronie z galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (12)");
+                this.sectionToBeAttached = "#content_wrap"; // sekcja komentarza i obrazek
+                this.articleBodySelector = "#content_wrap";
+                this.sectionToBeEmptySelector = "script";
+                this.sectionToBeRemovedSelector = "#photo_comments, .photostoryNextPage, .photostoryPrevPage";
+                this.navigationNextULRSelector = "div#content .photostoryNextPage";
+                this.navigationPageNumberSelector = "";
+                this.headerSectionSelector = "";
+                this.hasSlideNumbers = false;
+                this.pageType = "12";
+                this._updateGalleryLink();
+                this._removeOverlay();
+                this._start();
+
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
