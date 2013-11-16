@@ -67,7 +67,7 @@ _gaq.push(['_trackPageview']);
         trackingBeacon: function (category, action) {
             var enableTracking = (typeof localStorage.enableTracking !== 'undefined') && localStorage.enableTracking === "true";
             if (enableTracking) {
-                _gaq.push(['_trackEvent', category, action]);
+                _gaq.push(['_trackEvent', category, action, "OPTION POPUP"]);
             }
         },
         fnGenerateDomainList: function () {
