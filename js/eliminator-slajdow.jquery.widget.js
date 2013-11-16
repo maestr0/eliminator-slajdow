@@ -18,6 +18,7 @@
         articleBodySelector: "#gazeta_article_body",
         sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body", // sekcja komentarza i obrazek
         headerSectionSelector: ".navigation:first h1 span",
+        sectionToBeRemovedFromAttachedSlidesSelector: "",
         hasSlideNumbers: true,
         slideURLs: [],
         classesToBeRemoved: [],
@@ -35,6 +36,10 @@
             this._logger("link do nastepnej storny", nextPageURL, this.navigationNextULRSelector);
             if (nextPageURL) {
                 this._tracking("ES_start", this.pageType);
+
+                $(this.sectionToBeEmptySelector).empty();
+                $(this.sectionToBeRemovedSelector).remove();
+
                 var imageContainerClass = 'noScroll';
                 if (this.options.scrollableImageContainer) {
                     imageContainerClass = 'scroll';
@@ -172,6 +177,9 @@
                 $(this.imageContainer).append(slideHeader);
 
                 $(articleSection).find(this.sectionToBeEmptySelector).empty();
+                $(articleSection).find(this.sectionToBeRemovedSelector).remove();
+                $(articleSection).find(this.sectionToBeRemovedFromAttachedSlidesSelector).remove();
+
                 var slideWrapper = $(this.imageContainer).append($("<div>", {
                     "class": "slide_" + pageNumber
                 })).children().last();
@@ -196,8 +204,6 @@
                     this._logger("Ostatnia Strona");
                     this._hideSpinner();
                 }
-                $(this.sectionToBeEmptySelector).empty();
-                $(this.sectionToBeRemovedSelector).remove();
 
                 for (var i in this.classesToBeRemoved) {
                     $("." + this.classesToBeRemoved[i]).removeClass(this.classesToBeRemoved[i]);
@@ -385,9 +391,10 @@
                  */
                 this._logger("jestesmy na stronie z galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (12)");
                 this.sectionToBeAttached = "#content_wrap"; // sekcja komentarza i obrazek
-                this.articleBodySelector = "#content_wrap";
-                this.sectionToBeEmptySelector = "script";
-                this.sectionToBeRemovedSelector = "#photo_comments, .photostoryNextPage, .photostoryPrevPage";
+                this.articleBodySelector = "#columns_wrap"; // gdzie doczepic imageContainer
+                this.sectionToBeEmptySelector = "script:not([src])";
+                this.sectionToBeRemovedSelector = "#banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage";                        // do usuniecia wszedzie
+                this.sectionToBeRemovedFromAttachedSlidesSelector = "#photo_comments, #article_comments";  // do usuniecia TYLKO z dolaczonych slajdow
                 this.navigationNextULRSelector = "div#content .photostoryNextPage";
                 this.navigationPageNumberSelector = "";
                 this.headerSectionSelector = "";
