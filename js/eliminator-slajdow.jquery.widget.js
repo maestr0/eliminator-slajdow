@@ -52,9 +52,11 @@
                 this._bind();
                 this._showSpinnier();
                 this.slideURLs.push(document.location.pathname + document.location.search);
-                $.get(nextPageURL, function (nextPage) {
+                $.get(nextPageURL,function (nextPage) {
                     that._findNextSlideURL(nextPage, nextPageURL);
-                });
+                }).fail(function () {
+                        that._hideSpinner();
+                    });
                 if (this.pageType === 3) {
                     this._removeOverlay();
                 }
@@ -125,7 +127,9 @@
             var articleSection = $(galleryPage).find(this.sectionToBeAttached);
             if ($(articleSection).length > 0) {
                 var pageNumber = $(galleryPage).find(this.navigationPageNumberSelector).text().match(/(\d+)/g);
-                this._logger("numer strony", pageNumber);
+                if (this.hasSlideNumbers) {
+                    this._logger("numer strony", pageNumber);
+                }
                 var nextPageURL = $(galleryPage).find(this.navigationNextULRSelector).attr("href");
                 if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.slideURLs) > -1) {
                     this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
@@ -197,9 +201,11 @@
                 if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     this._logger("link do nastepnej storny", nextPageURL);
                     this._showSpinnier();
-                    $.get(nextPageURL, function (nextPage) {
+                    $.get(nextPageURL,function (nextPage) {
                         that._findNextSlideURL(nextPage, nextPageURL);
-                    });
+                    }).fail(function () {
+                            that._hideSpinner();
+                        });
                 } else {
                     this._logger("Ostatnia Strona");
                     this._hideSpinner();
