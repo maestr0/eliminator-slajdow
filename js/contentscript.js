@@ -7,8 +7,8 @@
                     spinningIconUrl: chrome.extension.getURL("images/ajax-loader.gif"),
                     facebookIconUrl: chrome.extension.getURL("images/icon_facebook.gif"),
                     esLogoUrl: chrome.extension.getURL("images/icon_16.png"),
-                    trackingCallback: function (category, action) {
-                        chrome.extension.sendRequest({"tracking": category, "action": action});
+                    trackingCallback: function (category, action, location) {
+                        chrome.extension.sendRequest({"tracking": category, "action": action, "location": location});
                     }
                 });
             }

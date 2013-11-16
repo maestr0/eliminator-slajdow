@@ -416,7 +416,7 @@
         },
         _tracking: function (category, action) {
             if ($.isFunction(this.options.trackingCallback)) {
-                this.options.trackingCallback.call(this, category, action)
+                this.options.trackingCallback.call(this, category, action, window.location.host)
             }
         },
         _logger: function () {

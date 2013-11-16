@@ -49,7 +49,7 @@ function onRequest(request, sender, sendResponse) {
             "scrollableImageContainer": localStorage.scrollableImageContainer
         });
     } else if (location.hostname == sender.id && request.tracking !== undefined) {
-        trackingBeacon(request.tracking, request.action);
+        trackingBeacon(request.tracking, request.action, request.location);
         sendResponse({
             "status": "ok"
         });
@@ -123,9 +123,9 @@ function updateAllowedDomainList() {
     localStorage.allowedDomains = JSON.stringify(allowedDomains);
 }
 
-function trackingBeacon(category, action) {
+function trackingBeacon(category, action, location) {
     var enableTracking = (typeof localStorage.enableTracking !== 'undefined') && localStorage.enableTracking === "true";
     if (enableTracking) {
-        _gaq.push(['_trackEvent', category, action]);
+        _gaq.push(['_trackEvent', category, action, location]);
     }
 }
