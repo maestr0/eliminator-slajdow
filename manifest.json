@@ -29,5 +29,5 @@
             "css": ["css/es.css"]
         }
     ],
-    "web_accessible_resources": ["images/ajax-loader.gif", "images/icon_facebook.gif", "images/icon_16.png"]
+    "web_accessible_resources": ["images/ajax-loader.gif", "images/icon_facebook.gif", "images/icon_16.png", "images/DonateBitcoin.png"]
 }
