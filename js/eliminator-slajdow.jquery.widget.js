@@ -358,7 +358,7 @@
                 this.headerSectionSelector = "";
                 this.hasSlideNumbers = true;
                 this._start();
-            } else if ($("div#page div#pageWrapper div#article.photostory div#photoContainer div.nav a").length > 0) {
+            } else if ($("div#page div#pageWrapper div#article.photostory p.photoNavigation a.photoNavigationNext").length > 0) {
                 /*
                  * http://www.wspolczesna.pl/apps/pbcs.dll/article?AID=/20131029/REG00/131029705
                  * */
@@ -367,7 +367,8 @@
                 // wrapper na caly art
                 this.articleBodySelector = "div#article";
                 this.sectionToBeEmptySelector = "script";
-                this.sectionToBeRemovedSelector = "p.photoNavigation, div#photoContainer div.nav";
+                // do usuniecia TYLKO z zalaczanej czesci okreslonej selektorem sectionToBeAttached
+                this.sectionToBeRemovedSelector = "p.photoNavigation, div#photoContainer div.nav, div#photoElement div.nav, h2";
                 this.navigationNextULRSelector = "p.photoNavigation a.photoNavigationNext";
                 this.navigationPageNumberSelector = "span.photoNavigationPages:first";
                 this.sectionToBeAttached = "div#article div.intextAd"; // sekcja komentarza i obrazek
@@ -410,6 +411,39 @@
                 this._removeOverlay();
                 this._start();
 
+            } else if ($("div#page div#pageWrapper div#photo p#photoNavigation a#photoNavigationNext").length > 0) {
+                /*
+                 * http://www.gazetalubuska.pl/apps/pbcs.dll/gallery?Site=GL&Date=20140201&Category=galeria&ArtNo=201009994&Ref=PH&Params=Itemnr=1
+                 * http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20140131&Category=GALERIA01&ArtNo=131009996&Ref=PH
+                 * */
+                this._logger("Galeria MediaRegionalne - Galeria 13");
+                this.pageType = "13";
+                // wrapper na caly art
+                this.articleBodySelector = "div#photo";
+                this.sectionToBeEmptySelector = "script";
+                this.sectionToBeRemovedSelector = "p[id='photoNavigation'], div#photoElement div.nav, #tngallery, #photoRelatedArticles, p.photoMeta, p > a[href*='/apps/'], h1, .photoFunctions, .photoMeta, .photoNavigation, #photoRelatedArticles";
+                this.navigationNextULRSelector = "p#photoNavigation a#photoNavigationNext";
+                this.navigationPageNumberSelector = "span#photoNavigationPages";
+                this.sectionToBeAttached = "div#photo"; // sekcja komentarza i obrazek
+                this.headerSectionSelector = "";
+                this.hasSlideNumbers = true;
+                this._start();
+            } else if ($("div#wrapper > div > div#photo p#galleryNav a#galleryNavNext").length > 0) {
+                /*
+                 * http://www.nowiny24.pl/apps/pbcs.dll/gallery?Site=NW&Date=20140126&Category=IMPREZY07&ArtNo=126009999&Ref=PH&Params=Itemnr=1
+                 * */
+                this._logger("Galeria MediaRegionalne - Galeria 14");
+                this.pageType = "14";
+                // wrapper na caly art
+                this.articleBodySelector = "div#photo";
+                this.sectionToBeEmptySelector = "script";
+                this.sectionToBeRemovedSelector = "#galleryNav, #tngalleryScroll";
+                this.navigationNextULRSelector = "p#galleryNav a#galleryNavNext";
+                this.navigationPageNumberSelector = "p#galleryNav";
+                this.sectionToBeAttached = "div#photo img, #photo p:first"; // sekcja komentarza i obrazek
+                this.headerSectionSelector = "";
+                this.hasSlideNumbers = true;
+                this._start();
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
