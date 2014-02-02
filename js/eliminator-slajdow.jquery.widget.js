@@ -12,7 +12,7 @@
             }
         },
         sectionToBeEmptySelector: ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay",
-        sectionToBeRemovedSelector: "",
+        sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
         navigationNextULRSelector: ".navigation .next:first",
         navigationPageNumberSelector: ".navigation .page:first",
         articleBodySelector: "#gazeta_article_body",
@@ -319,7 +319,7 @@
                  Regresja
                  http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg
                  */
-                this._logger("autotrader.pl - galeria zdjec samochodu");
+                this._logger("autotrader.pl - galeria zdjec samochodu - 2013");
                 this.articleBodySelector = "div#Zawartosc div.Detale";
                 this.navigationNextULRSelector = "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a";
                 this.sectionToBeEmptySelector = "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole";
@@ -421,10 +421,10 @@
                 // wrapper na caly art
                 this.articleBodySelector = "div#photo";
                 this.sectionToBeEmptySelector = "script";
-                this.sectionToBeRemovedSelector = "p[id='photoNavigation'], div#photoElement div.nav, #tngallery, #photoRelatedArticles, p.photoMeta, p > a[href*='/apps/'], h1, .photoFunctions, .photoMeta, .photoNavigation, #photoRelatedArticles";
+                this.sectionToBeRemovedSelector = "#tngallery, #photoRelatedArticles, #photoNavigation, #photoElement div.nav";
                 this.navigationNextULRSelector = "p#photoNavigation a#photoNavigationNext";
                 this.navigationPageNumberSelector = "span#photoNavigationPages";
-                this.sectionToBeAttached = "div#photo"; // sekcja komentarza i obrazek
+                this.sectionToBeAttached = "div#photo img, div#photo p:nth-child(7)"; // sekcja komentarza i obrazek
                 this.headerSectionSelector = "";
                 this.hasSlideNumbers = true;
                 this._start();
@@ -443,6 +443,21 @@
                 this.sectionToBeAttached = "div#photo img, #photo p:first"; // sekcja komentarza i obrazek
                 this.headerSectionSelector = "";
                 this.hasSlideNumbers = true;
+                this._start();
+            } else if ($("div#LeftContent div#MainGallery img#PhotoInMainGallery").length > 0) {
+                /*
+                 Regresja
+                 http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg
+                 */
+                this._logger("autotrader.pl - galeria zdjec samochodu - 2014");
+                this.articleBodySelector = "div#MainGallery";
+                this.navigationNextULRSelector = "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a";
+                this.sectionToBeEmptySelector = "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole";
+                this.sectionToBeAttached = "div.ZdjecieGaleriaMaxWielkosc";
+                this.navigationPageNumberSelector = "div.PasekZjecieOdstep";
+                this.hasSlideNumbers = false;
+                this.classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
+                this.pageType = "15";
                 this._start();
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
