@@ -384,7 +384,7 @@
                 // wrapper na caly art
                 this.articleBodySelector = "div#photo div.photo-item";
                 this.sectionToBeEmptySelector = "script";
-                this.sectionToBeRemovedSelector = "div.photo-item div.photoElem a";
+                this.sectionToBeRemovedSelector = "div.photoElem a";
                 this.navigationNextULRSelector = "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next";
                 this.navigationPageNumberSelector = "div#photo.common-box div.top-slider div.slider";
                 this.sectionToBeAttached = "div.photo-item"; // sekcja komentarza i obrazek
