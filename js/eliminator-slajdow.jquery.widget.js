@@ -150,7 +150,7 @@
                         text: pageNumberLabel
                     }).append($("<span>", {
                             "class": "esLogo",
-                            style: "background:url('" + this.options.esLogoUrl + "') no-repeat"
+                            style: "background:url('" + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
                         })).append($("<span>", {
                             "class": "scrollSwitch",
                             text: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
@@ -175,7 +175,7 @@
                                 })))).append($("<p>", {
                         "class": "headerLogo",
                         text: 'Eliminator Slajdów',
-                        style: "background:url('" + this.options.facebookIconUrl + "') no-repeat 0 2px"
+                        style: "background:url('" + this.options.facebookIconUrl + "') no-repeat 0 1px /10px"
                     }));
 
                 $(this.imageContainer).append(slideHeader);

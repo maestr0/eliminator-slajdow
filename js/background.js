@@ -25,7 +25,7 @@ chrome.extension.onRequest.addListener(onRequest);
 function checkForValidUrl(tabId, changeInfo, tab) {
     if (canRunOnCurrentUrl(tab.url) === true) {
         chrome.pageAction.setIcon({
-            path: '../images/icon_48.png',
+            path: '../images/es_logo.svg2',
             tabId: tabId
         });
 

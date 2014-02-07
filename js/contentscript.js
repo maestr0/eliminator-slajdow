@@ -5,8 +5,8 @@
                 $("body").eliminatorSlajdow({
                     scrollableImageContainer: (response.scrollableImageContainer === "on"),
                     spinningIconUrl: chrome.extension.getURL("images/ajax-loader.gif"),
-                    facebookIconUrl: chrome.extension.getURL("images/icon_facebook.gif"),
-                    esLogoUrl: chrome.extension.getURL("images/icon_16.png"),
+                    facebookIconUrl: chrome.extension.getURL("images/facebook_icon.svg"), 
+                    esLogoUrl: chrome.extension.getURL("images/es_logo.svg"),
                     trackingCallback: function (category, action, location) {
                         chrome.extension.sendRequest({"tracking": category, "action": action, "location": location});
                     }
