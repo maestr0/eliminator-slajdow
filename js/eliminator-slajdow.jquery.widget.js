@@ -257,6 +257,7 @@
                 this._logger("jestesmy na stronie z galeria #pagetype_art_blog (2)");
                 this.pageType = "2";
                 this._updateGalleryLink();
+                this.classesToBeRemoved.push("gazetaVideoPlayer");
                 this._start();
             } else if ($("body#pagetype_art #gazeta_article_tools").length > 0) {
                 /*
