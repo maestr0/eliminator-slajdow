@@ -501,7 +501,26 @@
                 // this.classesToBeRemoved.push("");
                 //this.customStyle={"*[id='bxGaleriaOpis']":"margin-top:0 !important"};
                 this.pageType = "17";
-                this._start();   
+                this._start();  
+                } else if ($("div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext").length > 0) {
+                /*
+                 Regresja
+                 http://finanse.wp.pl/gid,16350579,kat,1033695,title,Polska-wsrod-najatrakcyjniejszych-rynkow-Europy,galeria.html
+                 http://finanse.wp.pl/gid,16374104,title,Oto-najwieksze-stolice-hazardu,galeria.html
+                 */
+                this._logger("wp.pl (18)");
+                this.articleBodySelector = "#stgMain article.stampGaleria";
+                this.navigationNextULRSelector = "div.stampStronicowanie div.pIndex a.pNext";
+                this.sectionToBeEmptySelector = "";
+                this.sectionToBeAttached = "article.stampGaleria > div.articleRow";
+                this.sectionToBeRemovedSelector=".stampGlowneFoto .stampGlowneFotoMain > a, div.stampStronicowanie div.pIndex";
+                this.navigationPageNumberSelector = ".stampStronicowanie:first .pIndex span";
+                this.sectionToBeRemovedFromAttachedSlidesSelector="script, .stampBxStopka";
+                this.hasSlideNumbers = true;
+                // this.classesToBeRemoved.push(""); 
+                //this.customStyle={"*[id='bxGaleriaOpis']":"margin-top:0 !important"};
+                this.pageType = "18";
+                this._start();    
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
