@@ -16,6 +16,7 @@ body.eliminatorSlajdow {
 
   div.imageContainerEliminatorSlajdow.noScroll {
     float: left;
+    width: 100%;
   }
 
   div.imageContainerEliminatorSlajdow {
@@ -43,7 +44,7 @@ body.eliminatorSlajdow {
         cursor: pointer;
         background: url('facebook_icon.svg') no-repeat 0 1px;
         background-size: 10px;
-        padding-left: 12px;
+        padding: 0 0 0 12px;
         line-height: 14px;
       }
 
@@ -93,13 +94,13 @@ body.eliminatorSlajdow {
         float: right;
         margin-right: 5px;
         color: white;
-        height: 16px;
+        height: 16px;        
         a {
           color: white;
           text-decoration: none;
           height: 14px;
           font: 11px Arial;
-          line-height: 12px;
+          line-height: 16px;
         }
       }
     }

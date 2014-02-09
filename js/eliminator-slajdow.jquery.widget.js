@@ -25,6 +25,7 @@
         imageContainer: null,
         spinner: null,
         pageType: "standard",
+        customStyle: {},
         _start: function () {
             var that = this;
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
@@ -209,6 +210,10 @@
                 } else {
                     this._logger("Ostatnia Strona");
                     this._hideSpinner();
+                }
+
+                for (var selector in this.customStyle) {
+                    $(selector).attr("style", this.customStyle[selector]);
                 }
 
                 for (var i in this.classesToBeRemoved) {
@@ -460,6 +465,43 @@
                 this.classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
                 this.pageType = "15";
                 this._start();
+             } else if ($("div#bxGaleria div.podpisDuzaFotka div.przewijakZdjec div.slider").length > 0) {
+                /*
+                 Regresja
+                 http://wiadomosci.wp.pl/gid,16390562,gpage,4,img,16391154,kat,1356,title,Igrzyska-w-Soczi-i-nie-tylko,galeria.html
+                 */
+                this._logger("wp.pl (16)");
+                this.articleBodySelector = "div#bxGaleria";
+                this.navigationNextULRSelector = "div#bxGaleriaOpis a.stgGaleriaNext";
+                this.sectionToBeEmptySelector = "div.podpisDuzaFotka";
+                this.sectionToBeAttached = "div.bxGaleria div.kol2";
+                this.sectionToBeRemovedSelector="#bxGaleriaOpis .stro, .przewijakGalerii, div.duzaFotka > a";
+                this.navigationPageNumberSelector = "div#bxGaleriaOpis span.status";
+                this.sectionToBeRemovedFromAttachedSlidesSelector="script";
+                this.hasSlideNumbers = true;
+                // this.classesToBeRemoved.push("");
+                this.customStyle={"*[id='bxGaleriaOpis']":"margin-top:0 !important"};
+                this.pageType = "16";
+                this._start();   
+
+                } else if ($("div#stgGaleria div.stgGaleriaCnt .stgGaleriaNext").length > 0) {
+                /*
+                 Regresja
+                 http://facet.wp.pl/gid,16327903,kat,1007873,page,7,galeriazdjecie.html
+                 */
+                this._logger("wp.pl (17)");
+                this.articleBodySelector = "div.bxArt";
+                this.navigationNextULRSelector = "div#stgGaleria a.stgGaleriaNext";
+                this.sectionToBeEmptySelector = "";
+                this.sectionToBeAttached = "#stgGaleria";
+                this.sectionToBeRemovedSelector=".stgGaleriaCnt > a";
+                this.navigationPageNumberSelector = ".bxArt .strGallery.pageInfo > span";
+                this.sectionToBeRemovedFromAttachedSlidesSelector="script";
+                this.hasSlideNumbers = true;
+                // this.classesToBeRemoved.push("");
+                //this.customStyle={"*[id='bxGaleriaOpis']":"margin-top:0 !important"};
+                this.pageType = "17";
+                this._start();   
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
