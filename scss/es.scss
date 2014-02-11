@@ -20,6 +20,10 @@ body.eliminatorSlajdow {
   }
 
   div.imageContainerEliminatorSlajdow {
+    > div {
+      float: left;
+      width: 100%;
+    }
     p.slideTitle {
       padding: 20px;
       font-size: 20px;
@@ -94,7 +98,7 @@ body.eliminatorSlajdow {
         float: right;
         margin-right: 5px;
         color: white;
-        height: 16px;        
+        height: 16px;
         a {
           color: white;
           text-decoration: none;

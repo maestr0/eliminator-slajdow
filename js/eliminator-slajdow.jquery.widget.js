@@ -26,6 +26,7 @@
         spinner: null,
         pageType: "standard",
         customStyle: {},
+        preIncludeCallback: function(){},
         _start: function () {
             var that = this;
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
@@ -53,14 +54,12 @@
                 this._bind();
                 this._showSpinnier();
                 this.slideURLs.push(document.location.pathname + document.location.search);
+
                 $.get(nextPageURL,function (nextPage) {
                     that._findNextSlideURL(nextPage, nextPageURL);
                 }).fail(function () {
                         that._hideSpinner();
                     });
-                if (this.pageType === 3) {
-                    this._removeOverlay();
-                }
             } else {
                 this._logger("Brak slajdow. Galeria typu " + this.pageType);
             }
@@ -222,7 +221,6 @@
 
             }
 
-            $(".imageContainerEliminatorSlajdow > div").css("float", "left").css("width", "100%");
             var imageContainer = $(".imageContainerEliminatorSlajdow");
             if (imageContainer.width() > 950 && this.pageType !== "8" && this.pageType !== "12") {
                 imageContainer.width(950);
@@ -237,9 +235,6 @@
                     galleryLink.attr("href", href.substring(0, href.length - suffix.length));
                 }
             }
-        },
-        _removeOverlay: function () {
-            $("#gazeta_article_image div.overlayBright").remove();
         },
         _create: function (customOptions) {
             $.extend(true, this, this, customOptions);
@@ -271,6 +266,7 @@
                  */
                 this._logger("jestesmy na stronie z galeria body#pagetype_art #gazeta_article_image (3)");
                 this.sectionToBeAttached = "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')"; // sekcja komentarza i obrazek
+                this.sectionToBeRemovedSelector ="#gazeta_article_image div.overlayBright";
                 this.pageType = "3";
                 this._updateGalleryLink();
                 this._removeOverlay();
@@ -517,8 +513,6 @@
                 this.navigationPageNumberSelector = ".stampStronicowanie:first .pIndex span";
                 this.sectionToBeRemovedFromAttachedSlidesSelector="script, .stampBxStopka";
                 this.hasSlideNumbers = true;
-                // this.classesToBeRemoved.push(""); 
-                //this.customStyle={"*[id='bxGaleriaOpis']":"margin-top:0 !important"};
                 this.pageType = "18";
                 this._start();    
             } else {
