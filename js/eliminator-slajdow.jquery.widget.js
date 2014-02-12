@@ -110,13 +110,14 @@
                 name: "MultiGallery na ONET.PL",
                 regressionUrls: [],
                 articleBodySelector: "#multiGallery #multiGalleryContent #galleryText",
-                sectionToBeEmptySelector: "*[id:'mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd",
+                sectionToBeEmptySelector: "*[id='mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd",
                 sectionToBeRemovedSelector: ".imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd, #multiGalleryContent .navBox",
                 navigationNextULRSelector: ".navBox .navBoxContainer a.nextFixed",
                 navigationPageNumberSelector: "",
                 sectionToBeAttached: "#multiGalleryContent #galleryText", // sekcja komentarza i obrazek
                 headerSectionSelector: "",
                 hasSlideNumbers: false,
+                customStyle: {"body": "height:auto"},
                 pageType: "8"
 
             },
@@ -300,6 +301,12 @@
             this._hideSpinner();
             var articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
             if ($(articleSection).length > 0) {
+
+                var nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
+                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
+                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
+                    return;
+                }
                 var pageNumber = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector).text().match(/(\d+)/g);
                 if (this.pageOptions.hasSlideNumbers) {
                     this._logger("numer strony", pageNumber);
@@ -338,7 +345,7 @@
                                 "class": "directLink"
                             }).append($("<a>", {
                                     target: "_blank",
-                                    href: this._disableES(url),
+                                    href: this._appendDisableEsFlag(url),
                                     text: "Bezpośredni link"
                                 })))).append($("<p>", {
                         "class": "headerLogo",
@@ -379,11 +386,6 @@
                     this.imageContainer.width(950);
                 }
 
-                var nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
-                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
-                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
-                    return;
-                }
                 this.pageOptions.visitedSlideURLs.push(url);
 
                 this.pageOptions.preIncludeCallback.call(this);
@@ -455,7 +457,7 @@
             for (var i in this.pages) {
                 if ($(this.pages[i].trigger).length > 0) {
                     $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
-                    this._logger("ES konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
+                    this._logger("ES START konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
                     this._start();
                     break;
                 }
@@ -472,7 +474,7 @@
         _hideSpinner: function () {
             $("div.imageContainerEliminatorSlajdow div.eliminatorSlajdowSpinner").remove();
         },
-        _disableES: function (url) {
+        _appendDisableEsFlag: function (url) {
             if (url.indexOf("?") > -1) {
                 return url.replace("?", "?es=off&");
             } else {
