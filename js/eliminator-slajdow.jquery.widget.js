@@ -208,6 +208,9 @@
                     return;
                 }
                 this.visitedSlideURLs.push(url);
+
+                this.preIncludeCallback.call(this);
+
                 if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     this._logger("link do nastepnej storny", nextPageURL);
                     this._showSpinnier();
@@ -425,101 +428,30 @@
                  * http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20140131&Category=GALERIA01&ArtNo=131009996&Ref=PH
                  * */
                 this._logger("Galeria MediaRegionalne - Galeria 13");
-                this.pageType = "13";
-                // wrapper na caly art
-                this.articleBodySelector = "div#photo";
-                this.sectionToBeEmptySelector = "script";
-                this.sectionToBeRemovedSelector = "#tngallery, #photoRelatedArticles, #photoNavigation, #photoElement div.nav";
-                this.navigationNextULRSelector = "p#photoNavigation a#photoNavigationNext";
-                this.navigationPageNumberSelector = "span#photoNavigationPages";
-                this.sectionToBeAttached = "div#photo img, div#photo p:nth-child(7)"; // sekcja komentarza i obrazek
-                this.headerSectionSelector = "";
-                this.hasSlideNumbers = true;
+
                 this._start();
             } else if ($("div#wrapper > div > div#photo p#galleryNav a#galleryNavNext").length > 0) {
                 /*
                  * http://www.nowiny24.pl/apps/pbcs.dll/gallery?Site=NW&Date=20140126&Category=IMPREZY07&ArtNo=126009999&Ref=PH&Params=Itemnr=1
                  * */
                 this._logger("Galeria MediaRegionalne - Galeria 14");
-                this.pageType = "14";
-                // wrapper na caly art
-                this.articleBodySelector = "div#photo";
-                this.sectionToBeEmptySelector = "script";
-                this.sectionToBeRemovedSelector = "#galleryNav, #tngalleryScroll";
-                this.navigationNextULRSelector = "p#galleryNav a#galleryNavNext";
-                this.navigationPageNumberSelector = "p#galleryNav";
-                this.sectionToBeAttached = "div#photo img, #photo p:first"; // sekcja komentarza i obrazek
-                this.headerSectionSelector = "";
-                this.hasSlideNumbers = true;
+
                 this._start();
-            } else if ($("div#LeftContent div#MainGallery img#PhotoInMainGallery").length > 0) {
+            } else if ($("").length > 0) {
                 /*
                  Regresja
-                 http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg
+
                  */
                 this._logger("autotrader.pl - galeria zdjec samochodu - 2014");
-                this.articleBodySelector = "div#MainGallery";
-                this.navigationNextULRSelector = "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a";
-                this.sectionToBeEmptySelector = "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole";
-                this.sectionToBeAttached = "div.ZdjecieGaleriaMaxWielkosc";
-                this.navigationPageNumberSelector = "div.PasekZjecieOdstep";
-                this.hasSlideNumbers = false;
-                this.classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
-                this.pageType = "15";
+
                 this._start();
-            } else if ($("div#bxGaleria div.podpisDuzaFotka div.przewijakZdjec div.slider").length > 0) {
+            } else if ($().length > 0) {
                 /*
                  Regresja
-                 http://wiadomosci.wp.pl/gid,16390562,gpage,4,img,16391154,kat,1356,title,Igrzyska-w-Soczi-i-nie-tylko,galeria.html
+
                  */
                 this._logger("wp.pl (16)");
-                this.articleBodySelector = "div#bxGaleria";
-                this.navigationNextULRSelector = "div#bxGaleriaOpis a.stgGaleriaNext";
-                this.sectionToBeEmptySelector = "div.podpisDuzaFotka";
-                this.sectionToBeAttached = "div.bxGaleria div.kol2";
-                this.sectionToBeRemovedSelector = "#bxGaleriaOpis .stro, .przewijakGalerii, div.duzaFotka > a";
-                this.navigationPageNumberSelector = "div#bxGaleriaOpis span.status";
-                this.sectionToBeRemovedFromAttachedSlidesSelector = "script";
-                this.hasSlideNumbers = true;
-                // this.classesToBeRemoved.push("");
-                this.customStyle = {"*[id='bxGaleriaOpis']": "margin-top:0 !important"};
-                this.pageType = "16";
-                this._start();
 
-            } else if ($("div#stgGaleria div.stgGaleriaCnt .stgGaleriaNext").length > 0) {
-                /*
-                 Regresja
-                 http://facet.wp.pl/gid,16327903,kat,1007873,page,7,galeriazdjecie.html
-                 */
-                this._logger("wp.pl (17)");
-                this.articleBodySelector = "div.bxArt";
-                this.navigationNextULRSelector = "div#stgGaleria a.stgGaleriaNext";
-                this.sectionToBeEmptySelector = "";
-                this.sectionToBeAttached = "#stgGaleria";
-                this.sectionToBeRemovedSelector = ".stgGaleriaCnt > a";
-                this.navigationPageNumberSelector = ".bxArt .strGallery.pageInfo > span";
-                this.sectionToBeRemovedFromAttachedSlidesSelector = "script";
-                this.hasSlideNumbers = true;
-                // this.classesToBeRemoved.push("");
-                //this.customStyle={"*[id='bxGaleriaOpis']":"margin-top:0 !important"};
-                this.pageType = "17";
-                this._start();
-            } else if ($("div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext").length > 0) {
-                /*
-                 Regresja
-                 http://finanse.wp.pl/gid,16350579,kat,1033695,title,Polska-wsrod-najatrakcyjniejszych-rynkow-Europy,galeria.html
-                 http://finanse.wp.pl/gid,16374104,title,Oto-najwieksze-stolice-hazardu,galeria.html
-                 */
-                this._logger("wp.pl (18)");
-                this.articleBodySelector = "#stgMain article.stampGaleria";
-                this.navigationNextULRSelector = "div.stampStronicowanie div.pIndex a.pNext";
-                this.sectionToBeEmptySelector = "";
-                this.sectionToBeAttached = "article.stampGaleria > div.articleRow";
-                this.sectionToBeRemovedSelector = ".stampGlowneFoto .stampGlowneFotoMain > a, div.stampStronicowanie div.pIndex";
-                this.navigationPageNumberSelector = ".stampStronicowanie:first .pIndex span";
-                this.sectionToBeRemovedFromAttachedSlidesSelector = "script, .stampBxStopka";
-                this.hasSlideNumbers = true;
-                this.pageType = "18";
                 this._start();
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
@@ -527,6 +459,80 @@
         },
 
         pages: [
+
+            {
+
+
+            },
+            {   trigger: "",
+                name: "",
+                regressionUrls: [""],
+                pageType: "13",
+                articleBodySelector: "div#photo",
+                sectionToBeEmptySelector: "script",
+                sectionToBeRemovedSelector: "#tngallery, #photoRelatedArticles, #photoNavigation, #photoElement div.nav",
+                navigationNextULRSelector: "p#photoNavigation a#photoNavigationNext",
+                navigationPageNumberSelector: "span#photoNavigationPages",
+                sectionToBeAttached: "div#photo img, div#photo p:nth-child(7)", // sekcja komentarza i obrazek
+                headerSectionSelector: "",
+                hasSlideNumbers: true
+
+            },
+            {   trigger: "",
+                name: "",
+                regressionUrls: [""],
+                pageType: "14",
+                articleBodySelector: "div#photo",
+                sectionToBeEmptySelector: "script",
+                sectionToBeRemovedSelector: "#galleryNav, #tngalleryScroll",
+                navigationNextULRSelector: "p#galleryNav a#galleryNavNext",
+                navigationPageNumberSelector: "p#galleryNav",
+                sectionToBeAttached: "div#photo img, #photo p:first", // sekcja komentarza i obrazek
+                headerSectionSelector: "",
+                hasSlideNumbers: true
+
+            },
+            {   trigger: "div#LeftContent div#MainGallery img#PhotoInMainGallery",
+                name: "Autotrader Legacy",
+                regressionUrls: ["http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg"],
+                articleBodySelector: "div#MainGallery",
+                navigationNextULRSelector: "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a",
+                sectionToBeEmptySelector: "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole",
+                sectionToBeAttached: "div.ZdjecieGaleriaMaxWielkosc",
+                navigationPageNumberSelector: "div.PasekZjecieOdstep",
+                hasSlideNumbers: false,
+                classesToBeRemoved: ["ZdjecieGaleriaMaxWielkosc"],
+                pageType: "15"
+            },
+            {   trigger: "div#bxGaleria div.podpisDuzaFotka div.przewijakZdjec div.slider",
+                name: "Wiadomosci Wp.pl",
+                regressionUrls: ["http://wiadomosci.wp.pl/gid,16390562,gpage,4,img,16391154,kat,1356,title,Igrzyska-w-Soczi-i-nie-tylko,galeria.html"],
+                articleBodySelector: "div#bxGaleria",
+                navigationNextULRSelector: "div#bxGaleriaOpis a.stgGaleriaNext",
+                sectionToBeEmptySelector: "div.podpisDuzaFotka",
+                sectionToBeAttached: "div.bxGaleria div.kol2",
+                sectionToBeRemovedSelector: "#bxGaleriaOpis .stro, .przewijakGalerii, div.duzaFotka > a",
+                navigationPageNumberSelector: "div#bxGaleriaOpis span.status",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                hasSlideNumbers: true,
+                customStyle: {"*[id:'bxGaleriaOpis']": "margin-top:0 !important"},
+                pageType: "16"
+
+            },
+            {   trigger: "div#stgGaleria div.stgGaleriaCnt .stgGaleriaNext",
+                name: "Facet wp.pl",
+                articleBodySelector: "div.bxArt",
+                navigationNextULRSelector: "div#stgGaleria a.stgGaleriaNext",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: "#stgGaleria",
+                sectionToBeRemovedSelector: ".stgGaleriaCnt > a",
+                navigationPageNumberSelector: ".bxArt .strGallery.pageInfo > span",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                hasSlideNumbers: true,
+                regressionUrls: ["http://facet.wp.pl/gid,16327903,kat,1007873,page,7,galeriazdjecie.html"],
+                pageType: "17"
+
+            },
             {   trigger: "div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext",
                 name: "wp.pl",
                 articleBodySelector: "#stgMain article.stampGaleria",
@@ -540,8 +546,7 @@
                 pageType: "18",
                 regressionUrls: ["http://finanse.wp.pl/gid,16374104,title,Oto-najwieksze-stolice-hazardu,galeria.html",
                     "http://finanse.wp.pl/gid,16350579,kat,1033695,title,Polska-wsrod-najatrakcyjniejszych-rynkow-Europy,galeria.html"],
-                preIncludeCallback: function(){
-                    console.log("WP haha dziala!");
+                preIncludeCallback: function () {
                 }
             }
         ],
@@ -554,5 +559,7 @@
         _logger: function () {
             console.log.apply(console, arguments);
         }
-    });
-})(jQuery);
+    })
+    ;
+})
+    (jQuery);
