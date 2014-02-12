@@ -45,6 +45,7 @@
             }
             var nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
             this._logger("link do nastepnej storny", nextPageURL, this.pageOptions.navigationNextULRSelector);
+            this.pageOptions.preIncludeCallback.call(this);
             if (nextPageURL) {
                 this._tracking("ES_start", this.pageOptions.pageType);
                 $(this.pageOptions.sectionToBeEmptySelector).empty();
@@ -257,7 +258,7 @@
                 name: "galeria #pagetype_photo (1)",
                 regressionUrls: [],
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
-                sectionToBeRemovedSelector: "#gazeta_article_top .navigation",
+                sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
                 customStyle: {"#col_left": "width:auto"}
             },
@@ -499,5 +500,8 @@
         }
     })
     ;
-})
-    (jQuery);
+})(jQuery);
+
+//  http://deser.pl/deser/51,111858,13075478.html?index=0&bo=1
+//  http://ofsajd.onet.pl/dziewczyny/pamela-anderson-w-nowojorskim-maratonie-poznalibyscie/qjr1c
+// WP sites
