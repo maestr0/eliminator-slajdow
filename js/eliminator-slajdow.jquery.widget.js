@@ -244,13 +244,144 @@
             for (var i in this.pages) {
                 if ($(this.pages[i].trigger).length > 0) {
                     $.extend(true, this, this, this.pages[i]);
-                    this._logger("ES konfiguracja dla" + this.pages[i].name + ", type " + this.pages[i].type);
+                    this._logger("ES konfiguracja " + this.pages[i].pageType + " dla " + this.pages[i].name);
                     this._start();
                     break;
                 }
             }
         },
         pages: [
+            {   trigger: "body#pagetype_photo",
+                name: "galeria #pagetype_photo (1)",
+                regressionUrls: [],
+                sectionToBeEmptySelector: "#gazeta_article_miniatures",
+                sectionToBeRemovedSelector: "#gazeta_article_top .navigation",
+                pageType: "1",
+                customStyle: {"#col_left": "width:auto"}
+            },
+            {   trigger: "body#pagetype_art_blog",
+                name: "galeria #pagetype_art_blog (2)",
+                regressionUrls: ["http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html",
+                    "http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html",
+                    "http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17",
+                    "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html"],
+                sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
+                pageType: "2",
+                classesToBeRemoved: ["gazetaVideoPlayer"],
+                preIncludeCallback: function () {
+                    this._updateGalleryLink();
+                }
+            },
+            {   trigger: "body#pagetype_art #gazeta_article_tools",
+                name: "galeria body#pagetype_art #gazeta_article_image (3)",
+                regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
+                sectionToBeAttached: "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
+                sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
+                pageType: "3",
+                preIncludeCallback: function () {
+                    this._updateGalleryLink();
+                }
+            },
+
+            {   trigger: "div#art div#container_gal",
+                name: "gazetapraca.pl ",
+                regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
+                articleBodySelector: "#art",
+                navigationPageNumberSelector: ".paging:first",
+                sectionToBeEmptySelector: "div#gal_navi_wrp, #gal_navi_wrp",
+                navigationNextULRSelector: "#gal_btn_next a:first",
+                sectionToBeAttached: "div#container_gal",
+                pageType: "4"
+            },
+            {   trigger: "div#article div#article_body",
+                name: "galeria div#article div#article_body (5)",
+                regressionUrls: ["http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
+                articleBodySelector: "#article_body",
+                navigationNextULRSelector: "#gal_btn_next a:first",
+                sectionToBeEmptySelector: "#gal_navi_wrp", // div#article ul,
+                sectionToBeAttached: "div#container_gal",
+                navigationPageNumberSelector: "#gal_navi .paging",
+                pageType: "5"
+
+            },
+            {   trigger: "div#k1 div#k1p div#gal_outer",
+                name: "galeria bez typu ('div#k1 div#k1p div#gal_outer') (6)",
+                regressionUrls: ["http://wyborcza.pl/51,75248,12537285.html?i:0"],
+                articleBodySelector: "div#gal_outer .description",
+                navigationNextULRSelector: "li.btn_next a:first",
+                sectionToBeEmptySelector: "div#article ul, #gal_navi_wrp, div#gal_miniatures",
+                sectionToBeAttached: "div#gal_picture, div.description, p.description",
+                navigationPageNumberSelector: "#gal_navi .paging",
+                hasSlideNumbers: false,
+                pageType: "6"
+
+            },
+            {   trigger: "div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc",
+                name: "autotrader.pl - galeria zdjec samochodu - 2013",
+                regressionUrls: ["http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg"],
+                articleBodySelector: "div#Zawartosc div.Detale",
+                navigationNextULRSelector: "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a",
+                sectionToBeEmptySelector: "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole",
+                sectionToBeAttached: "div.ZdjecieGaleriaMaxWielkosc",
+                navigationPageNumberSelector: "div.PasekZjecieOdstep",
+                hasSlideNumbers: false,
+                classesToBeRemoved: ["ZdjecieGaleriaMaxWielkosc"],
+                pageType: "7"
+            },
+            {   trigger: "#multiGallery #multiGalleryContent #gallery",
+                name: "MultiGallery na ONET.PL",
+                regressionUrls: [],
+                articleBodySelector: "#multiGallery #multiGalleryContent #galleryText",
+                sectionToBeEmptySelector: "*[id:'mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd",
+                sectionToBeRemovedSelector: ".imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd, #multiGalleryContent .navBox",
+                navigationNextULRSelector: ".navBox .navBoxContainer a.nextFixed",
+                navigationPageNumberSelector: "",
+                sectionToBeAttached: "#multiGalleryContent #galleryText", // sekcja komentarza i obrazek
+                headerSectionSelector: "",
+                hasSlideNumbers: false,
+                pageType: "8"
+
+            },
+            {   trigger: "div#page div#pageWrapper div#photo div#photoContainer div.nav a",
+                name: "Galeria MediaRegionalne ",
+                regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site:GW&Date:20131029&Category:GALERIA01&ArtNo:102909998&Ref:PH&Params:Itemnr:1"],
+                pageType: "9",
+                articleBodySelector: "div#photo",
+                sectionToBeEmptySelector: "script",
+                sectionToBeRemovedSelector: "div#tngallery, p#photoNavigation, .imageContainerEliminatorSlajdow div#photoRelatedArticles, .imageContainerEliminatorSlajdow div#photo p.photoMeta",
+                navigationNextULRSelector: "p#photoNavigation a#photoNavigationNext",
+                navigationPageNumberSelector: "span#photoNavigationPages",
+                sectionToBeAttached: "div#photo",
+                headerSectionSelector: "",
+                hasSlideNumbers: true
+            },
+            {   trigger: "div#page div#pageWrapper div#article.photostory p.photoNavigation a.photoNavigationNext",
+                name: "Galeria MediaRegionalne - artykul",
+                regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/article?AID:/20131029/REG00/131029705"],
+                pageType: "10",
+                articleBodySelector: "div#article",
+                sectionToBeEmptySelector: "script",
+                sectionToBeRemovedSelector: "p.photoNavigation, div#photoContainer div.nav, div#photoElement div.nav, h2",
+                navigationNextULRSelector: "p.photoNavigation a.photoNavigationNext",
+                navigationPageNumberSelector: "span.photoNavigationPages:first",
+                sectionToBeAttached: "div#article div.intextAd",
+                headerSectionSelector: "",
+                hasSlideNumbers: true
+            },
+            {   trigger: "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next",
+                name: "Galeria MojeMiasto",
+                regressionUrls: ["http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013"],
+                pageType: "11",
+                articleBodySelector: "div#photo div.photo-item",
+                sectionToBeEmptySelector: "script",
+                sectionToBeRemovedSelector: "div.photoElem a",
+                navigationNextULRSelector: "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next",
+                navigationPageNumberSelector: "div#photo.common-box div.top-slider div.slider",
+                sectionToBeAttached: "div.photo-item",
+                headerSectionSelector: "",
+                hasSlideNumbers: true
+
+            },
             {   trigger: "body#pagetype_art #content_wrap .photostoryNextPage",
                 name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (12)",
                 regressionUrls: ["http://technologie.gazeta.pl/internet/56,104530,14940595,Panel_sterowania__gdzie_ja_do_diaska_jestem,,1.html"],
@@ -267,134 +398,6 @@
                 preIncludeCallback: function () {
                     this._updateGalleryLink();
                 }
-            },
-            {   trigger: "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next",
-                name: "Galeria MojeMiasto",
-                regressionUrls: ["http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013"],
-                pageType: "11",
-                articleBodySelector: "div#photo div.photo-item",
-                sectionToBeEmptySelector: "script",
-                sectionToBeRemovedSelector: "div.photoElem a",
-                navigationNextULRSelector: "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next",
-                navigationPageNumberSelector: "div#photo.common-box div.top-slider div.slider",
-                sectionToBeAttached: "div.photo-item",
-                headerSectionSelector: "",
-                hasSlideNumbers: true
-
-            },
-            {   trigger: "div#page div#pageWrapper div#article.photostory p.photoNavigation a.photoNavigationNext",
-                name: "Galeria MediaRegionalne - artykul",
-                regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/article?AID:/20131029/REG00/131029705"],
-                pageType: "10",
-                articleBodySelector: "div#article",
-                sectionToBeEmptySelector: "script",
-                sectionToBeRemovedSelector: "p.photoNavigation, div#photoContainer div.nav, div#photoElement div.nav, h2",
-                navigationNextULRSelector: "p.photoNavigation a.photoNavigationNext",
-                navigationPageNumberSelector: "span.photoNavigationPages:first",
-                sectionToBeAttached: "div#article div.intextAd",
-                headerSectionSelector: "",
-                hasSlideNumbers: true
-            },
-            {   trigger: "div#page div#pageWrapper div#photo div#photoContainer div.nav a",
-                name: "Galeria MediaRegionalne ",
-                regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site:GW&Date:20131029&Category:GALERIA01&ArtNo:102909998&Ref:PH&Params:Itemnr:1"],
-                pageType: "9",
-                articleBodySelector: "div#photo",
-                sectionToBeEmptySelector: "script",
-                sectionToBeRemovedSelector: "div#tngallery, p#photoNavigation, .imageContainerEliminatorSlajdow div#photoRelatedArticles, .imageContainerEliminatorSlajdow div#photo p.photoMeta",
-                navigationNextULRSelector: "p#photoNavigation a#photoNavigationNext",
-                navigationPageNumberSelector: "span#photoNavigationPages",
-                sectionToBeAttached: "div#photo",
-                headerSectionSelector: "",
-                hasSlideNumbers: true
-            },
-            {   trigger: "#multiGallery #multiGalleryContent #gallery",
-                name: "MultiGallery na ONET.PL",
-                regressionUrls: [],
-                articleBodySelector: "#multiGallery #multiGalleryContent #galleryText",
-                sectionToBeEmptySelector: "*[id:'mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd",
-                sectionToBeRemovedSelector: ".imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd, #multiGalleryContent .navBox",
-                navigationNextULRSelector: ".navBox .navBoxContainer a.nextFixed",
-                navigationPageNumberSelector: "",
-                sectionToBeAttached: "#multiGalleryContent #galleryText", // sekcja komentarza i obrazek
-                headerSectionSelector: "",
-                hasSlideNumbers: false,
-                pageType: "8"
-
-            },
-            {   trigger: "div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc",
-                name: "autotrader.pl - galeria zdjec samochodu - 2013",
-                regressionUrls: ["http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg"],
-                articleBodySelector: "div#Zawartosc div.Detale",
-                navigationNextULRSelector: "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a",
-                sectionToBeEmptySelector: "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole",
-                sectionToBeAttached: "div.ZdjecieGaleriaMaxWielkosc",
-                navigationPageNumberSelector: "div.PasekZjecieOdstep",
-                hasSlideNumbers: false,
-                classesToBeRemoved: ["ZdjecieGaleriaMaxWielkosc"],
-                pageType: "7"
-            },
-            {   trigger: "div#k1 div#k1p div#gal_outer",
-                name: "galeria bez typu ('div#k1 div#k1p div#gal_outer') (6)",
-                regressionUrls: ["http://wyborcza.pl/51,75248,12537285.html?i:0"],
-                articleBodySelector: "div#gal_outer .description",
-                navigationNextULRSelector: "li.btn_next a:first",
-                sectionToBeEmptySelector: "div#article ul, #gal_navi_wrp, div#gal_miniatures",
-                sectionToBeAttached: "div#gal_picture, div.description, p.description",
-                navigationPageNumberSelector: "#gal_navi .paging",
-                hasSlideNumbers: false,
-                pageType: "6"
-
-            },
-            {   trigger: "div#article div#article_body",
-                name: "galeria div#article div#article_body (5)",
-                regressionUrls: ["http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
-                articleBodySelector: "#article_body",
-                navigationNextULRSelector: "#gal_btn_next a:first",
-                sectionToBeEmptySelector: "#gal_navi_wrp", // div#article ul,
-                sectionToBeAttached: "div#container_gal",
-                navigationPageNumberSelector: "#gal_navi .paging",
-                pageType: "5"
-
-            },
-            {   trigger: "div#art div#container_gal",
-                name: "gazetapraca.pl ",
-                regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
-                articleBodySelector: "#art",
-                navigationPageNumberSelector: ".paging:first",
-                sectionToBeEmptySelector: "div#gal_navi_wrp, #gal_navi_wrp",
-                navigationNextULRSelector: "#gal_btn_next a:first",
-                sectionToBeAttached: "div#container_gal",
-                pageType: "4"
-            },
-            {   trigger: "body#pagetype_art #gazeta_article_tools",
-                name: "galeria body#pagetype_art #gazeta_article_image (3)",
-                regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
-                sectionToBeAttached: "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
-                sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
-                pageType: "3",
-                preIncludeCallback: function () {
-                    this._updateGalleryLink();
-                }
-            },
-            {   trigger: "body#pagetype_art_blog",
-                name: "galeria #pagetype_art_blog (2)",
-                regressionUrls: ["http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html",
-                    "http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html",
-                    "http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17",
-                    "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html"],
-                sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
-                pageType: "2",
-                classesToBeRemoved: ["gazetaVideoPlayer"],
-                preIncludeCallback: function () {
-                    this._updateGalleryLink();
-                }
-            },
-            {   trigger: "body#pagetype_photo",
-                name: "galeria #pagetype_photo (1)",
-                regressionUrls: [],
-                sectionToBeEmptySelector: "#gazeta_article_miniatures",
-                pageType: "1"
             },
             {   trigger: "div#page div#pageWrapper div#photo p#photoNavigation a#photoNavigationNext",
                 name: "MediaRegionalne 1",
