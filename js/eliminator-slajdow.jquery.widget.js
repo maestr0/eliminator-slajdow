@@ -11,46 +11,48 @@
             trackingCallback: function (category, action) {
             }
         },
-        sectionToBeEmptySelector: ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay",
-        sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
-        navigationNextULRSelector: ".navigation .next:first",
-        navigationPageNumberSelector: ".navigation .page:first",
-        articleBodySelector: "#gazeta_article_body",
-        sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body", // sekcja komentarza i obrazek
-        headerSectionSelector: ".navigation:first h1 span",
-        sectionToBeRemovedFromAttachedSlidesSelector: "",
-        hasSlideNumbers: true,
-        visitedSlideURLs: [],
-        classesToBeRemoved: [],
-        imageContainer: null,
-        spinner: null,
-        pageType: "standard",
-        customStyle: {},
-        preIncludeCallback: function () {
+        pageOptions: {
+            sectionToBeEmptySelector: ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay",
+            sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
+            navigationNextULRSelector: ".navigation .next:first",
+            navigationPageNumberSelector: ".navigation .page:first",
+            articleBodySelector: "#gazeta_article_body",
+            sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body",
+            headerSectionSelector: ".navigation:first h1 span",
+            sectionToBeRemovedFromAttachedSlidesSelector: "",
+            hasSlideNumbers: true,
+            visitedSlideURLs: [],
+            classesToBeRemoved: [],
+            pageType: "Default",
+            customStyle: {},
+            preIncludeCallback: function () {
+            }
         },
+        spinner: null,
+        imageContainer: null,
         _createImageContainer: function () {
             var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
             this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
-            $(this.articleBodySelector).after(this.imageContainer);
+            $(this.pageOptions.articleBodySelector).after(this.imageContainer);
         },
         _start: function () {
             var that = this;
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
             // FIXME
-            if ($(this.sectionToBeAttached).width() > 620) {
+            if ($(this.pageOptions.sectionToBeAttached).width() > 620) {
                 $("#content_wrap").find("#columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
             }
-            var nextPageURL = $(this.navigationNextULRSelector).attr("href");
-            this._logger("link do nastepnej storny", nextPageURL, this.navigationNextULRSelector);
+            var nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
+            this._logger("link do nastepnej storny", nextPageURL, this.pageOptions.navigationNextULRSelector);
             if (nextPageURL) {
-                this._tracking("ES_start", this.pageType);
-                $(this.sectionToBeEmptySelector).empty();
-                $(this.sectionToBeRemovedSelector).remove();
+                this._tracking("ES_start", this.pageOptions.pageType);
+                $(this.pageOptions.sectionToBeEmptySelector).empty();
+                $(this.pageOptions.sectionToBeRemovedSelector).remove();
                 this._createImageContainer();
                 this._bind();
                 this._showSpinnier();
-                this.visitedSlideURLs.push(document.location.pathname + document.location.search);
+                this.pageOptions.visitedSlideURLs.push(document.location.pathname + document.location.search);
 
                 $.get(nextPageURL,function (nextPage) {
                     that._appendNextSlide(nextPage, nextPageURL);
@@ -58,7 +60,7 @@
                         that._hideSpinner();
                     });
             } else {
-                this._logger("Brak slajdow. Galeria typu " + this.pageType);
+                this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
             }
         },
         _showSpinnier: function () {
@@ -121,16 +123,16 @@
         _appendNextSlide: function (galleryPage, url) {
             var that = this;
             this._hideSpinner();
-            var articleSection = $(galleryPage).find(this.sectionToBeAttached);
+            var articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
             if ($(articleSection).length > 0) {
-                var pageNumber = $(galleryPage).find(this.navigationPageNumberSelector).text().match(/(\d+)/g);
-                if (this.hasSlideNumbers) {
+                var pageNumber = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector).text().match(/(\d+)/g);
+                if (this.pageOptions.hasSlideNumbers) {
                     this._logger("numer strony", pageNumber);
                 }
                 var pageNumberLabel = "Ostatni slajd";
                 if (pageNumber && pageNumber.length === 2) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
-                } else if (!this.hasSlideNumbers) {
+                } else if (!this.pageOptions.hasSlideNumbers) {
                     pageNumberLabel = "Slajd";
                 }
 
@@ -171,16 +173,16 @@
 
                 $(this.imageContainer).append(slideHeader);
 
-                $(articleSection).find(this.sectionToBeEmptySelector).empty();
-                $(articleSection).find(this.sectionToBeRemovedSelector).remove();
-                $(articleSection).find(this.sectionToBeRemovedFromAttachedSlidesSelector).remove();
+                $(articleSection).find(this.pageOptions.sectionToBeEmptySelector).empty();
+                $(articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
+                $(articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
 
                 var slideWrapper = $(this.imageContainer).append($("<div>", {
                     "class": "slide_" + pageNumber + " es_slide"
                 })).children().last();
 
-                if ($(galleryPage).find(this.headerSectionSelector).length === 1) {
-                    var desc = $(galleryPage).find(this.headerSectionSelector).html();
+                if ($(galleryPage).find(this.pageOptions.headerSectionSelector).length === 1) {
+                    var desc = $(galleryPage).find(this.pageOptions.headerSectionSelector).html();
                     $(slideWrapper).append($("<p>", {
                         "class": "slideTitle",
                         text: desc
@@ -189,29 +191,29 @@
 
                 $(slideWrapper).append(articleSection);
 
-                for (var selector in this.customStyle) {
-                    $(selector).attr("style", this.customStyle[selector]);
+                for (var selector in this.pageOptions.customStyle) {
+                    $(selector).attr("style", this.pageOptions.customStyle[selector]);
                 }
 
-                for (var i in this.classesToBeRemoved) {
-                    $("." + this.classesToBeRemoved[i]).removeClass(this.classesToBeRemoved[i]);
+                for (var i in this.pageOptions.classesToBeRemoved) {
+                    $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
                 }
 
                 // FIXME:
-                if (this.imageContainer.width() > 950 && this.pageType !== "8" && this.pageType !== "12") {
+                if (this.imageContainer.width() > 950 && this.pageOptions.pageType !== "8" && this.pageOptions.pageType !== "12") {
                     this.imageContainer.width(950);
                 }
 
-                var nextPageURL = $(galleryPage).find(this.navigationNextULRSelector).attr("href");
-                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.visitedSlideURLs) > -1) {
+                var nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
+                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
                     this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
                     return;
                 }
-                this.visitedSlideURLs.push(url);
+                this.pageOptions.visitedSlideURLs.push(url);
 
-                this.preIncludeCallback.call(this);
+                this.pageOptions.preIncludeCallback.call(this);
 
-                if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
+                if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     this._logger("link do nastepnej storny", nextPageURL);
                     this._showSpinnier();
                     $.get(nextPageURL,function (nextPage) {
