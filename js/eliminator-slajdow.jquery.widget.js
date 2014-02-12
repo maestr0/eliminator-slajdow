@@ -28,231 +28,6 @@
             preIncludeCallback: function () {
             }
         },
-        spinner: null,
-        imageContainer: null,
-        _createImageContainer: function () {
-            var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
-            this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
-            $(this.pageOptions.articleBodySelector).after(this.imageContainer);
-        },
-        _start: function () {
-            var that = this;
-            $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
-            $("body").addClass("eliminatorSlajdow");
-            // FIXME
-            if ($(this.pageOptions.sectionToBeAttached).width() > 620) {
-                $("#content_wrap").find("#columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
-            }
-            var nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
-            this._logger("link do nastepnej storny", nextPageURL, this.pageOptions.navigationNextULRSelector);
-            this.pageOptions.preIncludeCallback.call(this);
-            if (nextPageURL) {
-                this._tracking("ES_start", this.pageOptions.pageType);
-                $(this.pageOptions.sectionToBeEmptySelector).empty();
-                $(this.pageOptions.sectionToBeRemovedSelector).remove();
-                this._createImageContainer();
-                this._bind();
-                this._showSpinnier();
-                this.pageOptions.visitedSlideURLs.push(document.location.pathname + document.location.search);
-
-                $.get(nextPageURL,function (nextPage) {
-                    that._appendNextSlide(nextPage, nextPageURL);
-                }).fail(function () {
-                        that._hideSpinner();
-                    });
-            } else {
-                this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
-            }
-        },
-        _showSpinnier: function () {
-            $("div.imageContainerEliminatorSlajdow").append(this.spinner);
-        },
-        _hideSpinner: function () {
-            $("div.imageContainerEliminatorSlajdow div.eliminatorSlajdowSpinner").remove();
-        },
-        _bind: function () {
-            var that = this;
-            var imageContainer = $("div.imageContainerEliminatorSlajdow");
-            imageContainer.on("click", "span.scrollSwitch", function () {
-                imageContainer.toggleClass("noScroll").toggleClass("scroll");
-                if (that.options.scrollableImageContainer) {
-                    that._logger("scroll switch OFF");
-                    imageContainer.find("span.scrollSwitch").text("Pokaż pasek przewijania");
-                    $('html, body').animate({
-                        scrollTop: $(this).offset().top - 30
-                    }, 500);
-                    that.options.scrollableImageContainer = false;
-                } else {
-                    that._logger("scroll switch ON");
-                    imageContainer.find("span.scrollSwitch").text("Ukryj pasek przewijania");
-                    $('html, body').animate({
-                        scrollTop: $(".imageContainerEliminatorSlajdow").offset().top - 25
-                    }, 500);
-                    imageContainer.animate({
-                        scrollTop: 0
-                    }, 0);
-                    imageContainer.animate({
-                        scrollTop: $(this).offset().top - imageContainer.offset().top - 5
-                    }, 500);
-                    that.options.scrollableImageContainer = true;
-                }
-
-                that._tracking("scroll_ui", that.options.scrollableImageContainer ? "ON" : "OFF");
-            });
-
-            imageContainer.on("click", "span.bugreport", function () {
-                window.open(that.options.bugReportUrl);
-                that._tracking("bug_report_ui", "click");
-            });
-
-            imageContainer.on("click", "p.headerLogo", function () {
-                window.open(that.options.facebookUrl);
-                that._tracking("facebook_ui", "click");
-            });
-
-            imageContainer.on("click", "span.directLink a", function () {
-                that._tracking("direct_link_ui", "click");
-            });
-        },
-        _disableES: function (url) {
-            if (url.indexOf("?") > -1) {
-                return url.replace("?", "?es=off&");
-            } else {
-                return url + "?es=off";
-            }
-        },
-        _appendNextSlide: function (galleryPage, url) {
-            var that = this;
-            this._hideSpinner();
-            var articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
-            if ($(articleSection).length > 0) {
-                var pageNumber = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector).text().match(/(\d+)/g);
-                if (this.pageOptions.hasSlideNumbers) {
-                    this._logger("numer strony", pageNumber);
-                }
-                var pageNumberLabel = "Ostatni slajd";
-                if (pageNumber && pageNumber.length === 2) {
-                    pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
-                } else if (!this.pageOptions.hasSlideNumbers) {
-                    pageNumberLabel = "Slajd";
-                }
-
-                var slideHeader = $("<div>", {
-                    "class": "slideHeader slideHeader_" + pageNumber
-                }).append($("<p>", {
-                        "class": "headerBar",
-                        text: pageNumberLabel
-                    }).append($("<span>", {
-                            "class": "esLogo",
-                            style: "background:url('" + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
-                        })).append($("<span>", {
-                            "class": "scrollSwitch",
-                            text: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
-                        })).append($("<span>", {
-                            "class": "headerSeparator",
-                            text: "|"
-                        })).append(
-                            $("<span>", {
-                                "class": "bugreport",
-                                text: "Zgłoś problem"
-                            })).append(
-                            $("<span>", {
-                                "class": "headerSeparator",
-                                text: "|"
-                            })).append(
-                            $("<span>", {
-                                "class": "directLink"
-                            }).append($("<a>", {
-                                    target: "_blank",
-                                    href: this._disableES(url),
-                                    text: "Bezpośredni link"
-                                })))).append($("<p>", {
-                        "class": "headerLogo",
-                        text: 'Eliminator Slajdów',
-                        style: "background:url('" + this.options.facebookIconUrl + "') no-repeat 0 1px /10px"
-                    }));
-
-                $(this.imageContainer).append(slideHeader);
-
-                $(articleSection).find(this.pageOptions.sectionToBeEmptySelector).empty();
-                $(articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
-                $(articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
-
-                var slideWrapper = $(this.imageContainer).append($("<div>", {
-                    "class": "slide_" + pageNumber + " es_slide"
-                })).children().last();
-
-                if ($(galleryPage).find(this.pageOptions.headerSectionSelector).length === 1) {
-                    var desc = $(galleryPage).find(this.pageOptions.headerSectionSelector).html();
-                    $(slideWrapper).append($("<p>", {
-                        "class": "slideTitle",
-                        text: desc
-                    }));
-                }
-
-                $(slideWrapper).append(articleSection);
-
-                for (var selector in this.pageOptions.customStyle) {
-                    $(selector).attr("style", this.pageOptions.customStyle[selector]);
-                }
-
-                for (var i in this.pageOptions.classesToBeRemoved) {
-                    $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
-                }
-
-                // FIXME:
-                if (this.imageContainer.width() > 950 && this.pageOptions.pageType !== "8" && this.pageOptions.pageType !== "12") {
-                    this.imageContainer.width(950);
-                }
-
-                var nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
-                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
-                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
-                    return;
-                }
-                this.pageOptions.visitedSlideURLs.push(url);
-
-                this.pageOptions.preIncludeCallback.call(this);
-
-                if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
-                    this._logger("link do nastepnej storny", nextPageURL);
-                    this._showSpinnier();
-                    $.get(nextPageURL,function (nextPage) {
-                        that._appendNextSlide(nextPage, nextPageURL);
-                    }).fail(function () {
-                            that._hideSpinner();
-                        });
-                } else {
-                    this._logger("Ostatnia Strona");
-                    this._hideSpinner();
-                }
-
-            } else {
-                this._logger("Article section not found");
-            }
-        },
-        _updateGalleryLink: function () {
-            var galleryLink = $("#gazeta_article_miniatures .moreImg a");
-            if (galleryLink.length === 1) {
-                var href = galleryLink.attr("href");
-                var suffix = "?i=1";
-                if (href && (href.indexOf(suffix, href.length - suffix.length) !== -1)) {
-                    galleryLink.attr("href", href.substring(0, href.length - suffix.length));
-                }
-            }
-        },
-        _create: function (customOptions) {
-            $.extend(true, this, this, customOptions);
-            this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.options.spinningIconUrl}));
-            for (var i in this.pages) {
-                if ($(this.pages[i].trigger).length > 0) {
-                    $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
-                    this._logger("ES konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
-                    this._start();
-                    break;
-                }
-            }
-        },
         pages: [
             {   trigger: "body#pagetype_photo",
                 name: "galeria #pagetype_photo (1)",
@@ -473,7 +248,7 @@
 
             },
             {   trigger: "div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext",
-                name: "wp.pl",
+                name: "Finanse wp.pl",
                 articleBodySelector: "#stgMain article.stampGaleria",
                 navigationNextULRSelector: "div.stampStronicowanie div.pIndex a.pNext",
                 sectionToBeEmptySelector: "",
@@ -489,6 +264,231 @@
                 }
             }
         ],
+        spinner: null,
+        imageContainer: null,
+        _start: function () {
+            var that = this;
+            $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
+            $("body").addClass("eliminatorSlajdow");
+            // FIXME
+            if ($(this.pageOptions.sectionToBeAttached).width() > 620) {
+                $("#content_wrap").find("#columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
+            }
+            var nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
+            this._logger("link do nastepnej storny", nextPageURL, this.pageOptions.navigationNextULRSelector);
+            this.pageOptions.preIncludeCallback.call(this);
+            if (nextPageURL) {
+                this._tracking("ES_start", this.pageOptions.pageType);
+                $(this.pageOptions.sectionToBeEmptySelector).empty();
+                $(this.pageOptions.sectionToBeRemovedSelector).remove();
+                this._createImageContainer();
+                this._bind();
+                this._showSpinnier();
+                this.pageOptions.visitedSlideURLs.push(document.location.pathname + document.location.search);
+
+                $.get(nextPageURL,function (nextPage) {
+                    that._appendNextSlide(nextPage, nextPageURL);
+                }).fail(function () {
+                        that._hideSpinner();
+                    });
+            } else {
+                this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
+            }
+        },
+        _appendNextSlide: function (galleryPage, url) {
+            var that = this;
+            this._hideSpinner();
+            var articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
+            if ($(articleSection).length > 0) {
+                var pageNumber = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector).text().match(/(\d+)/g);
+                if (this.pageOptions.hasSlideNumbers) {
+                    this._logger("numer strony", pageNumber);
+                }
+                var pageNumberLabel = "Ostatni slajd";
+                if (pageNumber && pageNumber.length === 2) {
+                    pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
+                } else if (!this.pageOptions.hasSlideNumbers) {
+                    pageNumberLabel = "Slajd";
+                }
+
+                var slideHeader = $("<div>", {
+                    "class": "slideHeader slideHeader_" + pageNumber
+                }).append($("<p>", {
+                        "class": "headerBar",
+                        text: pageNumberLabel
+                    }).append($("<span>", {
+                            "class": "esLogo",
+                            style: "background:url('" + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
+                        })).append($("<span>", {
+                            "class": "scrollSwitch",
+                            text: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
+                        })).append($("<span>", {
+                            "class": "headerSeparator",
+                            text: "|"
+                        })).append(
+                            $("<span>", {
+                                "class": "bugreport",
+                                text: "Zgłoś problem"
+                            })).append(
+                            $("<span>", {
+                                "class": "headerSeparator",
+                                text: "|"
+                            })).append(
+                            $("<span>", {
+                                "class": "directLink"
+                            }).append($("<a>", {
+                                    target: "_blank",
+                                    href: this._disableES(url),
+                                    text: "Bezpośredni link"
+                                })))).append($("<p>", {
+                        "class": "headerLogo",
+                        text: 'Eliminator Slajdów',
+                        style: "background:url('" + this.options.facebookIconUrl + "') no-repeat 0 1px /10px"
+                    }));
+
+                $(this.imageContainer).append(slideHeader);
+
+                $(articleSection).find(this.pageOptions.sectionToBeEmptySelector).empty();
+                $(articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
+                $(articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
+
+                var slideWrapper = $(this.imageContainer).append($("<div>", {
+                    "class": "slide_" + pageNumber + " es_slide"
+                })).children().last();
+
+                if ($(galleryPage).find(this.pageOptions.headerSectionSelector).length === 1) {
+                    var desc = $(galleryPage).find(this.pageOptions.headerSectionSelector).html();
+                    $(slideWrapper).append($("<p>", {
+                        "class": "slideTitle",
+                        text: desc
+                    }));
+                }
+
+                $(slideWrapper).append(articleSection);
+
+                for (var selector in this.pageOptions.customStyle) {
+                    $(selector).attr("style", this.pageOptions.customStyle[selector]);
+                }
+
+                for (var i in this.pageOptions.classesToBeRemoved) {
+                    $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
+                }
+
+                // FIXME:
+                if (this.imageContainer.width() > 950 && this.pageOptions.pageType !== "8" && this.pageOptions.pageType !== "12") {
+                    this.imageContainer.width(950);
+                }
+
+                var nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
+                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
+                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
+                    return;
+                }
+                this.pageOptions.visitedSlideURLs.push(url);
+
+                this.pageOptions.preIncludeCallback.call(this);
+
+                if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
+                    this._logger("link do nastepnej storny", nextPageURL);
+                    this._showSpinnier();
+                    $.get(nextPageURL,function (nextPage) {
+                        that._appendNextSlide(nextPage, nextPageURL);
+                    }).fail(function () {
+                            that._hideSpinner();
+                        });
+                } else {
+                    this._logger("Ostatnia Strona");
+                    this._hideSpinner();
+                }
+
+            } else {
+                this._logger("Article section not found");
+            }
+        },
+        _bind: function () {
+            var that = this;
+            var imageContainer = $("div.imageContainerEliminatorSlajdow");
+            imageContainer.on("click", "span.scrollSwitch", function () {
+                imageContainer.toggleClass("noScroll").toggleClass("scroll");
+                if (that.options.scrollableImageContainer) {
+                    that._logger("scroll switch OFF");
+                    imageContainer.find("span.scrollSwitch").text("Pokaż pasek przewijania");
+                    $('html, body').animate({
+                        scrollTop: $(this).offset().top - 30
+                    }, 500);
+                    that.options.scrollableImageContainer = false;
+                } else {
+                    that._logger("scroll switch ON");
+                    imageContainer.find("span.scrollSwitch").text("Ukryj pasek przewijania");
+                    $('html, body').animate({
+                        scrollTop: $(".imageContainerEliminatorSlajdow").offset().top - 25
+                    }, 500);
+                    imageContainer.animate({
+                        scrollTop: 0
+                    }, 0);
+                    imageContainer.animate({
+                        scrollTop: $(this).offset().top - imageContainer.offset().top - 5
+                    }, 500);
+                    that.options.scrollableImageContainer = true;
+                }
+
+                that._tracking("scroll_ui", that.options.scrollableImageContainer ? "ON" : "OFF");
+            });
+
+            imageContainer.on("click", "span.bugreport", function () {
+                window.open(that.options.bugReportUrl);
+                that._tracking("bug_report_ui", "click");
+            });
+
+            imageContainer.on("click", "p.headerLogo", function () {
+                window.open(that.options.facebookUrl);
+                that._tracking("facebook_ui", "click");
+            });
+
+            imageContainer.on("click", "span.directLink a", function () {
+                that._tracking("direct_link_ui", "click");
+            });
+        },
+        _create: function (customOptions) {
+            $.extend(true, this, this, customOptions);
+            this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.options.spinningIconUrl}));
+            for (var i in this.pages) {
+                if ($(this.pages[i].trigger).length > 0) {
+                    $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
+                    this._logger("ES konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
+                    this._start();
+                    break;
+                }
+            }
+        },
+        _createImageContainer: function () {
+            var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
+            this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
+            $(this.pageOptions.articleBodySelector).after(this.imageContainer);
+        },
+        _showSpinnier: function () {
+            $("div.imageContainerEliminatorSlajdow").append(this.spinner);
+        },
+        _hideSpinner: function () {
+            $("div.imageContainerEliminatorSlajdow div.eliminatorSlajdowSpinner").remove();
+        },
+        _disableES: function (url) {
+            if (url.indexOf("?") > -1) {
+                return url.replace("?", "?es=off&");
+            } else {
+                return url + "?es=off";
+            }
+        },
+        _updateGalleryLink: function () {
+            var galleryLink = $("#gazeta_article_miniatures .moreImg a");
+            if (galleryLink.length === 1) {
+                var href = galleryLink.attr("href");
+                var suffix = "?i=1";
+                if (href && (href.indexOf(suffix, href.length - suffix.length) !== -1)) {
+                    galleryLink.attr("href", href.substring(0, href.length - suffix.length));
+                }
+            }
+        },
 
         _tracking: function (category, action) {
             if ($.isFunction(this.options.trackingCallback)) {
