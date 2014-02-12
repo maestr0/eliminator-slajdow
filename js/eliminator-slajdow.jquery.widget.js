@@ -20,7 +20,7 @@
         headerSectionSelector: ".navigation:first h1 span",
         sectionToBeRemovedFromAttachedSlidesSelector: "",
         hasSlideNumbers: true,
-        slideURLs: [],
+        visitedSlideURLs: [],
         classesToBeRemoved: [],
         imageContainer: null,
         spinner: null,
@@ -32,10 +32,12 @@
             var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
             this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
             $(this.articleBodySelector).after(this.imageContainer);
-        }, _start: function () {
+        },
+        _start: function () {
             var that = this;
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
+            // FIXME
             if ($(this.sectionToBeAttached).width() > 620) {
                 $("#content_wrap").find("#columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
             }
@@ -48,10 +50,10 @@
                 this._createImageContainer();
                 this._bind();
                 this._showSpinnier();
-                this.slideURLs.push(document.location.pathname + document.location.search);
+                this.visitedSlideURLs.push(document.location.pathname + document.location.search);
 
                 $.get(nextPageURL,function (nextPage) {
-                    that._findNextSlideURL(nextPage, nextPageURL);
+                    that._appendNextSlide(nextPage, nextPageURL);
                 }).fail(function () {
                         that._hideSpinner();
                     });
@@ -116,7 +118,7 @@
                 return url + "?es=off";
             }
         },
-        _findNextSlideURL: function (galleryPage, url) {
+        _appendNextSlide: function (galleryPage, url) {
             var that = this;
             this._hideSpinner();
             var articleSection = $(galleryPage).find(this.sectionToBeAttached);
@@ -201,16 +203,16 @@
                 }
 
                 var nextPageURL = $(galleryPage).find(this.navigationNextULRSelector).attr("href");
-                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.slideURLs) > -1) {
+                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.visitedSlideURLs) > -1) {
                     this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
                     return;
                 }
-                this.slideURLs.push(url);
+                this.visitedSlideURLs.push(url);
                 if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     this._logger("link do nastepnej storny", nextPageURL);
                     this._showSpinnier();
                     $.get(nextPageURL,function (nextPage) {
-                        that._findNextSlideURL(nextPage, nextPageURL);
+                        that._appendNextSlide(nextPage, nextPageURL);
                     }).fail(function () {
                             that._hideSpinner();
                         });
@@ -236,7 +238,16 @@
         _create: function (customOptions) {
             $.extend(true, this, this, customOptions);
             this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.options.spinningIconUrl}));
-
+            for (var i in this.pages) {
+                if ($(this.pages[i].trigger).length > 0) {
+                    $.extend(true, this, this, this.pages[i]);
+                    this._logger("ES konfiguracja dla" + this.pages[i].name + ", type " + this.pages[i].type);
+                    this._start();
+                    break;
+                }
+            }
+        },
+        _temp: function () {
             if ($("body#pagetype_photo").length > 0) {
                 this._logger("jestesmy na stronie z galeria #pagetype_photo (1)");
                 $("#gazeta_article_miniatures").empty();
@@ -514,6 +525,27 @@
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
         },
+
+        pages: [
+            {   trigger: "div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext",
+                name: "wp.pl",
+                articleBodySelector: "#stgMain article.stampGaleria",
+                navigationNextULRSelector: "div.stampStronicowanie div.pIndex a.pNext",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: "article.stampGaleria > div.articleRow",
+                sectionToBeRemovedSelector: ".stampGlowneFoto .stampGlowneFotoMain > a, div.stampStronicowanie div.pIndex",
+                navigationPageNumberSelector: ".stampStronicowanie:first .pIndex span",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .stampBxStopka",
+                hasSlideNumbers: true,
+                pageType: "18",
+                regressionUrls: ["http://finanse.wp.pl/gid,16374104,title,Oto-najwieksze-stolice-hazardu,galeria.html",
+                    "http://finanse.wp.pl/gid,16350579,kat,1033695,title,Polska-wsrod-najatrakcyjniejszych-rynkow-Europy,galeria.html"],
+                preIncludeCallback: function(){
+                    console.log("WP haha dziala!");
+                }
+            }
+        ],
+
         _tracking: function (category, action) {
             if ($.isFunction(this.options.trackingCallback)) {
                 this.options.trackingCallback.call(this, category, action, window.location.host)
