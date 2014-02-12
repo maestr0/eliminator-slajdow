@@ -26,8 +26,13 @@
         spinner: null,
         pageType: "standard",
         customStyle: {},
-        preIncludeCallback: function(){},
-        _start: function () {
+        preIncludeCallback: function () {
+        },
+        _createImageContainer: function () {
+            var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
+            this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
+            $(this.articleBodySelector).after(this.imageContainer);
+        }, _start: function () {
             var that = this;
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
@@ -38,19 +43,9 @@
             this._logger("link do nastepnej storny", nextPageURL, this.navigationNextULRSelector);
             if (nextPageURL) {
                 this._tracking("ES_start", this.pageType);
-
                 $(this.sectionToBeEmptySelector).empty();
                 $(this.sectionToBeRemovedSelector).remove();
-
-                var imageContainerClass = 'noScroll';
-                if (this.options.scrollableImageContainer) {
-                    imageContainerClass = 'scroll';
-                }
-
-                $(this.articleBodySelector).after($("<div>", {
-                    "class": imageContainerClass + ' imageContainerEliminatorSlajdow'
-                }));
-                this.imageContainer = $(this.articleBodySelector).parent().find(".imageContainerEliminatorSlajdow");
+                this._createImageContainer();
                 this._bind();
                 this._showSpinnier();
                 this.slideURLs.push(document.location.pathname + document.location.search);
@@ -130,12 +125,6 @@
                 if (this.hasSlideNumbers) {
                     this._logger("numer strony", pageNumber);
                 }
-                var nextPageURL = $(galleryPage).find(this.navigationNextULRSelector).attr("href");
-                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.slideURLs) > -1) {
-                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
-                    return;
-                }
-                this.slideURLs.push(url);
                 var pageNumberLabel = "Ostatni slajd";
                 if (pageNumber && pageNumber.length === 2) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
@@ -185,7 +174,7 @@
                 $(articleSection).find(this.sectionToBeRemovedFromAttachedSlidesSelector).remove();
 
                 var slideWrapper = $(this.imageContainer).append($("<div>", {
-                    "class": "slide_" + pageNumber
+                    "class": "slide_" + pageNumber + " es_slide"
                 })).children().last();
 
                 if ($(galleryPage).find(this.headerSectionSelector).length === 1) {
@@ -198,6 +187,25 @@
 
                 $(slideWrapper).append(articleSection);
 
+                for (var selector in this.customStyle) {
+                    $(selector).attr("style", this.customStyle[selector]);
+                }
+
+                for (var i in this.classesToBeRemoved) {
+                    $("." + this.classesToBeRemoved[i]).removeClass(this.classesToBeRemoved[i]);
+                }
+
+                // FIXME:
+                if (this.imageContainer.width() > 950 && this.pageType !== "8" && this.pageType !== "12") {
+                    this.imageContainer.width(950);
+                }
+
+                var nextPageURL = $(galleryPage).find(this.navigationNextULRSelector).attr("href");
+                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.slideURLs) > -1) {
+                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
+                    return;
+                }
+                this.slideURLs.push(url);
                 if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     this._logger("link do nastepnej storny", nextPageURL);
                     this._showSpinnier();
@@ -211,19 +219,8 @@
                     this._hideSpinner();
                 }
 
-                for (var selector in this.customStyle) {
-                    $(selector).attr("style", this.customStyle[selector]);
-                }
-
-                for (var i in this.classesToBeRemoved) {
-                    $("." + this.classesToBeRemoved[i]).removeClass(this.classesToBeRemoved[i]);
-                }
-
-            }
-
-            var imageContainer = $(".imageContainerEliminatorSlajdow");
-            if (imageContainer.width() > 950 && this.pageType !== "8" && this.pageType !== "12") {
-                imageContainer.width(950);
+            } else {
+                this._logger("Article section not found");
             }
         },
         _updateGalleryLink: function () {
@@ -266,10 +263,9 @@
                  */
                 this._logger("jestesmy na stronie z galeria body#pagetype_art #gazeta_article_image (3)");
                 this.sectionToBeAttached = "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')"; // sekcja komentarza i obrazek
-                this.sectionToBeRemovedSelector ="#gazeta_article_image div.overlayBright";
+                this.sectionToBeRemovedSelector = "#gazeta_article_image div.overlayBright";
                 this.pageType = "3";
                 this._updateGalleryLink();
-                this._removeOverlay();
                 this._start();
 
             } else if ($("div#art div#container_gal").length > 0) {
@@ -402,7 +398,7 @@
                 this.sectionToBeAttached = "#content_wrap"; // sekcja komentarza i obrazek
                 this.articleBodySelector = "#columns_wrap"; // gdzie doczepic imageContainer
                 this.sectionToBeEmptySelector = "script:not([src])";
-                this.sectionToBeRemovedSelector = "#banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage";                        // do usuniecia wszedzie
+                this.sectionToBeRemovedSelector = "#banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright";                        // do usuniecia wszedzie
                 this.sectionToBeRemovedFromAttachedSlidesSelector = "#photo_comments, #article_comments";  // do usuniecia TYLKO z dolaczonych slajdow
                 this.navigationNextULRSelector = "div#content .photostoryNextPage";
                 this.navigationPageNumberSelector = "";
@@ -410,7 +406,6 @@
                 this.hasSlideNumbers = false;
                 this.pageType = "12";
                 this._updateGalleryLink();
-                this._removeOverlay();
                 this._start();
 
             } else if ($("div#page div#pageWrapper div#photo p#photoNavigation a#photoNavigationNext").length > 0) {
@@ -461,7 +456,7 @@
                 this.classesToBeRemoved.push("ZdjecieGaleriaMaxWielkosc");
                 this.pageType = "15";
                 this._start();
-             } else if ($("div#bxGaleria div.podpisDuzaFotka div.przewijakZdjec div.slider").length > 0) {
+            } else if ($("div#bxGaleria div.podpisDuzaFotka div.przewijakZdjec div.slider").length > 0) {
                 /*
                  Regresja
                  http://wiadomosci.wp.pl/gid,16390562,gpage,4,img,16391154,kat,1356,title,Igrzyska-w-Soczi-i-nie-tylko,galeria.html
@@ -471,16 +466,16 @@
                 this.navigationNextULRSelector = "div#bxGaleriaOpis a.stgGaleriaNext";
                 this.sectionToBeEmptySelector = "div.podpisDuzaFotka";
                 this.sectionToBeAttached = "div.bxGaleria div.kol2";
-                this.sectionToBeRemovedSelector="#bxGaleriaOpis .stro, .przewijakGalerii, div.duzaFotka > a";
+                this.sectionToBeRemovedSelector = "#bxGaleriaOpis .stro, .przewijakGalerii, div.duzaFotka > a";
                 this.navigationPageNumberSelector = "div#bxGaleriaOpis span.status";
-                this.sectionToBeRemovedFromAttachedSlidesSelector="script";
+                this.sectionToBeRemovedFromAttachedSlidesSelector = "script";
                 this.hasSlideNumbers = true;
                 // this.classesToBeRemoved.push("");
-                this.customStyle={"*[id='bxGaleriaOpis']":"margin-top:0 !important"};
+                this.customStyle = {"*[id='bxGaleriaOpis']": "margin-top:0 !important"};
                 this.pageType = "16";
-                this._start();   
+                this._start();
 
-                } else if ($("div#stgGaleria div.stgGaleriaCnt .stgGaleriaNext").length > 0) {
+            } else if ($("div#stgGaleria div.stgGaleriaCnt .stgGaleriaNext").length > 0) {
                 /*
                  Regresja
                  http://facet.wp.pl/gid,16327903,kat,1007873,page,7,galeriazdjecie.html
@@ -490,15 +485,15 @@
                 this.navigationNextULRSelector = "div#stgGaleria a.stgGaleriaNext";
                 this.sectionToBeEmptySelector = "";
                 this.sectionToBeAttached = "#stgGaleria";
-                this.sectionToBeRemovedSelector=".stgGaleriaCnt > a";
+                this.sectionToBeRemovedSelector = ".stgGaleriaCnt > a";
                 this.navigationPageNumberSelector = ".bxArt .strGallery.pageInfo > span";
-                this.sectionToBeRemovedFromAttachedSlidesSelector="script";
+                this.sectionToBeRemovedFromAttachedSlidesSelector = "script";
                 this.hasSlideNumbers = true;
                 // this.classesToBeRemoved.push("");
                 //this.customStyle={"*[id='bxGaleriaOpis']":"margin-top:0 !important"};
                 this.pageType = "17";
-                this._start();  
-                } else if ($("div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext").length > 0) {
+                this._start();
+            } else if ($("div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext").length > 0) {
                 /*
                  Regresja
                  http://finanse.wp.pl/gid,16350579,kat,1033695,title,Polska-wsrod-najatrakcyjniejszych-rynkow-Europy,galeria.html
@@ -509,12 +504,12 @@
                 this.navigationNextULRSelector = "div.stampStronicowanie div.pIndex a.pNext";
                 this.sectionToBeEmptySelector = "";
                 this.sectionToBeAttached = "article.stampGaleria > div.articleRow";
-                this.sectionToBeRemovedSelector=".stampGlowneFoto .stampGlowneFotoMain > a, div.stampStronicowanie div.pIndex";
+                this.sectionToBeRemovedSelector = ".stampGlowneFoto .stampGlowneFotoMain > a, div.stampStronicowanie div.pIndex";
                 this.navigationPageNumberSelector = ".stampStronicowanie:first .pIndex span";
-                this.sectionToBeRemovedFromAttachedSlidesSelector="script, .stampBxStopka";
+                this.sectionToBeRemovedFromAttachedSlidesSelector = "script, .stampBxStopka";
                 this.hasSlideNumbers = true;
                 this.pageType = "18";
-                this._start();    
+                this._start();
             } else {
                 this._logger("Eliminator Slajdow: Tutaj nic nie mam do roboty ;(", document.location.hostname);
             }
