@@ -245,8 +245,8 @@
             this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.options.spinningIconUrl}));
             for (var i in this.pages) {
                 if ($(this.pages[i].trigger).length > 0) {
-                    $.extend(true, this, this, this.pages[i]);
-                    this._logger("ES konfiguracja " + this.pages[i].pageType + " dla " + this.pages[i].name);
+                    $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
+                    this._logger("ES konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
                     this._start();
                     break;
                 }
