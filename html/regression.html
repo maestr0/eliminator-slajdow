@@ -1,37 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="../js/jquery-ui-1.10.3.widget.factory.min.js"></script>
+<script src="../js/eliminator-slajdow.jquery.widget.js"></script>
 <script>
+    var es = jQuery("body").eliminatorSlajdow();
+    es.eliminatorSlajdow("regression");
     console.log(jQuery.fn.jquery, 'regresja');
-
-    var urls = ['http://bryla.gazetadom.pl/bryla/56,85301,13087324,_Bloki_to_wasze_ikony___WYWIAD_.html#BoxSlotIIMT'
-        , 'http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html'
-        , 'http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html'
-        , 'http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html'
-        , 'http://deser.pl/deser/51,111858,13075478.html?index=0&bo=1'
-        , 'http://wiadomosci.gazeta.pl/wiadomosci/5,114944,13095464,Korea_Pln__w_obiektywie_Davida_Guttenfeldera___Ogladam.html?index=1'
-        , 'http://wiadomosci.gazeta.pl/wiadomosci/51,114871,13090692.html?index=0#Cuk'
-        , 'http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg'
-        , 'http://wyborcza.pl/51,75248,12537285.html?index=0'
-        , 'http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html'
-        , 'http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?index=17'
-        , 'http://www.tokfm.pl/Tokfm/1,103085,14878162,Prof__Kik__Macierewicz_na_prezesa_PiS__To_radykal.html'
-        , 'http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20131029&Category=GALERIA01&ArtNo=102909998&Ref=PH&Params=Itemnr=1'
-        , 'http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013'
-        , 'http://www.wspolczesna.pl/apps/pbcs.dll/article?AID=/20131029/REG00/131029705',
-        , 'http://ofsajd.onet.pl/dziewczyny/pamela-anderson-w-nowojorskim-maratonie-poznalibyscie/k68t6'
-        , 'http://podroze.gazeta.pl/podroze/51,114158,14912134.html'
-        , 'http://www.edulandia.pl/edulandia/51,118593,14072275.html?i=1'
-        , 'http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20140131&Category=GALERIA01&ArtNo=131009996&Ref=PH'
-        , 'http://www.nowiny24.pl/apps/pbcs.dll/article?AID=/20140127/RZESZOW/140129571'
-
-    ]
-
-    for (var index in urls) {
-        $("body").append("<a href=' " + urls[index] + "'>" + urls[index] + "</a><br />");
-        window.open(urls[index]);
-    }
 </script>
 </body>
 </html>

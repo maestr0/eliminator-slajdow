@@ -230,7 +230,7 @@
                 navigationPageNumberSelector: "div#bxGaleriaOpis span.status",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 hasSlideNumbers: true,
-                customStyle: {"*[id:'bxGaleriaOpis']": "margin-top:0 !important"},
+                customStyle: {"*[id='bxGaleriaOpis']": "margin-top:0 !important"},
                 pageType: "16"
 
             },
@@ -491,7 +491,14 @@
                 }
             }
         },
-
+        regression: function(){
+            var page = this.pageOptions;
+            var urls = page.regressionUrls;
+            for (var index in  urls) {
+                $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
+                window.open(urls[index]);
+            }
+        },
         _tracking: function (category, action) {
             if ($.isFunction(this.options.trackingCallback)) {
                 this.options.trackingCallback.call(this, category, action, window.location.host)
@@ -503,7 +510,3 @@
     })
     ;
 })(jQuery);
-
-//  http://deser.pl/deser/51,111858,13075478.html?index=0&bo=1
-//  http://ofsajd.onet.pl/dziewczyny/pamela-anderson-w-nowojorskim-maratonie-poznalibyscie/qjr1c
-// WP sites
