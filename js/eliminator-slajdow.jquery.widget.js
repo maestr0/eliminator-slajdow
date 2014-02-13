@@ -35,7 +35,8 @@
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
-                customStyle: {".path_duzy_kadr #col_left": "width:auto",
+                customStyle: {"#col_left": "width:auto",
+//                customStyle: {".path_duzy_kadr #col_left": "width:auto",
                     ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"}
             },
             {   trigger: "body#pagetype_art_blog",
@@ -65,7 +66,7 @@
             },
             {   trigger: "div#art div#container_gal",
                 name: "gazetapraca.pl ",
-                regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
+                regressionUrls: [""],
                 articleBodySelector: "#art",
                 navigationPageNumberSelector: ".paging:first",
                 sectionToBeEmptySelector: "div#gal_navi_wrp, #gal_navi_wrp",
@@ -98,7 +99,7 @@
             },
             {   trigger: "div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc",
                 name: "autotrader.pl - galeria zdjec samochodu - 2013",
-                regressionUrls: ["http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg"],
+                regressionUrls: [""],
                 articleBodySelector: "div#Zawartosc div.Detale",
                 navigationNextULRSelector: "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a",
                 sectionToBeEmptySelector: "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole",
@@ -169,9 +170,9 @@
                 sectionToBeAttached: "#content_wrap",
                 articleBodySelector: "#columns_wrap",
                 sectionToBeEmptySelector: "script:not([src])",
-                sectionToBeRemovedSelector: "#banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright",                        // do usuniecia wszedzie
+                sectionToBeRemovedSelector: "#banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright, #gazeta_article .nextSlideWrapper",
                 sectionToBeRemovedFromAttachedSlidesSelector: "#photo_comments, #article_comments",
-                navigationNextULRSelector: "div#content .photostoryNextPage",
+                navigationNextULRSelector: "div#content .nextSlideButton",
                 navigationPageNumberSelector: "",
                 headerSectionSelector: "",
                 hasSlideNumbers: false,
@@ -211,7 +212,7 @@
             },
             {   trigger: "div#LeftContent div#MainGallery img#PhotoInMainGallery",
                 name: "Autotrader Legacy",
-                regressionUrls: ["http://www.autotrader.pl/audi_q7_3_6_2006_r/126001921/pg"],
+                regressionUrls: [""],
                 articleBodySelector: "div#MainGallery",
                 navigationNextULRSelector: "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a",
                 sectionToBeEmptySelector: "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole",
@@ -409,7 +410,7 @@
                 && $($(nextPage)[3]).is("meta")
                 && $($(nextPage)[3]).attr("http-equiv") == "refresh"
                 && $($(nextPage)[3]).attr("content")
-                && $($(nextPage)[3]).attr("content").indexOf("5;URL=") === 0 ) {
+                && $($(nextPage)[3]).attr("content").indexOf("5;URL=") === 0) {
                 var c = $($(nextPage)[3]).attr("content");
                 return c.substring(7, c.length - 1)
             }
@@ -518,7 +519,7 @@
                 var urls = page.regressionUrls;
                 for (var index in  urls) {
                     $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
-                    window.open(urls[index]);
+                    window.open(urls[index] + "#TYPE_" + page.type);
                 }
             }
 
@@ -534,3 +535,5 @@
     })
     ;
 })(jQuery);
+
+//http://technologie.gazeta.pl/internet/56,104530,14940595,Panel_sterowania__gdzie_ja_do_diaska_jestem,,1.html
