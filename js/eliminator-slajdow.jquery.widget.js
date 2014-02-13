@@ -35,7 +35,8 @@
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
-                customStyle: {".path_duzy_kadr #col_left": "width:auto", ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo": "color: white"}
+                customStyle: {".path_duzy_kadr #col_left": "width:auto",
+                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"}
             },
             {   trigger: "body#pagetype_art_blog",
                 name: "galeria #pagetype_art_blog (2)",
@@ -45,6 +46,8 @@
                     "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html"],
                 sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 pageType: "2",
+                customStyle: {".path_duzy_kadr #col_left": "width:auto",
+                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
                 classesToBeRemoved: ["gazetaVideoPlayer"],
                 preIncludeCallback: function () {
                     this._updateGalleryLink();
@@ -367,8 +370,11 @@
                 $(slideWrapper).append(articleSection);
 
                 for (var selector in this.pageOptions.customStyle) {
-                    var current = $(selector).attr("style") ? $(selector).attr("style") : "";
-                    $(selector).attr("style", current  + ";" + this.pageOptions.customStyle[selector]);
+
+                    $(selector).each(function () {
+                        var current = $(this).attr("style") ? $(this).attr("style") : "";
+                        $(this).attr("style", current + ";" + that.pageOptions.customStyle[selector]);
+                    });
                 }
 
                 for (var i in this.pageOptions.classesToBeRemoved) {
