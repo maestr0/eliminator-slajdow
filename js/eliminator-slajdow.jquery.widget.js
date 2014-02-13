@@ -35,7 +35,7 @@
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
-                customStyle: {"#col_left": "width:auto"}
+                customStyle: {".path_duzy_kadr #col_left": "width:auto", ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo": "color: white"}
             },
             {   trigger: "body#pagetype_art_blog",
                 name: "galeria #pagetype_art_blog (2)",
@@ -367,7 +367,8 @@
                 $(slideWrapper).append(articleSection);
 
                 for (var selector in this.pageOptions.customStyle) {
-                    $(selector).attr("style", this.pageOptions.customStyle[selector]);
+                    var current = $(selector).attr("style") ? $(selector).attr("style") : "";
+                    $(selector).attr("style", current  + ";" + this.pageOptions.customStyle[selector]);
                 }
 
                 for (var i in this.pageOptions.classesToBeRemoved) {
@@ -511,9 +512,3 @@
     })
     ;
 })(jQuery);
-
-/* TODO:
- http://wyborcza.pl/51,75248,12537285.html?i=1&piano_t=1
-
-
- */
