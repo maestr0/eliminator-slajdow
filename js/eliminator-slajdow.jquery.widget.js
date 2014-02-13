@@ -409,7 +409,7 @@
                 && $($(nextPage)[3]).is("meta")
                 && $($(nextPage)[3]).attr("http-equiv") == "refresh"
                 && $($(nextPage)[3]).attr("content")
-                && $($(nextPage)[3]).attr("content").indexOf("5;URL=")) {
+                && $($(nextPage)[3]).attr("content").indexOf("5;URL=") === 0 ) {
                 var c = $($(nextPage)[3]).attr("content");
                 return c.substring(7, c.length - 1)
             }
