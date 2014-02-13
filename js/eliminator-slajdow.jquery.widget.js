@@ -519,7 +519,7 @@
                 var urls = page.regressionUrls;
                 for (var index in  urls) {
                     $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
-                    window.open(urls[index] + "#TYPE_" + page.type);
+                    window.open(urls[index] + "#TYPE_" + page.pageType);
                 }
             }
 
@@ -536,4 +536,8 @@
     ;
 })(jQuery);
 
-//http://technologie.gazeta.pl/internet/56,104530,14940595,Panel_sterowania__gdzie_ja_do_diaska_jestem,,1.html
+//http://finanse.wp.pl/gid,16374104,title,Oto-najwieksze-stolice-hazardu,galeria.html?ticaid=112330#TYPE_undefined
+//http://facet.wp.pl/gid,16327903,kat,1007873,page,7,galeriazdjecie.html?ticaid=112330#TYPE_undefined
+//http://wiadomosci.wp.pl/gid,16390562,gpage,4,img,16391154,kat,1356,title,Igrzyska-w-Soczi-i-nie-tylko,galeria.html?ticaid=112330#TYPE_undefined
+//http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013#TYPE_undefined
+//http://wyborcza.pl/51,75248,12537285.html?i:0#TYPE_undefined
