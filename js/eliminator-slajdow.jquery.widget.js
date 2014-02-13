@@ -60,7 +60,6 @@
                     this._updateGalleryLink();
                 }
             },
-
             {   trigger: "div#art div#container_gal",
                 name: "gazetapraca.pl ",
                 regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
@@ -123,7 +122,7 @@
             },
             {   trigger: "div#page div#pageWrapper div#photo div#photoContainer div.nav a",
                 name: "Galeria MediaRegionalne ",
-                regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site:GW&Date:20131029&Category:GALERIA01&ArtNo:102909998&Ref:PH&Params:Itemnr:1"],
+                regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20140209&Category=GALERIA01&ArtNo=209009997&Ref=PH&Params=Itemnr=1"],
                 pageType: "9",
                 articleBodySelector: "div#photo",
                 sectionToBeEmptySelector: "script",
@@ -136,7 +135,7 @@
             },
             {   trigger: "div#page div#pageWrapper div#article.photostory p.photoNavigation a.photoNavigationNext",
                 name: "Galeria MediaRegionalne - artykul",
-                regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/article?AID:/20131029/REG00/131029705"],
+                regressionUrls: [],
                 pageType: "10",
                 articleBodySelector: "div#article",
                 sectionToBeEmptySelector: "script",
@@ -268,7 +267,6 @@
         spinner: null,
         imageContainer: null,
         _start: function () {
-            var that = this;
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
             // FIXME
@@ -286,12 +284,7 @@
                 this._bind();
                 this._showSpinnier();
                 this.pageOptions.visitedSlideURLs.push(document.location.pathname + document.location.search);
-
-                $.get(nextPageURL,function (nextPage) {
-                    that._appendNextSlide(nextPage, nextPageURL);
-                }).fail(function () {
-                        that._hideSpinner();
-                    });
+                this._requestNextSlide(nextPageURL);
             } else {
                 this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
             }
@@ -393,11 +386,7 @@
                 if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
                     this._logger("link do nastepnej storny", nextPageURL);
                     this._showSpinnier();
-                    $.get(nextPageURL,function (nextPage) {
-                        that._appendNextSlide(nextPage, nextPageURL);
-                    }).fail(function () {
-                            that._hideSpinner();
-                        });
+                    this._requestNextSlide(nextPageURL);
                 } else {
                     this._logger("Ostatnia Strona");
                     this._hideSpinner();
@@ -406,6 +395,15 @@
             } else {
                 this._logger("Article section not found");
             }
+        },
+        _requestNextSlide: function (nextPageURL) {
+            var that = this;
+            $.get(nextPageURL,function (nextPage) {
+                // TODO: if piano request new url again
+                that._appendNextSlide(nextPage, nextPageURL);
+            }).fail(function () {
+                    that._hideSpinner();
+                });
         },
         _bind: function () {
             var that = this;
@@ -491,13 +489,16 @@
                 }
             }
         },
-        regression: function(){
-            var page = this.pageOptions;
-            var urls = page.regressionUrls;
-            for (var index in  urls) {
-                $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
-                window.open(urls[index]);
+        regression: function () {
+            for (var pi in  this.pages) {
+                var page = this.pages[pi];
+                var urls = page.regressionUrls;
+                for (var index in  urls) {
+                    $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
+                    window.open(urls[index]);
+                }
             }
+
         },
         _tracking: function (category, action) {
             if ($.isFunction(this.options.trackingCallback)) {
@@ -510,3 +511,9 @@
     })
     ;
 })(jQuery);
+
+/* TODO:
+ http://wyborcza.pl/51,75248,12537285.html?i=1&piano_t=1
+
+
+ */
