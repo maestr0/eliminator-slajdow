@@ -31,7 +31,7 @@
         pages: [
             {   trigger: "body#pagetype_photo",
                 name: "galeria #pagetype_photo (1)",
-                regressionUrls: [],
+                regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1"],
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
@@ -403,11 +403,27 @@
                 this._logger("Article section not found");
             }
         },
+        _getPaywallRedirectUrl: function (nextPage) {
+            if (nextPage.length > 1000 && nextPage.length < 1500
+                && $(nextPage).length == 11
+                && $($(nextPage)[3]).is("meta")
+                && $($(nextPage)[3]).attr("http-equiv") == "refresh"
+                && $($(nextPage)[3]).attr("content")
+                && $($(nextPage)[3]).attr("content").indexOf("5;URL=")) {
+                var c = $($(nextPage)[3]).attr("content");
+                return c.substring(7, c.length - 1)
+            }
+            return "";
+        },
         _requestNextSlide: function (nextPageURL) {
             var that = this;
             $.get(nextPageURL,function (nextPage) {
-                // TODO: if piano request new url again
-                that._appendNextSlide(nextPage, nextPageURL);
+                var redirectUrl = that._getPaywallRedirectUrl(nextPage);
+                if (redirectUrl) {
+                    that._requestNextSlide(redirectUrl);
+                } else {
+                    that._appendNextSlide(nextPage, nextPageURL);
+                }
             }).fail(function () {
                     that._hideSpinner();
                 });
