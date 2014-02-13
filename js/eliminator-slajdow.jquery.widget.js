@@ -374,7 +374,14 @@
                 $(slideWrapper).append(articleSection);
 
                 for (var selector in this.pageOptions.customStyle) {
-                    $(articleSection).find(selector).each(function () {
+                        var elements = $(articleSection).find(selector);
+                        if(elements.length ==0){
+                            elements = $(selector);
+                        }
+                        if(elements.length ==0){
+                            continue;
+                        }
+                        elements.each(function () {
                         var current = $(this).attr("style") ? $(this).attr("style") : "";
                         $(this).attr("style", current + ";" + that.pageOptions.customStyle[selector]);
                     });
