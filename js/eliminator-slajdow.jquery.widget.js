@@ -31,13 +31,16 @@
         pages: [
             {   trigger: "body#pagetype_photo",
                 name: "galeria #pagetype_photo (1)",
-                regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1"],
+                regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
+                    "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1"],
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
                 customStyle: {"#col_left": "width:auto",
-//                customStyle: {".path_duzy_kadr #col_left": "width:auto",
-                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"}
+                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
+                preIncludeCallback: function () {
+                    $("#col_left").width($("#gazeta_article_image div a img").width());
+                }
             },
             {   trigger: "body#pagetype_art_blog",
                 name: "galeria #pagetype_art_blog (2)",
@@ -66,7 +69,7 @@
             },
             {   trigger: "div#art div#container_gal",
                 name: "gazetapraca.pl ",
-                regressionUrls: [""],
+                regressionUrls: [],
                 articleBodySelector: "#art",
                 navigationPageNumberSelector: ".paging:first",
                 sectionToBeEmptySelector: "div#gal_navi_wrp, #gal_navi_wrp",
@@ -99,7 +102,7 @@
             },
             {   trigger: "div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc",
                 name: "autotrader.pl - galeria zdjec samochodu - 2013",
-                regressionUrls: [""],
+                regressionUrls: [],
                 articleBodySelector: "div#Zawartosc div.Detale",
                 navigationNextULRSelector: "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a",
                 sectionToBeEmptySelector: "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole",
@@ -212,7 +215,7 @@
             },
             {   trigger: "div#LeftContent div#MainGallery img#PhotoInMainGallery",
                 name: "Autotrader Legacy",
-                regressionUrls: [""],
+                regressionUrls: [],
                 articleBodySelector: "div#MainGallery",
                 navigationNextULRSelector: "div:not(.ZjecieZaznaczone).ZdjecieGaleriaMini a",
                 sectionToBeEmptySelector: "div.DetaleZdjeciaMiniOdstep, div.GaleriaPopupNastepne, div.FloatRight.PopupReklamaPoPrawej, div.TextAlignCenter.PopupReklamaNaDole",
@@ -371,8 +374,7 @@
                 $(slideWrapper).append(articleSection);
 
                 for (var selector in this.pageOptions.customStyle) {
-
-                    $(selector).each(function () {
+                    $(articleSection).find(selector).each(function () {
                         var current = $(this).attr("style") ? $(this).attr("style") : "";
                         $(this).attr("style", current + ";" + that.pageOptions.customStyle[selector]);
                     });
@@ -517,7 +519,7 @@
             for (var pi in  this.pages) {
                 var page = this.pages[pi];
                 var urls = page.regressionUrls;
-                for (var index in  urls) {
+                for (var index in urls) {
                     $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
                     window.open(urls[index] + "#TYPE_" + page.pageType);
                 }
@@ -535,9 +537,3 @@
     })
     ;
 })(jQuery);
-
-//http://finanse.wp.pl/gid,16374104,title,Oto-najwieksze-stolice-hazardu,galeria.html?ticaid=112330#TYPE_undefined
-//http://facet.wp.pl/gid,16327903,kat,1007873,page,7,galeriazdjecie.html?ticaid=112330#TYPE_undefined
-//http://wiadomosci.wp.pl/gid,16390562,gpage,4,img,16391154,kat,1356,title,Igrzyska-w-Soczi-i-nie-tylko,galeria.html?ticaid=112330#TYPE_undefined
-//http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013#TYPE_undefined
-//http://wyborcza.pl/51,75248,12537285.html?i:0#TYPE_undefined
