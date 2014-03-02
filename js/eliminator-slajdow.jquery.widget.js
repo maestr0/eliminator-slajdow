@@ -259,14 +259,15 @@
                 articleBodySelector: "#stgMain article.stampGaleria",
                 navigationNextULRSelector: "div.stampStronicowanie div.pIndex a.pNext",
                 sectionToBeEmptySelector: "",
-                sectionToBeAttached: "article.stampGaleria > div.articleRow",
+                sectionToBeAttached: "article.stampGaleria div.articleRow",
                 sectionToBeRemovedSelector: ".stampGlowneFoto .stampGlowneFotoMain > a, div.stampStronicowanie div.pIndex",
                 navigationPageNumberSelector: ".stampStronicowanie:first .pIndex span",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .stampBxStopka",
                 hasSlideNumbers: true,
                 pageType: "18",
                 regressionUrls: ["http://finanse.wp.pl/gid,16374104,title,Oto-najwieksze-stolice-hazardu,galeria.html",
-                    "http://finanse.wp.pl/gid,16350579,kat,1033695,title,Polska-wsrod-najatrakcyjniejszych-rynkow-Europy,galeria.html"],
+                    "http://finanse.wp.pl/gid,16350579,kat,1033695,title,Polska-wsrod-najatrakcyjniejszych-rynkow-Europy,galeria.html",
+                    "http://kobieta.wp.pl/gid,16425464,img,16425465,kat,26405,title,Obledna-kreacja-Jennifer-Lopez,galeriazdjecie.html?ticaid=1124c8"],
                 preIncludeCallback: function () {
                 }
             }
@@ -374,14 +375,14 @@
                 $(slideWrapper).append(articleSection);
 
                 for (var selector in this.pageOptions.customStyle) {
-                        var elements = $(articleSection).find(selector);
-                        if(elements.length ==0){
-                            elements = $(selector);
-                        }
-                        if(elements.length ==0){
-                            continue;
-                        }
-                        elements.each(function () {
+                    var elements = $(articleSection).find(selector);
+                    if (elements.length == 0) {
+                        elements = $(selector);
+                    }
+                    if (elements.length == 0) {
+                        continue;
+                    }
+                    elements.each(function () {
                         var current = $(this).attr("style") ? $(this).attr("style") : "";
                         $(this).attr("style", current + ";" + that.pageOptions.customStyle[selector]);
                     });
@@ -435,6 +436,8 @@
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
             }).fail(function () {
+                    this._tracking("ES_error", this.pageOptions.pageType, nextPageURL);
+                    console.log("ES - Blad pobierania nastepnego slajud: " + nextPageURL);
                     that._hideSpinner();
                 });
         },
@@ -533,9 +536,10 @@
             }
 
         },
-        _tracking: function (category, action) {
+        _tracking: function (category, action, comment) {
             if ($.isFunction(this.options.trackingCallback)) {
-                this.options.trackingCallback.call(this, category, action, window.location.host)
+                comment = comment || window.location.host;
+                this.options.trackingCallback.call(this, category, action, comment)
             }
         },
         _logger: function () {
