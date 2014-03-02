@@ -263,6 +263,7 @@
                 sectionToBeRemovedSelector: ".stampGlowneFoto .stampGlowneFotoMain > a, div.stampStronicowanie div.pIndex",
                 navigationPageNumberSelector: ".stampStronicowanie:first .pIndex span",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .stampBxStopka",
+                customStyle: {".stampGlowneFoto": "overflow: visible"},
                 hasSlideNumbers: true,
                 pageType: "18",
                 regressionUrls: ["http://finanse.wp.pl/gid,16374104,title,Oto-najwieksze-stolice-hazardu,galeria.html",
@@ -383,8 +384,8 @@
                         continue;
                     }
                     elements.each(function () {
-                        var current = $(this).attr("style") ? $(this).attr("style") : "";
-                        $(this).attr("style", current + ";" + that.pageOptions.customStyle[selector]);
+                        var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
+                        $(this).attr("style", current + that.pageOptions.customStyle[selector]);
                     });
                 }
 
