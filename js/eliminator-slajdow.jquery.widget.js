@@ -36,7 +36,7 @@
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
-                customStyle: {"#col_left": "width:auto",
+                customStyle: {"#col_left": "width:auto", "columns_wrap": "background:none",
                     ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
                 preIncludeCallback: function () {
                     $("#col_left").width($("#gazeta_article_image div a img").width());
