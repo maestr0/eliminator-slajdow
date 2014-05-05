@@ -25,7 +25,7 @@ chrome.extension.onRequest.addListener(onRequest);
 function checkForValidUrl(tabId, changeInfo, tab) {
     if (canRunOnCurrentUrl(tab.url) === true) {
         chrome.pageAction.setIcon({
-            path: '../images/es_logo.svg2',
+            path: '../images/es_logo.svg',
             tabId: tabId
         });
 
@@ -106,7 +106,7 @@ function updateAllowedDomainList() {
         "pomorska.pl", "wspolczesna.pl", "gk24.pl", "gp24.pl", "gs24.pl", "poranny.pl", "nowiny24.pl", "nto.pl",
         "to.com.pl", "mmbydgoszcz.pl", "mmwroclaw.pl", "mmkrakow.pl", "mmlodz.pl", "mmlublin.pl", "mmpoznan.pl",
         "mmsilesia.pl", "mmszczecin.pl", "mmtrojmiasto.pl", "mmwarszawa.pl", "mmmojemiasto.pl", "mmopole.pl",
-        "mmzielonagora.pl","foch.pl", "www.edulandia.pl", "wp.pl");
+        "mmzielonagora.pl","foch.pl", "www.edulandia.pl", "wp.pl", "kwejk.pl");
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
