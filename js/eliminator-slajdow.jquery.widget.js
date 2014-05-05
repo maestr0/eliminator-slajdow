@@ -563,12 +563,19 @@
             }
         },
         regression: function () {
+            var setTimeoutFunction = function(urlToOpen, pi) {
+                setTimeout(function(){                
+                    window.open(urlToOpen);
+                 } , 20000 * (pi));                    
+            }
+
             for (var pi in  this.pages) {
                 var page = this.pages[pi];
                 var urls = page.regressionUrls;
                 for (var index in urls) {
-                    $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
-                    setTimer("window.open(urls[index] + "#TYPE_" + page.pageType);", 3000 * index);                    
+                    $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");                
+                    var urlToOpen = urls[index] + '#TYPE_' + page.pageType;
+                    setTimeoutFunction(urlToOpen, pi);
                 }
             }
 
