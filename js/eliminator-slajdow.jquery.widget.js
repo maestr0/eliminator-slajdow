@@ -568,7 +568,7 @@
                 var urls = page.regressionUrls;
                 for (var index in urls) {
                     $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
-                    window.open(urls[index] + "#TYPE_" + page.pageType);
+                    setTimer("window.open(urls[index] + "#TYPE_" + page.pageType);", 3000 * index);                    
                 }
             }
 
