@@ -271,6 +271,23 @@
                     "http://kobieta.wp.pl/gid,16425464,img,16425465,kat,26405,title,Obledna-kreacja-Jennifer-Lopez,galeriazdjecie.html?ticaid=1124c8"],
                 preIncludeCallback: function () {
                 }
+            },
+            {   trigger: "div#content div#largepic_wrapper div#largepic",
+                name: "kwejk.pl",
+                articleBodySelector: "div#content div.content",
+                navigationNextULRSelector: "div#largepic_wrapper a.next_image",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: "div#content div.content",
+                sectionToBeRemovedSelector: "div#largepic_wrapper > a",
+                navigationPageNumberSelector: "",
+                sectionToBeRemovedFromAttachedSlidesSelector: ".image_carousel, script, div.share",
+                customStyle: {},
+                hasSlideNumbers: false,
+                pageType: "19",
+                regressionUrls: ["http://kwejk.pl/article/2054448/20/caa", 
+                    "http://kwejk.pl/article/2054452/0/co-mozna-zmiescic-w-c-5-galaxy.html#gallerypic"],
+                preIncludeCallback: function () {
+                }
             }
         ],
         spinner: null,
@@ -323,9 +340,11 @@
                 var slideHeader = $("<div>", {
                     "class": "slideHeader slideHeader_" + pageNumber
                 }).append($("<p>", {
-                        "class": "headerBar",
-                        text: pageNumberLabel
+                        "class": "headerBar"                        
                     }).append($("<span>", {
+                            "class": "pageNumber",
+                            text: pageNumberLabel                            
+                        })).append($("<span>", {
                             "class": "esLogo",
                             style: "background:url('" + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
                         })).append($("<span>", {
