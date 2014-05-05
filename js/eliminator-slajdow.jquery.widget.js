@@ -288,6 +288,23 @@
                     "http://kwejk.pl/article/2054452/0/co-mozna-zmiescic-w-c-5-galaxy.html#gallerypic"],
                 preIncludeCallback: function () {
                 }
+            },
+            {   trigger: "body#strona-artykulu div#glowna-kolumna div#galeria-material-zdjecie",
+                name: "gazetawroclawska.pl",
+                articleBodySelector: "#galeria-material",
+                navigationNextULRSelector: "#galeria-nastepne-2",
+                sectionToBeEmptySelector: "#miniatury-kontener, #galeria-poprzednie-2, #galeria-nastepne-2, .iloscZdjec",
+                sectionToBeAttached: "#galeria-material-zdjecie",
+                sectionToBeRemovedSelector: "#miniatury-kontener",
+                navigationPageNumberSelector: ".iloscZdjec",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, #miniatury-kontener, #galeria-poprzednie-2, #galeria-nastepne-2, .iloscZdjec",
+                customStyle: {},
+                hasSlideNumbers: true,
+                pageType: "20",
+                regressionUrls: ["http://www.gazetawroclawska.pl/artykul/3424383,ruszyl-remont-minskiej-od-rana-utrudnienia-i-gigantyczne-korki-na-muchoborze-zdjecia,1,4,id,t,sm,sg.html#galeria-material"],
+                preIncludeCallback: function () {
+                    $(".lazy.powiekszenie").attr("src",$(".lazy.powiekszenie").attr("data-original")).removeClass("lazy");
+                }
             }
         ],
         spinner: null,

@@ -106,7 +106,9 @@ function updateAllowedDomainList() {
         "pomorska.pl", "wspolczesna.pl", "gk24.pl", "gp24.pl", "gs24.pl", "poranny.pl", "nowiny24.pl", "nto.pl",
         "to.com.pl", "mmbydgoszcz.pl", "mmwroclaw.pl", "mmkrakow.pl", "mmlodz.pl", "mmlublin.pl", "mmpoznan.pl",
         "mmsilesia.pl", "mmszczecin.pl", "mmtrojmiasto.pl", "mmwarszawa.pl", "mmmojemiasto.pl", "mmopole.pl",
-        "mmzielonagora.pl","foch.pl", "www.edulandia.pl", "wp.pl", "kwejk.pl");
+        "mmzielonagora.pl","foch.pl", "www.edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
+        "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl","expressilustrowany.pl",
+        "gazetakrakowska.pl","gloswielkopolski.pl","kurierlubelski.pl");
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 

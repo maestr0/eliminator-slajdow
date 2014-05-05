@@ -57,14 +57,13 @@ body.eliminatorSlajdow {
       }
 
       p.headerBar {
-        font-size: 11px;
         background: #999;
-        padding: 1px 10px 3px 10px;
+        padding: 0 7px;
         border-radius: 42px;
-        height: 14px;
+        height: 16px;
         color: white;
         margin: 0;
-        font-family: Arial;
+        font-family: 'Arial';
       }
 
       span.esLogo {
@@ -77,42 +76,43 @@ body.eliminatorSlajdow {
         font-family: Arial;
         font-size: 11px;
         line-height:16px;
-      }
-
-      span.scrollSwitch {
-        cursor: pointer;
-        float: right;
-        margin-right: 10px;
-        color: white
-      }
-      span.headerSeparator {
-        color: white;
-        float: right;
-        margin-right: 5px;
-      }
-
-      span.bugreport {
-        color: white;
-        cursor: pointer;
-        float: right;
-        margin-right: 5px;
-      }
-
-      span.directLink {
-        cursor: pointer;
-        float: right;
-        margin-right: 5px;
-        color: white;
-        height: 16px;
-        a {
-          color: white;
-          text-decoration: none;
-          height: 14px;
-          font: 11px Arial;
-          line-height: 16px;
+        &.pageNumber {
+          float: left;
         }
-        a:hover {
-          color: white !important;
+        &.scrollSwitch {
+          cursor: pointer;
+          float: right;
+          margin-right: 10px;
+          color: white
+        }
+        &.headerSeparator {
+          color: white;
+          float: right;
+          margin-right: 5px;
+        }
+
+        &.bugreport {
+          color: white;
+          cursor: pointer;
+          float: right;
+          margin-right: 5px;
+        }
+        &.directLink {
+          cursor: pointer;
+          float: right;
+          margin-right: 5px;
+          color: white;
+          height: 16px;
+          a {
+            color: white;
+            text-decoration: none;
+            height: 14px;
+            font: 11px Arial;
+            line-height: 16px;
+          }
+          a:hover {
+            color: white !important;
+          }
         }
       }
     }
