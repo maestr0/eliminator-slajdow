@@ -278,7 +278,7 @@
                 navigationNextULRSelector: "div#largepic_wrapper a.next_image",
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: "div#content div.content",
-                sectionToBeRemovedSelector: "div#largepic_wrapper > a",
+                sectionToBeRemovedSelector: ".image_carousel, div#largepic_wrapper > a",
                 navigationPageNumberSelector: "",
                 sectionToBeRemovedFromAttachedSlidesSelector: ".image_carousel, script, div.share",
                 customStyle: {},
