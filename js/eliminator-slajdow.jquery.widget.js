@@ -358,38 +358,49 @@
                 var slideHeader = $("<div>", {
                     "class": "slideHeader slideHeader_" + pageNumber
                 }).append($("<p>", {
-                        "class": "headerBar"                        
+                        "class": "headerBar"
                     }).append($("<span>", {
                             "class": "pageNumber",
-                            text: pageNumberLabel                            
+                            text: pageNumberLabel
                         })).append($("<span>", {
                             "class": "esLogo",
                             style: "background:url('" + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
                         })).append($("<i>", {
-                            "class": "scrollSwitch icon-resize-vertical",
+                            "class": "scrollSwitch icon-resize-vertical " + (this.scrollableImageContainer ? "enabled" : "disabled"),
                             title: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
-                        })).append($("<span>", {
-                            "class": "headerSeparator",
-                            text: "|"
                         })).append(
                             $("<i>", {
                                 "class": "icon-bug",
                                 title: "Zgłoś problem"
                             })).append(
                             $("<span>", {
-                                "class": "headerSeparator",
-                                text: "|"
-                            })).append(
-                            $("<span>", {
                                 "class": "directLink"
                             }).append($("<a>", {
                                     target: "_blank",
                                     href: this._appendDisableEsFlag(url),
-                                    text: "Bezpośredni link"
-                                })))).append($("<p>", {
+                                    title: "Bezpośredni link"
+                                }).append($("<i>", {"class": 'icon-link-ext'}))
+
+                                )).append(
+                            $("<i>", {
+                                "class": "icon-right-circle",
+                                title: "Następny Slajd"
+                            })).append(
+                            $("<i>", {
+                                "class": "icon-left-circle",
+                                title: "Poprzedni Slajd"
+                            })).append(
+                            $("<i>", {
+                                "class": "icon-up-circle",
+                                title: "Pierwszy Slajd"
+                            })).append(
+                            $("<i>", {
+                                "class": "icon-down-circle",
+                                title: "Ostatni Slajd"
+                            }))).append($("<p>", {
                         "class": "headerLogo",
-                        text: 'Eliminator Slajdów'                        
-                    }).append($("<i>",{"class": 'icon-facebook-squared'})) );
+                        text: 'Eliminator Slajdów'
+                    }).append($("<i>", {"class": 'icon-facebook-squared'})));
 
                 $(this.imageContainer).append(slideHeader);
 
@@ -481,18 +492,16 @@
         _bind: function () {
             var that = this;
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
-            imageContainer.on("click", "span.scrollSwitch", function () {
+            imageContainer.on("click", "i.icon-resize-vertical", function () {
                 imageContainer.toggleClass("noScroll").toggleClass("scroll");
                 if (that.options.scrollableImageContainer) {
-                    that._logger("scroll switch OFF");
-                    imageContainer.find("span.scrollSwitch").text("Pokaż pasek przewijania");
+                    that._logger("scroll switch OFF");                    
                     $('html, body').animate({
                         scrollTop: $(this).offset().top - 30
                     }, 500);
                     that.options.scrollableImageContainer = false;
                 } else {
-                    that._logger("scroll switch ON");
-                    imageContainer.find("span.scrollSwitch").text("Ukryj pasek przewijania");
+                    that._logger("scroll switch ON");                    
                     $('html, body').animate({
                         scrollTop: $(".imageContainerEliminatorSlajdow").offset().top - 25
                     }, 500);
@@ -504,11 +513,11 @@
                     }, 500);
                     that.options.scrollableImageContainer = true;
                 }
-
+                imageContainer.find("i.icon-resize-vertical").toggleClass("enabled").toggleClass("disabled");
                 that._tracking("scroll_ui", that.options.scrollableImageContainer ? "ON" : "OFF");
             });
 
-            imageContainer.on("click", "span.bugreport", function () {
+            imageContainer.on("click", "i.icon-bug", function () {
                 window.open(that.options.bugReportUrl);
                 that._tracking("bug_report_ui", "click");
             });
@@ -520,6 +529,10 @@
 
             imageContainer.on("click", "span.directLink a", function () {
                 that._tracking("direct_link_ui", "click");
+            });
+
+            imageContainer.on("mouseenter mouseleave", "p.headerBar", function () {
+                $(this).find("i").slideToggle(50);
             });
         },
         _create: function (customOptions) {
