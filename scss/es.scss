@@ -196,11 +196,15 @@ body.eliminatorSlajdow {
         margin-top: 1px;
         float: right;
         font-size: 8px;
-        cursor: pointer;
-        background: url('facebook_icon.svg') no-repeat 0 1px;
-        background-size: 10px;
+        cursor: pointer;        
         padding: 0 0 0 12px;
         line-height: 14px;
+        i {
+          float: left;
+          font-size: 10px;
+          margin: 1px;
+          color: #3B5998;
+        }
       }
 
       p.headerBar {

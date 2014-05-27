@@ -366,7 +366,7 @@
                             "class": "esLogo",
                             style: "background:url('" + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
                         })).append($("<i>", {
-                            "class": "scrollSwitch",
+                            "class": "scrollSwitch icon-resize-vertical",
                             title: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
                         })).append($("<span>", {
                             "class": "headerSeparator",
@@ -388,9 +388,8 @@
                                     text: "Bezpośredni link"
                                 })))).append($("<p>", {
                         "class": "headerLogo",
-                        text: 'Eliminator Slajdów',
-                        style: "background:url('" + this.options.facebookIconUrl + "') no-repeat 0 1px /10px"
-                    }));
+                        text: 'Eliminator Slajdów'                        
+                    }).append($("<i>",{"class": 'icon-facebook-squared'})) );
 
                 $(this.imageContainer).append(slideHeader);
 
@@ -570,15 +569,22 @@
                  } , 20000 * (pi));                    
             }
 
-            for (var pi in  this.pages) {
-                var page = this.pages[pi];
-                var urls = page.regressionUrls;
-                for (var index in urls) {
-                    $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");                
-                    var urlToOpen = urls[index] + '#TYPE_' + page.pageType;
-                    setTimeoutFunction(urlToOpen, pi);
+            $("#start").click(function(){
+                for (var pi in  this.pages) {
+                    var page = this.pages[pi];
+                    var urls = page.regressionUrls;
+                    for (var index in urls) {
+                        $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");                
+                        var urlToOpen = urls[index] + '#TYPE_' + page.pageType;
+                        setTimeoutFunction(urlToOpen, pi);
+                    }
                 }
-            }
+            });
+
+            this.pageOptions.sectionToBeAttached = "#toBeAttached";
+            this.pageOptions.articleBodySelector = "#articleBodySelector"
+            this._createImageContainer();
+            this._appendNextSlide("body","regression");
 
         },
         _tracking: function (category, action, comment) {

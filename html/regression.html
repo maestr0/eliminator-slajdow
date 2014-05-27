@@ -1,14 +1,30 @@
 <!DOCTYPE HTML>
 <html>
-<body>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="../js/jquery-ui-1.10.3.widget.factory.min.js"></script>
 <script src="../js/eliminator-slajdow.jquery.widget.js"></script>
+<style>
+	#articleBodySelector {
+		width: 500px;
+		height: 100px;
+	}
+</style>
+<link href="../package/css/es.css" type="text/css" rel="stylesheet">
+</head>
+<body class='eliminatorSlajdow'>
+<button id="start">START</button>
+
+<hr />
+<div id="toBeAttached"></div>
+<div id="articleBodySelector"></div>
+<div></div>
+
 <script>
     var es = jQuery("body").eliminatorSlajdow();
+    es.eliminatorSlajdow('regression');
     console.log(jQuery.fn.jquery, 'regresja');
 </script>
-<button onclick="javascript:es.eliminatorSlajdow('regression')">START</button>
 </body>
 </html>
 
