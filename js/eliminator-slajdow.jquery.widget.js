@@ -358,7 +358,7 @@
                 var slideHeader = $("<div>", {
                     "class": "slideHeader slideHeader_" + pageNumber
                 }).append($("<p>", {
-                        "class": "headerBar"
+                        "class": "headerBar shadow"
                     }).append($("<span>", {
                             "class": "pageNumber",
                             text: pageNumberLabel
@@ -531,9 +531,39 @@
                 that._tracking("direct_link_ui", "click");
             });
 
-            imageContainer.on("mouseenter mouseleave", "p.headerBar", function () {
-                $(this).find("i").slideToggle(50);
+            imageContainer.on("click", "i.icon-up-circle", function () {
+                $("body").animate({
+                    scrollTop: 0
+                }, 500);
             });
+
+            imageContainer.on("click", "i.icon-down-circle", function () {
+                $("body").animate({
+                    scrollTop: imageContainer.offset().top + imageContainer.height() - 50
+                }, 500);
+            });
+
+            imageContainer.on("click", "i.icon-right-circle", function () {
+                var offset = imageContainer.offset().top + imageContainer.height() - 50;
+                if($(this).parent().parent().next().length > 0 && $(this).parent().parent().next().next().length > 0){
+                    offset = $(this).parent().parent().next().next().offset().top - 50
+                }
+                $("body").animate({
+                    scrollTop: offset
+                }, 500);
+            });
+
+            imageContainer.on("click", "i.icon-left-circle", function () {
+                var offset = 0;
+                if($(this).parent().parent().prev().length > 0){
+                    offset = $(this).parent().parent().prev().prev().offset().top - 50
+                }
+                $("body").animate({
+                    scrollTop: offset
+                }, 500);
+            });
+
+
         },
         _create: function (customOptions) {
             $.extend(true, this, this, customOptions);
