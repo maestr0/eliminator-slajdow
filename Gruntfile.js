@@ -87,7 +87,7 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 files: [
-                    {expand: true, src: ['images/icon*.png', 'images/iphone*.png', 'images/ajax-loader.gif', 'images/es_logo.svg', 'images/facebook_icon.svg', 'images/DonateBitcoin.png'], dest: 'package/'},
+                    {expand: true, src: ['images/icon*.png', 'images/iphone*.png','images/es_logo.svg', 'images/DonateBitcoin.png'], dest: 'package/'},
                     {expand: true, src: ['js/contentscript.js'], dest: 'package/'},
                     {expand: true, src: ['js/background.js'], dest: 'package/'},
                     {expand: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'package/'},
@@ -100,7 +100,7 @@ module.exports = function (grunt) {
             package_dir: ["package/*"]
         },
         watch: {
-            files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*', 'js/*'],
+            files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*', 'js/*', 'manifest.json'],
             tasks: ['jshint', 'concat', 'replace', 'compass', 'copy']
         }
     });

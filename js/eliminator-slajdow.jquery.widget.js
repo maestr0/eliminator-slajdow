@@ -365,16 +365,16 @@
                         })).append($("<span>", {
                             "class": "esLogo",
                             style: "background:url('" + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
-                        })).append($("<span>", {
+                        })).append($("<i>", {
                             "class": "scrollSwitch",
-                            text: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
+                            title: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
                         })).append($("<span>", {
                             "class": "headerSeparator",
                             text: "|"
                         })).append(
-                            $("<span>", {
-                                "class": "bugreport",
-                                text: "Zgłoś problem"
+                            $("<i>", {
+                                "class": "icon-bug",
+                                title: "Zgłoś problem"
                             })).append(
                             $("<span>", {
                                 "class": "headerSeparator",
