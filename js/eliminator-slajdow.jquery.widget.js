@@ -284,7 +284,7 @@
                 customStyle: {},
                 hasSlideNumbers: false,
                 pageType: "19",
-                regressionUrls: ["http://kwejk.pl/article/2054448/20/caa", 
+                regressionUrls: ["http://kwejk.pl/article/2054448/20/caa",
                     "http://kwejk.pl/article/2054452/0/co-mozna-zmiescic-w-c-5-galaxy.html#gallerypic"],
                 preIncludeCallback: function () {
                 }
@@ -304,7 +304,7 @@
                 regressionUrls: ["http://www.gazetawroclawska.pl/artykul/3424383,ruszyl-remont-minskiej-od-rana-utrudnienia-i-gigantyczne-korki-na-muchoborze-zdjecia,1,4,id,t,sm,sg.html#galeria-material",
                     "http://www.gloswielkopolski.pl/artykul/3431295,oceniamy-pilkarzy-po-meczu-lech-poznan-gornik-zabrze-sprawdz,id,t.html"],
                 preIncludeCallback: function () {
-                    $(".lazy.powiekszenie").attr("src",$(".lazy.powiekszenie").attr("data-original")).removeClass("lazy");
+                    $(".lazy.powiekszenie").attr("src", $(".lazy.powiekszenie").attr("data-original")).removeClass("lazy");
                 }
             }
         ],
@@ -366,7 +366,7 @@
                             "class": "esLogo",
                             style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
                         })).append($("<i>", {
-                            "class": "scrollSwitch icon-resize-vertical " + (this.scrollableImageContainer ? "enabled" : "disabled"),
+                            "class": "scrollSwitch icon-resize-vertical " + (this.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
                             title: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
                         })).append(
                             $("<i>", {
@@ -502,7 +502,7 @@
                     }, 500);
                     that.options.scrollableImageContainer = false;
                 } else {
-                    that._logger("scroll switch ON");                    
+                    that._logger("scroll switch ON");
                     $('html, body').animate({
                         scrollTop: $(".imageContainerEliminatorSlajdow").offset().top - 25
                     }, 500);
@@ -514,7 +514,7 @@
                     }, 500);
                     that.options.scrollableImageContainer = true;
                 }
-                imageContainer.find("i.icon-resize-vertical").toggleClass("enabled").toggleClass("disabled");
+                imageContainer.find("i.icon-resize-vertical").toggleClass("esIconEnabled").toggleClass("esIconDisabled");
                 that._tracking("scroll_ui", that.options.scrollableImageContainer ? "ON" : "OFF");
             });
 
@@ -536,12 +536,14 @@
                 $("body").animate({
                     scrollTop: 0
                 }, 500);
+                that._tracking("go_top_link", "click");
             });
 
             imageContainer.on("click", "i.icon-down-circle", function () {
                 $("body").animate({
                     scrollTop: imageContainer.offset().top + imageContainer.height() - 50
                 }, 500);
+                that._tracking("go_end_link", "click");
             });
 
             imageContainer.on("click", "i.icon-right-circle", function () {
@@ -557,6 +559,7 @@
                         scrollTop: offset
                     }, 500);
                 }
+                that._tracking("go_next_link", "click");
             });
 
             imageContainer.on("click", "i.icon-left-circle", function () {
@@ -573,6 +576,7 @@
                     }, 500);
 
                 }
+                that._tracking("go_prev_link", "click");
             });
 
 
@@ -618,24 +622,24 @@
             }
         },
         regression: function () {
-            var setTimeoutFunction = function(urlToOpen, pi) {
+            var setTimeoutFunction = function (urlToOpen, pi) {
                 console.log("url", urlToOpen);
-                console.log("delay", 20000 * pi);
-                setTimeout(function(){
+                console.log("delay", 10 * 1000 * pi);
+                setTimeout(function () {
                     window.open(urlToOpen);
-                 } , 20000 * (pi));
+                }, 10 * 1000 * (pi));
             }
 
             var self = this;
 
-            $("#start").click(function(){
+            $("#start").click(function () {
                 console.log("Start button");
                 var counter = 1;
                 for (var pi in  self.pages) {
                     var page = self.pages[pi];
                     var urls = page.regressionUrls;
                     for (var index in urls) {
-                        $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");                
+                        $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
                         var urlToOpen = urls[index] + '#TYPE_' + page.pageType;
                         counter = counter + 1;
                         setTimeoutFunction(urlToOpen, counter);
@@ -646,7 +650,7 @@
             this.pageOptions.sectionToBeAttached = "#toBeAttached";
             this.pageOptions.articleBodySelector = "#articleBodySelector"
             this._createImageContainer();
-            this._appendNextSlide("body","regression");
+            this._appendNextSlide("body", "regression");
             this._create();
             this._showSpinnier();
         },
