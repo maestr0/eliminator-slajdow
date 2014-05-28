@@ -619,19 +619,26 @@
         },
         regression: function () {
             var setTimeoutFunction = function(urlToOpen, pi) {
-                setTimeout(function(){                
+                console.log("url", urlToOpen);
+                console.log("delay", 20000 * pi);
+                setTimeout(function(){
                     window.open(urlToOpen);
-                 } , 20000 * (pi));                    
+                 } , 20000 * (pi));
             }
 
+            var self = this;
+
             $("#start").click(function(){
-                for (var pi in  this.pages) {
-                    var page = this.pages[pi];
+                console.log("Start button");
+                var counter = 1;
+                for (var pi in  self.pages) {
+                    var page = self.pages[pi];
                     var urls = page.regressionUrls;
                     for (var index in urls) {
                         $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");                
                         var urlToOpen = urls[index] + '#TYPE_' + page.pageType;
-                        setTimeoutFunction(urlToOpen, pi);
+                        counter = counter + 1;
+                        setTimeoutFunction(urlToOpen, counter);
                     }
                 }
             });
