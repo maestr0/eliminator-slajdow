@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="pl">
 <head>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="../js/jquery-ui-1.10.3.widget.factory.min.js"></script>
 <script src="../js/eliminator-slajdow.jquery.widget.js"></script>
 <style>
@@ -18,10 +19,10 @@
 <hr />
 <div id="toBeAttached"></div>
 <div id="articleBodySelector"></div>
-<div></div>
+<div class='imageContainerEliminatorSlajdow'></div>
 
 <script>
-    var es = jQuery("body").eliminatorSlajdow();
+    var es = jQuery("body").eliminatorSlajdow({imageBaseUrl:'../images/'});
     es.eliminatorSlajdow('regression');
     console.log(jQuery.fn.jquery, 'regresja');
 </script>

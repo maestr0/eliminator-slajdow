@@ -3,9 +3,7 @@
         function (response) {
             if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
                 $("body").eliminatorSlajdow({
-                    spinningIconUrl: chrome.extension.getURL("images/ajax-loader.gif"),
-                    facebookIconUrl: chrome.extension.getURL("images/facebook_icon.svg"), 
-                    esLogoUrl: chrome.extension.getURL("images/es_logo.svg"),
+                    imageBaseUrl: chrome.extension.getURL("images/"),
                     trackingCallback: function (category, action, location) {
                         chrome.extension.sendRequest({"tracking": category, "action": action, "location": location});
                     }

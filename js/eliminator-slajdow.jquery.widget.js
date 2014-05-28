@@ -1,10 +1,10 @@
 (function ($) {
     $.widget("info_raszewski.eliminatorSlajdow", {
         options: {
+            imageBaseUrl: "",
             scrollableImageContainer: false,
-            spinningIconUrl: "images/ajax-loader.gif",
-            facebookIconUrl: "images/icon_facebook.gif",
-            esLogoUrl: "images/icon_facebook.gif",
+            spinningIconUrl: "ajax-loader.gif",
+            esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "https://eliminator-slajdow.sugester.pl/",
@@ -364,7 +364,7 @@
                             text: pageNumberLabel
                         })).append($("<span>", {
                             "class": "esLogo",
-                            style: "background:url('" + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
+                            style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
                         })).append($("<i>", {
                             "class": "scrollSwitch icon-resize-vertical " + (this.scrollableImageContainer ? "enabled" : "disabled"),
                             title: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
@@ -579,7 +579,7 @@
         },
         _create: function (customOptions) {
             $.extend(true, this, this, customOptions);
-            this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<img>", {src: this.options.spinningIconUrl}));
+            this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'}));
             for (var i in this.pages) {
                 if ($(this.pages[i].trigger).length > 0) {
                     $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
@@ -640,7 +640,8 @@
             this.pageOptions.articleBodySelector = "#articleBodySelector"
             this._createImageContainer();
             this._appendNextSlide("body","regression");
-
+            this._create();
+            this._showSpinnier();
         },
         _tracking: function (category, action, comment) {
             if ($.isFunction(this.options.trackingCallback)) {
