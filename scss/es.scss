@@ -40,7 +40,7 @@ body.eliminatorSlajdow {
     content: "\46";
   }
   .icon-resize-vertical:before {
-    content: "\49";
+    content: "\49\49";
   }
   .icon-link-ext:before {
     content: "\4c";
@@ -150,6 +150,9 @@ body.eliminatorSlajdow {
     margin: 0 -25px 0 0;
     overflow-y: scroll;
     padding: 0 8px 0 0;
+    .icon-right-circle, .icon-left-circle {
+      visibility: hidden;
+    }
   }
 
   div.imageContainerEliminatorSlajdow.noScroll {
@@ -184,13 +187,13 @@ body.eliminatorSlajdow {
 
     div.slideHeader {
       i {
+        text-align: center;
         float: right;
-        width: 11px;
         margin-top: 1px;
         cursor: pointer;
         margin: 2px 5px;
         &.enabled {
-          color: green;
+          color: red;
         }
         color: rgba(224, 224, 224, 0.80);
         &:hover {

@@ -45,8 +45,7 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 function onRequest(request, sender, sendResponse) {
     if (location.hostname == sender.id && request.urlName !== undefined) {
         sendResponse({
-            "canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName),
-            "scrollableImageContainer": localStorage.scrollableImageContainer
+            "canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName)
         });
     } else if (location.hostname == sender.id && request.tracking !== undefined) {
         trackingBeacon(request.tracking, request.action, request.location);

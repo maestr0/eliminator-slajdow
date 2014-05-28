@@ -510,7 +510,7 @@
                         scrollTop: 0
                     }, 0);
                     imageContainer.animate({
-                        scrollTop: $(this).offset().top - imageContainer.offset().top - 5
+                        scrollTop: $(this).offset().top - imageContainer.offset().top - currentOffset + 25
                     }, 500);
                     that.options.scrollableImageContainer = true;
                 }
@@ -546,7 +546,7 @@
 
             imageContainer.on("click", "i.icon-right-circle", function () {
                 if (that.options.scrollableImageContainer) {
-
+                    // maybe will implement it one day
                 } else {
                     var offset = imageContainer.offset().top + imageContainer.height() - 50;
                     var thisSlide = $(this).parent().parent();
@@ -561,7 +561,7 @@
 
             imageContainer.on("click", "i.icon-left-circle", function () {
                 if (that.options.scrollableImageContainer) {
-
+                    // maybe will implement it one day
                 } else {
                     var offset = 0;
                     var thisSlide = $(this).parent().parent();
