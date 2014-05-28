@@ -493,11 +493,12 @@
             var that = this;
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.on("click", "i.icon-resize-vertical", function () {
+                var currentOffset = $(this)[0].getBoundingClientRect().bottom - $(this)[0].getBoundingClientRect().height;
                 imageContainer.toggleClass("noScroll").toggleClass("scroll");
                 if (that.options.scrollableImageContainer) {
-                    that._logger("scroll switch OFF");                    
+                    that._logger("scroll switch OFF");
                     $('html, body').animate({
-                        scrollTop: $(this).offset().top - 30
+                        scrollTop: $(this).offset().top - currentOffset
                     }, 500);
                     that.options.scrollableImageContainer = false;
                 } else {
@@ -544,23 +545,34 @@
             });
 
             imageContainer.on("click", "i.icon-right-circle", function () {
-                var offset = imageContainer.offset().top + imageContainer.height() - 50;
-                if($(this).parent().parent().next().length > 0 && $(this).parent().parent().next().next().length > 0){
-                    offset = $(this).parent().parent().next().next().offset().top - 50
+                if (that.options.scrollableImageContainer) {
+
+                } else {
+                    var offset = imageContainer.offset().top + imageContainer.height() - 50;
+                    var thisSlide = $(this).parent().parent();
+                    if (thisSlide.next().length > 0 && thisSlide.next().next().length > 0) {
+                        offset = thisSlide.next().next().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 62;
+                    }
+                    $("body").animate({
+                        scrollTop: offset
+                    }, 500);
                 }
-                $("body").animate({
-                    scrollTop: offset
-                }, 500);
             });
 
             imageContainer.on("click", "i.icon-left-circle", function () {
-                var offset = 0;
-                if($(this).parent().parent().prev().length > 0){
-                    offset = $(this).parent().parent().prev().prev().offset().top - 50
+                if (that.options.scrollableImageContainer) {
+
+                } else {
+                    var offset = 0;
+                    var thisSlide = $(this).parent().parent();
+                    if (thisSlide.prev().length > 0) {
+                        offset = thisSlide.prev().prev().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 62;
+                    }
+                    $("body").animate({
+                        scrollTop: offset
+                    }, 500);
+
                 }
-                $("body").animate({
-                    scrollTop: offset
-                }, 500);
             });
 
 
