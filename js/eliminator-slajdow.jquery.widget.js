@@ -306,9 +306,37 @@
                 preIncludeCallback: function () {
                     $(".lazy.powiekszenie").attr("src", $(".lazy.powiekszenie").attr("data-original")).removeClass("lazy");
                 }
+            },
+            {   trigger: "div#main_container div.demotivator.pic #royalSliderExtraNavigation a.navigate_right",
+                name: "demotywatory.pl",
+                articleBodySelector: "#main_container .demotivator .demot_pic",
+                navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
+                sectionToBeRemovedSelector: "#pics_gallery_slider, #royalSliderExtraNavigation",
+                navigationPageNumberSelector: "#royalSliderExtraNavigation .paginator_data",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {},
+                hasSlideNumbers: true,
+                pageType: "21",
+                regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1"],
+                preIncludeCallback: function () {
+                    this._createImageContainer();
+                    this._bind();
+                    var self = this;
+                    $(".imageContainerEliminatorSlajdow").append($("#pics_gallery_slider img"));
+                    $(".imageContainerEliminatorSlajdow").find("img").each(function (index) {
+                        var href = $(this).attr("src");
+                        $(this).attr("src", href.replace('_200.jpg', '.jpg')).removeAttr("width").wrap(
+                            "<div class='slide_" + index + " es_slide'></div>").parent().before(
+                                self._buildHeader('Slajd ' + (index + 2), index + 2, document.location.href));
+                    });
+                    $(this.pageOptions.sectionToBeRemovedSelector).remove();
+                }
             }
+
         ],
-        spinner: null,
+        spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'})),
         imageContainer: null,
         _start: function () {
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
@@ -333,6 +361,54 @@
                 this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
             }
         },
+        _buildHeader: function (pageNumberLabel, pageNumber, url) {
+            return $("<div>", {
+                "class": "slideHeader slideHeader_" + pageNumber
+            }).append($("<p>", {
+                    "class": "headerBar shadow"
+                }).append($("<span>", {
+                        "class": "pageNumber",
+                        text: pageNumberLabel
+                    })).append($("<span>", {
+                        "class": "esLogo",
+                        style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
+                    })).append($("<i>", {
+                        "class": "scrollSwitch icon-resize-vertical " + (this.options.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
+                        title: "Pasek przewijania"
+                    })).append(
+                        $("<i>", {
+                            "class": "icon-bug",
+                            title: "Zgłoś problem"
+                        })).append(
+                        $("<span>", {
+                            "class": "directLink"
+                        }).append($("<a>", {
+                                target: "_blank",
+                                href: this._appendDisableEsFlag(url),
+                                title: "Bezpośredni link"
+                            }).append($("<i>", {"class": 'icon-link-ext'}))
+
+                            )).append(
+                        $("<i>", {
+                            "class": "icon-right-circle",
+                            title: "Następny Slajd"
+                        })).append(
+                        $("<i>", {
+                            "class": "icon-left-circle",
+                            title: "Poprzedni Slajd"
+                        })).append(
+                        $("<i>", {
+                            "class": "icon-up-circle",
+                            title: "Pierwszy Slajd"
+                        })).append(
+                        $("<i>", {
+                            "class": "icon-down-circle",
+                            title: "Ostatni Slajd"
+                        }))).append($("<p>", {
+                    "class": "headerLogo",
+                    text: 'Eliminator Slajdów'
+                }).append($("<i>", {"class": 'icon-facebook-squared'})))
+        },
         _appendNextSlide: function (galleryPage, url) {
             var that = this;
             this._hideSpinner();
@@ -355,52 +431,7 @@
                     pageNumberLabel = "Slajd";
                 }
 
-                var slideHeader = $("<div>", {
-                    "class": "slideHeader slideHeader_" + pageNumber
-                }).append($("<p>", {
-                        "class": "headerBar shadow"
-                    }).append($("<span>", {
-                            "class": "pageNumber",
-                            text: pageNumberLabel
-                        })).append($("<span>", {
-                            "class": "esLogo",
-                            style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
-                        })).append($("<i>", {
-                            "class": "scrollSwitch icon-resize-vertical " + (this.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
-                            title: ((this.scrollableImageContainer ? "Ukryj pasek przewijania" : "Pokaż pasek przewijania"))
-                        })).append(
-                            $("<i>", {
-                                "class": "icon-bug",
-                                title: "Zgłoś problem"
-                            })).append(
-                            $("<span>", {
-                                "class": "directLink"
-                            }).append($("<a>", {
-                                    target: "_blank",
-                                    href: this._appendDisableEsFlag(url),
-                                    title: "Bezpośredni link"
-                                }).append($("<i>", {"class": 'icon-link-ext'}))
-
-                                )).append(
-                            $("<i>", {
-                                "class": "icon-right-circle",
-                                title: "Następny Slajd"
-                            })).append(
-                            $("<i>", {
-                                "class": "icon-left-circle",
-                                title: "Poprzedni Slajd"
-                            })).append(
-                            $("<i>", {
-                                "class": "icon-up-circle",
-                                title: "Pierwszy Slajd"
-                            })).append(
-                            $("<i>", {
-                                "class": "icon-down-circle",
-                                title: "Ostatni Slajd"
-                            }))).append($("<p>", {
-                        "class": "headerLogo",
-                        text: 'Eliminator Slajdów'
-                    }).append($("<i>", {"class": 'icon-facebook-squared'})));
+                var slideHeader = this._buildHeader(pageNumberLabel, pageNumber, url);
 
                 $(this.imageContainer).append(slideHeader);
 
@@ -583,7 +614,6 @@
         },
         _create: function (customOptions) {
             $.extend(true, this, this, customOptions);
-            this.spinner = $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'}));
             for (var i in this.pages) {
                 if ($(this.pages[i].trigger).length > 0) {
                     $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);

@@ -107,7 +107,8 @@ function updateAllowedDomainList() {
         "mmsilesia.pl", "mmszczecin.pl", "mmtrojmiasto.pl", "mmwarszawa.pl", "mmmojemiasto.pl", "mmopole.pl",
         "mmzielonagora.pl","foch.pl", "www.edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
         "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl","expressilustrowany.pl",
-        "gazetakrakowska.pl","gloswielkopolski.pl","kurierlubelski.pl");
+        "gazetakrakowska.pl","gloswielkopolski.pl","kurierlubelski.pl",
+        "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl","lovekrakow.pl");
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
