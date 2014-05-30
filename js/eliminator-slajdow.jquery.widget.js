@@ -312,26 +312,22 @@
                 articleBodySelector: "#main_container .demotivator .demot_pic",
                 navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
                 sectionToBeEmptySelector: "",
-                sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
-                sectionToBeRemovedSelector: "#pics_gallery_slider, #royalSliderExtraNavigation",
+                sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent:first",
+                sectionToBeRemovedSelector: "#pics_gallery_slider, #royalSliderExtraNavigation, .share-widgets, .demot_info_stats",
                 navigationPageNumberSelector: "#royalSliderExtraNavigation .paginator_data",
-                sectionToBeRemovedFromAttachedSlidesSelector: "script",
-                customStyle: {},
-                hasSlideNumbers: true,
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets, .rsTmb",
+                headerSectionSelector: ".demotivator .demot_pic .rsSlideContent:first h3",
+                customStyle: {'rsSlideContent h3': 'display:none', '#main_container article, #main_container .demotivator': 'float:left'},
+                hasSlideNumbers: false,
                 pageType: "21",
                 regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1"],
                 preIncludeCallback: function () {
-                    this._createImageContainer();
-                    this._bind();
-                    var self = this;
-                    $(".imageContainerEliminatorSlajdow").append($("#pics_gallery_slider img"));
-                    $(".imageContainerEliminatorSlajdow").find("img").each(function (index) {
-                        var href = $(this).attr("src");
-                        $(this).attr("src", href.replace('_200.jpg', '.jpg')).removeAttr("width").wrap(
-                            "<div class='slide_" + index + " es_slide'></div>").parent().before(
-                                self._buildHeader('Slajd ' + (index + 2), index + 2, document.location.href));
-                    });
-                    $(this.pageOptions.sectionToBeRemovedSelector).remove();
+                    if(typeof this.loopCounter == 'undefined'){
+                        this.loopCounter = 0;
+                    }else if(this.loopCounter < 10){
+                        this.loopCounter++;
+                    }
+                    this.nextPageURL = document.location.protocol + "//" + document.location.host + document.location.pathname + "#obrazek-" + this.loopCounter;
                 }
             }
 
@@ -345,10 +341,10 @@
             if ($(this.pageOptions.sectionToBeAttached).width() > 620) {
                 $("#content_wrap").find("#columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
             }
-            var nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
-            this._logger("link do nastepnej storny", nextPageURL, this.pageOptions.navigationNextULRSelector);
+            this.nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
+            this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
             this.pageOptions.preIncludeCallback.call(this);
-            if (nextPageURL) {
+            if (this.nextPageURL) {
                 this._tracking("ES_start", this.pageOptions.pageType);
                 $(this.pageOptions.sectionToBeEmptySelector).empty();
                 $(this.pageOptions.sectionToBeRemovedSelector).remove();
@@ -356,7 +352,7 @@
                 this._bind();
                 this._showSpinnier();
                 this.pageOptions.visitedSlideURLs.push(document.location.pathname + document.location.search);
-                this._requestNextSlide(nextPageURL);
+                this._requestNextSlide(this.nextPageURL);
             } else {
                 this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
             }
@@ -415,9 +411,9 @@
             var articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
             if ($(articleSection).length > 0) {
 
-                var nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
-                if (typeof url === "undefined" || url === nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
-                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, nextPageURL);
+                this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
+                if (typeof url === "undefined" || url === this.nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
+                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, this.nextPageURL);
                     return;
                 }
                 var pageNumber = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector).text().match(/(\d+)/g);
@@ -480,12 +476,12 @@
 
                 this.pageOptions.preIncludeCallback.call(this);
 
-                if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(nextPageURL) === -1)) {
-                    this._logger("link do nastepnej storny", nextPageURL);
+                if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(this.nextPageURL) === -1)) {
+                    this._logger("link do nastepnej storny", this.nextPageURL);
                     this._showSpinnier();
-                    this._requestNextSlide(nextPageURL);
+                    this._requestNextSlide(this.nextPageURL);
                 } else {
-                    this._logger("Ostatnia Strona");
+                    this._logger("Ostatni Slajd");
                     this._hideSpinner();
                 }
 
