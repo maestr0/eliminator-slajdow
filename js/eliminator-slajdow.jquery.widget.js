@@ -312,22 +312,25 @@
                 articleBodySelector: "#main_container .demotivator .demot_pic",
                 navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
                 sectionToBeEmptySelector: "",
-                sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent:first",
+                sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
                 sectionToBeRemovedSelector: "#pics_gallery_slider, #royalSliderExtraNavigation, .share-widgets, .demot_info_stats",
                 navigationPageNumberSelector: "#royalSliderExtraNavigation .paginator_data",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets, .rsTmb",
                 headerSectionSelector: ".demotivator .demot_pic .rsSlideContent:first h3",
-                customStyle: {'rsSlideContent h3': 'display:none', '#main_container article, #main_container .demotivator': 'float:left'},
+                customStyle: {'rsSlideContent h3': 'display:none', '#main_container article, #main_container .demotivator': 'float:left',
+                    '.rsSlideContent .relative': 'text-align: center'},
                 hasSlideNumbers: false,
                 pageType: "21",
                 regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1"],
                 preIncludeCallback: function () {
-                    if(typeof this.loopCounter == 'undefined'){
-                        this.loopCounter = 0;
-                    }else if(this.loopCounter < 10){
-                        this.loopCounter++;
-                    }
-                    this.nextPageURL = document.location.protocol + "//" + document.location.host + document.location.pathname + "#obrazek-" + this.loopCounter;
+                    this.nextPageURL = document.location.protocol + "//" + document.location.host + document.location.pathname;
+                    $(".imageContainerEliminatorSlajdow .rsSlideContent").appendTo($(".imageContainerEliminatorSlajdow"));
+                    $(".imageContainerEliminatorSlajdow .el_slide, .imageContainerEliminatorSlajdow .slideHeader").remove();
+                    var self = this;
+                    $(".imageContainerEliminatorSlajdow .rsSlideContent:first").remove();
+                    $(".imageContainerEliminatorSlajdow .rsSlideContent").each(function (index) {
+                        $(this).wrap("<div class='slide_" + index + " es_slide'></div>").parent().before(self._buildHeader('Slajd ' + (index + 2) + ' z ' + $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
+                    });
                 }
             }
 
