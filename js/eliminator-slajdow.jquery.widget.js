@@ -368,6 +368,40 @@
 
                 }
             },
+            {   trigger: ".glownyKontener #material-artykul .galeriaArtykulowa #material-galeria-nastepne",
+                name: "naszemiasto.pl",
+                articleBodySelector: ".galeriaArtykulowa",
+                navigationNextULRSelector: "#material-galeria-nastepne",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".galeriaArtykul",
+                sectionToBeRemovedSelector: "#galeria, .paginacja, .lupa, .strzalka, #powrot-miniaturki",
+                navigationPageNumberSelector: ".iloscZdjec",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {'*[id="galeria-z-opisem"]': 'float:left'},
+                hasSlideNumbers: true,
+                pageType: "24",
+                regressionUrls: ["http://warszawa.naszemiasto.pl/artykul/galeria/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,9379362,t,id,zid.html#galeria"],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   trigger: ".glownyKontener .trescOpisu .paginacja #material-galeria-nastepne",
+                name: "naszemiasto.pl szeroka",
+                articleBodySelector: "#galeria-z-opisem",
+                navigationNextULRSelector: "#material-galeria-nastepne",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: "#galeria-z-opisem",
+                sectionToBeRemovedSelector: "#galeria, .paginacja, .lupa, .strzalka, #powrot-miniaturki, #material-galeria-nastepne-czytaj",
+                navigationPageNumberSelector: ".iloscZdjec",
+                sectionToBeRemovedFromAttachedSlidesSelector: "",
+                customStyle: {},
+                hasSlideNumbers: true,
+                pageType: "25",
+                regressionUrls: ["http://warszawa.naszemiasto.pl/artykul/galeria/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,9379362,t,id,zid.html#galeria"],
+                preIncludeCallback: function () {
+
+                }
+            },
             {   trigger: "",
                 name: "fakt.pl",
                 articleBodySelector: "",
@@ -522,10 +556,10 @@
                     $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
                 }
 
-                // FIXME:
-                if (this.imageContainer.width() > 950 && this.pageOptions.pageType !== "8" && this.pageOptions.pageType !== "12") {
-                    this.imageContainer.width(950);
-                }
+//                // FIXME:
+//                if (this.imageContainer.width() > 950 && this.pageOptions.pageType !== "8" && this.pageOptions.pageType !== "12") {
+//                    this.imageContainer.width(950);
+//                }
 
                 this.pageOptions.visitedSlideURLs.push(url);
 
