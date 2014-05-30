@@ -736,14 +736,14 @@
             });
 
             imageContainer.on("click", "i.icon-up-circle", function () {
-                $("body").animate({
+                $("body,html").animate({
                     scrollTop: 0
                 }, 500);
                 that._tracking("go_top_link", "click");
             });
 
             imageContainer.on("click", "i.icon-down-circle", function () {
-                $("body").animate({
+                $("body,html").animate({
                     scrollTop: imageContainer.offset().top + imageContainer.height() - 50
                 }, 500);
                 that._tracking("go_end_link", "click");
@@ -758,7 +758,7 @@
                     if (thisSlide.next().length > 0 && thisSlide.next().next().length > 0) {
                         offset = thisSlide.next().next().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 62;
                     }
-                    $("body").animate({
+                    $("body,html").animate({
                         scrollTop: offset
                     }, 500);
                 }
@@ -774,7 +774,7 @@
                     if (thisSlide.prev().length > 0) {
                         offset = thisSlide.prev().prev().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 62;
                     }
-                    $("body").animate({
+                    $("body,html").animate({
                         scrollTop: offset
                     }, 500);
 
@@ -826,7 +826,7 @@
         regression: function () {
             var setTimeoutFunction = function (urlToOpen, pi) {
                 console.log("url", urlToOpen);
-                var delay = 30 * 1000 * pi;
+                var delay = 10 * 1000 * pi;
                 console.log("delay", delay);
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
