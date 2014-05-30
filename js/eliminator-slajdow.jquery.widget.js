@@ -346,7 +346,7 @@
                 customStyle: {},
                 hasSlideNumbers: true,
                 pageType: "22",
-                regressionUrls: [],
+                regressionUrls: ["http://www.fakt.pl/aktorki-usmiercone-przez-scenarzystow,galeria,464577,1.html"],
                 preIncludeCallback: function () {
 
                 }
@@ -433,6 +433,58 @@
                 hasSlideNumbers: false,
                 pageType: "27",
                 regressionUrls: ["http://www.se.pl/intymnie/super-eros/dzisiaj-dzien-bez-stanika_404053.html"],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   trigger: "div#page div#main div.article-slideshow .article-matter .slideshow-wrapper",
+                name: "sfora.pl",
+                articleBodySelector: ".slideshow-wrapper",
+                navigationNextULRSelector: ".article-matter .slideshow-next:first",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".slideshow-wrapper",
+                sectionToBeRemovedSelector: ".slideshow-paging",
+                navigationPageNumberSelector: ".slideshow-current:first",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
+                hasSlideNumbers: true,
+                pageType: "28",
+                regressionUrls: ["http://www.sfora.pl/swiat/Zamordowal-rodzicow-lomem-Bo-zabrali-mu-iPoda-s68307"],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   trigger: "div#page div#main div.article-gallery .article-matter .gallery-content .gallery-img-big",
+                name: "sfora.pl nowa",
+                articleBodySelector: ".article-matter",
+                navigationNextULRSelector: ".gallery-img-big .next:first",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".article-matter",
+                sectionToBeRemovedSelector: ".prev, .next, .gallery-top",
+                navigationPageNumberSelector: "",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
+                hasSlideNumbers: false,
+                pageType: "29",
+                regressionUrls: ["http://www.sfora.pl/polska/KorwinMikke-triumfuje-internet-oszalal-Wysyp-memow-g68152-185752",
+                    "http://www.sfora.pl/swiat/Historia-bomby-atomowej-Wyciekly-tajne-fotografie-g67943"],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   trigger: ".page .main-content .article--gallery .gallery .gallery__content .gallery__image-wrapper .next-btn",
+                name: "biztok.pl",
+                articleBodySelector: ".gallery__content",
+                navigationNextULRSelector: ".gallery__image-wrapper .next-btn",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".gallery__content",
+                sectionToBeRemovedSelector: ".next-btn, .prev-btn, .gallery__header",
+                navigationPageNumberSelector: ".gallery__header .gallery-nr",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .social-box",
+                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
+                hasSlideNumbers: true,
+                pageType: "30",
+                regressionUrls: ["http://www.biztok.pl/tech/cocacola-zainwestowala-pod-warszawa-zobacz_g16382"],
                 preIncludeCallback: function () {
 
                 }
@@ -774,10 +826,11 @@
         regression: function () {
             var setTimeoutFunction = function (urlToOpen, pi) {
                 console.log("url", urlToOpen);
-                console.log("delay", 10 * 1000 * pi);
+                var delay = 30 * 1000 * pi;
+                console.log("delay", delay);
                 setTimeout(function () {
-                    window.open(urlToOpen);
-                }, 10 * 1000 * (pi));
+                    window.open(urlToOpen, '_blank');
+                }, delay);
             }
 
             var self = this;
@@ -791,8 +844,8 @@
                     for (var index in urls) {
                         $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
                         var urlToOpen = urls[index] + '#TYPE_' + page.pageType;
-                        counter = counter + 1;
                         setTimeoutFunction(urlToOpen, counter);
+                        counter = counter + 1;
                     }
                 }
             });
