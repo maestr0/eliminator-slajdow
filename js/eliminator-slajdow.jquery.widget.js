@@ -321,7 +321,8 @@
                     '.rsSlideContent .relative': 'text-align: center'},
                 hasSlideNumbers: false,
                 pageType: "21",
-                regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1"],
+                regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
+                    "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
                     this.nextPageURL = document.location.protocol + "//" + document.location.host + document.location.pathname;
                     $(".imageContainerEliminatorSlajdow .rsSlideContent").appendTo($(".imageContainerEliminatorSlajdow"));
@@ -331,6 +332,57 @@
                     $(".imageContainerEliminatorSlajdow .rsSlideContent").each(function (index) {
                         $(this).wrap("<div class='slide_" + index + " es_slide'></div>").parent().before(self._buildHeader('Slajd ' + (index + 2) + ' z ' + $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
                     });
+                }
+            },
+            {   trigger: "body#Fakt .pageContent .leftColumn .paginaHolder .paginator.panigaGalery",
+                name: "fakt.pl",
+                articleBodySelector: "body#Fakt .pageContent .leftColumn .Scroll-View-Gallery",
+                navigationNextULRSelector: ".pageContent .leftColumn .paginaHolder .paginator.panigaGalery a.next",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: "#bigPicture",
+                sectionToBeRemovedSelector: ".pageBigGallery .zoomer, .paginaHolder",
+                navigationPageNumberSelector: ".pageBigGallery .zoomer, .paginaHolder:first span",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {},
+                hasSlideNumbers: true,
+                pageType: "22",
+                regressionUrls: [],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   trigger: "body#loneGallery #bigPicture",
+                name: "fakt.pl nowa",
+                articleBodySelector: "#bigPicture",
+                navigationNextULRSelector: "#imgHolder .paginator .next",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: "#bigPicture, .rightColumn",
+                sectionToBeRemovedSelector: "#galleryslider, .paginator, .zoomer",
+                navigationPageNumberSelector: ".rightColumn .nrFoto",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .nrFoto, .socialButtons, .Region",
+                customStyle: {'.imageContainerEliminatorSlajdow .rightColumn': 'float:left;width:100%'},
+                hasSlideNumbers: true,
+                pageType: "23",
+                regressionUrls: ["http://www.fakt.pl/dlaczego-maz-zostawil-glinke-,artykuly,464472,1,1,1.html"],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   trigger: "",
+                name: "fakt.pl",
+                articleBodySelector: "",
+                navigationNextULRSelector: "",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: "",
+                sectionToBeRemovedSelector: "",
+                navigationPageNumberSelector: "",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {},
+                hasSlideNumbers: true,
+                pageType: "22",
+                regressionUrls: [],
+                preIncludeCallback: function () {
+
                 }
             }
 
