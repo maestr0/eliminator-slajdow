@@ -402,8 +402,43 @@
 
                 }
             },
+            {   trigger: "div#page article.single-article .gallery .paging .next",
+                name: "wawalove.pl",
+                articleBodySelector: ".see-big",
+                navigationNextULRSelector: "article.single-article .gallery .paging .next",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".see-big",
+                sectionToBeRemovedSelector: ".paging, .thumbs",
+                navigationPageNumberSelector: ".paging-info:first",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {},
+                hasSlideNumbers: true,
+                pageType: "26",
+                regressionUrls: ["http://wawalove.pl/Ogolnopolskie-Zawody-Jezdzieckie-w-skokach-przez-przeszkody-g14407/foto_70848#foto",
+                    "http://wawalove.pl/Policja-rozbila-tzw-Grupe-Mokotowska-MOCNE-WIDEO-g14398/foto_70824"],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   trigger: "section.article_site div.gallery_art div.new_article_gallery .next",
+                name: "se.pl",
+                articleBodySelector: ".new_article_gallery",
+                navigationNextULRSelector: "div.new_article_gallery .next:first",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".new_article_gallery",
+                sectionToBeRemovedSelector: ".new_article_pager, .prev, .next",
+                navigationPageNumberSelector: "",
+                sectionToBeRemovedFromAttachedSlidesSelector: ".howmany",
+                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
+                hasSlideNumbers: false,
+                pageType: "27",
+                regressionUrls: ["http://www.se.pl/intymnie/super-eros/dzisiaj-dzien-bez-stanika_404053.html"],
+                preIncludeCallback: function () {
+
+                }
+            },
             {   trigger: "",
-                name: "fakt.pl",
+                name: "se.pl",
                 articleBodySelector: "",
                 navigationNextULRSelector: "",
                 sectionToBeEmptySelector: "",
