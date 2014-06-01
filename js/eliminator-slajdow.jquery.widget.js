@@ -393,7 +393,7 @@
                 sectionToBeAttached: "#galeria-z-opisem",
                 sectionToBeRemovedSelector: "#galeria, .paginacja, .lupa, .strzalka, #powrot-miniaturki, #material-galeria-nastepne-czytaj",
                 navigationPageNumberSelector: ".iloscZdjec",
-                sectionToBeRemovedFromAttachedSlidesSelector: "",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 customStyle: {},
                 hasSlideNumbers: true,
                 pageType: "25",
@@ -428,7 +428,7 @@
                 sectionToBeAttached: ".new_article_gallery",
                 sectionToBeRemovedSelector: ".new_article_pager, .prev, .next",
                 navigationPageNumberSelector: "",
-                sectionToBeRemovedFromAttachedSlidesSelector: ".howmany",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .howmany",
                 customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
                 hasSlideNumbers: false,
                 pageType: "27",
@@ -490,7 +490,7 @@
                 }
             },
             {   trigger: "",
-                name: "se.pl",
+                name: "test template",
                 articleBodySelector: "",
                 navigationNextULRSelector: "",
                 sectionToBeEmptySelector: "",
@@ -500,7 +500,7 @@
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 customStyle: {},
                 hasSlideNumbers: true,
-                pageType: "22",
+                pageType: "31",
                 regressionUrls: [],
                 preIncludeCallback: function () {
 
@@ -826,7 +826,7 @@
         regression: function () {
             var setTimeoutFunction = function (urlToOpen, pi) {
                 console.log("url", urlToOpen);
-                var delay = 10 * 1000 * pi;
+                var delay = 5 * 1000 * pi;
                 console.log("delay", delay);
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
