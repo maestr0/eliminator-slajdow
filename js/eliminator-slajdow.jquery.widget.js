@@ -159,7 +159,7 @@
                 pageType: "11",
                 articleBodySelector: "div#photo div.photo-item",
                 sectionToBeEmptySelector: "script",
-                sectionToBeRemovedSelector: "div.photoElem a",
+                sectionToBeRemovedSelector: "div.photoElem a, .top-slider",
                 navigationNextULRSelector: "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next",
                 navigationPageNumberSelector: "div#photo.common-box div.top-slider div.slider",
                 sectionToBeAttached: "div.photo-item",
@@ -489,6 +489,22 @@
 
                 }
             },
+            {   trigger: "#ks_doc #ks_bd_left_col #ks_simple_pagging",
+                name: "komputerswiat.pl",
+                articleBodySelector: "#ks_bd_cols",
+                navigationNextULRSelector: "#gallery_image a.next",
+                sectionToBeAttached: "#ks_bd_cols",
+                sectionToBeRemovedSelector: "#ks_simple_pagging, #ks_bd_right_col div.next, #gallery_image .next",
+                navigationPageNumberSelector: "#ks_simple_pagging .numbers",
+                sectionToBeRemovedFromAttachedSlidesSelector: "#comments, script, .Nextclick_Widget_Container, #comment_form, #ks_bd_right_col div.next, #gallery_image .next, #gallery_image .prev",
+                customStyle: {'#gallery #ks_bd': 'float:left', '.imageContainerEliminatorSlajdow': 'margin-top:20px', ".comments": "width:720px"},
+                hasSlideNumbers: true,
+                pageType: "31",
+                regressionUrls: ["http://www.komputerswiat.pl/artykuly/redakcyjne/2014/05/komputery-apple-jakich-nie-widzieliscie-niezwykle-prototypy-z-lat-80.aspx"],
+                preIncludeCallback: function () {
+                    $("#ks_bd_left_col .Nextclick_Widget_Container, #ks_bd_left_col #comment_form, #ks_bd_left_col #comments").insertAfter(".imageContainerEliminatorSlajdow");
+                }
+            },
             {   trigger: "",
                 name: "test template",
                 articleBodySelector: "",
@@ -513,10 +529,6 @@
         _start: function () {
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
-            // FIXME
-            if ($(this.pageOptions.sectionToBeAttached).width() > 620) {
-                $("#content_wrap").find("#columns_wrap #col_right").css("cssText", "float:none; position: inherit !important;");
-            }
             this.nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
             this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
             this.pageOptions.preIncludeCallback.call(this);
@@ -635,18 +647,16 @@
                     }
                     elements.each(function () {
                         var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
-                        $(this).attr("style", current + that.pageOptions.customStyle[selector]);
+                        var newStyle = that.pageOptions.customStyle[selector];
+                        if (current.indexOf(newStyle) === -1) {
+                            $(this).attr("style", current + newStyle);
+                        }
                     });
                 }
 
                 for (var i in this.pageOptions.classesToBeRemoved) {
                     $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
                 }
-
-//                // FIXME:
-//                if (this.imageContainer.width() > 950 && this.pageOptions.pageType !== "8" && this.pageOptions.pageType !== "12") {
-//                    this.imageContainer.width(950);
-//                }
 
                 this.pageOptions.visitedSlideURLs.push(url);
 
@@ -834,20 +844,24 @@
             }
 
             var self = this;
+            var allRegressionUrls = new Array();
+            var index = 0;
+            var max = 5;
+            for (var pi in  self.pages) {
+                if (this.pages[pi].regressionUrls.length > 0)
+                    allRegressionUrls.push(this.pages[pi].regressionUrls);
+            }
 
             $("#start").click(function () {
                 console.log("Start button");
-                var counter = 1;
-                for (var pi in  self.pages) {
-                    var page = self.pages[pi];
-                    var urls = page.regressionUrls;
-                    for (var index in urls) {
-                        $("body").append("<a href=' " + urls[index] + "'>" + page.pageType + " -- " + page.name + " -- " + urls[index] + "</a><br />");
-                        var urlToOpen = urls[index] + '#TYPE_' + page.pageType;
-                        setTimeoutFunction(urlToOpen, counter);
-                        counter = counter + 1;
-                    }
-                }
+                do {
+                    $("body").append("<a href=' " + allRegressionUrls[index] + "'>" +
+                        allRegressionUrls[index] + "</a><br />");
+                    var urlToOpen = allRegressionUrls[index];
+                    setTimeoutFunction(urlToOpen, 0);
+                    index++;
+                } while (index < max && index < allRegressionUrls.length)
+                max = max + index;
             });
 
             this.pageOptions.sectionToBeAttached = "#toBeAttached";
