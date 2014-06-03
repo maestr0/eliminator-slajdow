@@ -505,11 +505,43 @@
                     $("#ks_bd_left_col .Nextclick_Widget_Container, #ks_bd_left_col #comment_form, #ks_bd_left_col #comments").insertAfter(".imageContainerEliminatorSlajdow");
                 }
             },
+            {   trigger: "body#screening #mainContainer #gallery .gallery_body .gallery_photo_desc_right",
+                name: "dziennik.pl",
+                articleBodySelector: ".gallery_body",
+                navigationNextULRSelector: ".gallery_photo_desc_right .nastepne:first",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".gallery_body",
+                sectionToBeRemovedSelector: ".belka-spol, .cl_right, .gallery_list_photos_header, .gallery_photo_desc_right, .gallery_list_photos, .art_data_tags, .belka-spol-bottom",
+                navigationPageNumberSelector: ".gallery_photo_desc_right p:first",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {},
+                hasSlideNumbers: true,
+                pageType: "32",
+                regressionUrls: ["http://auto.dziennik.pl/aktualnosci/galeria/460807,1,samochod-obamy-limuzyna-prezydenta-usa-zdjecia-galeria-zdjec.html"],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   trigger: "#miejsce2 .galeriaBig.forsalOnly .colLeft .photoBg .next",
+                name: "forsal.pl",
+                articleBodySelector: ".tpl_sgp_galeria_artykulowa",
+                navigationNextULRSelector: ".galeriaBig.forsalOnly .colLeft .photoBg .next",
+                sectionToBeAttached: ".tpl_sgp_galeria_artykulowa",
+                sectionToBeRemovedSelector: "",
+                navigationPageNumberSelector: ".colRight .nextPrev",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .dateArt, .leadArt, .lead, .galeriaBig.forsalOnly > h2, .nextPrev ul",
+                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
+                hasSlideNumbers: true,
+                pageType: "33",
+                regressionUrls: [],
+                preIncludeCallback: function () {
+
+                }
+            },
             {   trigger: "",
                 name: "test template",
                 articleBodySelector: "",
                 navigationNextULRSelector: "",
-                sectionToBeEmptySelector: "",
                 sectionToBeAttached: "",
                 sectionToBeRemovedSelector: "",
                 navigationPageNumberSelector: "",

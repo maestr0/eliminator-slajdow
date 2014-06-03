@@ -271,13 +271,14 @@ body.eliminatorSlajdow {
         width: 16px;
         height: 16px;
         float: right;
-        margin-left: 75px;
+        margin-left: 75px !important;
       }
 
       span {
         font-family: Arial;
         font-size: 11px;
         line-height: 16px;
+        margin: 0 !important;
         &.pageNumber {
           float: left;
         }

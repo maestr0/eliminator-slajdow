@@ -109,7 +109,7 @@ function updateAllowedDomainList() {
         "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl","expressilustrowany.pl",
         "gazetakrakowska.pl","gloswielkopolski.pl","kurierlubelski.pl",
         "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
-        "komputerswiat.pl");
+        "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl");
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
