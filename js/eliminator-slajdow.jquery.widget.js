@@ -489,22 +489,36 @@
 
                 }
             },
-            {   trigger: "",
-                name: "test template",
-                articleBodySelector: "",
-                navigationNextULRSelector: "",
-                sectionToBeEmptySelector: "",
-                sectionToBeAttached: "",
-                sectionToBeRemovedSelector: "",
-                navigationPageNumberSelector: "",
-                sectionToBeRemovedFromAttachedSlidesSelector: "script",
-                customStyle: {},
-                hasSlideNumbers: true,
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* index */
                 pageType: "31",
-                regressionUrls: [],
+                /* nazwa galerii */
+                name: "",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                /* naglowek slajdu */
+                headerSectionSelector: "",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
                 preIncludeCallback: function () {
-
-                }
+                },
+                classesToBeRemoved: [],
+                regressionUrls: []
             }
 
         ],
