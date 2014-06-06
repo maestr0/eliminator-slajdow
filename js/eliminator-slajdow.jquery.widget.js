@@ -540,19 +540,37 @@
             },
             {   trigger: "",
                 name: "test template",
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* index */
+                pageType: "31",
+                /* nazwa galerii */
+                name: "",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: "",
                 navigationNextULRSelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: "",
-                sectionToBeRemovedSelector: "",
-                navigationPageNumberSelector: "",
-                sectionToBeRemovedFromAttachedSlidesSelector: "script",
-                customStyle: {},
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: true,
-                pageType: "31",
-                regressionUrls: [],
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                /* naglowek slajdu */
+                headerSectionSelector: "",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
                 preIncludeCallback: function () {
-
-                }
+                },
+                classesToBeRemoved: [],
+                regressionUrls: []
             }
 
         ],
