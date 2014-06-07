@@ -540,6 +540,38 @@
                 }
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#pagewrap #ARTICLE_GALLERY_TOP_1",
+                /* index */
+                pageType: "34",
+                /* nazwa galerii */
+                name: "przegladsportowy.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#pagewrap .rightColumn",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".leftColumn, .rightColumn",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".paginator a.next:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".paginator",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, #ARTICLE_GALLERY_RIGHT_COLUMN_1, #ARTICLE_GALLERY_BOTTOM_1, .socialButtons",
+                /* dowolne style css w postaci mapy */
+                customStyle: {".sharebx": "float:left"},
+                /* naglowek slajdu */
+                headerSectionSelector: "",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
+                preIncludeCallback: function () {
+                    $(".leftColumn #ARTICLE_GALLERY_BOTTOM_1").insertAfter(".imageContainerEliminatorSlajdow");
+                },
+                classesToBeRemoved: [],
+                regressionUrls: ["http://junior.przegladsportowy.pl/akademia-pilkarska-zaglebia-lubin-tak-trenuja-mlode-talenty,galeria,1,472568,12565.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* index */
                 pageType: "31",
