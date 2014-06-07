@@ -39,7 +39,7 @@
                 customStyle: {"#col_left": "width:auto", "#columns_wrap": "background:none",
                     ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
                 preIncludeCallback: function () {
-                    $("#col_left").width($("#gazeta_article_image div a img").width());
+                    $("#col_left").width($("#gazeta_article_image").find("div a img").width());
                 }
             },
             {   trigger: "body#pagetype_art_blog",
@@ -538,8 +538,6 @@
 
                 }
             },
-            {   trigger: "",
-                name: "test template",
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* index */
@@ -548,7 +546,6 @@
                 name: "",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: "",
-                navigationNextULRSelector: "",
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: "",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
@@ -593,6 +590,7 @@
                 this._requestNextSlide(this.nextPageURL);
             } else {
                 this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
+                this._tracking("ES_error_no_slides", this.pageOptions.pageType, document.location.pathname + document.location.search);
             }
         },
         _buildHeader: function (pageNumberLabel, pageNumber, url) {
@@ -748,7 +746,7 @@
                 }
             }).fail(function () {
                     this._tracking("ES_error", this.pageOptions.pageType, nextPageURL);
-                    console.log("ES - Blad pobierania nastepnego slajud: " + nextPageURL);
+                    console.log("ES - Blad pobierania nastepnego slajdu: " + nextPageURL);
                     that._hideSpinner();
                 });
         },
@@ -915,7 +913,7 @@
             });
 
             this.pageOptions.sectionToBeAttached = "#toBeAttached";
-            this.pageOptions.articleBodySelector = "#articleBodySelector"
+            this.pageOptions.articleBodySelector = "#articleBodySelector";
             this._createImageContainer();
             this._appendNextSlide("body", "regression");
             this._create();
