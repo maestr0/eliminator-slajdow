@@ -32,7 +32,8 @@
             {   trigger: "body#pagetype_photo",
                 name: "galeria #pagetype_photo (1)",
                 regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
-                    "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1"],
+                    "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1",
+                    "http://www.sport.pl/pilka/56,136438,16075836,MS_2014__Thomas_Donohoe_dostal_pomnik__Czy_to_on_przywiozl.html"],
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
@@ -896,8 +897,9 @@
             var index = 0;
             var max = 5;
             for (var pi in  self.pages) {
-                if (this.pages[pi].regressionUrls.length > 0)
-                    allRegressionUrls.push(this.pages[pi].regressionUrls);
+                for (var i in this.pages[pi].regressionUrls) {
+                    allRegressionUrls.push(this.pages[pi].regressionUrls[i]);
+                }
             }
 
             $("#start").click(function () {
