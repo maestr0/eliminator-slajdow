@@ -105,12 +105,12 @@ function updateAllowedDomainList() {
         "pomorska.pl", "wspolczesna.pl", "gk24.pl", "gp24.pl", "gs24.pl", "poranny.pl", "nowiny24.pl", "nto.pl",
         "to.com.pl", "mmbydgoszcz.pl", "mmwroclaw.pl", "mmkrakow.pl", "mmlodz.pl", "mmlublin.pl", "mmpoznan.pl",
         "mmsilesia.pl", "mmszczecin.pl", "mmtrojmiasto.pl", "mmwarszawa.pl", "mmmojemiasto.pl", "mmopole.pl",
-        "mmzielonagora.pl","foch.pl", "www.edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
-        "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl","expressilustrowany.pl",
-        "gazetakrakowska.pl","gloswielkopolski.pl","kurierlubelski.pl",
+        "mmzielonagora.pl", "foch.pl", "www.edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
+        "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl", "expressilustrowany.pl",
+        "gazetakrakowska.pl", "gloswielkopolski.pl", "kurierlubelski.pl",
         "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
-        "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl",
-        "bebzol.com" ,"przegladsportowy.pl", "motokiller.pl", "sportowefakty.pl", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl");
+        "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl", "auto-swiat.pl",
+        "bebzol.com", "motokiller.pl", "sportowefakty.pl", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl");
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
