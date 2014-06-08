@@ -749,7 +749,7 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://pudelekx.pl/ten-pies-wygladal-jak-wor-na-smieci-27389-g2"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
@@ -1112,7 +1112,7 @@
             var index = 0;
             var max = 5;
             for (var pi in  self.pages) {
-                for (var i in this.pages[self.pages.length - pi].regressionUrls) {
+                for (var i in this.pages[self.pages.length - pi - 1].regressionUrls) {
                     allRegressionUrls.push(this.pages[pi].regressionUrls[i]);
                 }
             }
