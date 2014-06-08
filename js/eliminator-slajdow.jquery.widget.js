@@ -700,7 +700,7 @@
                     "http://biznes.pl/wiadomosci/kraj/jan-vincent-rostowski-gosciem-specjalnym-biznespl,5610578,0,foto-detal.html#photo16264113"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "div.wrapper div.site div.left_column div.article div.gallery_buttons div.prev_btt a.prev",
+                trigger: "div.wrapper div.site div.left_column div.article div.gallery_buttons div.next_btt a.next",
                 /* index */
                 pageType: "39",
                 /* nazwa galerii */
@@ -715,34 +715,36 @@
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".gallery_buttons, .box.gallery_img",
+                sectionToBeRemovedSelector: ".gallery_buttons, .box.gallery_img, .article .content",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: ["http://www.urzadzamy.pl/galeria/6668/bawialnia-z-sypialnia-funkcjonalny-pokoj-dla-dziewczynek/?es=1off"]
+                regressionUrls: ["http://www.urzadzamy.pl/galeria/6668/bawialnia-z-sypialnia-funkcjonalny-pokoj-dla-dziewczynek/",
+                    "http://www.urzadzamy.pl/galeria/uzytkownik/3328/podswietlane-panele-crystal-led-w-azience/",
+                    "http://www.urzadzamy.pl/galeria/uzytkownik/2378/azienka-modern/"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "",
+                trigger: "div.all div#page #item > div.item-content > a.arrow-next-big",
                 /* index */
                 pageType: "40",
                 /* nazwa galerii */
                 name: "pudelekx.pl",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "",
+                articleBodySelector: "#item .item-content",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "",
+                sectionToBeAttached: "#item",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "",
+                navigationNextULRSelector: "div.item-content > a.arrow-next-big",
                 /* false gdy nie ma skad wziac numeracji */
-                hasSlideNumbers: true,
+                hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "",
+                sectionToBeRemovedSelector: ".thumbs, .item-header .btn2, .arrow-next-big, .arrow-prev-big, .item-header",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
-                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .tags, .item-options, .left",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
@@ -1079,6 +1081,8 @@
         _appendDisableEsFlag: function (url) {
             if (url.indexOf("?") > -1) {
                 return url.replace("?", "?es=off&");
+            } else if (url.indexOf("#") > -1) {
+                return url.replace("#", "?es=off#");
             } else {
                 return url + "?es=off";
             }
