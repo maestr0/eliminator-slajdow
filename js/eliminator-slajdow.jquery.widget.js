@@ -603,6 +603,39 @@
                 regressionUrls: ["http://www.sportowefakty.pl/pilka-reczna/zdjecia/galeria/5411/polska-niemcy-2524/3-232928#photo-start"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#page_wrap #page #content #content-inner .box-inner .img-cnt-wrap .news-content",
+                /* index */
+                pageType: "36",
+                /* nazwa galerii */
+                name: "bebzol.com",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".img-cnt-wrap",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".img-cnt-wrap",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#handle-next:not(.next-gal):first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".like-bar, .handle:not(.next-gal), .categ-list-cnt, .img-cnt div:first, .pluginConnectButton",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .like-bar, .bbz-cm-box",
+                /* dowolne style css w postaci mapy */
+                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
+                /* naglowek slajdu */
+                headerSectionSelector: "",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
+                preIncludeCallback: function () {
+                    $("html").addClass("eliminatorSlajdow");
+                },
+                classesToBeRemoved: [],
+                regressionUrls: ["http://bebzol.com/pl/koty-szykuja-sie-na-wojne.150870.html" ,
+                    "http://bebzol.com/pl/20-trudnosci-z-ktorymi-musza-zmagac-sie-wlasciciele-kotow.151053.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* index */
                 pageType: "31",
@@ -774,7 +807,9 @@
 
                 this.pageOptions.preIncludeCallback.call(this);
 
-                if ((pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(this.nextPageURL) === -1)) {
+                if (typeof this.nextPageURL !== 'undefined' && (
+                    (pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) ||
+                        (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(this.nextPageURL) === -1))) {
                     this._logger("link do nastepnej storny", this.nextPageURL);
                     this._showSpinnier();
                     this._requestNextSlide(this.nextPageURL);
@@ -801,6 +836,11 @@
         },
         _requestNextSlide: function (nextPageURL) {
             var that = this;
+            if (typeof nextPageURL === 'undefined') {
+                that._hideSpinner();
+                return
+            }
+            ;
             $.get(nextPageURL,function (nextPage) {
                 var redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {

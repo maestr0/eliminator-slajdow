@@ -109,8 +109,8 @@ function updateAllowedDomainList() {
         "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl", "expressilustrowany.pl",
         "gazetakrakowska.pl", "gloswielkopolski.pl", "kurierlubelski.pl",
         "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
-        "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl", "auto-swiat.pl",
-        "bebzol.com", "motokiller.pl", "sportowefakty.pl", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl");
+        "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl", "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
+        "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl");
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
