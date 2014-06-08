@@ -754,9 +754,9 @@
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* index */
-                pageType: "40",
+                pageType: "41",
                 /* nazwa galerii */
-                name: "pudelekx.pl",
+                name: "",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: "",
                 /* elementy ktora zostana dolaczone jako slajd*/
@@ -1112,7 +1112,7 @@
             var index = 0;
             var max = 5;
             for (var pi in  self.pages) {
-                for (var i in this.pages[pi].regressionUrls) {
+                for (var i in this.pages[self.pages.length - pi].regressionUrls) {
                     allRegressionUrls.push(this.pages[pi].regressionUrls[i]);
                 }
             }
