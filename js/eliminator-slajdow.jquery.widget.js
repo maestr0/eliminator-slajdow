@@ -1113,7 +1113,7 @@
             var max = 5;
             for (var pi in  self.pages) {
                 for (var i in this.pages[self.pages.length - pi - 1].regressionUrls) {
-                    allRegressionUrls.push(this.pages[pi].regressionUrls[i]);
+                    allRegressionUrls.push(this.pages[self.pages.length - pi - 1].regressionUrls[i]);
                 }
             }
 
