@@ -73,3 +73,39 @@ ES = {
 }
 
 ES.test();
+
+
+var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to",
+    "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl",
+    "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl",
+    "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl",
+    "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl",
+    "gazetapraca.pl", "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net", "wyborcza.pl",
+    "namonciaku.pl", "sport.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl",
+    "bryla.pl", "domiwnetrze.pl", "onet.pl", "gazetalubuska.pl", "dziennikwschodni.pl", "echodnia.eu",
+    "pomorska.pl", "wspolczesna.pl", "gk24.pl", "gp24.pl", "gs24.pl", "poranny.pl", "nowiny24.pl", "nto.pl",
+    "to.com.pl", "mmbydgoszcz.pl", "mmwroclaw.pl", "mmkrakow.pl", "mmlodz.pl", "mmlublin.pl", "mmpoznan.pl",
+    "mmsilesia.pl", "mmszczecin.pl", "mmtrojmiasto.pl", "mmwarszawa.pl", "mmmojemiasto.pl", "mmopole.pl",
+    "mmzielonagora.pl", "foch.pl", "www.edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
+    "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl", "expressilustrowany.pl",
+    "gazetakrakowska.pl", "gloswielkopolski.pl", "kurierlubelski.pl",
+    "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
+    "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl", "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
+    "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl");
+
+var ffCfg = new Array();
+
+for (var url in defaultSupportedDomains) {
+    ffCfg.push({
+        "type": "bool",
+        "name": defaultSupportedDomains[url],
+        "value": true,
+        "title": "www." + defaultSupportedDomains[url]
+    });
+}
+ffCfg.sort(function (a, b) {
+    console.log(a)
+    return a.name.localeCompare(b.name);
+});
+
+JSON.stringify(ffCfg);
