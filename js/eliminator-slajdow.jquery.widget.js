@@ -618,11 +618,11 @@
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".like-bar, .handle:not(.next-gal), .categ-list-cnt, .img-cnt div:first, .pluginConnectButton",
+                sectionToBeRemovedSelector: ".handle:not(.next-gal), .categ-list-cnt, .img-cnt div:first, .pluginConnectButton",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .like-bar, .bbz-cm-box",
                 /* dowolne style css w postaci mapy */
-                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
+                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px', '.like-bar': 'float:left;width:100%'},
                 /* naglowek slajdu */
                 headerSectionSelector: "",
                 /* $.empty() na elemencie*/
@@ -636,11 +636,100 @@
                     "http://bebzol.com/pl/20-trudnosci-z-ktorymi-musza-zmagac-sie-wlasciciele-kotow.151053.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#left_column.gallery .comments h2.section-title ",
+                /* index */
+                pageType: "37",
+                /* nazwa galerii */
+                name: "lovekrakow.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#content .container .clear:last",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#left_column, #right_column",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".photo-pagination a.next:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".photo-pagination:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".thumbnails, .photo-pagination",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .comments, h1.title",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                /* naglowek slajdu */
+                headerSectionSelector: "",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
+                preIncludeCallback: function () {
+                    $("#left_column .comments").insertAfter(".imageContainerEliminatorSlajdow");
+                },
+                classesToBeRemoved: [],
+                regressionUrls: ["http://lovekrakow.pl/galerie/zdjecie/id/27808"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "div#doc #body #trunk #main .k_galleryLarge .k_pagination",
+                /* index */
+                pageType: "38",
+                /* nazwa galerii */
+                name: "biznes.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#main .k_gallery",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".k_gallery",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".k_pagination .k_next a:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".k_pagination .thisFoto:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".k_pagination",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                /* naglowek slajdu */
+                headerSectionSelector: "",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
+                preIncludeCallback: function () {
+                },
+                classesToBeRemoved: [],
+                regressionUrls: ["http://biznes.pl/wiadomosci/raporty/wzrost-pkb-w-latach-2008-2013,5610529,1,5610147,535,foto-detal.html",
+                    "http://biznes.pl/wiadomosci/kraj/jan-vincent-rostowski-gosciem-specjalnym-biznespl,5610578,0,foto-detal.html#photo16264113"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "div.wrapper div.site div.left_column div.article div.gallery_buttons div.prev_btt a.prev",
+                /* index */
+                pageType: "39",
+                /* nazwa galerii */
+                name: "urzadzamy.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".article .image_file",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".article .image_file",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.gallery_buttons div.next_btt a.next",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".gallery_buttons, .box.gallery_img",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.urzadzamy.pl/galeria/6668/bawialnia-z-sypialnia-funkcjonalny-pokoj-dla-dziewczynek/?es=1off"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* index */
-                pageType: "31",
+                pageType: "40",
                 /* nazwa galerii */
-                name: "",
+                name: "pudelekx.pl",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: "",
                 /* elementy ktora zostana dolaczone jako slajd*/
@@ -656,15 +745,34 @@
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
-                /* naglowek slajdu */
-                headerSectionSelector: "",
-                /* $.empty() na elemencie*/
-                sectionToBeEmptySelector: "",
-                /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
                 preIncludeCallback: function () {
                 },
-                classesToBeRemoved: [],
-                regressionUrls: []
+                regressionUrls: [""]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* index */
+                pageType: "40",
+                /* nazwa galerii */
+                name: "pudelekx.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: [""]
             }
 
         ],
