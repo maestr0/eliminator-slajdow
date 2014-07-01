@@ -729,7 +729,7 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: ["http://www.urzadzamy.pl/galeria/6668/bawialnia-z-sypialnia-funkcjonalny-pokoj-dla-dziewczynek/",
+                regressionUrls: ["http://www.urzadzamy.pl/galeria/uzytkownik/2560/komiksowy-pokoj/",
                     "http://www.urzadzamy.pl/galeria/uzytkownik/3328/podswietlane-panele-crystal-led-w-azience/",
                     "http://www.urzadzamy.pl/galeria/uzytkownik/2378/azienka-modern/"]
             },
