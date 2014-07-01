@@ -748,7 +748,7 @@
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".thumbs, .item-header .btn2, .arrow-next-big, .arrow-prev-big, .item-header",
+                sectionToBeRemovedSelector: ".thumbs, .item-header .btn2, .arrow-next-big, .arrow-prev-big, .item-header, div.sidebar",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .tags, .item-options, .left",
                 /* $.empty() na elemencie*/
