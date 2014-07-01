@@ -61,7 +61,6 @@
                 }
             },
             {   trigger: "body#pagetype_art #gazeta_article_tools",
-                triggerStopper: "#gazeta_article_miniatures li.moreImg a",
                 name: "galeria body#pagetype_art #gazeta_article_image (3)",
                 regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
                 sectionToBeAttached: "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
@@ -83,7 +82,6 @@
                 pageType: "4"
             },
             {   trigger: "div#article div#article_body",
-                triggerStopper: "#gazeta_article_miniatures li.moreImg a",
                 name: "galeria div#article div#article_body (5)",
                 regressionUrls: ["http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
                 articleBodySelector: "#article_body",
@@ -837,7 +835,6 @@
                 this._requestNextSlide(this.nextPageURL);
             } else {
                 this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
-                this._tracking("ES_error_no_slides", this.pageOptions.pageType, document.location.href);
             }
         },
         _buildHeader: function (pageNumberLabel, pageNumber, url) {
@@ -1099,7 +1096,7 @@
         _create: function (customOptions) {
             var self = this;
             window.onerror = function (err) {
-                self._tracking("ES_ERROR", err, window.location.href);
+                self._tracking("ES_JS_ERROR", err, window.location.href);
             }
             $.extend(true, this, this, customOptions);
             for (var i in this.pages) {
@@ -1132,8 +1129,8 @@
             }
         },
         _updateGalleryLink: function () {
-            var galleryLink = $("#gazeta_article_miniatures .moreImg a");
-            if (galleryLink.length === 1) {
+            var galleryLink = $("#gazeta_article_miniatures .moreImg a, #gazeta_article_image a.next ");
+            if (galleryLink.length > 0) {
                 var href = galleryLink.attr("href");
                 var suffix = "?i=1";
                 if (href && (href.indexOf(suffix, href.length - suffix.length) !== -1)) {
