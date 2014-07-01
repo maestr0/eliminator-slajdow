@@ -83,6 +83,7 @@
                 pageType: "4"
             },
             {   trigger: "div#article div#article_body",
+                triggerStopper: "#gazeta_article_miniatures li.moreImg a",
                 name: "galeria div#article div#article_body (5)",
                 regressionUrls: ["http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
                 articleBodySelector: "#article_body",
