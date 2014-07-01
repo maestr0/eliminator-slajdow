@@ -111,7 +111,9 @@ function updateAllowedDomainList() {
         "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
         "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl",
         "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
-        "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl");
+        "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl", "snobka.pl");
+
+    /* TODO: "pomponik.pl" , "interia.pl", "tuwroclaw.com", "topgear.com.pl", "geekweek.pl" */
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 

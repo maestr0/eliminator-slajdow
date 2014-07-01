@@ -25,6 +25,8 @@
             classesToBeRemoved: [],
             pageType: "Default",
             customStyle: {},
+            trigger: "",
+            triggerStopper: "",
             preIncludeCallback: function () {
             }
         },
@@ -113,9 +115,10 @@
                 classesToBeRemoved: ["ZdjecieGaleriaMaxWielkosc"],
                 pageType: "7"
             },
-            {   trigger: "#multiGallery #multiGalleryContent #gallery",
+            {   trigger: " #multiGallery #multiGalleryContent #gallery",
                 name: "MultiGallery na ONET.PL",
-                regressionUrls: [],
+                regressionUrls: ["http://wiadomosci.onet.pl/swiat/nieznane-zdjecia-z-okresu-i-wojny-swiatowej-ujrzaly-swiatlo-dzienne/5kmg0",
+                    "http://wiadomosci.onet.pl/swiat/berlin-podzielony-murem-tak-wygladal-w-okresie-zimnej-wojny/64dph"],
                 articleBodySelector: "#multiGallery #multiGalleryContent #galleryText",
                 sectionToBeEmptySelector: "*[id='mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd",
                 sectionToBeRemovedSelector: ".imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd, #multiGalleryContent .navBox",
@@ -125,8 +128,8 @@
                 headerSectionSelector: "",
                 hasSlideNumbers: false,
                 customStyle: {"body": "height:auto"},
-                pageType: "8"
-
+                pageType: "8",
+                triggerStopper: "#multiGallery #multiGalleryContent #gallery .mainMediaImg img.after"
             },
             {   trigger: "div#page div#pageWrapper div#photo div#photoContainer div.nav a",
                 name: "Galeria MediaRegionalne ",
@@ -279,14 +282,15 @@
                 navigationNextULRSelector: "div#largepic_wrapper a.next_image",
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: "div#content div.content",
-                sectionToBeRemovedSelector: ".image_carousel, div#largepic_wrapper > a",
+                sectionToBeRemovedSelector: ".image_carousel, div#largepic_wrapper > a, div.media",
                 navigationPageNumberSelector: "",
-                sectionToBeRemovedFromAttachedSlidesSelector: ".image_carousel, script, div.share",
+                sectionToBeRemovedFromAttachedSlidesSelector: ".image_carousel, script, style, div.share",
                 customStyle: {},
                 hasSlideNumbers: false,
                 pageType: "19",
                 regressionUrls: ["http://kwejk.pl/article/2054448/20/caa",
-                    "http://kwejk.pl/article/2054452/0/co-mozna-zmiescic-w-c-5-galaxy.html#gallerypic"],
+                    "http://kwejk.pl/article/2054452/0/co-mozna-zmiescic-w-c-5-galaxy.html#gallerypic",
+                    "http://kwejk.pl/article/2077996/0/najbardziej-denerwujace-teksty-rodzicow.html#gallerypic"],
                 preIncludeCallback: function () {
                 }
             },
@@ -718,6 +722,8 @@
                 sectionToBeRemovedSelector: ".gallery_buttons, .box.gallery_img, .article .content",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
@@ -745,6 +751,8 @@
                 sectionToBeRemovedSelector: ".thumbs, .item-header .btn2, .arrow-next-big, .arrow-prev-big, .item-header",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .tags, .item-options, .left",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
@@ -752,9 +760,37 @@
                 regressionUrls: ["http://pudelekx.pl/ten-pies-wygladal-jak-wor-na-smieci-27389-g2"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "",
+                trigger: "#wrap #article article.single-entry #photo-gallery .inner a.next",
                 /* index */
                 pageType: "41",
+                /* nazwa galerii */
+                name: "snobka.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#photo-gallery",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#photo-gallery",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".inner a:first.next",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "div.thumbs, .inner .next, .inner .prev",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {"section.comments": "float:left"},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.snobka.pl/artykul/krok-po-kroku-polyskujacy-makijaz-w-stylu-magdaleny-mielcarz-19554",
+                    "http://www.snobka.pl/artykul/emily-ratajkowski-znowu-sie-rozbiera-19646/1/4#photo-gallery"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* index */
+                pageType: "45",
                 /* nazwa galerii */
                 name: "",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
@@ -770,13 +806,14 @@
                 sectionToBeRemovedSelector: "",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
                 regressionUrls: [""]
             }
-
         ],
         spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'})),
         imageContainer: null,
@@ -958,8 +995,8 @@
                 } else {
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
-            }).fail(function () {
-                    this._tracking("ES_error", this.pageOptions.pageType, nextPageURL);
+            }, "html").fail(function () {
+                    that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
                     console.log("ES - Blad pobierania nastepnego slajdu: " + nextPageURL);
                     that._hideSpinner();
                 });
@@ -1057,9 +1094,13 @@
 
         },
         _create: function (customOptions) {
+            var self = this;
+            window.onerror = function (err) {
+                self._tracking("ES_ERROR", err, window.location.href);
+            }
             $.extend(true, this, this, customOptions);
             for (var i in this.pages) {
-                if ($(this.pages[i].trigger).length > 0) {
+                if ($(this.pages[i].trigger).length > 0 && $(this.pages[i].triggerStopper).length === 0) {
                     $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
                     this._logger("ES START konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
                     this._start();
