@@ -61,11 +61,13 @@
                 }
             },
             {   trigger: "body#pagetype_art #gazeta_article_tools",
+                triggerStopper: "#gazeta_article_miniatures li.moreImg a",
                 name: "galeria body#pagetype_art #gazeta_article_image (3)",
                 regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
                 sectionToBeAttached: "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
                 pageType: "3",
+                regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/1,114875,16254019,Szef_Panstwa_Islamskiego_wzywa_do_dzihadu_podczas.html"],
                 preIncludeCallback: function () {
                     this._updateGalleryLink();
                 }
@@ -834,7 +836,7 @@
                 this._requestNextSlide(this.nextPageURL);
             } else {
                 this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
-                this._tracking("ES_error_no_slides", this.pageOptions.pageType, document.location.pathname + document.location.search);
+                this._tracking("ES_error_no_slides", this.pageOptions.pageType, document.location.href);
             }
         },
         _buildHeader: function (pageNumberLabel, pageNumber, url) {
