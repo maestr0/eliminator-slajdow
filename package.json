@@ -17,14 +17,14 @@
     "grunt-contrib-clean": "~0.5.0",
     "grunt-cli": "~0.1.9"
   },
-  "description": "ERROR: No README data found!",
+  "description": "Eliminator Slajdów - Chrome",
   "main": "background.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://code.google.com/p/lepsza-gazeta-pl/"
+    "url": "git@github.com:maestr0/eliminator-slajdow-chrome.git"
   },
   "author": "Pawel Raszewski",
   "license": "GPL v3"

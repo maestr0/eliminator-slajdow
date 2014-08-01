@@ -31,20 +31,6 @@
             }
         },
         pages: [
-            {   trigger: "body#pagetype_photo",
-                name: "galeria #pagetype_photo (1)",
-                regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
-                    "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1",
-                    "http://www.sport.pl/pilka/56,136438,16075836,MS_2014__Thomas_Donohoe_dostal_pomnik__Czy_to_on_przywiozl.html"],
-                sectionToBeEmptySelector: "#gazeta_article_miniatures",
-                sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
-                pageType: "1",
-                customStyle: {"#col_left": "width:auto", "#columns_wrap": "background:none",
-                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
-                preIncludeCallback: function () {
-                    $("#col_left").width($("#gazeta_article_image").find("div a img").width());
-                }
-            },
             {   trigger: "body#pagetype_art_blog",
                 name: "galeria #pagetype_art_blog (2)",
                 regressionUrls: ["http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html",
@@ -788,32 +774,48 @@
                 regressionUrls: ["http://www.snobka.pl/artykul/krok-po-kroku-polyskujacy-makijaz-w-stylu-magdaleny-mielcarz-19554",
                     "http://www.snobka.pl/artykul/emily-ratajkowski-znowu-sie-rozbiera-19646/1/4#photo-gallery"]
             },
+
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "",
+                trigger: "body#pagetype_photo.simpleGallery #gazeta_gallery_popup .gs_navigation .gs_next",
                 /* index */
-                pageType: "45",
+                pageType: "42",
                 /* nazwa galerii */
-                name: "",
+                name: "gazeta pl nowa galeria czarna",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "",
+                articleBodySelector: "#gazeta_gallery_popup .gs_image_cointainer",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "",
+                sectionToBeAttached: ".gs_image_cointainer",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "",
+                navigationNextULRSelector: ".gs_navigation .gs_next:first",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: true,
-                navigationPageNumberSelector: "",
+                navigationPageNumberSelector: ".gs_stats .gs_count",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "",
+                sectionToBeRemovedSelector: ".gs_navigation",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
-                customStyle: {},
+                customStyle: {"body":"overflow: auto", ".gs_image_cointainer img" : "position:relative;max-height:inherit;min-height:inherit",
+                "#gazeta_gallery_popup":"position:relative", "#page22" : "height:0"},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/5,139575,16388712.html?i=0"]
+            },
+                        {   trigger: "body#pagetype_photo",
+                name: "galeria #pagetype_photo (1)",
+                regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
+                    "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1",
+                    "http://www.sport.pl/pilka/56,136438,16075836,MS_2014__Thomas_Donohoe_dostal_pomnik__Czy_to_on_przywiozl.html"],
+                sectionToBeEmptySelector: "#gazeta_article_miniatures",
+                sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
+                pageType: "1",
+                customStyle: {"#col_left": "width:auto", "#columns_wrap": "background:none",
+                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
+                preIncludeCallback: function () {
+                    $("#col_left").width($("#gazeta_article_image").find("div a img").width());
+                }
             }
         ],
         spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'})),
