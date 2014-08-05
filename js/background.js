@@ -113,10 +113,9 @@ function updateAllowedDomainList() {
         "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
         "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl", "snobka.pl",
         "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl", "sportfan.pl",
-        "forbes.pl");
+        "forbes.pl", "geekweek.pl");
 
-    /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl", "geekweek.pl" */
-    // http://gadzetomania.pl/ forbs.pl sportfan.pl
+    /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl",  */
     // pomponik.pl - odpada z powodu lazy loaded zdjec
 
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);

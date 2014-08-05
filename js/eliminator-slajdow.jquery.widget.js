@@ -1067,24 +1067,24 @@
                 "http://kariera.forbes.pl/najbardziej-absurdalne-pytania-na-rozmowie-o-prace,artykuly,174074,1,1,2.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "",
+                trigger: "div#root div#content section#articles #zdjecie.right .navigation a.next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
                 pageType: "52",
                 /* nazwa galerii */
-                name: "",
+                name: "geekweek.pl",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "",
+                articleBodySelector: "#zdjecie div:last",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "",
+                sectionToBeAttached: "figure.image, #ads-incontext-content",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "",
+                navigationNextULRSelector: ".navigation a.next:first",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: true,
-                navigationPageNumberSelector: "",
+                navigationPageNumberSelector: ".navigation .num",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "",
+                sectionToBeRemovedSelector: ".navigation",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -1093,7 +1093,9 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: ["http://www.geekweek.pl/galerie/4031/zwierzeta-w-promieniach-zachodzacego-slonca?zdjecie=1#zdjecie"]
+                regressionUrls: ["http://www.geekweek.pl/galerie/4031/zwierzeta-w-promieniach-zachodzacego-slonca?zdjecie=1#zdjecie",
+                "http://www.geekweek.pl/galerie/4082/jak-sobie-radzic-w-upaly",
+                "http://www.geekweek.pl/galerie/4080/tego-nie-wiedzieliscie-o-mcdonalds"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
