@@ -774,7 +774,6 @@
                 regressionUrls: ["http://www.snobka.pl/artykul/krok-po-kroku-polyskujacy-makijaz-w-stylu-magdaleny-mielcarz-19554",
                     "http://www.snobka.pl/artykul/emily-ratajkowski-znowu-sie-rozbiera-19646/1/4#photo-gallery"]
             },
-
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "body#pagetype_photo.simpleGallery #gazeta_gallery_popup .gs_navigation .gs_next",
                 /* index */
@@ -797,13 +796,13 @@
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
-                customStyle: {"body":"overflow: auto", ".gs_image_cointainer img" : "position:relative;max-height:inherit;min-height:inherit",
-                "#gazeta_gallery_popup":"position:relative", "#page22" : "height:0"},
+                customStyle: {"body": "overflow: auto", ".gs_image_cointainer img": "position:relative;max-height:inherit;min-height:inherit",
+                    "#gazeta_gallery_popup": "position:relative", "#page22": "height:0"},
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/5,139575,16388712.html?i=0"]
             },
-                        {   trigger: "body#pagetype_photo",
+            {   trigger: "body#pagetype_photo",
                 name: "galeria #pagetype_photo (1)",
                 regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
                     "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1",
@@ -816,7 +815,143 @@
                 preIncludeCallback: function () {
                     $("#col_left").width($("#gazeta_article_image").find("div a img").width());
                 }
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "div.wrap div.main div.article__content #galeria div.gallery__image-big a.next",
+                /* index */
+                pageType: "43",
+                /* nazwa galerii */
+                name: "http://www.fly4free.pl/",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#galeria",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#galeria",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.gallery__image-big a.next",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".gallery__nav:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".gallery__nav, .gallery__image-big .next, .gallery__image-big .prev",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.fly4free.pl/top10-co-warto-zobaczyc-w-chinach/?pid=3404#galeria"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#stgMain .stampFototematRow .stampStronicowanieFototematu .stampStronicowanieFototematuContent .stampStronicowanieFototematuIndex",
+                /* index */
+                pageType: "44",
+                /* nazwa galerii */
+                name: "wp.pl galeria pozioma",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#stgMain .stampFototemat",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".stampFototemat",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".stampStronicowanieFototematuContent a.stampStronicowanieFototematuNxt:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".stampStronicowanieFototematuIndex:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".pPaginSmall, .stampStronicowanieFototematu",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://pogoda.wp.pl/gid,16782131,kat,1035571,title,Prognoza-dlugoterminowa-kulminacja-upalnego-lata,galeria.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#page_wrapper #container #main .article-wraper .article-body .post-pages a.next-page.button",
+                /* index */
+                pageType: "45",
+                /* nazwa galerii */
+                name: "gadzetomania",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".article-body",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".article-body",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".article-body .post-pages a.next-page.button:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".pages-text:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".post-pages",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://gadzetomania.pl/1547,tragedie-w-przestworzach-ataki-na-samoloty-cywilne-znacznie-wiecej-wiecej-niz-podaja-media"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#main-wrap div#body .section-subcontent .photo-wrap a#next_link",
+                /* index */
+                pageType: "46",
+                /* nazwa galerii */
+                name: "trojmiasto.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#foto",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#foto",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".photo-wrap a#next_link",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".page_count:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "#fotoshift, .simple-nav, #hover_nav",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://galeria.trojmiasto.pl/-452980.html?id_container=82203&pozycja=4#foto"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* index */
+                pageType: "43",
+                /* nazwa galerii */
+                name: "",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://galeria.trojmiasto.pl/-452980.html?id_container=82203&pozycja=4#foto"]
             }
+
         ],
         spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'})),
         imageContainer: null,

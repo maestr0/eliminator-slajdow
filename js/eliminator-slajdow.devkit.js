@@ -92,7 +92,8 @@ var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki
     "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
     "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl",
     "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
-    "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl");
+    "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl",
+    "fly4free.pl");
 
 var ffCfg = new Array();
 
