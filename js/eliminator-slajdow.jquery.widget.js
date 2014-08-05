@@ -982,13 +982,118 @@
                         $(this).attr("src", $(this).attr("data-original"))
                     });
 
-                    if($(this.articleSection).find(".navigation-links a.next").length === 0 && $(this.articleSection).find(".navigation-links a.last").length === 1) {
+                    if ($(this.articleSection).find(".navigation-links a.next").length === 0 && $(this.articleSection).find(".navigation-links a.last").length === 1) {
                         this.nextPageURL = $(this.articleSection).find(".navigation-links a.last").attr("href")
                     }
 
                     $("div.images, .navigation-links").remove();
                 },
                 regressionUrls: ["http://regiomoto.pl/portal/porady/tuning/zdjecie-dopieszczone-wartburgi-chlopakow-z-wartburgradikalzcom"]
+            },
+            {   trigger: "div#page div#main div.slideshow-header .slideshow-paging .slideshow-next",
+                name: "sportfan.pl",
+                articleBodySelector: ".slideshow",
+                navigationNextULRSelector: ".slideshow-paging .slideshow-next:first",
+                sectionToBeEmptySelector: "",
+                sectionToBeAttached: ".slideshow:first",
+                sectionToBeRemovedSelector: ".slideshow-paging",
+                navigationPageNumberSelector: ".slideshow-current:first",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
+                hasSlideNumbers: true,
+                pageType: "49",
+                regressionUrls: ["http://www.sportfan.pl/galeria/neymar-juz-nie-pamieta-o-bolu-zajela-sie-nim-sexy-kobieta-53539"],
+                preIncludeCallback: function () {
+
+                }
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#main > div.article > div.gallery-booth > div.gallery-big > a.gallery-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "50",
+                /* nazwa galerii */
+                name: "sportfan plaska",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#main > div.article > div.gallery-booth",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "div.gallery-booth",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.gallery-big > a.ir.gallery-next",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "div.gallery-preview, .gallery-big .ir",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {".article .gallery-big":"width:auto"},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.sportfan.pl/artykul/erotyczne-euro-nagie-pilkarki-na-boisku-zdjecia-43386"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body#Forbes #Page-Wrap .Block-Node a.Next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "51",
+                /* nazwa galerii */
+                name: "forbes.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#Column-Wrap",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#Column-Wrap",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#Page-Wrap .Block-Node a.Next",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".navigation, .Next, .Previous, .showMini",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .backlink, #ARTICLE_RELATED_GALLERY_BOTTOM, .socialLine",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {".headerLogo, .icon-facebook-squared": "color:white"},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://kariera.forbes.pl/8-prostych-sposobow-na-poprawe-jakosci-pracy,artykuly,179168,1,1,4.html",
+                "http://kariera.forbes.pl/najbardziej-absurdalne-pytania-na-rozmowie-o-prace,artykuly,174074,1,1,2.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "52",
+                /* nazwa galerii */
+                name: "",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.geekweek.pl/galerie/4031/zwierzeta-w-promieniach-zachodzacego-slonca?zdjecie=1#zdjecie"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
@@ -1017,7 +1122,7 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: ["http://galeria.trojmiasto.pl/-452980.html?id_container=82203&pozycja=4#foto"]
+                regressionUrls: [""]
             }
 
         ],
@@ -1046,7 +1151,7 @@
             return $("<div>", {
                 "class": "slideHeader slideHeader_" + pageNumber
             }).append($("<p>", {
-                    "class": "headerBar shadow"
+                    "class": "headerBar shadow_es"
                 }).append($("<span>", {
                         "class": "pageNumber",
                         text: pageNumberLabel
