@@ -112,7 +112,7 @@ function updateAllowedDomainList() {
         "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl",
         "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
         "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl", "snobka.pl",
-        "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl");
+        "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl");
 
     /* TODO: "pomponik.pl" , "interia.pl", "tuwroclaw.com", "topgear.com.pl", "geekweek.pl" */
 

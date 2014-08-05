@@ -31,6 +31,21 @@
             }
         },
         pages: [
+            {   trigger: "body#pagetype_photo",
+                triggerStopper: "body#pagetype_photo.simpleGallery #gazeta_gallery_popup .gs_navigation .gs_next",
+                name: "galeria #pagetype_photo (1)",
+                regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
+                    "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1",
+                    "http://www.sport.pl/pilka/56,136438,16075836,MS_2014__Thomas_Donohoe_dostal_pomnik__Czy_to_on_przywiozl.html"],
+                sectionToBeEmptySelector: "#gazeta_article_miniatures",
+                sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
+                pageType: "1",
+                customStyle: {"#col_left": "width:auto", "#columns_wrap": "background:none",
+                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
+                preIncludeCallback: function () {
+                    $("#col_left").width($("#gazeta_article_image").find("div a img").width());
+                }
+            },
             {   trigger: "body#pagetype_art_blog",
                 name: "galeria #pagetype_art_blog (2)",
                 regressionUrls: ["http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html",
@@ -802,20 +817,6 @@
                 },
                 regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/5,139575,16388712.html?i=0"]
             },
-            {   trigger: "body#pagetype_photo",
-                name: "galeria #pagetype_photo (1)",
-                regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
-                    "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1",
-                    "http://www.sport.pl/pilka/56,136438,16075836,MS_2014__Thomas_Donohoe_dostal_pomnik__Czy_to_on_przywiozl.html"],
-                sectionToBeEmptySelector: "#gazeta_article_miniatures",
-                sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
-                pageType: "1",
-                customStyle: {"#col_left": "width:auto", "#columns_wrap": "background:none",
-                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
-                preIncludeCallback: function () {
-                    $("#col_left").width($("#gazeta_article_image").find("div a img").width());
-                }
-            },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "div.wrap div.main div.article__content #galeria div.gallery__image-big a.next",
                 /* index */
@@ -925,9 +926,76 @@
                 regressionUrls: ["http://galeria.trojmiasto.pl/-452980.html?id_container=82203&pozycja=4#foto"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "",
+                trigger: "body#top ul.k_controls .k_next",
                 /* index */
-                pageType: "43",
+                pageType: "47",
+                /* nazwa galerii */
+                name: "onet pozioma galeria",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#main .kopyto:first",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#main .kopyto:first",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "li.k_next a:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".k_index:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".k_preview, .k_index, .k_controls",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://ciekawe.onet.pl/fototematy/venus-kot-dwie-twarze,5649860,17024821,galeria-duzy.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "div#page div#main-content #content-region .node-article-image .navigation-links a.next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "48",
+                /* nazwa galerii */
+                name: "regiomoto",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#content-region .node-article-image",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#content-region .node-article-image",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".navigation-links a.next",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".image-counter",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* dowolne style css w postaci mapy */
+                customStyle: {"#comments": "float:left"},
+                preIncludeCallback: function () {
+                    $("img.imagecache").each(function () {
+                        $(this).attr("src", $(this).attr("data-original"))
+                    });
+
+                    if($(this.articleSection).find(".navigation-links a.next").length === 0 && $(this.articleSection).find(".navigation-links a.last").length === 1) {
+                        this.nextPageURL = $(this.articleSection).find(".navigation-links a.last").attr("href")
+                    }
+
+                    $("div.images, .navigation-links").remove();
+                },
+                regressionUrls: ["http://regiomoto.pl/portal/porady/tuning/zdjecie-dopieszczone-wartburgi-chlopakow-z-wartburgradikalzcom"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "48",
                 /* nazwa galerii */
                 name: "",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
@@ -1025,8 +1093,8 @@
         _appendNextSlide: function (galleryPage, url) {
             var that = this;
             this._hideSpinner();
-            var articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
-            if ($(articleSection).length > 0) {
+            this.articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
+            if ($(this.articleSection).length > 0) {
 
                 this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
                 if (typeof url === "undefined" || url === this.nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
@@ -1048,9 +1116,9 @@
 
                 $(this.imageContainer).append(slideHeader);
 
-                $(articleSection).find(this.pageOptions.sectionToBeEmptySelector).empty();
-                $(articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
-                $(articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
+                $(this.articleSection).find(this.pageOptions.sectionToBeEmptySelector).empty();
+                $(this.articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
+                $(this.articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
 
                 var slideWrapper = $(this.imageContainer).append($("<div>", {
                     "class": "slide_" + pageNumber + " es_slide"
@@ -1064,10 +1132,10 @@
                     }));
                 }
 
-                $(slideWrapper).append(articleSection);
+                $(slideWrapper).append(this.articleSection);
 
                 for (var selector in this.pageOptions.customStyle) {
-                    var elements = $(articleSection).find(selector);
+                    var elements = $(this.articleSection).find(selector);
                     if (elements.length == 0) {
                         elements = $(selector);
                     }
