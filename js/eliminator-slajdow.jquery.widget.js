@@ -812,8 +812,16 @@
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
                 customStyle: {"body": "overflow: auto", ".gs_image_cointainer img": "position:relative;max-height:inherit;min-height:inherit",
-                    "#gazeta_gallery_popup": "position:relative", "#page22": "height:0"},
+                    "#gazeta_gallery_popup": "position:relative", "#page22": "height:0",
+                    ".headerLogo, .icon-facebook-squared": "color:white",
+                    "#gazeta_gallery_popup .gs_image_cointainer": "height:auto",
+                    "#gazeta_gallery_popup": "position:absolute",
+                    ".imageContainerEliminatorSlajdow": "display:none"},
                 preIncludeCallback: function () {
+                    $("#gazeta_gallery_popup").mouseover(function () {
+                        $("body").css("overflow", "auto");
+                        $(".imageContainerEliminatorSlajdow").show();
+                    });
                 },
                 regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/5,139575,16388712.html?i=0"]
             },
@@ -1031,7 +1039,7 @@
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
-                customStyle: {".article .gallery-big":"width:auto"},
+                customStyle: {".article .gallery-big": "width:auto"},
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://www.sportfan.pl/artykul/erotyczne-euro-nagie-pilkarki-na-boisku-zdjecia-43386"]
@@ -1064,7 +1072,7 @@
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://kariera.forbes.pl/8-prostych-sposobow-na-poprawe-jakosci-pracy,artykuly,179168,1,1,4.html",
-                "http://kariera.forbes.pl/najbardziej-absurdalne-pytania-na-rozmowie-o-prace,artykuly,174074,1,1,2.html"]
+                    "http://kariera.forbes.pl/najbardziej-absurdalne-pytania-na-rozmowie-o-prace,artykuly,174074,1,1,2.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "div#root div#content section#articles #zdjecie.right .navigation a.next",
@@ -1094,8 +1102,8 @@
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://www.geekweek.pl/galerie/4031/zwierzeta-w-promieniach-zachodzacego-slonca?zdjecie=1#zdjecie",
-                "http://www.geekweek.pl/galerie/4082/jak-sobie-radzic-w-upaly",
-                "http://www.geekweek.pl/galerie/4080/tego-nie-wiedzieliscie-o-mcdonalds"]
+                    "http://www.geekweek.pl/galerie/4082/jak-sobie-radzic-w-upaly",
+                    "http://www.geekweek.pl/galerie/4080/tego-nie-wiedzieliscie-o-mcdonalds"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
