@@ -1513,6 +1513,7 @@
             }
         },
         regression: function () {
+            this._debug();
             var setTimeoutFunction = function (urlToOpen, pi) {
                 console.log("url", urlToOpen);
                 var delay = 5 * 1000 * pi;
@@ -1549,7 +1550,6 @@
 
             this.pageOptions.sectionToBeAttached = "#toBeAttached";
             this.pageOptions.articleBodySelector = "#articleBodySelector";
-            this._debug();
             this._createImageContainer();
             this._appendNextSlide("body", "regression");
             this._create();
@@ -1560,7 +1560,7 @@
             for (var property in this.pageOptions) {
                 content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n"
             }
-            $("<pre>", {id: "es_debug", style: "width: 700px; z-index: 9999999;border:1px solid;background:black; color: #3BFF00; padding: 10px; position:fixed;bottom:0;right:0", text: content}).appendTo($("body"));
+            $("<textarea>", {id: "es_debug", val: content}).appendTo($("body"));
         },
         _tracking: function (category, action, comment) {
             if ($.isFunction(this.options.trackingCallback)) {
@@ -1571,7 +1571,9 @@
         _logger: function () {
             console.log.apply(console, arguments);
             if (this.options.debug) {
-                $("#es_debug").text($("#es_debug").text() + "\n" + JSON.stringify(arguments))
+                $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
+                    scrollTop: 10000000
+                });
             }
         }
     });
