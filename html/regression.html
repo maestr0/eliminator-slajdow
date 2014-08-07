@@ -3,28 +3,28 @@
 <head>
     <meta charset="utf-8">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<script src="../js/jquery-ui-1.10.3.widget.factory.min.js"></script>
-<script src="../js/eliminator-slajdow.jquery.widget.js"></script>
-<style>
-	#articleBodySelector {
-		width: 500px;
-		height: 100px;
-	}
-</style>
-<link href="../package/css/es.css" type="text/css" rel="stylesheet">
+    <script src="../js/jquery-ui-1.10.3.widget.factory.min.js"></script>
+    <script src="../js/eliminator-slajdow.jquery.widget.js"></script>
+    <style>
+        #articleBodySelector {
+            width: 500px;
+            height: 100px;
+        }
+    </style>
+    <link href="../package/css/es.css" type="text/css" rel="stylesheet">
 </head>
 <body class='eliminatorSlajdow'>
 <button id="start">START</button>
 
-<hr />
+<hr/>
 <div id="toBeAttached"></div>
 <div id="articleBodySelector"></div>
 <div class='imageContainerEliminatorSlajdow'></div>
 
 <script>
-    var es = jQuery("body").eliminatorSlajdow({imageBaseUrl:'../images/'});
+    var es = jQuery("body").eliminatorSlajdow({imageBaseUrl: '../images/', debug: true});
     es.eliminatorSlajdow('regression');
-    console.log(jQuery.fn.jquery, 'regresja');
+    console.log(jQuery.fn.jquery, 'JQ ver');
 </script>
 </body>
 </html>

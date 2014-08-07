@@ -8,6 +8,7 @@
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "https://eliminator-slajdow.sugester.pl/",
+            debug: false,
             trackingCallback: function (category, action) {
             }
         },
@@ -41,7 +42,8 @@
                 name: "galeria #pagetype_photo (1)",
                 regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
                     "http://wyborcza.pl/51,75248,12537285.html?i%3a0&piano_t=1",
-                    "http://www.sport.pl/pilka/56,136438,16075836,MS_2014__Thomas_Donohoe_dostal_pomnik__Czy_to_on_przywiozl.html"],
+                    "http://www.sport.pl/pilka/56,136438,16075836,MS_2014__Thomas_Donohoe_dostal_pomnik__Czy_to_on_przywiozl.html",
+                    "http://wiadomosci.gazeta.pl/wiadomosci/51,114871,16254019.html"],
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
@@ -56,7 +58,8 @@
                 regressionUrls: ["http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html",
                     "http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html",
                     "http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17",
-                    "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html"],
+                    "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html",
+                    "http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
                 sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 pageType: "2",
                 customStyle: {".path_duzy_kadr #col_left": "width:auto",
@@ -72,7 +75,6 @@
                 sectionToBeAttached: "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
                 pageType: "3",
-                regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/1,114875,16254019,Szef_Panstwa_Islamskiego_wzywa_do_dzihadu_podczas.html"],
                 preIncludeCallback: function () {
                     this._updateGalleryLink();
                 }
@@ -89,14 +91,14 @@
             },
             {   trigger: "div#article div#article_body",
                 name: "galeria div#article div#article_body (5)",
-                regressionUrls: ["http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
+                regressionUrls: [""],
                 articleBodySelector: "#article_body",
                 navigationNextULRSelector: "#gal_btn_next a:first",
                 sectionToBeEmptySelector: "#gal_navi_wrp", // div#article ul,
                 sectionToBeAttached: "div#container_gal",
                 navigationPageNumberSelector: "#gal_navi .paging",
-                pageType: "5"
-
+                pageType: "5",
+                esTheme: "white"
             },
             {   trigger: "div#k1 div#k1p div#gal_outer",
                 name: "galeria bez typu ('div#k1 div#k1p div#gal_outer') (6)",
@@ -1180,11 +1182,14 @@
         _theme: function (theme) {
             var style = "";
             if (theme === "white") {
-                style = '.headerLogo, .icon-facebook-squared {color:white}'
+                style = '.headerLogo, .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader p.headerLogo i {color:white}'
             }
             $('<style type="text/css">' + style + '</style>').appendTo($('head'));
         },
         _start: function () {
+            if (this.options.debug) {
+                this._debug()
+            }
             this.pageOptions.beforeAllCallback.call(this);
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
@@ -1522,8 +1527,11 @@
             var index = 0;
             var max = 5;
             for (var pi in  self.pages) {
-                for (var i in this.pages[self.pages.length - pi - 1].regressionUrls) {
-                    allRegressionUrls.push(this.pages[self.pages.length - pi - 1].regressionUrls[i]);
+                var pageConfig = this.pages[self.pages.length - pi - 1];
+                for (var i in pageConfig.regressionUrls) {
+                    var regressionUrl = pageConfig.regressionUrls[i];
+                    if (regressionUrl.length > 0)
+                        allRegressionUrls.push(regressionUrl + "###-PAGETYPE=" + pageConfig.pageType);
                 }
             }
 
@@ -1541,10 +1549,18 @@
 
             this.pageOptions.sectionToBeAttached = "#toBeAttached";
             this.pageOptions.articleBodySelector = "#articleBodySelector";
+            this._debug();
             this._createImageContainer();
             this._appendNextSlide("body", "regression");
             this._create();
             this._showSpinnier();
+        },
+        _debug: function () {
+            var content = "Eliminator Slajdów - Debug Console v0.0.1\n\n";
+            for (var property in this.pageOptions) {
+                content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n"
+            }
+            $("<pre>", {id: "es_debug", style: "width: 700px; z-index: 9999999;border:1px solid;background:black; color: #3BFF00; padding: 10px; position:fixed;bottom:0;right:0", text: content}).appendTo($("body"));
         },
         _tracking: function (category, action, comment) {
             if ($.isFunction(this.options.trackingCallback)) {
@@ -1554,7 +1570,9 @@
         },
         _logger: function () {
             console.log.apply(console, arguments);
+            if (this.options.debug) {
+                $("#es_debug").text($("#es_debug").text() + "\n" + JSON.stringify(arguments))
+            }
         }
-    })
-    ;
+    });
 })(jQuery);

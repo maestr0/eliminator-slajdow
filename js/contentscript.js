@@ -6,7 +6,8 @@
                     imageBaseUrl: chrome.extension.getURL("images/"),
                     trackingCallback: function (category, action, location) {
                         chrome.extension.sendRequest({"tracking": category, "action": action, "location": location});
-                    }
+                    },
+                    debug: document.location.href.indexOf("ES_DEBUG=1") > -1
                 });
             }
         });
