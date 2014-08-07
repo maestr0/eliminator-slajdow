@@ -28,6 +28,10 @@
             trigger: "",
             triggerStopper: "",
             preIncludeCallback: function () {
+            },
+            beforeAllCallback: function () {
+            },
+            afterAllCallback: function () {
             }
         },
         pages: [
@@ -817,9 +821,11 @@
                     "#gazeta_gallery_popup .gs_image_cointainer": "height:auto",
                     "#gazeta_gallery_popup": "position:absolute"},
                 preIncludeCallback: function () {
-                    $("#gazeta_gallery_popup").mouseover(function () {
-                        $("body").css("overflow", "auto");
-                    });
+                },
+                beforeAllCallback: function () {
+                    $('<style type="text/css">.simpleGallery #gazeta_gallery_popup.first_slide {display: none;} \n' +
+                        '.simpleGallery #gazeta_gallery_popup.show_slider_image {display: block;}\n' +
+                        'body {overflow: visible !important}</style>').appendTo($('head'));
                 },
                 regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/5,139575,16388712.html?i=0"]
             },
@@ -1137,6 +1143,7 @@
         spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'})),
         imageContainer: null,
         _start: function () {
+            this.pageOptions.beforeAllCallback.call(this);
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
             this.nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
@@ -1281,6 +1288,7 @@
                 } else {
                     this._logger("Ostatni Slajd");
                     this._hideSpinner();
+                    this.pageOptions.afterAllCallback.call(this);
                 }
 
             } else {
