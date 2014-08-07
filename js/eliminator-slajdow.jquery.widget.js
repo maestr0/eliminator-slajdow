@@ -27,6 +27,7 @@
             customStyle: {},
             trigger: "",
             triggerStopper: "",
+            esTheme: "default",
             preIncludeCallback: function () {
             },
             beforeAllCallback: function () {
@@ -391,7 +392,7 @@
                 customStyle: {'*[id="galeria-z-opisem"]': 'float:left'},
                 hasSlideNumbers: true,
                 pageType: "24",
-                regressionUrls: ["http://warszawa.naszemiasto.pl/artykul/galeria/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,9379362,t,id,zid.html#galeria"],
+                regressionUrls: [""],
                 preIncludeCallback: function () {
 
                 }
@@ -408,7 +409,7 @@
                 customStyle: {},
                 hasSlideNumbers: true,
                 pageType: "25",
-                regressionUrls: ["http://warszawa.naszemiasto.pl/artykul/galeria/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,9379362,t,id,zid.html#galeria"],
+                regressionUrls: [""],
                 preIncludeCallback: function () {
 
                 }
@@ -1072,7 +1073,8 @@
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
-                customStyle: {".headerLogo, .icon-facebook-squared": "color:white"},
+                customStyle: {".headerLogo, .icon-facebook-squared": "color:white",
+                    ".imageContainerEliminatorSlajdow": "margin-top:15px"},
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://kariera.forbes.pl/8-prostych-sposobow-na-poprawe-jakosci-pracy,artykuly,179168,1,1,4.html",
@@ -1110,6 +1112,38 @@
                     "http://www.geekweek.pl/galerie/4080/tego-nie-wiedzieliscie-o-mcdonalds"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#galeria-warstwa > div.boxPozycja.galeriaNaw > div #material-galeria-nastepne.btnNastepny",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "53",
+                /* nazwa galerii */
+                name: "naszemiasto.pl w overlay",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#galeria-warstwa",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#galeria-warstwa",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#material-galeria-nastepne",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".galPrawaKol .tytulMaly span:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".galeriaNaw",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "white",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://warszawa.naszemiasto.pl/artykul/zdjecia/muzeum-techniki-warszawa-wystawa-zabytkowych-kamer-i,2380679,artgal,10156975,t,id,tm,zid.html",
+                    "http://warszawa.naszemiasto.pl/artykul/zdjecia/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,artgal,9379796,t,id,tm,zid.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -1132,20 +1166,29 @@
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
                 regressionUrls: [""]
             }
-
         ],
         spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'})),
         imageContainer: null,
+        _theme: function (theme) {
+            var style = "";
+            if (theme === "white") {
+                style = '.headerLogo, .icon-facebook-squared {color:white}'
+            }
+            $('<style type="text/css">' + style + '</style>').appendTo($('head'));
+        },
         _start: function () {
             this.pageOptions.beforeAllCallback.call(this);
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
+            this._theme(this.pageOptions.esTheme);
             this.nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
             this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
             this.pageOptions.preIncludeCallback.call(this);
