@@ -1525,8 +1525,6 @@
 
             var self = this;
             var allRegressionUrls = new Array();
-            var index = 0;
-            var max = 5;
             for (var pi in  self.pages) {
                 var pageConfig = this.pages[self.pages.length - pi - 1];
                 for (var i in pageConfig.regressionUrls) {
@@ -1536,16 +1534,19 @@
                 }
             }
 
+            var step = 5;
+            var lowerBound = 0;
+            var topBound = lowerBound + step;
+
             $("#start").click(function () {
                 console.log("Start button");
                 do {
-                    $("body").append("<a href=' " + allRegressionUrls[index] + "'>" +
-                        allRegressionUrls[index] + "</a><br />");
-                    var urlToOpen = allRegressionUrls[index];
+                    $("body").append("<a href=' " + allRegressionUrls[lowerBound] + "'>" + allRegressionUrls[lowerBound] + "</a><br />");
+                    var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
-                    index++;
-                } while (index < max && index < allRegressionUrls.length)
-                max = max + index;
+                    lowerBound++;
+                } while (lowerBound < topBound && lowerBound < allRegressionUrls.length)
+                topBound = topBound + step
             });
 
             this.pageOptions.sectionToBeAttached = "#toBeAttached";
