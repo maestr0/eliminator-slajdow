@@ -1532,7 +1532,7 @@
                 for (var i in pageConfig.regressionUrls) {
                     var regressionUrl = pageConfig.regressionUrls[i];
                     if (regressionUrl.length > 0)
-                        allRegressionUrls.push(regressionUrl + "###-PAGETYPE=" + pageConfig.pageType);
+                        allRegressionUrls.push(regressionUrl + "###ES_DEBUG=1###-PAGETYPE=" + pageConfig.pageType);
                 }
             }
 
