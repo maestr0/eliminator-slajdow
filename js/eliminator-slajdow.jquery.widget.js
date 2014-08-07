@@ -565,7 +565,7 @@
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, #ARTICLE_GALLERY_RIGHT_COLUMN_1, #ARTICLE_GALLERY_BOTTOM_1, .socialButtons",
                 /* dowolne style css w postaci mapy */
-                customStyle: {".sharebx": "float:left"},
+                customStyle: {".sharebx, .Comments": "float:left"},
                 /* naglowek slajdu */
                 headerSectionSelector: "",
                 /* $.empty() na elemencie*/
@@ -815,12 +815,10 @@
                     "#gazeta_gallery_popup": "position:relative", "#page22": "height:0",
                     ".headerLogo, .icon-facebook-squared": "color:white",
                     "#gazeta_gallery_popup .gs_image_cointainer": "height:auto",
-                    "#gazeta_gallery_popup": "position:absolute",
-                    ".imageContainerEliminatorSlajdow": "display:none"},
+                    "#gazeta_gallery_popup": "position:absolute"},
                 preIncludeCallback: function () {
                     $("#gazeta_gallery_popup").mouseover(function () {
                         $("body").css("overflow", "auto");
-                        $(".imageContainerEliminatorSlajdow").show();
                     });
                 },
                 regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/5,139575,16388712.html?i=0"]
