@@ -2,7 +2,7 @@
     "name": "Eliminator Slajdów",
     "manifest_version": 2,
     "version": "@@version",
-    "description": "Dodatek eliminuje slajdy w artykułach na portalach grup Agora, Onet, MojeMiasto i MediaRegionalne",
+    "description": "Dodatek eliminuje slajdy w galeriach zdjęć na większości polskich portali",
     "page_action": {
         "default_icon": "images/icon_48.png",
         "default_title": "Eliminator Slajdów",
