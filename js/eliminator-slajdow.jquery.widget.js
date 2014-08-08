@@ -1443,7 +1443,7 @@
                     }
                     $("body,html").animate({
                         scrollTop: offset
-                    }, 500);
+                    }, 0);
                 }
                 that._tracking("go_next_link", "click");
             });
@@ -1459,7 +1459,7 @@
                     }
                     $("body,html").animate({
                         scrollTop: offset
-                    }, 500);
+                    }, 0);
 
                 }
                 that._tracking("go_prev_link", "click");
