@@ -1188,14 +1188,14 @@
                 /* nazwa galerii */
                 name: "WP tech sierpien 2014",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "",
+                articleBodySelector: "#bxGaleria .content",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "",
+                sectionToBeAttached: "#bxGaleria .content",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "",
+                navigationNextULRSelector: ".navPic .stgGaleriaNext:first",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: true,
-                navigationPageNumberSelector: "",
+                navigationPageNumberSelector: ".navPic span",
                 /* elementy do usuniecia z calej strony */
                 sectionToBeRemovedSelector: "",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
@@ -1208,7 +1208,7 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://tech.wp.pl/gid,16799172,title,Czy-to-jeszcze-ludzie-Tak-czlowiek-zmienia-sie-w-cyborga,galeria.html?ticaid=113454&_ticrsn=3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
