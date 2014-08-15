@@ -9,6 +9,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "https://eliminator-slajdow.sugester.pl/",
             debug: false,
+            customPages: {},
             trackingCallback: function (category, action) {
             }
         },
@@ -1146,6 +1147,70 @@
                     "http://warszawa.naszemiasto.pl/artykul/zdjecia/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,artgal,9379796,t,id,tm,zid.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body > section#content article .inner-article #next_gallery_resource",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "54",
+                /* nazwa galerii */
+                name: "nowy kwejk sierpien 2014",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".inner-article-img > :last",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".inner-article-img",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#next_gallery_resource",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "#gallery_thumbs, #next_gallery_resource, #under_gallery_thumbs, #prev_gallery_resource, .share-options.clearfix, #gallery_controls",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {"#go_back_to_main_page": "float:left; width:100%",
+                    ".imageContainerEliminatorSlajdow": "margin-top: 15px;"},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://kwejk.pl/obrazek/2106118/0/9-typow-inteligencji-wedlug-howarda-gardnera.html",
+                    "http://kwejk.pl/obrazek/2106116/0/inne-zastosowania-przedmiotow-gospodarstwa-domowego.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#stgMain #bxGaleria > div.content > div.picCol > div.bigPic > a",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "55",
+                /* nazwa galerii */
+                name: "WP tech sierpien 2014",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: [""]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -1464,8 +1529,7 @@
                 }
                 that._tracking("go_prev_link", "click");
             });
-
-
+            // TODO: dodac obsluge spacji
         },
         _create: function (customOptions) {
             var self = this;
@@ -1473,8 +1537,11 @@
                 self._tracking("ES_JS_ERROR", err, window.location.href);
             }
             $.extend(true, this, this, customOptions);
+            this.pages.push(this.options.customPages)
             for (var i in this.pages) {
-                if ($(this.pages[i].trigger).length > 0 && $(this.pages[i].triggerStopper).length === 0) {
+                var trigger = this.pages[i].trigger;
+                var noOfSelectors = trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
+                if ($(trigger).length >= noOfSelectors && $(this.pages[i].triggerStopper).length === 0) {
                     $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
                     this._logger("ES START konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
                     this._start();
