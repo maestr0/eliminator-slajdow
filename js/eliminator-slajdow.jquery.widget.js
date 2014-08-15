@@ -1197,7 +1197,7 @@
                 hasSlideNumbers: true,
                 navigationPageNumberSelector: ".navPic span",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "",
+                sectionToBeRemovedSelector: ".navPic, .bigPic a",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -1540,7 +1540,7 @@
             this.pages.push(this.options.customPages)
             for (var i in this.pages) {
                 var trigger = this.pages[i].trigger;
-                var noOfSelectors = trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
+                var noOfSelectors = trigger && trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
                 if ($(trigger).length >= noOfSelectors && $(this.pages[i].triggerStopper).length === 0) {
                     $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
                     this._logger("ES START konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
