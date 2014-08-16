@@ -45,7 +45,8 @@ function checkForValidUrl(tabId, changeInfo, tab) {
 function onRequest(request, sender, sendResponse) {
     if (location.hostname == sender.id && request.urlName !== undefined) {
         sendResponse({
-            "canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName)
+            "canRunOnCurrentUrl": canRunOnCurrentUrl(request.urlName),
+            "version": getVersion()
         });
     } else if (location.hostname == sender.id && request.tracking !== undefined) {
         trackingBeacon(request.tracking, request.action, request.location);
@@ -113,7 +114,7 @@ function updateAllowedDomainList() {
         "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
         "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl", "snobka.pl",
         "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl", "sportfan.pl",
-        "forbes.pl", "geekweek.pl");
+        "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com");
 
     /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl",  */
     // pomponik.pl - odpada z powodu lazy loaded zdjec

@@ -9,6 +9,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "https://eliminator-slajdow.sugester.pl/",
             debug: false,
+            version: "",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -38,6 +39,16 @@
             }
         },
         pages: [
+            {   trigger: "body#oficjalna_strona_eliminatora_slajdow",
+                name: "galeria #pagetype_photo (1)",
+                regressionUrls: ["http://eliminator-slajdow.herokuapp.com/"],
+                pageType: "0",
+                navigationNextULRSelector: "",
+                hasSlideNumbers: false,
+                beforeAllCallback: function () {
+                    $("body").attr("es-version-data", this.options.version);
+                }
+            },
             {   trigger: "body#pagetype_photo",
                 triggerStopper: "body#pagetype_photo.simpleGallery #gazeta_gallery_popup .gs_navigation .gs_next",
                 name: "galeria #pagetype_photo (1)",
@@ -1249,7 +1260,7 @@
             if (theme === "white") {
                 style = '.headerLogo, .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader p.headerLogo i {color:white}'
             }
-            $('<style type="text/css">' + style + '</style>').appendTo($('head'));
+            $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
         },
         _start: function () {
             if (this.options.debug) {
@@ -1597,7 +1608,7 @@
                 for (var i in pageConfig.regressionUrls) {
                     var regressionUrl = pageConfig.regressionUrls[i];
                     if (regressionUrl.length > 0)
-                        allRegressionUrls.push(regressionUrl + "###ES_DEBUG=1###-PAGETYPE=" + pageConfig.pageType);
+                        allRegressionUrls.push(regressionUrl + "###es_debug=1###-PAGETYPE=" + pageConfig.pageType);
                 }
             }
 
@@ -1608,7 +1619,7 @@
             $("#start").click(function () {
                 console.log("Start button");
                 do {
-                    $("body").append("<a href=' " + allRegressionUrls[lowerBound] + "'>" + allRegressionUrls[lowerBound] + "</a><br />");
+                    $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"))
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
