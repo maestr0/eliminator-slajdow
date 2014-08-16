@@ -8,7 +8,7 @@
                         chrome.extension.sendRequest({"tracking": category, "action": action, "location": location});
                     },
                     debug: (document.location.href.indexOf("es_debug=1") > -1),
-                    version: response.version
+                    version: response.version + "-chrome"
                 });
             }
         });

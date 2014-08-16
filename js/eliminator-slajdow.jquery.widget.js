@@ -9,7 +9,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "https://eliminator-slajdow.sugester.pl/",
             debug: false,
-            version: "",
+            version: "SNAPSHOT",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -1637,7 +1637,7 @@
             this._showSpinnier();
         },
         _debug: function () {
-            var content = "Eliminator Slajdów - Debug Console v0.0.1\n\n";
+            var content = "Eliminator Slajdów - Debug Console v" + this.options.version + "\n\n";
             for (var property in this.pageOptions) {
                 content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n"
             }
