@@ -40,13 +40,14 @@
         },
         pages: [
             {   trigger: "body#oficjalna_strona_eliminatora_slajdow",
-                name: "galeria #pagetype_photo (1)",
+                name: "OFICJALNA STRONA ELIMINATORA SLAJDÓW",
                 regressionUrls: ["http://eliminator-slajdow.herokuapp.com/"],
                 pageType: "0",
                 navigationNextULRSelector: "",
                 hasSlideNumbers: false,
                 beforeAllCallback: function () {
                     $("body").attr("es-version-data", this.options.version);
+                    this._tracking("ES_HOMEPAGE", this.options.version);
                 }
             },
             {   trigger: "body#pagetype_photo",
@@ -1442,6 +1443,7 @@
                 var redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {
                     that._requestNextSlide(redirectUrl);
+                    that._tracking("paywall_redirect", redirectUrl);
                 } else {
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
