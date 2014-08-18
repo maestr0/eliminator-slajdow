@@ -7,7 +7,7 @@
             esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
-            bugReportUrl: "https://eliminator-slajdow.sugester.pl/",
+            bugReportUrl: "https://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
             version: "SNAPSHOT",
             customPages: {},
