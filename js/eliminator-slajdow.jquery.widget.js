@@ -1,14 +1,14 @@
 /*
-*   Eliminator Slajdów - jQuery widget dla przeglądarek Chrome i Firefox
-*
-*   Autor: Paweł Raszewski
-*   Licencja: GPLv3
-*   Strona Domowa: http://eliminator-slajdow.raszewski.info
-*
-*   Wersja: @@version
-* */
+ *   Eliminator Slajdów - jQuery widget dla przeglądarek Chrome i Firefox
+ *
+ *   Autor: Paweł Raszewski
+ *   Licencja: GPLv3
+ *   Strona Domowa: http://eliminator-slajdow.herokuapp.info
+ *
+ *   Wersja: @@version
+ * */
 
- (function ($) {
+(function ($) {
     $.widget("info_raszewski.eliminatorSlajdow", {
         options: {
             imageBaseUrl: "",
@@ -842,10 +842,9 @@
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
                 customStyle: {"body": "overflow: auto", ".gs_image_cointainer img": "position:relative;max-height:inherit;min-height:inherit",
-                    "#gazeta_gallery_popup": "position:relative", "#page22": "height:0",
+                    "#gazeta_gallery_popup": "position:absolute", "#page22": "height:0",
                     ".headerLogo, .icon-facebook-squared": "color:white",
-                    "#gazeta_gallery_popup .gs_image_cointainer": "height:auto",
-                    "#gazeta_gallery_popup": "position:absolute"},
+                    "#gazeta_gallery_popup .gs_image_cointainer": "height:auto"},
                 preIncludeCallback: function () {
                 },
                 beforeAllCallback: function () {
@@ -1017,11 +1016,11 @@
                 customStyle: {"#comments": "float:left"},
                 preIncludeCallback: function () {
                     $("img.imagecache").each(function () {
-                        $(this).attr("src", $(this).attr("data-original"))
+                        $(this).attr("src", $(this).attr("data-original"));
                     });
 
                     if ($(this.articleSection).find(".navigation-links a.next").length === 0 && $(this.articleSection).find(".navigation-links a.last").length === 1) {
-                        this.nextPageURL = $(this.articleSection).find(".navigation-links a.last").attr("href")
+                        this.nextPageURL = $(this.articleSection).find(".navigation-links a.last").attr("href");
                     }
 
                     $("div.images, .navigation-links").remove();
@@ -1269,13 +1268,13 @@
         _theme: function (theme) {
             var style = "";
             if (theme === "white") {
-                style = '.headerLogo, .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader p.headerLogo i {color:white}'
+                style = '.headerLogo, .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader p.headerLogo i {color:white}';
             }
             $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
         },
         _start: function () {
             if (this.options.debug) {
-                this._debug()
+                this._debug();
             }
             this.pageOptions.beforeAllCallback.call(this);
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
@@ -1343,7 +1342,7 @@
                         }))).append($("<p>", {
                     "class": "headerLogo",
                     text: 'Eliminator Slajdów'
-                }).append($("<i>", {"class": 'icon-facebook-squared'})))
+                }).append($("<i>", {"class": 'icon-facebook-squared'})));
         },
         _appendNextSlide: function (galleryPage, url) {
             var that = this;
@@ -1389,22 +1388,21 @@
 
                 $(slideWrapper).append(this.articleSection);
 
-                for (var selector in this.pageOptions.customStyle) {
-                    var elements = $(this.articleSection).find(selector);
-                    if (elements.length == 0) {
-                        elements = $(selector);
+                this.pageOptions.customStyle.each(function () {
+                    var elements = $(this.articleSection).find(this);
+                    if (elements.length === 0) {
+                        elements = $(this);
                     }
-                    if (elements.length == 0) {
-                        continue;
+                    if (elements.length !== 0) {
+                        elements.each(function () {
+                            var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
+                            var newStyle = that.pageOptions.customStyle[selector];
+                            if (current.indexOf(newStyle) === -1) {
+                                $(this).attr("style", current + newStyle);
+                            }
+                        });
                     }
-                    elements.each(function () {
-                        var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
-                        var newStyle = that.pageOptions.customStyle[selector];
-                        if (current.indexOf(newStyle) === -1) {
-                            $(this).attr("style", current + newStyle);
-                        }
-                    });
-                }
+                });
 
                 for (var i in this.pageOptions.classesToBeRemoved) {
                     $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
@@ -1431,14 +1429,12 @@
             }
         },
         _getPaywallRedirectUrl: function (nextPage) {
-            if (nextPage.length > 1000 && nextPage.length < 1500
-                && $(nextPage).length == 11
-                && $($(nextPage)[3]).is("meta")
-                && $($(nextPage)[3]).attr("http-equiv") == "refresh"
-                && $($(nextPage)[3]).attr("content")
-                && $($(nextPage)[3]).attr("content").indexOf("5;URL=") === 0) {
+            if (nextPage.length > 1000 && nextPage.length < 1500 && $(nextPage).length == 11 &&
+                $($(nextPage)[3]).is("meta") && $($(nextPage)[3]).attr("http-equiv") == "refresh" &&
+                $($(nextPage)[3]).attr("content") &&
+                $($(nextPage)[3]).attr("content").indexOf("5;URL=") === 0) {
                 var c = $($(nextPage)[3]).attr("content");
-                return c.substring(7, c.length - 1)
+                return c.substring(7, c.length - 1);
             }
             return "";
         },
@@ -1446,9 +1442,8 @@
             var that = this;
             if (typeof nextPageURL === 'undefined') {
                 that._hideSpinner();
-                return
+                return;
             }
-            ;
             $.get(nextPageURL,function (nextPage) {
                 var redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {
@@ -1558,9 +1553,9 @@
             var self = this;
             window.onerror = function (err) {
                 self._tracking("ES_JS_ERROR", err, window.location.href);
-            }
+            };
             $.extend(true, this, this, customOptions);
-            this.pages.push(this.options.customPages)
+            this.pages.push(this.options.customPages);
             for (var i in this.pages) {
                 var trigger = this.pages[i].trigger;
                 var noOfSelectors = trigger && trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
@@ -1611,10 +1606,10 @@
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
                 }, delay);
-            }
+            };
 
             var self = this;
-            var allRegressionUrls = new Array();
+            var allRegressionUrls = [];
             for (var pi in  self.pages) {
                 var pageConfig = this.pages[self.pages.length - pi - 1];
                 for (var i in pageConfig.regressionUrls) {
@@ -1631,12 +1626,12 @@
             $("#start").click(function () {
                 console.log("Start button");
                 do {
-                    $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"))
+                    $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"));
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
-                } while (lowerBound < topBound && lowerBound < allRegressionUrls.length)
-                topBound = topBound + step
+                } while (lowerBound < topBound && lowerBound < allRegressionUrls.length);
+                topBound = topBound + step;
             });
 
             this.pageOptions.sectionToBeAttached = "#toBeAttached";
@@ -1649,14 +1644,14 @@
         _debug: function () {
             var content = "Eliminator Slajdów - Debug Console v" + this.options.version + "\n\n";
             for (var property in this.pageOptions) {
-                content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n"
+                content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n";
             }
             $("<textarea>", {id: "es_debug", val: content}).appendTo($("body"));
         },
         _tracking: function (category, action, comment) {
             if ($.isFunction(this.options.trackingCallback)) {
                 comment = comment || window.location.host;
-                this.options.trackingCallback.call(this, category, action, comment)
+                this.options.trackingCallback.call(this, category, action, comment);
             }
         },
         _logger: function () {

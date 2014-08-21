@@ -21,7 +21,7 @@ module.exports = function (grunt) {
             dist: {                   // Target
                 options: {              // Target options
                     sassDir: 'scss',
-                    cssDir: 'package/css',
+                    cssDir: ['package/css', 'firefox/data'],
                     environment: 'production'
                 }
             },
@@ -45,19 +45,21 @@ module.exports = function (grunt) {
                     {expand: true, flatten: true, src: ['manifest.json'], dest: 'package/'},
                     {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'},
                     {expand: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'package/'},
-                    {expand: true, flatten: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: '../eliminator-slajdow-firefox/data/'}
+                    {expand: true, flatten: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'firefox/data/'}
                 ]
             }
         },
         jshint: {
-            files: ['js/contentscript.js', 'js/background.js', 'js/popup.js'],
+            files: ['js/contentscript.js', 'js/background.js', 'js/popup.js', 'js/eliminator-slajdow.jquery.widget.js',
+                'firefox/data/contentscript.js', 'firefox/data/panel.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
                     jQuery: true,
                     console: true,
                     module: true,
-                    document: true
+                    document: true,
+                    moz: true
                 }
             }
         },
