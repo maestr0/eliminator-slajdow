@@ -43,7 +43,9 @@ module.exports = function (grunt) {
                 },
                 files: [
                     {expand: true, flatten: true, src: ['manifest.json'], dest: 'package/'},
-                    {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'}
+                    {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'},
+                    {expand: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'package/'},
+                    {expand: true, flatten: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: '../eliminator-slajdow-firefox/data/'}
                 ]
             }
         },
@@ -90,7 +92,6 @@ module.exports = function (grunt) {
                     {expand: true, src: ['images/icon*.png', 'images/iphone*.png','images/es_logo.svg', 'images/DonateBitcoin.png'], dest: 'package/'},
                     {expand: true, src: ['js/contentscript.js'], dest: 'package/'},
                     {expand: true, src: ['js/background.js'], dest: 'package/'},
-                    {expand: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'package/'},
                     {expand: true, src: ['js/popup.js'], dest: 'package/'},
                     {expand: true, src: ['js/jquery.iphone-switch.js'], dest: 'package/'}
                 ]
