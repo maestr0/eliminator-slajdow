@@ -1234,6 +1234,72 @@
                 regressionUrls: ["http://tech.wp.pl/gid,16799172,title,Czy-to-jeszcze-ludzie-Tak-czlowiek-zmienia-sie-w-cyborga,galeria.html?ticaid=113454&_ticrsn=3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#wpMain div.bxCenterMain div.bxCont div.fotkaBx h1.galeria",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "56",
+                /* nazwa galerii */
+                name: "nocoty.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".bxCenterMain .bxCont",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".bxCenterMain",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "a.stgGaleriaNext:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".galeriaPrawyBx .body strong",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".fotoPrev_v2, .fotoNext_v2",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, #stgOpinie, div.bxCenterMain div.galeriaZdjecieBx:eq(1), .body .rt",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                    var body = $(this.articleSection).find(".galeriaZdjecieBx");
+                    if(body.length==2){
+                        body[1].remove();
+                    }
+                },
+                regressionUrls: ["http://nocoty.pl/gid,16823077,kat,1013703,title,Maria-Elena-Boschi-na-plazy-Seksowna-pani-minister,galeria.html?ticaid=6134e6"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body.galleryblack #galleryImg > div.paginfixed > div > span.nextbox > a",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "57",
+                /* nazwa galerii */
+                name: "newsweek.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".imgGalleryArt #galleryImg",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".imgGalleryArt",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.paginfixed > div > span.nextbox > a:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".paginfixed, .stripeList",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .moregallery",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "white",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: [""]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -1390,7 +1456,7 @@
 
                 $(slideWrapper).append(this.articleSection);
 
-                this.pageOptions.customStyle.each(function () {
+                $(this.pageOptions.customStyle).each(function () {
                     var elements = $(this.articleSection).find(this);
                     if (elements.length === 0) {
                         elements = $(this);
@@ -1398,7 +1464,7 @@
                     if (elements.length !== 0) {
                         elements.each(function () {
                             var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
-                            var newStyle = that.pageOptions.customStyle[selector];
+                            var newStyle = that.pageOptions.customStyle[this];
                             if (current.indexOf(newStyle) === -1) {
                                 $(this).attr("style", current + newStyle);
                             }
