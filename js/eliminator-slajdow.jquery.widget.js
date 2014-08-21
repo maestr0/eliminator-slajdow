@@ -5,6 +5,8 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.info
  *
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/@@version/eliminator-slajdow.jquery.widget.js
+ *
  *   Wersja: @@version
  * */
 

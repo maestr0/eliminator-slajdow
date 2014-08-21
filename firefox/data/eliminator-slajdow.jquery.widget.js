@@ -3,7 +3,7 @@
  *
  *   Autor: Paweł Raszewski
  *   Licencja: GPLv3
- *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
+ *   Strona Domowa: http://eliminator-slajdow.herokuapp.info
  *
  *   Wersja: 3.1.7
  * */
