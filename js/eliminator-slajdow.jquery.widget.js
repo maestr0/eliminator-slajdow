@@ -1297,7 +1297,7 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://www.newsweek.pl/22-lipca-w-czasach-polski-ludowej-na-fotografiach-na-newsweek-p,galeria,106661,1,1,1.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
