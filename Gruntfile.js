@@ -92,7 +92,7 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 files: [
-                    {expand: true, src: ['images/icon*.png', 'images/iphone*.png','images/es_logo.svg', 'images/DonateBitcoin.png'], dest: 'package/'},
+                    {expand: true, src: ['images/icon*.png', 'images/iphone*.png', 'images/es_logo.svg', 'images/DonateBitcoin.png'], dest: 'package/'},
                     {expand: true, src: ['js/contentscript.js'], dest: 'package/'},
                     {expand: true, src: ['js/background.js'], dest: 'package/'},
                     {expand: true, src: ['js/popup.js'], dest: 'package/'},
@@ -106,6 +106,14 @@ module.exports = function (grunt) {
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*', 'js/*', 'manifest.json'],
             tasks: ['jshint', 'concat', 'replace', 'compass', 'copy']
+        },
+        build: {
+            tasks: ['package'],
+            packageConfig: 'pkg',
+            packages: '*.json',
+            jsonSpace: 2,
+            jsonReplacer: undefined,
+            gitAdd: '--all'
         }
     });
 
@@ -120,9 +128,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-bump');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-bump-build-git');
 
     grunt.registerTask('test', ['jshint']);
-    grunt.registerTask('release', ['bump-only','package','bump-commit']);
+    grunt.registerTask('release', ['bump-only', 'package', 'bump-commit']);
     grunt.registerTask('default', ['jshint', 'concat', 'compass']);
     grunt.registerTask('package', ['clean:package_dir', 'jshint', 'concat', 'compass', 'replace', 'copy']);
 };

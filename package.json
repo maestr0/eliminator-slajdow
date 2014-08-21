@@ -1,6 +1,6 @@
 {
   "name": "eliminator_slajdow",
-  "version": "3.1.16",
+  "version": "3.1.17",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.4",
@@ -15,7 +15,8 @@
     "grunt-contrib-compress": "~0.5.2",
     "grunt-bump": "0.0.11",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-cli": "~0.1.9"
+    "grunt-cli": "~0.1.9",
+    "grunt-bump-build-git": "~1.1.1"
   },
   "description": "Eliminator Slajdów - Chrome",
   "main": "background.js",
