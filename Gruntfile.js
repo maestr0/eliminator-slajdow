@@ -69,11 +69,11 @@ module.exports = function (grunt) {
                 files: ['package.json'],
                 updateConfigs: [],
                 commit: true,
-                commitMessage: 'Release v%VERSION%',
+                commitMessage: 'Wersja v%VERSION%',
                 commitFiles: ['-a'], // '-a' for all files
                 createTag: true,
                 tagName: 'v%VERSION%',
-                tagMessage: 'Version %VERSION%',
+                tagMessage: 'Wersja %VERSION%',
                 push: true,
                 pushTo: 'origin',
                 gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d' // options to use with '$ git describe'
@@ -106,14 +106,6 @@ module.exports = function (grunt) {
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*', 'js/*', 'manifest.json'],
             tasks: ['jshint', 'concat', 'replace', 'compass', 'copy']
-        },
-        build: {
-            tasks: ['package'],
-            packageConfig: 'pkg',
-            packages: '*.json',
-            jsonSpace: 2,
-            jsonReplacer: undefined,
-            gitAdd: '--all'
         }
     });
 
@@ -128,7 +120,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-bump');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-bump-build-git');
 
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('release', ['bump-only', 'package', 'bump-commit']);
