@@ -43,6 +43,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     {expand: true, flatten: true, src: ['manifest.json'], dest: 'package/'},
+                    {expand: true, flatten: true, src: ['firefox/templates/package.json'], dest: 'firefox/'},
                     {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'},
                     {expand: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'package/'},
                     {expand: true, flatten: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'firefox/data/'}
