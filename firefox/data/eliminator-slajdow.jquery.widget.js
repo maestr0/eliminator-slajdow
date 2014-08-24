@@ -5,9 +5,9 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.info
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.20/eliminator-slajdow.jquery.widget.js
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.21/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.20
+ *   Wersja: 3.1.21
  * */
 
 (function ($) {
@@ -1251,9 +1251,9 @@
                 hasSlideNumbers: true,
                 navigationPageNumberSelector: ".galeriaPrawyBx .body strong",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".fotoPrev_v2, .fotoNext_v2",
+                sectionToBeRemovedSelector: ".fotoPrev_v2, .fotoNext_v2, .body .rt",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
-                sectionToBeRemovedFromAttachedSlidesSelector: "script, #stgOpinie, div.bxCenterMain div.galeriaZdjecieBx:eq(1), .body .rt",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, #stgOpinie, div.bxCenterMain div.galeriaZdjecieBx:eq(1)",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* Theme */
@@ -1297,7 +1297,7 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://www.newsweek.pl/22-lipca-w-czasach-polski-ludowej-na-fotografiach-na-newsweek-p,galeria,106661,1,1,1.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",

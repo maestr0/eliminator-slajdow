@@ -1251,9 +1251,9 @@
                 hasSlideNumbers: true,
                 navigationPageNumberSelector: ".galeriaPrawyBx .body strong",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".fotoPrev_v2, .fotoNext_v2",
+                sectionToBeRemovedSelector: ".fotoPrev_v2, .fotoNext_v2, .body .rt",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
-                sectionToBeRemovedFromAttachedSlidesSelector: "script, #stgOpinie, div.bxCenterMain div.galeriaZdjecieBx:eq(1), .body .rt",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, #stgOpinie, div.bxCenterMain div.galeriaZdjecieBx:eq(1)",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* Theme */
