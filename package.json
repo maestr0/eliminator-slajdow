@@ -1,6 +1,6 @@
 {
   "name": "eliminator_slajdow",
-  "version": "3.1.22",
+  "version": "3.1.23",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.6.4",

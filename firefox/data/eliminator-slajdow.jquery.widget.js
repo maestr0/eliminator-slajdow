@@ -5,9 +5,9 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.info
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.21/eliminator-slajdow.jquery.widget.js
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.22/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.21
+ *   Wersja: 3.1.22
  * */
 
 (function ($) {
@@ -1330,6 +1330,36 @@
                     $(".galPN").parent().remove();
                 },
                 regressionUrls: ["http://film.wp.pl/idGallery,14811,idPhoto,398806,galeria.html?ticaid=113528&_ticrsn=3"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body div.columns.columns-outer-double article.paggedArticle figure.article-image div.gallery-controlls a.gallery-image-next",
+                /* index */
+                pageType: "59",
+                /* nazwa galerii */
+                name: "sportowefakty.pl artykul",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "article.paggedArticle",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "article.paggedArticle",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "article > figure > div > a.gallery-image-next",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".fullsizedPaggedNavigation:first span",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".fullsizedPaggedNavigation, .gallery-image-previous, .gallery-image-next",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .article-header, .article-footer, .contentpoll",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                /* naglowek slajdu */
+                headerSectionSelector: "",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.sportowefakty.pl/pilka-nozna/462036/az-dwunastu-polakow-na-starcie-bundesligi-kto-bedzie-gral-a-kto-siedzial-na-lawc/3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
