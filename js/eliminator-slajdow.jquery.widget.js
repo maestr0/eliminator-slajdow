@@ -1262,7 +1262,7 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                     var body = $(this.articleSection).find(".galeriaZdjecieBx");
-                    if(body.length==2){
+                    if (body.length == 2) {
                         body[1].remove();
                     }
                 },
@@ -1298,6 +1298,38 @@
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://www.newsweek.pl/22-lipca-w-czasach-polski-ludowej-na-fotografiach-na-newsweek-p,galeria,106661,1,1,1.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#wpMain  #wpCenter #galleryB div.pages span a",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "58",
+                /* nazwa galerii */
+                name: "film.wp.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#galleryB",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#galleryB",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#galleryB div.pages span:last a",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: false,
+                navigationPageNumberSelector: ".stro .pages",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".ST-BX-Zobacz-takze-gal, .pages",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                    $(".galPN").parent().remove();
+                },
+                regressionUrls: ["http://film.wp.pl/idGallery,14811,idPhoto,398806,galeria.html?ticaid=113528&_ticrsn=3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
@@ -1456,21 +1488,22 @@
 
                 $(slideWrapper).append(this.articleSection);
 
-                $(this.pageOptions.customStyle).each(function () {
-                    var elements = $(this.articleSection).find(this);
-                    if (elements.length === 0) {
-                        elements = $(this);
+                var appendNewStyle = function (elements, newStyle) {
+                    elements.each(function () {
+                        var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
+                        if (current.indexOf(newStyle) === -1) {
+                            $(this).attr("style", current + newStyle);
+                        }
+                    });
+                };
+
+                for (var selector in this.pageOptions.customStyle) {
+                    var elements = $(that.articleSection).find(selector);
+                    if (elements.length === 0) { // try to find the elements in the whole page
+                        elements = $(selector);
                     }
-                    if (elements.length !== 0) {
-                        elements.each(function () {
-                            var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
-                            var newStyle = that.pageOptions.customStyle[this];
-                            if (current.indexOf(newStyle) === -1) {
-                                $(this).attr("style", current + newStyle);
-                            }
-                        });
-                    }
-                });
+                    appendNewStyle(elements, this.pageOptions.customStyle[selector]);
+                }
 
                 for (var i in this.pageOptions.classesToBeRemoved) {
                     $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
