@@ -10,6 +10,10 @@ module.exports = function (grunt) {
                 files: {
                     'package/js/jquery.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js']
                 }
+            }, us: {
+                files: {
+                    'userscript/es.user.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js', 'userscript/eliminator-slajdow.jquery.widget.js']
+                }
             },
             prod: {
                 files: {
@@ -25,10 +29,10 @@ module.exports = function (grunt) {
                     environment: 'production'
                 }
             },
-            dev: {                    // Another target
+            us: {                    // Another target
                 options: {
                     sassDir: 'scss',
-                    cssDir: 'package/css',
+                    cssDir: 'userscript',
                     environment: 'production'
                 }
             }        },
@@ -47,6 +51,18 @@ module.exports = function (grunt) {
                     {expand: true, flatten: true, src: ['html/*'], dest: 'package/html/'},
                     {expand: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'package/'},
                     {expand: true, flatten: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'firefox/data/'}
+                ]
+            },
+            us: {
+                options: {
+                    variables: {
+                        'version': '<%=pkg.version%>',
+                        'min.suffix': ''
+                    },
+                    prefix: '@@'
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'userscript/'}
                 ]
             }
         },
@@ -101,7 +117,9 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            package_dir: ["package/*"]
+            package_dir: ["package/*"],
+            us_dir: ["userscript/*"],
+            us_dir_temp: ["userscript/popup.css", "userscript/eliminator*"]
         },
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*', 'js/*', 'manifest.json'],
@@ -125,4 +143,5 @@ module.exports = function (grunt) {
     grunt.registerTask('release', ['bump-only'], ['package'], ['bump-commit']);
     grunt.registerTask('default', ['jshint', 'concat', 'compass']);
     grunt.registerTask('package', ['clean:package_dir', 'jshint', 'concat', 'compass', 'replace', 'copy']);
+    grunt.registerTask('us', ['clean:us_dir', 'jshint', 'replace:us', 'concat:us', 'compass:us', 'clean:us_dir_temp']);
 };
