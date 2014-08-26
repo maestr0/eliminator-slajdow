@@ -1,0 +1,1 @@
+console.log("ES dziala w safari DUPAXXX");
