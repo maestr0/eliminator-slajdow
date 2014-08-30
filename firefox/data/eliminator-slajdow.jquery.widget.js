@@ -3,7 +3,7 @@
  *
  *   Autor: Paweł Raszewski
  *   Licencja: GPLv3
- *   Strona Domowa: http://eliminator-slajdow.herokuapp.info
+ *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
  *
  *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.24/eliminator-slajdow.jquery.widget.js
  *
@@ -15,13 +15,12 @@
         options: {
             imageBaseUrl: "",
             scrollableImageContainer: false,
-            spinningIconUrl: "ajax-loader.gif",
             esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "SNAPSHOT",
+            version: "3.1.24-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }

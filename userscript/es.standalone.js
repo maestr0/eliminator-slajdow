@@ -9353,13 +9353,12 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         options: {
             imageBaseUrl: "",
             scrollableImageContainer: false,
-            spinningIconUrl: "ajax-loader.gif",
             esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "SNAPSHOT",
+            version: "3.1.24",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -11133,7 +11132,10 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         }
     });
 })(jQuery);
-
 (function ($) {
-    $("body").eliminatorSlajdow({imageBaseUrl: '../images/', debug: true});
+    $("body").eliminatorSlajdow({
+        imageBaseUrl: 'http://localhost:9000/assets/javascripts/',
+        debug: false,
+        debug: (document.location.href.indexOf("es_debug=1") > -1)
+    });
 })(jQuery.noConflict(true));
