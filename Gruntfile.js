@@ -4,15 +4,20 @@ module.exports = function (grunt) {
         manifest: grunt.file.readJSON('manifest.json'),
         concat: {
             options: {
-                separator: ';'
+                separator: '\n',
+                sourceMap: true,
+                stripBanners: true,
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n\n\n'
             },
             dev: {
                 files: {
                     'package/js/jquery.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js']
                 }
-            }, us: {
+            },
+            us: {
                 files: {
-                    'userscript/es.user.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js', 'userscript/eliminator-slajdow.jquery.widget.js']
+                    'userscript/es.standalone.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js', 'userscript/eliminator-slajdow.jquery.widget.js', 'js/es.invoke.js']
                 }
             },
             prod: {
@@ -114,6 +119,11 @@ module.exports = function (grunt) {
                     {expand: true, src: ['js/popup.js'], dest: 'package/'},
                     {expand: true, src: ['js/jquery.iphone-switch.js'], dest: 'package/'}
                 ]
+            },
+            us: {
+                files: [
+                    {expand: true, flatten: true, src: ['images/es_logo.svg'], dest: 'userscript/'}
+                ]
             }
         },
         clean: {
@@ -143,5 +153,5 @@ module.exports = function (grunt) {
     grunt.registerTask('release', ['bump-only'], ['package'], ['bump-commit']);
     grunt.registerTask('default', ['jshint', 'concat', 'compass']);
     grunt.registerTask('package', ['clean:package_dir', 'jshint', 'concat', 'compass', 'replace', 'copy']);
-    grunt.registerTask('us', ['clean:us_dir', 'jshint', 'replace:us', 'concat:us', 'compass:us', 'clean:us_dir_temp']);
+    grunt.registerTask('us', ['clean:us_dir', 'jshint', 'replace:us', 'concat:us', 'compass:us', 'clean:us_dir_temp', 'copy:us']);
 };

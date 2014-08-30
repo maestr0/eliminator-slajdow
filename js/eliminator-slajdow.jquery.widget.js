@@ -15,7 +15,6 @@
         options: {
             imageBaseUrl: "",
             scrollableImageContainer: false,
-            spinningIconUrl: "ajax-loader.gif",
             esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
