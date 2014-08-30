@@ -18,11 +18,24 @@
 	<string>1</string>
 	<key>Chrome</key>
 	<dict>
+		<key>Popovers</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>popover.html</string>
+				<key>Height</key>
+				<real>500</real>
+				<key>Identifier</key>
+				<string>es-popover</string>
+				<key>Width</key>
+				<real>500</real>
+			</dict>
+		</array>
 		<key>Toolbar Items</key>
 		<array>
 			<dict>
 				<key>Command</key>
-				<string>es-open</string>
+				<string></string>
 				<key>Identifier</key>
 				<string>es-icon</string>
 				<key>Image</key>
@@ -33,6 +46,8 @@
 				<string>Eliminator Slajdów</string>
 				<key>Palette Label</key>
 				<string></string>
+				<key>Popover</key>
+				<string>es-popover</string>
 				<key>Tool Tip</key>
 				<string>Eliminator Slajdów</string>
 			</dict>

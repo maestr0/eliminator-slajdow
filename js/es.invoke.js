@@ -1,4 +1,4 @@
 
 (function ($) {
-    $("body").eliminatorSlajdow({imageBaseUrl: 'http://localhost:9000/assets/javascripts/', debug: true});
+    $("body").eliminatorSlajdow({imageBaseUrl: 'http://localhost:9000/assets/javascripts/', debug: false});
 })(jQuery.noConflict(true));
