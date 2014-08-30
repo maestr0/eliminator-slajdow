@@ -129,7 +129,7 @@ module.exports = function (grunt) {
         clean: {
             package_dir: ["package/*"],
             us_dir: ["userscript/*"],
-            us_dir_temp: ["userscript/popup.css", "userscript/eliminator*"]
+            us_dir_temp: ["userscript/popup.css"]
         },
         watch: {
             files: ['<%= jshint.files %>', 'scss/*', 'html/*', 'images/*', 'js/*', 'manifest.json'],
