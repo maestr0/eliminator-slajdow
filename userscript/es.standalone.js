@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.24",
+            version: "3.1.24-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -11136,6 +11136,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     $("body").eliminatorSlajdow({
         imageBaseUrl: 'http://localhost:9000/assets/javascripts/',
         debug: false,
-        debug: (document.location.href.indexOf("es_debug=1") > -1)
+        debug: (document.location.href.indexOf("es_debug=1") > -1),
+        facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
+        bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"
     });
 })(jQuery.noConflict(true));
