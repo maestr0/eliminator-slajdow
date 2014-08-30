@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.24 - 2014-08-30 */
+/*! eliminator_slajdow - v3.1.25 - 2014-08-30 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.24-standalone",
+            version: "3.1.25-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
