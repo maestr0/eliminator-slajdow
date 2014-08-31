@@ -94,7 +94,8 @@ var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki
     "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
     "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl", "snobka.pl",
     "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl", "sportfan.pl",
-    "forbes.pl", "geekweek.pl");
+    "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com", "nocoty.pl", "domiporta.pl",
+    "newsweek.pl");
 
 var ffCfg = new Array();
 
@@ -118,6 +119,13 @@ for (var url in ffCfg) {
 JSON.stringify(ffCfg);
 
 
+
+for (var url in defaultSupportedDomains) {
+    if(defaultSupportedDomains[url].indexOf("www.")> -1)
+        console.log("<string>" + defaultSupportedDomains[url] + "</string>" )
+    else
+        console.log("<string>*." + defaultSupportedDomains[url] + "</string>" )
+}
 
 alert24.pl 
 auto-swiat.pl 
@@ -224,4 +232,4 @@ www.se.pl
 wyborcza.biz 
 wyborcza.pl 
 wysokieobcasy.pl 
-zczuba.pl 
+zczuba.pl
