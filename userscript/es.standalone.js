@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.25 - 2014-09-23 */
+/*! eliminator_slajdow - v3.1.25 - 2014-09-24 */
 
 
 /*!
@@ -10767,24 +10767,24 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     "http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "",
+                trigger: "#stgMain .bxGaleriaPoj .stronicowanie .stgGaleriaNext img.fr",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
                 pageType: "62",
                 /* nazwa galerii */
-                name: "",
+                name: "sport wp pl galeria pozioma 2",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "",
+                articleBodySelector: ".bxGaleriaPoj",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "",
+                sectionToBeAttached: ".bxGaleriaPoj",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "",
+                navigationNextULRSelector: ".stronicowanie .stgGaleriaNext:first",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: true,
-                navigationPageNumberSelector: "",
+                navigationPageNumberSelector: ".stronicowanie:first",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "",
+                sectionToBeRemovedSelector: ".stronicowanie",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -10795,7 +10795,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://sport.wp.pl/gid,16900393,kat,39,title,Polacy-odebrali-zlote-medale-MS,galeria.html",
+                    "http://sport.wp.pl/gid,16900642,kat,1912,page,2,title,Polscy-siatkarze-mistrzami-swiata,galeria.html?ticaid=113800&_ticrsn=3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
@@ -11230,6 +11231,15 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         }
     });
 })(jQuery);
+
+/* TODO:
+ http://www.urzadzamy.pl/galeria/uzytkownik/2560/komiksowy-pokoj/###es_debug=1###-PAGETYPE=39
+ http://www.urzadzamy.pl/galeria/uzytkownik/3328/podswietlane-panele-crystal-led-w-azience/###es_debug=1###-PAGETYPE=39
+ http://www.se.pl/multimedia/galeria/138752/307631/dzien-bez-stanika/
+ http://www.urzadzamy.pl/galeria/uzytkownik/2378/azienka-modern/###es_debug=1###-PAGETYPE=39
+ http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1
+ http://wiadomosci.onet.pl/swiat/berlin-podzielony-murem-tak-wygladal-w-okresie-zimnej-wojny/8wrdl
+  */
 (function ($) {
     $("body").eliminatorSlajdow({
         imageBaseUrl: 'http://localhost:9000/assets/javascripts/',
