@@ -30,7 +30,7 @@ module.exports = function (grunt) {
             dist: {                   // Target
                 options: {              // Target options
                     sassDir: 'scss',
-                    cssDir: ['package/css', 'firefox/data'],
+                    cssDir: ['package/css'],
                     environment: 'production'
                 }
             },
