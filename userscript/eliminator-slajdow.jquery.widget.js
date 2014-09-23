@@ -891,7 +891,7 @@
                 /* index */
                 pageType: "44",
                 /* nazwa galerii */
-                name: "wp.pl galeria pozioma",
+                name: "wp.pl galeria pozioma 1",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: "#stgMain .stampFototemat",
                 /* elementy ktora zostana dolaczone jako slajd*/
@@ -902,7 +902,7 @@
                 hasSlideNumbers: true,
                 navigationPageNumberSelector: ".stampStronicowanieFototematuIndex:first",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".pPaginSmall, .stampStronicowanieFototematu",
+                sectionToBeRemovedSelector: ".pPaginSmall, .stampStronicowanieFototematu, .stampFototematBigFotoNxt, .stampFototematBigFotoPrv",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -968,22 +968,22 @@
                 regressionUrls: ["http://galeria.trojmiasto.pl/-452980.html?id_container=82203&pozycja=4#foto"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "body#top ul.k_controls .k_next",
+                trigger: "body ul.k_controls .k_next, #photoZoom #imgNav",
                 /* index */
                 pageType: "47",
                 /* nazwa galerii */
                 name: "onet pozioma galeria",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "#main .kopyto:first",
+                articleBodySelector: "#main .kopyto:first, #sTop .kopyto:first, #cLeft .kopyto:first",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "#main .kopyto:first",
+                sectionToBeAttached: "#main .kopyto:first, #sTop .kopyto:first, #cLeft .kopyto:first",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
                 navigationNextULRSelector: "li.k_next a:first",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: true,
                 navigationPageNumberSelector: ".k_index:first",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".k_preview, .k_index, .k_controls",
+                sectionToBeRemovedSelector: ".k_preview, .k_index, .k_controls, .k_insets",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -1395,6 +1395,69 @@
                 },
                 regressionUrls: ["http://www.nowiny24.pl/apps/pbcs.dll/article?AID=/20140611/BIESZCZADY00/140619917&sectioncat=photostory2",
                     "http://www.nowiny24.pl/apps/pbcs.dll/article?AID=/20140611/BIESZCZADY00/140619917"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "div.main-content div.article--slideshow div.slideshow div.slideshow__header div.slidshow__nav a.button-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "61",
+                /* nazwa galerii */
+                name: "biztok",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "div.slideshow",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "div.slideshow",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.slideshow__header div.slidshow__nav a.button-next:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".slide-nr:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".slidshow__nav",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3",
+                    "http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "62",
+                /* nazwa galerii */
+                name: "sport wp pl galeria pozioma 2",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: [""]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
