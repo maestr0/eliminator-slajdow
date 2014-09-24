@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.25 - 2014-09-24 */
+/*! eliminator_slajdow - v3.1.26 - 2014-09-24 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.25-standalone",
+            version: "3.1.26-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10078,22 +10078,22 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     "http://biznes.pl/wiadomosci/kraj/jan-vincent-rostowski-gosciem-specjalnym-biznespl,5610578,0,foto-detal.html#photo16264113"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "div.wrapper div.site div.left_column div.article div.gallery_buttons div.next_btt a.next",
+                trigger: "#gallery > div.content > div.flesh > div.main_img > div.big_img > div.fullscreen > div > img",//"div.wrapper div.site div.left_column div.article div.gallery_buttons div.next_btt a.next",
                 /* index */
                 pageType: "39",
                 /* nazwa galerii */
                 name: "urzadzamy.pl",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: ".article .image_file",
+                articleBodySelector: ".flesh",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: ".article .image_file",
+                sectionToBeAttached: ".flesh",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "div.gallery_buttons div.next_btt a.next",
+                navigationNextULRSelector: "div.content > div.main_nav > div.go.next > a",
                 /* false gdy nie ma skad wziac numeracji */
-                hasSlideNumbers: false,
-                navigationPageNumberSelector: "",
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".info .nr span",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".gallery_buttons, .box.gallery_img, .article .content",
+                sectionToBeRemovedSelector: ".mini_img, .main_nav",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -10101,6 +10101,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
+                    $(".gallery_buttons a.prev").attr("href", $(".gallery_buttons a.next").attr("href"));
+
+                    $(this.articleSection).find(".fullscreen").attr("onclick", "window.location.href='" + this.currentUrl + "?full=1'");
                 },
                 regressionUrls: ["http://www.urzadzamy.pl/galeria/uzytkownik/2560/komiksowy-pokoj/",
                     "http://www.urzadzamy.pl/galeria/uzytkownik/3328/podswietlane-panele-crystal-led-w-azience/",
@@ -10867,52 +10870,53 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             return $("<div>", {
                 "class": "slideHeader slideHeader_" + pageNumber
             }).append($("<p>", {
-                "class": "headerBar shadow_es"
-            }).append($("<span>", {
-                "class": "pageNumber",
-                text: pageNumberLabel
-            })).append($("<span>", {
-                "class": "esLogo",
-                style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
-            })).append($("<i>", {
-                "class": "scrollSwitch icon-resize-vertical " + (this.options.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
-                title: "Pasek przewijania"
-            })).append(
-                $("<i>", {
-                    "class": "icon-bug",
-                    title: "Zgłoś problem"
-                })).append(
-                $("<span>", {
-                    "class": "directLink"
-                }).append($("<a>", {
-                        target: "_blank",
-                        href: this._appendDisableEsFlag(url),
-                        title: "Bezpośredni link"
-                    }).append($("<i>", {"class": 'icon-link-ext'}))
-                )).append(
-                $("<i>", {
-                    "class": "icon-right-circle",
-                    title: "Następny Slajd"
-                })).append(
-                $("<i>", {
-                    "class": "icon-left-circle",
-                    title: "Poprzedni Slajd"
-                })).append(
-                $("<i>", {
-                    "class": "icon-up-circle",
-                    title: "Pierwszy Slajd"
-                })).append(
-                $("<i>", {
-                    "class": "icon-down-circle",
-                    title: "Ostatni Slajd"
-                }))).append($("<p>", {
-                "class": "headerLogo",
-                text: 'Eliminator Slajdów'
-            }).append($("<i>", {"class": 'icon-facebook-squared'})));
+                    "class": "headerBar shadow_es"
+                }).append($("<span>", {
+                        "class": "pageNumber",
+                        text: pageNumberLabel
+                    })).append($("<span>", {
+                        "class": "esLogo",
+                        style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
+                    })).append($("<i>", {
+                        "class": "scrollSwitch icon-resize-vertical " + (this.options.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
+                        title: "Pasek przewijania"
+                    })).append(
+                        $("<i>", {
+                            "class": "icon-bug",
+                            title: "Zgłoś problem"
+                        })).append(
+                        $("<span>", {
+                            "class": "directLink"
+                        }).append($("<a>", {
+                                target: "_blank",
+                                href: this._appendDisableEsFlag(url),
+                                title: "Bezpośredni link"
+                            }).append($("<i>", {"class": 'icon-link-ext'}))
+                            )).append(
+                        $("<i>", {
+                            "class": "icon-right-circle",
+                            title: "Następny Slajd"
+                        })).append(
+                        $("<i>", {
+                            "class": "icon-left-circle",
+                            title: "Poprzedni Slajd"
+                        })).append(
+                        $("<i>", {
+                            "class": "icon-up-circle",
+                            title: "Pierwszy Slajd"
+                        })).append(
+                        $("<i>", {
+                            "class": "icon-down-circle",
+                            title: "Ostatni Slajd"
+                        }))).append($("<p>", {
+                    "class": "headerLogo",
+                    text: 'Eliminator Slajdów'
+                }).append($("<i>", {"class": 'icon-facebook-squared'})));
         },
         _appendNextSlide: function (galleryPage, url) {
             var that = this;
             this._hideSpinner();
+            this.currentUrl = url;
             this.articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
             if ($(this.articleSection).length > 0) {
 
@@ -10981,7 +10985,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 if (typeof this.nextPageURL !== 'undefined' && (
                     (pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) ||
-                    (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(this.nextPageURL) === -1))) {
+                        (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(this.nextPageURL) === -1))) {
                     this._logger("link do nastepnej storny", this.nextPageURL);
                     this._showSpinnier();
                     this._requestNextSlide(this.nextPageURL);
@@ -11011,7 +11015,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 that._hideSpinner();
                 return;
             }
-            $.get(nextPageURL, function (nextPage) {
+            $.get(nextPageURL,function (nextPage) {
                 var redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {
                     that._requestNextSlide(redirectUrl);
@@ -11020,10 +11024,10 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
             }, "html").fail(function () {
-                that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                console.log("ES - Blad pobierania nastepnego slajdu: " + nextPageURL);
-                that._hideSpinner();
-            });
+                    that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
+                    console.log("ES - Blad pobierania nastepnego slajdu: " + nextPageURL);
+                    that._hideSpinner();
+                });
         },
         _bind: function () {
             var that = this;
@@ -11182,7 +11186,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 for (var i in pageConfig.regressionUrls) {
                     var regressionUrl = pageConfig.regressionUrls[i];
                     if (regressionUrl.length > 0)
-                        allRegressionUrls.push(regressionUrl + "###es_debug=1###-PAGETYPE=" + pageConfig.pageType);
+                        allRegressionUrls.push(regressionUrl + "###es=debug###-PAGETYPE=" + pageConfig.pageType);
                 }
             }
 
@@ -11233,13 +11237,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 })(jQuery);
 
 /* TODO:
- http://www.urzadzamy.pl/galeria/uzytkownik/2560/komiksowy-pokoj/###es_debug=1###-PAGETYPE=39
- http://www.urzadzamy.pl/galeria/uzytkownik/3328/podswietlane-panele-crystal-led-w-azience/###es_debug=1###-PAGETYPE=39
  http://www.se.pl/multimedia/galeria/138752/307631/dzien-bez-stanika/
- http://www.urzadzamy.pl/galeria/uzytkownik/2378/azienka-modern/###es_debug=1###-PAGETYPE=39
- http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1
- http://wiadomosci.onet.pl/swiat/berlin-podzielony-murem-tak-wygladal-w-okresie-zimnej-wojny/8wrdl
-  */
+ */
 (function ($) {
     $("body").eliminatorSlajdow({
         imageBaseUrl: 'http://localhost:9000/assets/javascripts/',

@@ -10,7 +10,7 @@ module.exports = function (grunt) {
                 banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
                     '<%= grunt.template.today("yyyy-mm-dd") %> */\n\n\n'
             },
-            dev: {
+            main: {
                 files: {
                     'package/js/jquery.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js']
                 }
@@ -27,7 +27,7 @@ module.exports = function (grunt) {
             }
         },
         compass: {
-            dist: {                   // Target
+            main: {                   // Target
                 options: {              // Target options
                     sassDir: 'scss',
                     cssDir: ['package/css'],
@@ -152,6 +152,6 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('release', ['bump-only'], ['package'], ['bump-commit']);
     grunt.registerTask('default', ['jshint', 'concat', 'compass']);
-    grunt.registerTask('package', ['clean:package_dir', 'jshint', 'concat', 'compass', 'replace', 'copy']);
+    grunt.registerTask('package', ['clean:package_dir', 'jshint', 'concat:main', 'compass:main', 'replace:main', 'copy:main']);
     grunt.registerTask('us', ['clean:us_dir', 'jshint', 'replace:us', 'concat:us', 'compass:us', 'clean:us_dir_temp', 'copy:us']);
 };
