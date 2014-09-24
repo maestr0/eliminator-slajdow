@@ -440,6 +440,18 @@
         },
         {
             "type": "bool",
+            "name": "newsweek.pl",
+            "value": true,
+            "title": "www.newsweek.pl"
+        },
+        {
+            "type": "bool",
+            "name": "nocoty.pl",
+            "value": true,
+            "title": "www.nocoty.pl"
+        },
+        {
+            "type": "bool",
             "name": "nowiny24.pl",
             "value": true,
             "title": "www.nowiny24.pl"
@@ -649,7 +661,7 @@
     "description": "Dodatek eliminuje slajdy w artykułach na portalach grup Agora, Onet, MojeMiasto i MediaRegionalne",
     "name": "eliminator-slajdow",
     "dependencies": ["api-utils", "addon-kit"],
-    "version": "3.1.26",
+    "version": "3.1.28",
     "lib": "lib",
     "fullName": "Eliminator Slajdów",
     "main": "main",

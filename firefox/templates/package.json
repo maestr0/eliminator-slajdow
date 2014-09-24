@@ -440,6 +440,18 @@
         },
         {
             "type": "bool",
+            "name": "newsweek.pl",
+            "value": true,
+            "title": "www.newsweek.pl"
+        },
+        {
+            "type": "bool",
+            "name": "nocoty.pl",
+            "value": true,
+            "title": "www.nocoty.pl"
+        },
+        {
+            "type": "bool",
             "name": "nowiny24.pl",
             "value": true,
             "title": "www.nowiny24.pl"

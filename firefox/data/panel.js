@@ -1,6 +1,6 @@
 self.port.on("config-sent", function (prefs) {
     for (var url in prefs) {
-        $("#domainList").append($("<a>", {"class": "url", text: url, href: url, rel: "nofollow" }));
+        $("#domainList").append($("<a>", {"class": "url", text: url, href: "http://" + url, rel: "nofollow" , target: "_new" }));
     }
 
     var that = this;

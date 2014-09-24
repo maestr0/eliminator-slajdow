@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.26 - 2014-09-24 */
+/*! eliminator_slajdow - v3.1.28 - 2014-09-24 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.26-standalone",
+            version: "3.1.28-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -11236,9 +11236,16 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     });
 })(jQuery);
 
-/* TODO:
- http://www.se.pl/multimedia/galeria/138752/307631/dzien-bez-stanika/
- */
+/* FIXME: http://www.se.pl/multimedia/galeria/138752/307631/dzien-bez-stanika/
+* Firefox only
+* http://www.newsweek.pl/22-lipca-w-czasach-polski-ludowej-na-fotografiach-na-newsweek-p,galeria,106661,1,1,2.html
+* http://nocoty.pl/gid,16823077,kat,1013703,title,Maria-Elena-Boschi-na-plazy-Seksowna-pani-minister,galeria.html?ticaid=51380e#es=debug###-PAGETYPE=56
+*
+*
+*
+*
+*
+* */
 (function ($) {
     $("body").eliminatorSlajdow({
         imageBaseUrl: 'http://localhost:9000/assets/javascripts/',

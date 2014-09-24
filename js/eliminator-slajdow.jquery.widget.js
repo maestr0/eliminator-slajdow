@@ -1898,4 +1898,13 @@
     });
 })(jQuery);
 
-/* FIXME: http://www.se.pl/multimedia/galeria/138752/307631/dzien-bez-stanika/ */
+/* FIXME: http://www.se.pl/multimedia/galeria/138752/307631/dzien-bez-stanika/
+* Firefox only
+* http://www.newsweek.pl/22-lipca-w-czasach-polski-ludowej-na-fotografiach-na-newsweek-p,galeria,106661,1,1,2.html
+* http://nocoty.pl/gid,16823077,kat,1013703,title,Maria-Elena-Boschi-na-plazy-Seksowna-pani-minister,galeria.html?ticaid=51380e#es=debug###-PAGETYPE=56
+*
+*
+*
+*
+*
+* */
