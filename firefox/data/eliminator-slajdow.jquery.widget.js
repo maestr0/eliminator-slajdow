@@ -7,7 +7,7 @@
  *
  *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.29/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.29
+ *   Wersja: 3.1.30
  * */
 
 (function ($) {
@@ -20,7 +20,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.29-standalone",
+            version: "3.1.30-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }

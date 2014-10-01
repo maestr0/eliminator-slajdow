@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.29 - 2014-09-29 */
+/*! eliminator_slajdow - v3.1.30 - 2014-10-01 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.29-standalone",
+            version: "3.1.30-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10802,37 +10802,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://sport.wp.pl/gid,16900393,kat,39,title,Polacy-odebrali-zlote-medale-MS,galeria.html",
                     "http://sport.wp.pl/gid,16900642,kat,1912,page,2,title,Polscy-siatkarze-mistrzami-swiata,galeria.html?ticaid=113800&_ticrsn=3"]
-            },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "",
-                /* zatrzymuje trigger*/
-                triggerStopper: "",
-                /* index */
-                pageType: "63",
-                /* nazwa galerii */
-                name: "gazeta.pl nowa 09/2014",
-                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "#gazeta_article",
-                /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "#gazeta_article",
-                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: ".photostoryNavigation a.photostoryNextPage",
-                /* false gdy nie ma skad wziac numeracji */
-                hasSlideNumbers: true,
-                navigationPageNumberSelector: ".countPage",
-                /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".nextSlideWrapper, .photostoryPrevPage, .photostoryNextPage",
-                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
-                sectionToBeRemovedFromAttachedSlidesSelector: "script, #gazeta_article_miniatures, .photostoryNavigation, #article_comments",
-                /* $.empty() na elemencie*/
-                sectionToBeEmptySelector: "",
-                /* Theme */
-                esTheme: "default",
-                /* dowolne style css w postaci mapy */
-                customStyle: {},
-                preIncludeCallback: function () {
-                },
-                regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/51,114881,16712264.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
