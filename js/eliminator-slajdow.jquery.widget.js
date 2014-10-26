@@ -1039,10 +1039,10 @@
             },
             {   trigger: "div#page div#main div.slideshow-header .slideshow-paging .slideshow-next",
                 name: "sportfan.pl",
-                articleBodySelector: ".slideshow",
+                articleBodySelector: ".slideshow, .slideshow-old",
                 navigationNextULRSelector: ".slideshow-paging .slideshow-next:first",
                 sectionToBeEmptySelector: "",
-                sectionToBeAttached: ".slideshow:first",
+                sectionToBeAttached: ".slideshow:first, .slideshow-old:first",
                 sectionToBeRemovedSelector: ".slideshow-paging",
                 navigationPageNumberSelector: ".slideshow-current:first",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
@@ -1095,8 +1095,8 @@
                 articleBodySelector: "#Column-Wrap",
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: "#Column-Wrap",
-                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "#Page-Wrap .Block-Node a.Next",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu */
+                navigationNextULRSelector: "#Column-Wrap .Block-Node a.Next",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
@@ -1466,6 +1466,37 @@
                     "http://sport.wp.pl/gid,16900642,kat,1912,page,2,title,Polscy-siatkarze-mistrzami-swiata,galeria.html?ticaid=113800&_ticrsn=3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#all #page #slideshow-header .slideshow-paging a.slideshow-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "63",
+                /* nazwa galerii */
+                name: "wawalove.pl - pozioma",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "div.content",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "div.content",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".slideshow-paging a.slideshow-next:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".slideshow .slideshow-current:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".slideshow header, .slideshow footer",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://wawalove.pl/Za-czym-ta-kolejka-STARE-ZDJECIA-sl16189"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -1582,6 +1613,7 @@
             this._hideSpinner();
             this.currentUrl = url;
             this.articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
+            // ARTICLE BODY CHECK
             if ($(this.articleSection).length > 0) {
 
                 this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
@@ -1660,7 +1692,7 @@
                 }
 
             } else {
-                this._logger("Article section not found");
+                this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
             }
         },
         _getPaywallRedirectUrl: function (nextPage) {
@@ -1900,13 +1932,9 @@
     });
 })(jQuery);
 
-/* FIXME: http://www.se.pl/multimedia/galeria/138752/307631/dzien-bez-stanika/
- * Firefox only
- * http://www.newsweek.pl/22-lipca-w-czasach-polski-ludowej-na-fotografiach-na-newsweek-p,galeria,106661,1,1,2.html
- * http://nocoty.pl/gid,16823077,kat,1013703,title,Maria-Elena-Boschi-na-plazy-Seksowna-pani-minister,galeria.html?ticaid=51380e#es=debug###-PAGETYPE=56
+/* FIXME:
  *
- *
- *
- *
- *
+ * http://gotowanie.onet.pl/galerie/6-trikow-na-kulinarne-wpadki,1846.html
+ * http://ksiazki.wp.pl/gid,16963674,page,2,tytul,Rzadzac-swiatem-na-emeryturze,galeria.html?ticaid=113b14
+ * http://zdrowie.wp.pl/multimedia/galerie/go:3/art1463.html
  * */
