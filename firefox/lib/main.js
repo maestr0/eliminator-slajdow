@@ -1,5 +1,4 @@
 const {Cc,Ci} = require("chrome");
-const pageMod = require("sdk/page-mod");
 var self = require("sdk/self");
 const data = self.data;
 var tabs = require('sdk/tabs');
@@ -24,27 +23,34 @@ const disabledState = {
     }
 };
 
-exports.main = function (options, callbacks) {
-    pageMod.PageMod({
-        attachTo: ["top"],
-        include: "*",
-        contentScriptWhen: "end",
-        contentScriptFile: [data.url("jquery-2.0.3.js"), data.url("jquery-ui-1.10.3.widget-factory.js"), data.url("eliminator-slajdow.jquery.widget.js"), data.url("contentscript.js")],
-        onAttach: function (worker) {
-            worker.postMessage({
-                storage: prefs,
+tabs.on('ready', function (tab) {
+    for (var hostname in prefs) {
+        if (tab.url.indexOf(hostname) !== -1 && prefs[hostname] && tab.url.toLowerCase().indexOf("es=off") === -1) {
+            var worker = tab.attach({
+                contentScriptFile: [data.url("jquery-2.0.3.js"), data.url("jquery-ui-1.10.3.widget-factory.js"), data.url("eliminator-slajdow.jquery.widget.js"), data.url("contentscript.js")],
+                onMessage: function (message) {
+                    console.log("message sent to TAB listener", message);
+                },
+                onError: function (error) {
+                    console.log(error.fileName + ":" + error.lineNumber + ": " + error);
+                }
+            });
+
+            worker.port.emit("es-start", {
                 cssUrl: data.url("es.css"),
                 imageBaseUrl: data.url("."),
                 version: self.version + "-firefox"
             });
+            // break
+            console.log("ES aktywny na ", hostname)
+            return false;
         }
-    });
-};
+    }
+});
 
 function updateActionButtonState(tab) {
     for (var url in prefs) {
         if (tab.url.indexOf(url) != -1) {
-            console.log("url test" + url);
             if (prefs[url]) {
                 action_button.state(action_button, activeState);
                 return;
