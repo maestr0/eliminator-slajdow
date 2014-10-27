@@ -736,6 +736,7 @@
                 sectionToBeEmptySelector: "",
                 /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
                 preIncludeCallback: function () {
+                    $("body").append($("<img>", { "src": this.nextPageURL, "style": "display:none"}));
                 },
                 classesToBeRemoved: [],
                 regressionUrls: ["http://biznes.pl/wiadomosci/raporty/wzrost-pkb-w-latach-2008-2013,5610529,1,5610147,535,foto-detal.html",
@@ -1125,7 +1126,7 @@
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: "#zdjecie div:last",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "figure.image, #ads-incontext-content",
+                sectionToBeAttached: "#zdjecie",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
                 navigationNextULRSelector: ".navigation a.next:first",
                 /* false gdy nie ma skad wziac numeracji */
@@ -1813,9 +1814,9 @@
                 } else {
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
-            }, "html").fail(function () {
+            }, "html").fail(function (a, b, c) {
                 that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                console.log("ES - Blad pobierania nastepnego slajdu: " + nextPageURL);
+                console.log("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
                 that._hideSpinner();
             });
         },
@@ -1991,6 +1992,7 @@
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
+                    this._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
                 } while (lowerBound < topBound && lowerBound < allRegressionUrls.length);
                 topBound = topBound + step;
             });
@@ -2025,10 +2027,3 @@
         }
     });
 })(jQuery);
-
-/* FIXME:
- *
- * http://gotowanie.onet.pl/galerie/6-trikow-na-kulinarne-wpadki,1846.html
- * http://ksiazki.wp.pl/gid,16963674,page,2,tytul,Rzadzac-swiatem-na-emeryturze,galeria.html?ticaid=113b14
- * http://zdrowie.wp.pl/multimedia/galerie/go:3/art1463.html
- * */

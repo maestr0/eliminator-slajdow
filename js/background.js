@@ -109,17 +109,21 @@ function updateAllowedDomainList() {
         "mmzielonagora.pl", "foch.pl", "edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
         "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl", "expressilustrowany.pl",
         "gazetakrakowska.pl", "gloswielkopolski.pl", "kurierlubelski.pl",
-        "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
+        "fakt.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
         "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl",
         "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
-        "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl", "snobka.pl",
+        "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "urzadzamy.pl", "snobka.pl",
         "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl", "sportfan.pl",
         "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com", "nocoty.pl", "domiporta.pl",
         "newsweek.pl");
 
-    /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl",  */
-    // pomponik.pl - odpada z powodu lazy loaded zdjec
+    /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl", "biznes.pl", "demotywatory.pl"
+     pomponik.pl - odpada z powodu lazy loaded zdjec
 
+     FIXME:
+     http://biznes.pl/wiadomosci/kraj/jan-vincent-rostowski-gosciem-specjalnym-biznespl,5610578,0,foto-detal.html#photo16264113###es=debug###-PAGETYPE=38
+     http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-2
+     */
     localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
 
     var allowedDomains = {};
