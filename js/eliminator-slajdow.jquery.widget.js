@@ -1532,7 +1532,7 @@
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
-                pageType: "48",
+                pageType: "65",
                 /* nazwa galerii */
                 name: "zdrowie.wp.pl stary layout",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
@@ -1556,6 +1556,36 @@
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://zdrowie.wp.pl/multimedia/galerie/go:2/art1463.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#doc #contentSection section#sectionmain article.gallery_detal div.gallery_detal div.next a.btn",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "66",
+                /* nazwa galerii */
+                name: "gotowanie.onet.pl nowy layout 2014 listopad",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "article.gallery_detal",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "article.gallery_detal",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.gallery_detal div.next a.btn",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "article.gallery_detal aside.count",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".gallery_detal .next, .gallery_detal .prev, aside.count",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: [""]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",

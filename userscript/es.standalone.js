@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.30 - 2014-10-26 */
+/*! eliminator_slajdow - v3.1.31 - 2014-10-27 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.30-standalone",
+            version: "3.1.31-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10835,6 +10835,97 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://wawalove.pl/Za-czym-ta-kolejka-STARE-ZDJECIA-sl16189"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: ".bx-galeria .bx-content #galleryNaviSide a.next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "64",
+                /* nazwa galerii */
+                name: "wp.pl - pozioma",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "div.bx-content",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "div.bx-content",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#galleryNaviSide a.next",
+                /* false gdy nie ma skad wziac numeracji */
+                navigationPageNumberSelector: "#galleryNaviTop",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "#galleryNaviSide a.next, #galleryNaviSide a.prev, *[id='galleryNaviTop']",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                    $(".cboh").insertAfter(".imageContainerEliminatorSlajdow");
+                },
+                regressionUrls: ["http://ksiazki.wp.pl/gid,16963674,page,2,tytul,Rzadzac-swiatem-na-emeryturze,galeria.html?ticaid=113b14"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#allContentArea #webMainContent .wideColumn #galeriaFoto a.fotkiNavigationBig-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "65",
+                /* nazwa galerii */
+                name: "zdrowie.wp.pl stary layout",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#galeriaFoto",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#galeriaFoto",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".fotkiNavigation a.next:first",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: ".fotkiNavigation .numer:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".fotkiNavigation, .fotkiNavigationBig-next, .fotkiNavigationBig-prev",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://zdrowie.wp.pl/multimedia/galerie/go:2/art1463.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#doc #contentSection section#sectionmain article.gallery_detal div.gallery_detal div.next a.btn",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "66",
+                /* nazwa galerii */
+                name: "gotowanie.onet.pl nowy layout 2014 listopad",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "article.gallery_detal",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "article.gallery_detal",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.gallery_detal div.next a.btn",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "article.gallery_detal aside.count",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".gallery_detal .next, .gallery_detal .prev",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: [""]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10848,8 +10939,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeAttached: "",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
                 navigationNextULRSelector: "",
-                /* false gdy nie ma skad wziac numeracji */
-                hasSlideNumbers: true,
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
                 sectionToBeRemovedSelector: "",
@@ -10959,15 +11049,19 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, this.nextPageURL);
                     return;
                 }
-                var pageNumber = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector).text().match(/(\d+)/g);
-                if (this.pageOptions.hasSlideNumbers) {
+
+                var pageNumberContent = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector);
+
+                var pageNumber = [];
+                if (pageNumberContent.length > 0) {
+                    pageNumber = pageNumberContent.text().match(/(\d+)/g);
                     this._logger("numer strony", pageNumber);
                 }
-                var pageNumberLabel = "Ostatni slajd";
-                if (pageNumber && pageNumber.length === 2) {
+
+                var pageNumberLabel = "Slajd";
+
+                if (pageNumber.length > 1) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
-                } else if (!this.pageOptions.hasSlideNumbers) {
-                    pageNumberLabel = "Slajd";
                 }
 
                 var slideHeader = this._buildHeader(pageNumberLabel, pageNumber, url);
@@ -11018,8 +11112,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 this.pageOptions.preIncludeCallback.call(this);
 
                 if (typeof this.nextPageURL !== 'undefined' && (
-                    (pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) ||
-                    (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(this.nextPageURL) === -1))) {
+                    (pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (document.location.href.indexOf(this.nextPageURL) === -1)
+                    )) {
                     this._logger("link do nastepnej storny", this.nextPageURL);
                     this._showSpinnier();
                     this._requestNextSlide(this.nextPageURL);
@@ -11272,7 +11366,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 /* FIXME:
  *
- * http://www.sportfan.pl/galeria/sexy-nicole-zdradzila-mistrza-f1-zobacz-37569?
  * http://gotowanie.onet.pl/galerie/6-trikow-na-kulinarne-wpadki,1846.html
  * http://ksiazki.wp.pl/gid,16963674,page,2,tytul,Rzadzac-swiatem-na-emeryturze,galeria.html?ticaid=113b14
  * http://zdrowie.wp.pl/multimedia/galerie/go:3/art1463.html
