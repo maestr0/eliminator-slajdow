@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Paweł Raszewski</string>
 	<key>Builder Version</key>
-	<string>9537.85.10.17.1</string>
+	<string>10600.1.25</string>
 	<key>CFBundleDisplayName</key>
 	<string>Elliminator Slajdów</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1.30</string>
+	<string>3.1.33</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>Chrome</key>
@@ -157,7 +157,6 @@
 				<string>*.gloswielkopolski.pl</string>
 				<string>*.kurierlubelski.pl</string>
 				<string>*.fakt.pl</string>
-				<string>*.demotywatory.pl</string>
 				<string>*.naszemiasto.pl</string>
 				<string>*.wawalove.pl</string>
 				<string>www.se.pl</string>
@@ -175,7 +174,6 @@
 				<string>*.bebzol.com</string>
 				<string>*.lovekrakow.pl</string>
 				<string>*.pudelekx.pl</string>
-				<string>*.biznes.pl</string>
 				<string>*.urzadzamy.pl</string>
 				<string>*.snobka.pl</string>
 				<string>*.fly4free.pl</string>
@@ -195,7 +193,7 @@
 		</dict>
 	</dict>
 	<key>Update Manifest URL</key>
-	<string>http://eliminator-slajdow.herokuapp.com/assets/safari/eliminator-slajdow.safariextz</string>
+	<string>http://eliminator-slajdow.herokuapp.com/assets/safari/update.plist</string>
 	<key>Website</key>
 	<string>http://eliminator-slajdow.herokuapp.com?ref=safari-ext</string>
 </dict>

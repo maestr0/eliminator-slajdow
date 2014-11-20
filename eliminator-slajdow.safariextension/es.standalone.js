@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.30 - 2014-10-01 */
+/*! eliminator_slajdow - v3.1.33 - 2014-10-27 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.30-standalone",
+            version: "3.1.33-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10074,6 +10074,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeEmptySelector: "",
                 /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
                 preIncludeCallback: function () {
+                    $("body").append($("<img>", { "src": this.nextPageURL, "style": "display:none"}));
                 },
                 classesToBeRemoved: [],
                 regressionUrls: ["http://biznes.pl/wiadomosci/raporty/wzrost-pkb-w-latach-2008-2013,5610529,1,5610147,535,foto-detal.html",
@@ -10377,10 +10378,10 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             },
             {   trigger: "div#page div#main div.slideshow-header .slideshow-paging .slideshow-next",
                 name: "sportfan.pl",
-                articleBodySelector: ".slideshow",
+                articleBodySelector: ".slideshow, .slideshow-old",
                 navigationNextULRSelector: ".slideshow-paging .slideshow-next:first",
                 sectionToBeEmptySelector: "",
-                sectionToBeAttached: ".slideshow:first",
+                sectionToBeAttached: ".slideshow:first, .slideshow-old:first",
                 sectionToBeRemovedSelector: ".slideshow-paging",
                 navigationPageNumberSelector: ".slideshow-current:first",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
@@ -10433,8 +10434,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 articleBodySelector: "#Column-Wrap",
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: "#Column-Wrap",
-                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "#Page-Wrap .Block-Node a.Next",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu */
+                navigationNextULRSelector: "#Column-Wrap .Block-Node a.Next",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
@@ -10463,7 +10464,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: "#zdjecie div:last",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "figure.image, #ads-incontext-content",
+                sectionToBeAttached: "#zdjecie",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
                 navigationNextULRSelector: ".navigation a.next:first",
                 /* false gdy nie ma skad wziac numeracji */
@@ -10804,6 +10805,128 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     "http://sport.wp.pl/gid,16900642,kat,1912,page,2,title,Polscy-siatkarze-mistrzami-swiata,galeria.html?ticaid=113800&_ticrsn=3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#all #page #slideshow-header .slideshow-paging a.slideshow-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "63",
+                /* nazwa galerii */
+                name: "wawalove.pl - pozioma",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "div.content",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "div.content",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".slideshow-paging a.slideshow-next:first",
+                /* false gdy nie ma skad wziac numeracji */
+                hasSlideNumbers: true,
+                navigationPageNumberSelector: ".slideshow .slideshow-current:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".slideshow header, .slideshow footer",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://wawalove.pl/Za-czym-ta-kolejka-STARE-ZDJECIA-sl16189"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: ".bx-galeria .bx-content #galleryNaviSide a.next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "64",
+                /* nazwa galerii */
+                name: "wp.pl - pozioma",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "div.bx-content",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "div.bx-content",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#galleryNaviSide a.next",
+                /* false gdy nie ma skad wziac numeracji */
+                navigationPageNumberSelector: "#galleryNaviTop",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "#galleryNaviSide a.next, #galleryNaviSide a.prev, *[id='galleryNaviTop']",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                    $(".cboh").insertAfter(".imageContainerEliminatorSlajdow");
+                },
+                regressionUrls: ["http://ksiazki.wp.pl/gid,16963674,page,2,tytul,Rzadzac-swiatem-na-emeryturze,galeria.html?ticaid=113b14"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#allContentArea #webMainContent .wideColumn #galeriaFoto a.fotkiNavigationBig-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "65",
+                /* nazwa galerii */
+                name: "zdrowie.wp.pl stary layout",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#galeriaFoto",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#galeriaFoto",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".fotkiNavigation a.next:first",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: ".fotkiNavigation .numer:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".fotkiNavigation, .fotkiNavigationBig-next, .fotkiNavigationBig-prev",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://zdrowie.wp.pl/multimedia/galerie/go:2/art1463.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#doc #contentSection section#sectionmain article.gallery_detal div.gallery_detal div.next a.btn",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "66",
+                /* nazwa galerii */
+                name: "gotowanie.onet.pl nowy layout 2014 listopad",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "article.gallery_detal",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "article.gallery_detal",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.gallery_detal div.next a.btn",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "article.gallery_detal aside.count",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".gallery_detal .next, .gallery_detal .prev, aside.count",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: [""]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10817,8 +10940,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeAttached: "",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
                 navigationNextULRSelector: "",
-                /* false gdy nie ma skad wziac numeracji */
-                hasSlideNumbers: true,
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
                 sectionToBeRemovedSelector: "",
@@ -10920,6 +11042,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             this._hideSpinner();
             this.currentUrl = url;
             this.articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
+            // ARTICLE BODY CHECK
             if ($(this.articleSection).length > 0) {
 
                 this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
@@ -10927,15 +11050,19 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, this.nextPageURL);
                     return;
                 }
-                var pageNumber = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector).text().match(/(\d+)/g);
-                if (this.pageOptions.hasSlideNumbers) {
+
+                var pageNumberContent = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector);
+
+                var pageNumber = [];
+                if (pageNumberContent.length > 0) {
+                    pageNumber = pageNumberContent.text().match(/(\d+)/g);
                     this._logger("numer strony", pageNumber);
                 }
-                var pageNumberLabel = "Ostatni slajd";
-                if (pageNumber && pageNumber.length === 2) {
+
+                var pageNumberLabel = "Slajd";
+
+                if (pageNumber.length > 1) {
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
-                } else if (!this.pageOptions.hasSlideNumbers) {
-                    pageNumberLabel = "Slajd";
                 }
 
                 var slideHeader = this._buildHeader(pageNumberLabel, pageNumber, url);
@@ -10986,8 +11113,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 this.pageOptions.preIncludeCallback.call(this);
 
                 if (typeof this.nextPageURL !== 'undefined' && (
-                    (pageNumber && pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) ||
-                    (!this.pageOptions.hasSlideNumbers && document.location.href.indexOf(this.nextPageURL) === -1))) {
+                    (pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (document.location.href.indexOf(this.nextPageURL) === -1)
+                    )) {
                     this._logger("link do nastepnej storny", this.nextPageURL);
                     this._showSpinnier();
                     this._requestNextSlide(this.nextPageURL);
@@ -10998,7 +11125,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 }
 
             } else {
-                this._logger("Article section not found");
+                this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
             }
         },
         _getPaywallRedirectUrl: function (nextPage) {
@@ -11025,9 +11152,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 } else {
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
-            }, "html").fail(function () {
+            }, "html").fail(function (a, b, c) {
                 that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                console.log("ES - Blad pobierania nastepnego slajdu: " + nextPageURL);
+                console.log("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
                 that._hideSpinner();
             });
         },
@@ -11203,6 +11330,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
+                    this._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
                 } while (lowerBound < topBound && lowerBound < allRegressionUrls.length);
                 topBound = topBound + step;
             });
@@ -11237,20 +11365,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         }
     });
 })(jQuery);
-
-/* FIXME: http://www.se.pl/multimedia/galeria/138752/307631/dzien-bez-stanika/
- * Firefox only
- * http://www.newsweek.pl/22-lipca-w-czasach-polski-ludowej-na-fotografiach-na-newsweek-p,galeria,106661,1,1,2.html
- * http://nocoty.pl/gid,16823077,kat,1013703,title,Maria-Elena-Boschi-na-plazy-Seksowna-pani-minister,galeria.html?ticaid=51380e#es=debug###-PAGETYPE=56
- *
- *
- *
- *
- *
- * */
 (function ($) {
     $("body").eliminatorSlajdow({
-        imageBaseUrl: 'http://localhost:9000/assets/javascripts/',
+        imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         debug: false,
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",

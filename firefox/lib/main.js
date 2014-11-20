@@ -27,13 +27,7 @@ tabs.on('ready', function (tab) {
     for (var hostname in prefs) {
         if (tab.url.indexOf(hostname) !== -1 && prefs[hostname] && tab.url.toLowerCase().indexOf("es=off") === -1) {
             var worker = tab.attach({
-                contentScriptFile: [data.url("jquery-2.0.3.js"), data.url("jquery-ui-1.10.3.widget-factory.js"), data.url("eliminator-slajdow.jquery.widget.js"), data.url("contentscript.js")],
-                onMessage: function (message) {
-                    console.log("message sent to TAB listener", message);
-                },
-                onError: function (error) {
-                    console.log(error.fileName + ":" + error.lineNumber + ": " + error);
-                }
+                contentScriptFile: [data.url("jquery-2.0.3.js"), data.url("jquery-ui-1.10.3.widget-factory.js"), data.url("eliminator-slajdow.jquery.widget.js"), data.url("contentscript.js")]
             });
 
             worker.port.emit("es-start", {
@@ -42,7 +36,6 @@ tabs.on('ready', function (tab) {
                 version: self.version + "-firefox"
             });
             // break
-            console.log("ES aktywny na ", hostname)
             return false;
         }
     }

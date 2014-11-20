@@ -1173,30 +1173,33 @@
                 esTheme: "white",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
+                beforeAllCallback: function () {
+                    document.cookie="galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
+                },
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://warszawa.naszemiasto.pl/artykul/zdjecia/muzeum-techniki-warszawa-wystawa-zabytkowych-kamer-i,2380679,artgal,10156975,t,id,tm,zid.html",
                     "http://warszawa.naszemiasto.pl/artykul/zdjecia/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,artgal,9379796,t,id,tm,zid.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "body > section#content article .inner-article #next_gallery_resource",
+                trigger: "#content #contents .content .media.full .media-gallery-title",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
                 pageType: "54",
                 /* nazwa galerii */
-                name: "nowy kwejk sierpien 2014",
+                name: "nowy kwejk listopad 2014",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: ".inner-article-img > :last",
+                articleBodySelector: "div.media.full > div.object div.self",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: ".inner-article-img",
+                sectionToBeAttached: "div.media.full > div.object div.self",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "#next_gallery_resource",
+                navigationNextULRSelector: "#contents > div > div.media.full > div.object > a.nextg",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "#gallery_thumbs, #next_gallery_resource, #under_gallery_thumbs, #prev_gallery_resource, .share-options.clearfix, #gallery_controls",
+                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -1204,7 +1207,9 @@
                 /* Theme */
                 esTheme: "default",
                 /* dowolne style css w postaci mapy */
-                customStyle: {"#go_back_to_main_page": "float:left; width:100%",
+                customStyle: {".btn-goback": "float:left; width:100%",
+                    ".actions": "position:static !important",
+                    ".media-gallery-title": "margin: 30px 0",
                     ".imageContainerEliminatorSlajdow": "margin-top: 15px;"},
                 preIncludeCallback: function () {
                 },
@@ -1589,6 +1594,36 @@
                 regressionUrls: [""]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body#gallery #gallery_container #gallery_pagging .numbers a.next_small",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "67",
+                /* nazwa galerii */
+                name: "komputerswiat.pl listopad 2014",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#gallery_container",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#gallery_container",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".next_small:first",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "#gallery_pagging .numbers",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".numbers",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, #comments, #comment_form, .ft, #social_buttons_box",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "white",
+                /* dowolne style css w postaci mapy */
+                customStyle: {".imageContainerEliminatorSlajdow": "margin-top: 20px"},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://gamezilla.komputerswiat.pl/publicystyka/2014/11/10-lat-temu-w-branzy-listopad-2004-miesiac-legendarnych-premier-i-branzowych-przemian,2"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -1699,17 +1734,20 @@
                 text: 'Eliminator Slajdów'
             }).append($("<i>", {"class": 'icon-facebook-squared'})));
         },
-        _appendNextSlide: function (galleryPage, url) {
+        _appendNextSlide: function (galleryPage, thisSlideURL) {
             var that = this;
             this._hideSpinner();
-            this.currentUrl = url;
+            this.currentUrl = thisSlideURL;
             this.articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
             // ARTICLE BODY CHECK
             if ($(this.articleSection).length > 0) {
 
                 this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
-                if (typeof url === "undefined" || url === this.nextPageURL || $.inArray(url, this.pageOptions.visitedSlideURLs) > -1) {
-                    this._logger("Chyba cos jest zle. URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED:/", url, this.nextPageURL);
+                if (typeof thisSlideURL === "undefined" || thisSlideURL === this.nextPageURL || $.inArray(thisSlideURL, this.pageOptions.visitedSlideURLs) > -1) {
+                    this._logger("ERROR: URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED");
+                    this._logger("ODWIEDZONE URLe", this.pageOptions.visitedSlideURLs);
+                    this._logger("URL do zalaczanego slajdu", thisSlideURL);
+                    this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
                     return;
                 }
 
@@ -1727,7 +1765,7 @@
                     pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
                 }
 
-                var slideHeader = this._buildHeader(pageNumberLabel, pageNumber, url);
+                var slideHeader = this._buildHeader(pageNumberLabel, pageNumber, thisSlideURL);
 
                 $(this.imageContainer).append(slideHeader);
 
@@ -1770,7 +1808,7 @@
                     $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
                 }
 
-                this.pageOptions.visitedSlideURLs.push(url);
+                this.pageOptions.visitedSlideURLs.push(thisSlideURL);
 
                 this.pageOptions.preIncludeCallback.call(this);
 
