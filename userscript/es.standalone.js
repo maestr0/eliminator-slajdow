@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.33 - 2014-11-20 */
+/*! eliminator_slajdow - v3.1.34 - 2014-11-20 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.33-standalone",
+            version: "3.1.34-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10954,7 +10954,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* Theme */
-                esTheme: "dark",
+                esTheme: "white",
                 /* dowolne style css w postaci mapy */
                 customStyle: {".imageContainerEliminatorSlajdow": "margin-top: 20px"},
                 preIncludeCallback: function () {

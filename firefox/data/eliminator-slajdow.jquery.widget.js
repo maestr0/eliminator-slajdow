@@ -5,9 +5,9 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.33/eliminator-slajdow.jquery.widget.js
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.34/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.33
+ *   Wersja: 3.1.34
  * */
 
 (function ($) {
@@ -20,7 +20,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.33-standalone",
+            version: "3.1.34-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -1854,7 +1854,6 @@
                 }
             }, "html").fail(function (a, b, c) {
                 that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                console.log("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
                 that._hideSpinner();
             });
         },
@@ -2000,9 +1999,7 @@
         regression: function () {
             this._debug();
             var setTimeoutFunction = function (urlToOpen, pi) {
-                console.log("url", urlToOpen);
                 var delay = 5 * 1000 * pi;
-                console.log("delay", delay);
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
                 }, delay);
@@ -2024,13 +2021,12 @@
             var topBound = lowerBound + step;
 
             $("#start").click(function () {
-                console.log("Start button");
                 do {
                     $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"));
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
-                    this._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
+                    self._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
                 } while (lowerBound < topBound && lowerBound < allRegressionUrls.length);
                 topBound = topBound + step;
             });
@@ -2056,7 +2052,6 @@
             }
         },
         _logger: function () {
-            console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000

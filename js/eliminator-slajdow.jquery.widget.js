@@ -2030,7 +2030,7 @@
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
-                    this._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
+                    self._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
                 } while (lowerBound < topBound && lowerBound < allRegressionUrls.length);
                 topBound = topBound + step;
             });
