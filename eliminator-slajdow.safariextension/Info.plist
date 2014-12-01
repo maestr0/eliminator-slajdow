@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Paweł Raszewski</string>
 	<key>Builder Version</key>
-	<string>10600.1.25</string>
+	<string>10600.1.25.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>Elliminator Slajdów</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.1.33</string>
+	<string>3.1.34</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>Chrome</key>

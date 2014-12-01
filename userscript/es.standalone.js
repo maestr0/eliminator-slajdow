@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.34 - 2014-11-20 */
+/*! eliminator_slajdow - v3.1.34 - 2014-12-01 */
 
 
 /*!
@@ -9695,24 +9695,56 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
                 sectionToBeRemovedSelector: "#pics_gallery_slider, #royalSliderExtraNavigation, .share-widgets, .demot_info_stats",
-                navigationPageNumberSelector: "#royalSliderExtraNavigation .paginator_data",
+                navigationPageNumberSelector: "",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets, .rsTmb",
-                headerSectionSelector: ".demotivator .demot_pic .rsSlideContent:first h3",
+                headerSectionSelector: "",
                 customStyle: {'rsSlideContent h3': 'display:none', '#main_container article, #main_container .demotivator': 'float:left',
-                    '.rsSlideContent .relative': 'text-align: center'},
+                    '.rsSlideContent .relative': 'text-align: center;margin: 40px;'},
                 hasSlideNumbers: false,
                 pageType: "21",
                 regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
                     "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
-                    this.nextPageURL = document.location.protocol + "//" + document.location.host + document.location.pathname;
+                    var thisPageUrl = document.location.protocol + "//" + document.location.host + document.location.pathname;
                     $(".imageContainerEliminatorSlajdow .rsSlideContent").appendTo($(".imageContainerEliminatorSlajdow"));
                     $(".imageContainerEliminatorSlajdow .el_slide, .imageContainerEliminatorSlajdow .slideHeader").remove();
                     var self = this;
                     $(".imageContainerEliminatorSlajdow .rsSlideContent:first").remove();
                     $(".imageContainerEliminatorSlajdow .rsSlideContent").each(function (index) {
-                        $(this).wrap("<div class='slide_" + index + " es_slide'></div>").parent().before(self._buildHeader('Slajd ' + (index + 2) + ' z ' + $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
+                        $(this).wrap("<div class='slide_" + index + " es_slide'></div>")
+                            .parent().before(self._buildHeader('Slajd ' + (index + 2) + ' z ' +
+                                $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
                     });
+
+                    $(this.pageOptions.sectionToBeEmptySelector).empty();
+                    $(this.pageOptions.sectionToBeRemovedSelector).remove();
+                    this._createImageContainer();
+                    this._bind();
+                    this._showSpinnier();
+
+                    var that = this;
+
+                    $.get(thisPageUrl, function (nextPage) {
+                        this.that = that;
+                        var currentImg = $(".rsSlideContent").find("img").attr("src");
+                        $(nextPage).find(".rsSlideContent").each(function(index){
+                            $(this).find(".rsTmb").remove();
+                            $(this).find(".fakeRsArrow").remove();
+                            $(".fakeRsArrow").remove();
+                            if(currentImg !== $(this).find("img").attr("src")) {
+                                var slideHeader = that._buildHeader("Slajd " + (index + 1), index, that.thisPageUrl + "#obrazek-" + index);
+                                $(".imageContainerEliminatorSlajdow").addClass("pics_gallery_unlogged").append(slideHeader);
+                                $(".imageContainerEliminatorSlajdow").append(this);
+                                that._setCssOverwrite();
+                            }
+                        });
+
+                    }, "html").fail(function (a, b, c) {
+                        that._tracking("ES_error", that.pageOptions.pageType, that.thisPageUrl);
+                        this._logger("ES - Blad pobierania nastepnego slajdu w demotywatorach: ", a, b, c, that.thisPageUrl);
+                        that._hideSpinner();
+                    });
+
                 }
             },
             {   trigger: "body#Fakt .pageContent .leftColumn .paginaHolder .paginator.panigaGalery",
@@ -11010,9 +11042,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             $("body").addClass("eliminatorSlajdow");
             this._theme(this.pageOptions.esTheme);
             this.nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
-            this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
             this.pageOptions.preIncludeCallback.call(this);
             if (this.nextPageURL) {
+                this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
                 this._tracking("ES_start", this.pageOptions.pageType);
                 $(this.pageOptions.sectionToBeEmptySelector).empty();
                 $(this.pageOptions.sectionToBeRemovedSelector).remove();
@@ -11073,7 +11105,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             }).append($("<i>", {"class": 'icon-facebook-squared'})));
         },
         _appendNextSlide: function (galleryPage, thisSlideURL) {
-            var that = this;
             this._hideSpinner();
             this.currentUrl = thisSlideURL;
             this.articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
@@ -11125,22 +11156,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 $(slideWrapper).append(this.articleSection);
 
-                var appendNewStyle = function (elements, newStyle) {
-                    elements.each(function () {
-                        var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
-                        if (current.indexOf(newStyle) === -1) {
-                            $(this).attr("style", current + newStyle);
-                        }
-                    });
-                };
-
-                for (var selector in this.pageOptions.customStyle) {
-                    var elements = $(that.articleSection).find(selector);
-                    if (elements.length === 0) { // try to find the elements in the whole page
-                        elements = $(selector);
-                    }
-                    appendNewStyle(elements, this.pageOptions.customStyle[selector]);
-                }
+                this._setCssOverwrite(this.articleSection);
 
                 for (var i in this.pageOptions.classesToBeRemoved) {
                     $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
@@ -11164,6 +11180,24 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
             } else {
                 this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
+            }
+        },
+        _setCssOverwrite: function(content){
+            var appendNewStyle = function (elements, newStyle) {
+                elements.each(function () {
+                    var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
+                    if (current.indexOf(newStyle) === -1) {
+                        $(this).attr("style", current + newStyle);
+                    }
+                });
+            };
+
+            for (var selector in this.pageOptions.customStyle) {
+                var elements = $(content).find(selector);
+                if (elements.length === 0) { // try to find the elements in the whole page
+                    elements = $(selector);
+                }
+                appendNewStyle(elements, this.pageOptions.customStyle[selector]);
             }
         },
         _getPaywallRedirectUrl: function (nextPage) {
@@ -11368,7 +11402,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
-                    this._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
+                    self._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
                 } while (lowerBound < topBound && lowerBound < allRegressionUrls.length);
                 topBound = topBound + step;
             });
