@@ -96,7 +96,7 @@ localStorage.version = getVersion();
 
 function updateAllowedDomainList() {
     var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to",
-        "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl",
+        "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "demotywatory.pl",
         "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl",
         "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl",
         "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl",
@@ -109,7 +109,7 @@ function updateAllowedDomainList() {
         "mmzielonagora.pl", "foch.pl", "edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
         "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl", "expressilustrowany.pl",
         "gazetakrakowska.pl", "gloswielkopolski.pl", "kurierlubelski.pl",
-        "fakt.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
+        "fakt.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
         "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl",
         "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
         "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "urzadzamy.pl", "snobka.pl",
@@ -117,7 +117,7 @@ function updateAllowedDomainList() {
         "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com", "nocoty.pl", "domiporta.pl",
         "newsweek.pl");
 
-    /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl", "biznes.pl", "demotywatory.pl"
+    /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl", "biznes.pl", "naszemiasto.pl",
      pomponik.pl - odpada z powodu lazy loaded zdjec
 
      FIXME:
