@@ -95,7 +95,7 @@ function getVersion() {
 localStorage.version = getVersion();
 
 function updateAllowedDomainList() {
-    var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to",
+    var supportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to",
         "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "demotywatory.pl",
         "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl",
         "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl",
@@ -124,18 +124,25 @@ function updateAllowedDomainList() {
      http://biznes.pl/wiadomosci/kraj/jan-vincent-rostowski-gosciem-specjalnym-biznespl,5610578,0,foto-detal.html#photo16264113###es=debug###-PAGETYPE=38
      http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-2
      */
-    localStorage.standardAllowedDomains = JSON.stringify(defaultSupportedDomains);
-
+    
     var allowedDomains = {};
     if (typeof localStorage.allowedDomains !== "undefined") {
         allowedDomains = JSON.parse(localStorage.allowedDomains);
     }
 
-    $.each(defaultSupportedDomains, function (index, domain) {
+    $.each(supportedDomains, function (index, domain) {
         if (typeof allowedDomains[domain] === "undefined") {
             allowedDomains[domain] = true;
         }
     });
+
+    // usun nieobslugiwane domeny z listy
+    $.each(allowedDomains, function (domain, index) {
+        if ($.inArray(domain, supportedDomains) < 0) {
+            delete allowedDomains[domain];
+        }
+    });
+        
     localStorage.allowedDomains = JSON.stringify(allowedDomains);
 }
 
