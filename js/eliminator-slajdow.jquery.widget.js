@@ -1714,7 +1714,7 @@
                             $(this).attr("src", $(this).attr("data-original"));
                         });
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://www.mmzielonagora.pl/fotogaleria/zdjecie-dr-misio-z-nowa-plyta-pogo-w-4-rozach-dla-lucienne"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
