@@ -20,12 +20,18 @@ module.exports = function (grunt) {
                     'userscript/eliminator-slajdow.user.js': ['userscript/es.template.user.js',
                         'js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js',
                         'userscript/eliminator-slajdow.jquery.widget.js',
-                        'userscript/es.template.invoker.user.js']
+                        'userscript/es.template.invoker.user.js'],
+
+                    'eliminator-slajdow.safariextension/es.safari.js': ['js/jquery-2.0.3.js',
+                        'js/jquery-ui-1.10.3.widget-factory.js',
+                        'userscript/eliminator-slajdow.jquery.widget.js',
+                        'userscript/es.template.invoker.safari.js']
+
                 }
             },
             safari: {
                 files: {
-                    'eliminator-slajdow.safariextension/es.standalone.js': ['js/jquery-2.0.3.js',
+                    'eliminator-slajdow.safariextension/es.safari.js': ['js/jquery-2.0.3.js',
                         'js/jquery-ui-1.10.3.widget-factory.js',
                         'userscript/eliminator-slajdow.jquery.widget.js',
                         'userscript/es.template.invoker.safari.js']
@@ -81,7 +87,8 @@ module.exports = function (grunt) {
                     {expand: true, flatten: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'userscript/'},
                     {expand: true, flatten: true, src: ['userscript-template/es.template.user.js'], dest: 'userscript/'},
                     {expand: true, flatten: true, src: ['userscript-template/es.template.invoker.user.js'], dest: 'userscript/'},
-                    {expand: true, flatten: true, src: ['eliminator-slajdow.safariextension/es.template.invoker.safari.js'], dest: 'userscript/'}
+                    {expand: true, flatten: true, src: ['eliminator-slajdow.safariextension/es.template.invoker.safari.js'], dest: 'userscript/'},
+                    {expand: true, flatten: true, src: ['safari-template/Info.plist'], dest: 'eliminator-slajdow.safariextension/'}
                 ]
             }
         },
@@ -143,6 +150,7 @@ module.exports = function (grunt) {
         clean: {
             package_dir: ["package/*"],
             us_dir: ["userscript/*"],
+            userscript: ["userscript/*invoker*", "userscript/*template*"],
             us_dir_temp: ["userscript/popup.css"]
         },
         watch: {
@@ -167,6 +175,6 @@ module.exports = function (grunt) {
     grunt.registerTask('release', ['bump-only'], ['package'], ['bump-commit']);
     grunt.registerTask('default', ['jshint', 'concat', 'compass']);
     grunt.registerTask('package', ['clean:package_dir', 'jshint', 'concat:main', 'compass:main', 'replace:main', 'copy:main']);
-    grunt.registerTask('us', ['clean:us_dir', 'jshint', 'replace:us', 'concat:us', 'compass:us', 'clean:us_dir_temp', 'copy:us']);
-    grunt.registerTask('safari', ['clean:us_dir', 'jshint', 'replace:us', 'concat:safari', 'compass:us', 'clean:us_dir_temp', 'copy:us']);
+    grunt.registerTask('us', ['clean:us_dir', 'jshint', 'replace:us', 'concat:us', 'compass:us', 'clean:us_dir_temp', 'copy:us', 'clean:userscript']);
+    grunt.registerTask('safari', ['clean:us_dir', 'jshint', 'replace:us', 'concat:safari', 'compass:us', 'clean:us_dir_temp', 'copy:us', 'clean:userscript']);
 };
