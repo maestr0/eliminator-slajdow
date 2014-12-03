@@ -76,26 +76,26 @@ ES.test();
 
 
 var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to",
-    "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl",
-    "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl",
-    "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl",
-    "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl",
-    "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net",
-    "namonciaku.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl",
-    "bryla.pl", "domiwnetrze.pl", "onet.pl", "gazetalubuska.pl", "dziennikwschodni.pl", "echodnia.eu",
-    "pomorska.pl", "wspolczesna.pl", "gk24.pl", "gp24.pl", "gs24.pl", "poranny.pl", "nowiny24.pl", "nto.pl",
-    "to.com.pl", "mmbydgoszcz.pl", "mmwroclaw.pl", "mmkrakow.pl", "mmlodz.pl", "mmlublin.pl", "mmpoznan.pl",
-    "mmsilesia.pl", "mmszczecin.pl", "mmtrojmiasto.pl", "mmwarszawa.pl", "mmmojemiasto.pl", "mmopole.pl",
-    "mmzielonagora.pl", "foch.pl", "edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
-    "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl", "expressilustrowany.pl",
-    "gazetakrakowska.pl", "gloswielkopolski.pl", "kurierlubelski.pl",
-    "fakt.pl", "demotywatory.pl", "naszemiasto.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
-    "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl",
-    "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
-    "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "biznes.pl", "urzadzamy.pl", "snobka.pl",
-    "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl", "sportfan.pl",
-    "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com", "nocoty.pl", "domiporta.pl",
-    "newsweek.pl");
+                                      "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "demotywatory.pl",
+                                      "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl", "naszemiasto.pl",
+                                      "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl",
+                                      "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl",
+                                      "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net","biznes.pl",
+                                      "namonciaku.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl",
+                                      "bryla.pl", "domiwnetrze.pl", "onet.pl", "gazetalubuska.pl", "dziennikwschodni.pl", "echodnia.eu",
+                                      "pomorska.pl", "wspolczesna.pl", "gk24.pl", "gp24.pl", "gs24.pl", "poranny.pl", "nowiny24.pl", "nto.pl",
+                                      "to.com.pl", "mmbydgoszcz.pl", "mmwroclaw.pl", "mmkrakow.pl", "mmlodz.pl", "mmlublin.pl", "mmpoznan.pl",
+                                      "mmsilesia.pl", "mmszczecin.pl", "mmtrojmiasto.pl", "mmwarszawa.pl", "mmmojemiasto.pl", "mmopole.pl",
+                                      "mmzielonagora.pl", "foch.pl", "edulandia.pl", "wp.pl", "kwejk.pl", "gazetawroclawska.pl", "polskatimes.pl",
+                                      "dziennikbaltycki.pl", "dzienniklodzki.pl", "dziennikpolski24.pl", "dziennikzachodni.pl", "expressilustrowany.pl",
+                                      "gazetakrakowska.pl", "gloswielkopolski.pl", "kurierlubelski.pl",
+                                      "fakt.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
+                                      "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl",
+                                      "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
+                                      "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "urzadzamy.pl", "snobka.pl",
+                                      "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl", "sportfan.pl",
+                                      "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com", "nocoty.pl", "domiporta.pl",
+                                      "newsweek.pl");
 
 var ffCfg = new Array();
 
@@ -118,7 +118,14 @@ for (var url in ffCfg) {
 
 JSON.stringify(ffCfg);
 
-
+var out = [];
+for (var url in defaultSupportedDomains) {
+    if(defaultSupportedDomains[url].indexOf("www.")> -1)
+        out.push("// @include    http://" + defaultSupportedDomains[url] + "/*" )
+    else
+        out.push("// @include http://*." + defaultSupportedDomains[url] + "/*" )
+}
+console.log(out.join('\n'));
 
 for (var url in defaultSupportedDomains) {
     if(defaultSupportedDomains[url].indexOf("www.")> -1)
@@ -127,109 +134,4 @@ for (var url in defaultSupportedDomains) {
         console.log("<string>*." + defaultSupportedDomains[url] + "</string>" )
 }
 
-alert24.pl 
-auto-swiat.pl 
-autotrader.pl 
-avanti24.pl 
-bebzol.com 
-biznes.pl 
-biztok.pl 
-bryla.gazetadom.pl 
-bryla.pl 
-ciacha.net 
-czterykaty.pl 
-demotywatory.pl 
-deser.pl 
-domiwnetrze.pl 
-domosfera.pl 
-dziennik.pl 
-dziennikbaltycki.pl 
-dzienniklodzki.pl 
-dziennikpolski24.pl 
-dziennikwschodni.pl 
-dziennikzachodni.pl 
-e-ogrody.pl 
-echodnia.eu 
-edulandia.pl 
-edziecko.pl 
-expressilustrowany.pl 
-fakt.pl 
-fly4free.pl 
-foch.pl 
-forbes.pl 
-forsal.pl 
-gadzetomania.pl 
-gazeta.pl 
-gazetadom.pl 
-gazetakrakowska.pl 
-gazetalubuska.pl 
-gazetapraca.pl 
-gazetawroclawska.pl 
-geekweek.pl 
-gk24.pl 
-gloswielkopolski.pl 
-gp24.pl 
-groszki.pl 
-gs24.pl 
-jegostrona.pl 
-komputerswiat.pl 
-kotek.pl 
-kurierlubelski.pl 
-kwejk.pl 
-ladnydom.pl 
-logo24.pl 
-lovekrakow.pl 
-lula.pl 
-magazyn-kuchnia.pl 
-metropraca.pl 
-mmbydgoszcz.pl 
-mmkrakow.pl 
-mmlodz.pl 
-mmlublin.pl 
-mmmojemiasto.pl 
-mmopole.pl 
-mmpoznan.pl 
-mmsilesia.pl 
-mmszczecin.pl 
-mmtrojmiasto.pl 
-mmwarszawa.pl 
-mmwroclaw.pl 
-mmzielonagora.pl 
-moto.pl 
-motokiller.pl 
-namonciaku.pl 
-naszemiasto.pl 
-nowiny24.pl 
-nto.pl 
-onet.pl 
-plotek.pl 
-polskatimes.pl 
-polygamia.pl 
-pomorska.pl 
-popcorner.pl 
-poranny.pl 
-pracawbiurze.pl 
-przegladsportowy.pl 
-pudelekx.pl 
-regiomoto.pl 
-sfora.pl 
-snobka.pl 
-sport.pl 
-sportfan.pl 
-sportowefakty.pl 
-swiatmotocykli.pl 
-to.com.pl 
-tokfm.pl 
-trojmiasto.pl 
-tuba.pl 
-ugotuj.to 
-urzadzamy.pl 
-wawalove.pl 
-wp.pl 
-wprzerwie.pl 
-wspolczesna.pl 
-www.se.pl 
-wyborcza.biz 
-wyborcza.pl 
-wysokieobcasy.pl 
-zczuba.pl
+
