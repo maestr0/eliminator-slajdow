@@ -1330,7 +1330,7 @@
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".paginfixed, .stripeList",
+                sectionToBeRemovedSelector: ".paginfixed, .stripeList, .gallery-mini-holder",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .moregallery",
                 /* $.empty() na elemencie*/
@@ -1714,7 +1714,7 @@
                             $(this).attr("src", $(this).attr("data-original"));
                         });
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://www.mmzielonagora.pl/fotogaleria/zdjecie-dr-misio-z-nowa-plyta-pogo-w-4-rozach-dla-lucienne"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",

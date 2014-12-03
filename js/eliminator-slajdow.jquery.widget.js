@@ -83,7 +83,7 @@
                     "http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html",
                     "http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17",
                     "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html",
-                    "http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
+                    "http://wyborcza.pl/duzy_kadr/5,97904,17068921,Ukraina__Syria__Chiny____Fotoreporterzy_Reutera_dokumentuja.html"],
                 sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 pageType: "2",
                 customStyle: {".path_duzy_kadr #col_left": "width:auto",
@@ -1330,7 +1330,7 @@
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".paginfixed, .stripeList",
+                sectionToBeRemovedSelector: ".paginfixed, .stripeList, .gallery-mini-holder",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .moregallery",
                 /* $.empty() na elemencie*/
