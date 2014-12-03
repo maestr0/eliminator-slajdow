@@ -120,10 +120,8 @@ JSON.stringify(ffCfg);
 
 var out = [];
 for (var url in defaultSupportedDomains) {
-    if(defaultSupportedDomains[url].indexOf("www.")> -1)
-        out.push("// @include    http://" + defaultSupportedDomains[url] + "/*" )
-    else
-        out.push("// @include http://*." + defaultSupportedDomains[url] + "/*" )
+    out.push("// @include       http://" + defaultSupportedDomains[url] + "/*" )
+    out.push("// @include       http://*." + defaultSupportedDomains[url] + "/*" )
 }
 console.log(out.join('\n'));
 
