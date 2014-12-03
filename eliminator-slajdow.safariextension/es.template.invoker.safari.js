@@ -1,7 +1,8 @@
 (function ($) {
     $("body").eliminatorSlajdow({
-        imageBaseUrl: 'https://db.tt/qXVKxJQa',
+        imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         debug: false,
+        version: "@@version-safari",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"

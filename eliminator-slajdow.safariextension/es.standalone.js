@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.34 - 2014-11-20 */
+/*! eliminator_slajdow - v3.1.36 - 2014-12-03 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.34-standalone",
+            version: "3.1.36",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -9421,7 +9421,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     "http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html",
                     "http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17",
                     "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html",
-                    "http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
+                    "http://wyborcza.pl/duzy_kadr/5,97904,17068921,Ukraina__Syria__Chiny____Fotoreporterzy_Reutera_dokumentuja.html"],
                 sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 pageType: "2",
                 customStyle: {".path_duzy_kadr #col_left": "width:auto",
@@ -9695,24 +9695,55 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
                 sectionToBeRemovedSelector: "#pics_gallery_slider, #royalSliderExtraNavigation, .share-widgets, .demot_info_stats",
-                navigationPageNumberSelector: "#royalSliderExtraNavigation .paginator_data",
+                navigationPageNumberSelector: "",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets, .rsTmb",
-                headerSectionSelector: ".demotivator .demot_pic .rsSlideContent:first h3",
+                headerSectionSelector: "",
                 customStyle: {'rsSlideContent h3': 'display:none', '#main_container article, #main_container .demotivator': 'float:left',
-                    '.rsSlideContent .relative': 'text-align: center'},
+                    '.rsSlideContent .relative': 'text-align: center;margin: 40px;'},
                 hasSlideNumbers: false,
                 pageType: "21",
                 regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
                     "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
-                    this.nextPageURL = document.location.protocol + "//" + document.location.host + document.location.pathname;
+                    var thisPageUrl = document.location.protocol + "//" + document.location.host + document.location.pathname;
                     $(".imageContainerEliminatorSlajdow .rsSlideContent").appendTo($(".imageContainerEliminatorSlajdow"));
                     $(".imageContainerEliminatorSlajdow .el_slide, .imageContainerEliminatorSlajdow .slideHeader").remove();
                     var self = this;
                     $(".imageContainerEliminatorSlajdow .rsSlideContent:first").remove();
                     $(".imageContainerEliminatorSlajdow .rsSlideContent").each(function (index) {
-                        $(this).wrap("<div class='slide_" + index + " es_slide'></div>").parent().before(self._buildHeader('Slajd ' + (index + 2) + ' z ' + $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
+                        $(this).wrap("<div class='slide_" + index + " es_slide'></div>")
+                            .parent().before(self._buildHeader('Slajd ' + (index + 2) + ' z ' +
+                                $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
                     });
+
+                    $(this.pageOptions.sectionToBeEmptySelector).empty();
+                    $(this.pageOptions.sectionToBeRemovedSelector).remove();
+                    this._createImageContainer();
+                    this._bind();
+
+                    var that = this;
+
+                    $.get(thisPageUrl, function (nextPage) {
+                        this.that = that;
+                        var currentImg = $(".rsSlideContent").find("img").attr("src");
+                        $(nextPage).find(".rsSlideContent").each(function(index){
+                            $(this).find(".rsTmb").remove();
+                            $(this).find(".fakeRsArrow").remove();
+                            $(".fakeRsArrow").remove();
+                            if(currentImg !== $(this).find("img").attr("src")) {
+                                var slideHeader = that._buildHeader("Slajd " + (index + 1), index, that.thisPageUrl + "#obrazek-" + index);
+                                $(".imageContainerEliminatorSlajdow").addClass("pics_gallery_unlogged").append(slideHeader);
+                                $(".imageContainerEliminatorSlajdow").append(this);
+                                that._setCssOverwrite();
+                            }
+                        });
+
+                    }, "html").fail(function (a, b, c) {
+                        that._tracking("ES_error", that.pageOptions.pageType, that.thisPageUrl);
+                        this._logger("ES - Blad pobierania nastepnego slajdu w demotywatorach: ", a, b, c, that.thisPageUrl);
+                        that._hideSpinner();
+                    });
+
                 }
             },
             {   trigger: "body#Fakt .pageContent .leftColumn .paginaHolder .paginator.panigaGalery",
@@ -10497,10 +10528,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: "#galeria-warstwa",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "#material-galeria-nastepne",
+                navigationNextULRSelector: "link[rel=next]",
                 /* false gdy nie ma skad wziac numeracji */
-                hasSlideNumbers: true,
-                navigationPageNumberSelector: ".galPrawaKol .tytulMaly span:first",
+                navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
                 sectionToBeRemovedSelector: ".galeriaNaw",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
@@ -10638,7 +10668,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".paginfixed, .stripeList",
+                sectionToBeRemovedSelector: ".paginfixed, .stripeList, .gallery-mini-holder",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .moregallery",
                 /* $.empty() na elemencie*/
@@ -10962,6 +10992,69 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://gamezilla.komputerswiat.pl/publicystyka/2014/11/10-lat-temu-w-branzy-listopad-2004-miesiac-legendarnych-premier-i-branzowych-przemian,2"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body#boks-galeria .kontener #glowna-kolumna section a.nastepne",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "68",
+                /* nazwa galerii */
+                name: "gazetawroclawska.pl grudzien 2014",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#glowna-kolumna",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#glowna-kolumna",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#glowna-kolumna section a.nastepne",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "header p.info span:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "a.nastepne, a.poprzednie, header p.info span:first",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {"header p.info": "position:fixed; right:0", "header p.info a.zamknij": "padding:20px;"},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.gazetawroclawska.pl/artykul/zdjecia/3662884,wroclaw-spielberg-skonczyl-krecic-zburzyli-stacje-metra-i-robia-parking-zdjecia,4542008,id,t,zid.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#page #main  #content-region div.content-wrapper div.photo a.nav-photo.nav-right",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "69",
+                /* nazwa galerii */
+                name: "MojeMiasto grudzien 2014",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".node-photogallery-photo div.photo:first",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".node-photogallery-photo div.photo:first",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#photo a.right",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "#photo",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".nav-left, .nav-right, .images, .photo-index",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                        $(".photo img").each(function(){
+                            $(this).attr("src", $(this).attr("data-original"));
+                        });
+                },
+                regressionUrls: ["http://www.mmzielonagora.pl/fotogaleria/zdjecie-dr-misio-z-nowa-plyta-pogo-w-4-rozach-dla-lucienne"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11010,9 +11103,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             $("body").addClass("eliminatorSlajdow");
             this._theme(this.pageOptions.esTheme);
             this.nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
-            this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
             this.pageOptions.preIncludeCallback.call(this);
             if (this.nextPageURL) {
+                this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
                 this._tracking("ES_start", this.pageOptions.pageType);
                 $(this.pageOptions.sectionToBeEmptySelector).empty();
                 $(this.pageOptions.sectionToBeRemovedSelector).remove();
@@ -11081,6 +11174,15 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             if ($(this.articleSection).length > 0) {
 
                 this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
+
+                if(typeof this.nextPageURL === "undefined") {
+                    $.each($(galleryPage), function(){
+                        if($(this).is(that.pageOptions.navigationNextULRSelector)) {
+                            that.nextPageURL = $(this).attr("href");
+                        }
+                    });
+                }
+
                 if (typeof thisSlideURL === "undefined" || thisSlideURL === this.nextPageURL || $.inArray(thisSlideURL, this.pageOptions.visitedSlideURLs) > -1) {
                     this._logger("ERROR: URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED");
                     this._logger("ODWIEDZONE URLe", this.pageOptions.visitedSlideURLs);
@@ -11125,22 +11227,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 $(slideWrapper).append(this.articleSection);
 
-                var appendNewStyle = function (elements, newStyle) {
-                    elements.each(function () {
-                        var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
-                        if (current.indexOf(newStyle) === -1) {
-                            $(this).attr("style", current + newStyle);
-                        }
-                    });
-                };
-
-                for (var selector in this.pageOptions.customStyle) {
-                    var elements = $(that.articleSection).find(selector);
-                    if (elements.length === 0) { // try to find the elements in the whole page
-                        elements = $(selector);
-                    }
-                    appendNewStyle(elements, this.pageOptions.customStyle[selector]);
-                }
+                this._setCssOverwrite(this.articleSection);
 
                 for (var i in this.pageOptions.classesToBeRemoved) {
                     $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
@@ -11164,6 +11251,24 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
             } else {
                 this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
+            }
+        },
+        _setCssOverwrite: function(content){
+            var appendNewStyle = function (elements, newStyle) {
+                elements.each(function () {
+                    var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
+                    if (current.indexOf(newStyle) === -1) {
+                        $(this).attr("style", current + newStyle);
+                    }
+                });
+            };
+
+            for (var selector in this.pageOptions.customStyle) {
+                var elements = $(content).find(selector);
+                if (elements.length === 0) { // try to find the elements in the whole page
+                    elements = $(selector);
+                }
+                appendNewStyle(elements, this.pageOptions.customStyle[selector]);
             }
         },
         _getPaywallRedirectUrl: function (nextPage) {
@@ -11192,7 +11297,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 }
             }, "html").fail(function (a, b, c) {
                 that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                console.log("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
+                that._logger("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
                 that._hideSpinner();
             });
         },
@@ -11338,9 +11443,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         regression: function () {
             this._debug();
             var setTimeoutFunction = function (urlToOpen, pi) {
-                console.log("url", urlToOpen);
                 var delay = 5 * 1000 * pi;
-                console.log("delay", delay);
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
                 }, delay);
@@ -11362,7 +11465,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             var topBound = lowerBound + step;
 
             $("#start").click(function () {
-                console.log("Start button");
                 do {
                     $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"));
                     var urlToOpen = allRegressionUrls[lowerBound];
@@ -11405,8 +11507,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 })(jQuery);
 (function ($) {
     $("body").eliminatorSlajdow({
-        imageBaseUrl: 'https://db.tt/qXVKxJQa',
+        imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         debug: false,
+        version: "3.1.36-safari",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"
