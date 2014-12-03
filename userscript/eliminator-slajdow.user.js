@@ -11601,7 +11601,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 })(jQuery);
 (function ($) {
     $("body").eliminatorSlajdow({
-        imageBaseUrl: 'https://db.tt/qXVKxJQa',
+        imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
+        cssPath: 'https://db.tt/Uz2u90pB',
         debug: false,
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
