@@ -113,7 +113,7 @@
   }
 
   [class^="icon-"], [class*=" icon-"] {
-    font-family: 'es-icons';
+    font-family: 'es-icons' !important;
     speak: none;
     font-style: normal;
     font-weight: normal;

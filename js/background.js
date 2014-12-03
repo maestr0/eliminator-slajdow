@@ -97,10 +97,10 @@ localStorage.version = getVersion();
 function updateAllowedDomainList() {
     var supportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki.pl", "ugotuj.to",
         "gazeta.pl", "tokfm.pl", "gazetapraca.pl", "moto.pl", "plotek.pl", "deser.pl", "demotywatory.pl",
-        "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl",
+        "sport.pl", "wyborcza.pl", "gazetadom.pl", "logo24.pl", "wyborcza.biz", "lula.pl", "naszemiasto.pl",
         "tuba.pl", "edziecko.pl", "czterykaty.pl", "alert24.pl", "kotek.pl", "polygamia.pl",
         "popcorner.pl", "wysokieobcasy.pl", "e-ogrody.pl", "ladnydom.pl", "bryla.gazetadom.pl",
-        "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net",
+        "metropraca.pl", "pracawbiurze.pl", "zczuba.pl", "ciacha.net","biznes.pl",
         "namonciaku.pl", "magazyn-kuchnia.pl", "swiatmotocykli.pl", "domosfera.pl",
         "bryla.pl", "domiwnetrze.pl", "onet.pl", "gazetalubuska.pl", "dziennikwschodni.pl", "echodnia.eu",
         "pomorska.pl", "wspolczesna.pl", "gk24.pl", "gp24.pl", "gs24.pl", "poranny.pl", "nowiny24.pl", "nto.pl",
@@ -117,12 +117,8 @@ function updateAllowedDomainList() {
         "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com", "nocoty.pl", "domiporta.pl",
         "newsweek.pl");
 
-    /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl", "biznes.pl", "naszemiasto.pl",
+    /* TODO:  , "interia.pl", "tuwroclaw.com", "topgear.com.pl",
      pomponik.pl - odpada z powodu lazy loaded zdjec
-
-     FIXME:
-     http://biznes.pl/wiadomosci/kraj/jan-vincent-rostowski-gosciem-specjalnym-biznespl,5610578,0,foto-detal.html#photo16264113###es=debug###-PAGETYPE=38
-     http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-2
      */
     
     var allowedDomains = {};

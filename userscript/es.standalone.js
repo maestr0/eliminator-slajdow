@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.34 - 2014-12-01 */
+/*! eliminator_slajdow - v3.1.35 - 2014-12-03 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.34-standalone",
+            version: "3.1.35-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -9720,7 +9720,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     $(this.pageOptions.sectionToBeRemovedSelector).remove();
                     this._createImageContainer();
                     this._bind();
-                    this._showSpinnier();
 
                     var that = this;
 
@@ -10529,10 +10528,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: "#galeria-warstwa",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "#material-galeria-nastepne",
+                navigationNextULRSelector: "link[rel=next]",
                 /* false gdy nie ma skad wziac numeracji */
-                hasSlideNumbers: true,
-                navigationPageNumberSelector: ".galPrawaKol .tytulMaly span:first",
+                navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
                 sectionToBeRemovedSelector: ".galeriaNaw",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
@@ -10994,6 +10992,69 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://gamezilla.komputerswiat.pl/publicystyka/2014/11/10-lat-temu-w-branzy-listopad-2004-miesiac-legendarnych-premier-i-branzowych-przemian,2"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body#boks-galeria .kontener #glowna-kolumna section a.nastepne",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "68",
+                /* nazwa galerii */
+                name: "gazetawroclawska.pl grudzien 2014",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#glowna-kolumna",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#glowna-kolumna",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#glowna-kolumna section a.nastepne",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "header p.info span:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "a.nastepne, a.poprzednie, header p.info span:first",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {"header p.info": "position:fixed; right:0", "header p.info a.zamknij": "padding:20px;"},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.gazetawroclawska.pl/artykul/zdjecia/3662884,wroclaw-spielberg-skonczyl-krecic-zburzyli-stacje-metra-i-robia-parking-zdjecia,4542008,id,t,zid.html"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#page #main  #content-region div.content-wrapper div.photo a.nav-photo.nav-right",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "69",
+                /* nazwa galerii */
+                name: "MojeMiasto grudzien 2014",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".node-photogallery-photo div.photo:first",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".node-photogallery-photo div.photo:first",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#photo a.right",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "#photo",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".nav-left, .nav-right, .images, .photo-index",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                        $(".photo img").each(function(){
+                            $(this).attr("src", $(this).attr("data-original"));
+                        });
+                },
+                regressionUrls: [""]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11105,6 +11166,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             }).append($("<i>", {"class": 'icon-facebook-squared'})));
         },
         _appendNextSlide: function (galleryPage, thisSlideURL) {
+            var that = this;
             this._hideSpinner();
             this.currentUrl = thisSlideURL;
             this.articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
@@ -11112,6 +11174,15 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             if ($(this.articleSection).length > 0) {
 
                 this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
+
+                if(typeof this.nextPageURL === "undefined") {
+                    $.each($(galleryPage), function(){
+                        if($(this).is(that.pageOptions.navigationNextULRSelector)) {
+                            that.nextPageURL = $(this).attr("href");
+                        }
+                    });
+                }
+
                 if (typeof thisSlideURL === "undefined" || thisSlideURL === this.nextPageURL || $.inArray(thisSlideURL, this.pageOptions.visitedSlideURLs) > -1) {
                     this._logger("ERROR: URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED");
                     this._logger("ODWIEDZONE URLe", this.pageOptions.visitedSlideURLs);
