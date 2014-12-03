@@ -1959,7 +1959,7 @@
                 }
             }, "html").fail(function (a, b, c) {
                 that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                console.log("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
+                that._logger("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
                 that._hideSpinner();
             });
         },
@@ -2105,9 +2105,7 @@
         regression: function () {
             this._debug();
             var setTimeoutFunction = function (urlToOpen, pi) {
-                console.log("url", urlToOpen);
                 var delay = 5 * 1000 * pi;
-                console.log("delay", delay);
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
                 }, delay);
@@ -2129,7 +2127,6 @@
             var topBound = lowerBound + step;
 
             $("#start").click(function () {
-                console.log("Start button");
                 do {
                     $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"));
                     var urlToOpen = allRegressionUrls[lowerBound];

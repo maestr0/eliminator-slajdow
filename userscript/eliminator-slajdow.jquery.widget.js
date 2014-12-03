@@ -5,9 +5,9 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.35/eliminator-slajdow.jquery.widget.js
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.36/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.35
+ *   Wersja: 3.1.36
  * */
 
 (function ($) {
@@ -20,7 +20,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.35-standalone",
+            version: "3.1.36-standalone",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -83,7 +83,7 @@
                     "http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html",
                     "http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17",
                     "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html",
-                    "http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
+                    "http://wyborcza.pl/duzy_kadr/5,97904,17068921,Ukraina__Syria__Chiny____Fotoreporterzy_Reutera_dokumentuja.html"],
                 sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 pageType: "2",
                 customStyle: {".path_duzy_kadr #col_left": "width:auto",
@@ -1330,7 +1330,7 @@
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".paginfixed, .stripeList",
+                sectionToBeRemovedSelector: ".paginfixed, .stripeList, .gallery-mini-holder",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .moregallery",
                 /* $.empty() na elemencie*/
@@ -1714,7 +1714,7 @@
                             $(this).attr("src", $(this).attr("data-original"));
                         });
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://www.mmzielonagora.pl/fotogaleria/zdjecie-dr-misio-z-nowa-plyta-pogo-w-4-rozach-dla-lucienne"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
@@ -1959,7 +1959,7 @@
                 }
             }, "html").fail(function (a, b, c) {
                 that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                console.log("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
+                that._logger("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
                 that._hideSpinner();
             });
         },
@@ -2105,9 +2105,7 @@
         regression: function () {
             this._debug();
             var setTimeoutFunction = function (urlToOpen, pi) {
-                console.log("url", urlToOpen);
                 var delay = 5 * 1000 * pi;
-                console.log("delay", delay);
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
                 }, delay);
@@ -2129,7 +2127,6 @@
             var topBound = lowerBound + step;
 
             $("#start").click(function () {
-                console.log("Start button");
                 do {
                     $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"));
                     var urlToOpen = allRegressionUrls[lowerBound];

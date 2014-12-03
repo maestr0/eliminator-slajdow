@@ -83,7 +83,7 @@
                     "http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html",
                     "http://wiadomosci.gazeta.pl/wiadomosci/5,114944,14025881,Turcja__Tysiace_ludzi_na_ulicach__starcia_z_policja.html?i=17",
                     "http://lublin.gazeta.pl/lublin/56,35640,13282657,I_plug_nie_dawal_rady,,2.html",
-                    "http://wyborcza.pl/duzy_kadr/56,97904,12530404,Najlepsze_zdjecia_tygodnia.html"],
+                    "http://wyborcza.pl/duzy_kadr/5,97904,17068921,Ukraina__Syria__Chiny____Fotoreporterzy_Reutera_dokumentuja.html"],
                 sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 pageType: "2",
                 customStyle: {".path_duzy_kadr #col_left": "width:auto",
@@ -1959,7 +1959,7 @@
                 }
             }, "html").fail(function (a, b, c) {
                 that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                console.log("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
+                that._logger("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
                 that._hideSpinner();
             });
         },
@@ -2105,9 +2105,7 @@
         regression: function () {
             this._debug();
             var setTimeoutFunction = function (urlToOpen, pi) {
-                console.log("url", urlToOpen);
                 var delay = 5 * 1000 * pi;
-                console.log("delay", delay);
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
                 }, delay);
@@ -2129,7 +2127,6 @@
             var topBound = lowerBound + step;
 
             $("#start").click(function () {
-                console.log("Start button");
                 do {
                     $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"));
                     var urlToOpen = allRegressionUrls[lowerBound];
@@ -2161,7 +2158,6 @@
             }
         },
         _logger: function () {
-            console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000

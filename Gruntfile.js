@@ -17,7 +17,8 @@ module.exports = function (grunt) {
             },
             us: {
                 files: {
-                    'userscript/es.standalone.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js', 'userscript/eliminator-slajdow.jquery.widget.js', 'eliminator-slajdow.safariextension/es.invoker.js']
+                    'userscript/es.standalone.js': ['js/jquery-2.0.3.js', 'js/jquery-ui-1.10.3.widget-factory.js', 'userscript/eliminator-slajdow.jquery.widget.js', 'eliminator-slajdow.safariextension/es.invoker.js'],
+                    'userscript/eliminator-slajdow.user.js': ['userscript-template/es.template.user.js', 'userscript/es.standalone.js']
                 }
             },
             prod: {
