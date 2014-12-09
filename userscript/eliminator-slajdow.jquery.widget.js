@@ -1193,9 +1193,9 @@
                 navigationNextULRSelector: "link[rel=next]",
                 /* false gdy nie ma skad wziac numeracji */
                 navigationPageNumberSelector: "",
-                /* elementy do usuniecia z calej strony */
+                /* elementy do usuniecia z calej strony*/
                 sectionToBeRemovedSelector: ".galeriaNaw",
-                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow */
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
@@ -1229,7 +1229,7 @@
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg",
+                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg, .content .media.ad",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/

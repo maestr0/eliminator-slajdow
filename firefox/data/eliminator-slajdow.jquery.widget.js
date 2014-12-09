@@ -5,9 +5,9 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.36/eliminator-slajdow.jquery.widget.js
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.37/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.36
+ *   Wersja: 3.1.37
  * */
 
 (function ($) {
@@ -20,7 +20,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.36-standalone",
+            version: "3.1.37",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -1193,9 +1193,9 @@
                 navigationNextULRSelector: "link[rel=next]",
                 /* false gdy nie ma skad wziac numeracji */
                 navigationPageNumberSelector: "",
-                /* elementy do usuniecia z calej strony */
+                /* elementy do usuniecia z calej strony*/
                 sectionToBeRemovedSelector: ".galeriaNaw",
-                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow */
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
@@ -1229,7 +1229,7 @@
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg",
+                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg, .content .media.ad",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -2158,6 +2158,7 @@
             }
         },
         _logger: function () {
+            console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000

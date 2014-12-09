@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.37 - 2014-12-03 */
+/*! eliminator_slajdow - v3.1.37 - 2014-12-09 */
 
 
 // ==UserScript==
@@ -10763,9 +10763,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 navigationNextULRSelector: "link[rel=next]",
                 /* false gdy nie ma skad wziac numeracji */
                 navigationPageNumberSelector: "",
-                /* elementy do usuniecia z calej strony */
+                /* elementy do usuniecia z calej strony*/
                 sectionToBeRemovedSelector: ".galeriaNaw",
-                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow */
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
@@ -10799,7 +10799,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg",
+                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg, .content .media",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
