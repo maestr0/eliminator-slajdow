@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.37 - 2014-12-09 */
+/*! eliminator_slajdow - v3.1.38 - 2014-12-10 */
 
 
 // ==UserScript==
@@ -7,7 +7,7 @@
 // @name                        Eliminator Slajdow
 // @namespace                   Eliminator Slajdow
 // @description                 Eliminuje slajdy na stronach Agory
-// @version                     3.1.37
+// @version                     3.1.38
 // @icon                        http://eliminator-slajdow.herokuapp.com/assets/images/es_logo.svg
 // @updateURL                   https://raw.githubusercontent.com/maestr0/eliminator-slajdow-chrome/master/userscript/eliminator-slajdow.user.js
 
@@ -9590,7 +9590,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.37",
+            version: "3.1.38",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10799,7 +10799,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg, .content .media",
+                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg, .content .media.ad",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -11742,7 +11742,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         cssPath: 'https://db.tt/Uz2u90pB',
         debug: false,
-        version: "3.1.37-userscript",
+        version: "3.1.38-userscript",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"

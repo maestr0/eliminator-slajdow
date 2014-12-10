@@ -33,8 +33,8 @@
         {
             "type": "bool",
             "name": "biznes.pl",
-            "value": false,
-            "title": "www.biznes.pl - tymczasowo nie działa :("
+            "value": true,
+            "title": "www.biznes.pl"
         },
         {
             "type": "bool",
@@ -69,8 +69,8 @@
         {
             "type": "bool",
             "name": "demotywatory.pl",
-            "value": false,
-            "title": "www.demotywatory.pl - tymczasowo nie działa :("
+            "value": true,
+            "title": "www.demotywatory.pl"
         },
         {
             "type": "bool",
@@ -661,7 +661,7 @@
     "description": "Dodatek eliminuje slajdy w artykułach na portalach grup Agora, Onet, MojeMiasto i MediaRegionalne",
     "name": "eliminator-slajdow",
     "dependencies": ["api-utils", "addon-kit"],
-    "version": "3.1.37",
+    "version": "3.1.38",
     "lib": "lib",
     "fullName": "Eliminator Slajdów",
     "main": "main",

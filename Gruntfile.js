@@ -85,6 +85,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     {expand: true, flatten: true, src: ['js/eliminator-slajdow.jquery.widget.js'], dest: 'userscript/'},
+                    {expand: true, flatten: true, src: ['firefox/templates/package.json'], dest: 'firefox/'},
                     {expand: true, flatten: true, src: ['userscript-template/es.template.user.js'], dest: 'userscript/'},
                     {expand: true, flatten: true, src: ['userscript-template/es.template.invoker.user.js'], dest: 'userscript/'},
                     {expand: true, flatten: true, src: ['eliminator-slajdow.safariextension/es.template.invoker.safari.js'], dest: 'userscript/'},
