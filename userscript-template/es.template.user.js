@@ -5,6 +5,7 @@
 // @namespace                   Eliminator Slajdow
 // @description                 Eliminuje slajdy na stronach Agory
 // @version                     @@version
+// @grant                       none
 // @icon                        http://eliminator-slajdow.herokuapp.com/assets/images/es_logo.svg
 // @updateURL                   https://raw.githubusercontent.com/maestr0/eliminator-slajdow-chrome/master/userscript/eliminator-slajdow.user.js
 
