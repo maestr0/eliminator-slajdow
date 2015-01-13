@@ -112,7 +112,7 @@ function updateAllowedDomainList() {
         "fakt.pl", "wawalove.pl", "www.se.pl", "sfora.pl", "biztok.pl",
         "komputerswiat.pl", "dziennik.pl", "jegostrona.pl", "forsal.pl", "wprzerwie.pl", "przegladsportowy.pl",
         "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
-        "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "urzadzamy.pl", "snobka.pl",
+        "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "urzadzamy.pl", "snobka.pl", "pudelek.pl",
         "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl", "sportfan.pl",
         "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com", "nocoty.pl", "domiporta.pl",
         "newsweek.pl");

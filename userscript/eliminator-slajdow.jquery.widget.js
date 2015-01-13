@@ -154,7 +154,7 @@
                     "http://wiadomosci.onet.pl/swiat/berlin-podzielony-murem-tak-wygladal-w-okresie-zimnej-wojny/64dph"],
                 articleBodySelector: "#multiGallery #multiGalleryContent #galleryText",
                 sectionToBeEmptySelector: "*[id='mediaList'], script, .onet-ad, .navBox .navBoxContainer, .imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd",
-                sectionToBeRemovedSelector: ".imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd, #multiGalleryContent .navBox",
+                sectionToBeRemovedSelector: ".imageContainerEliminatorSlajdow .navBoxClose, .ad_adInfo, .ad_adInfoEnd, #multiGalleryContent .navBox, .formTools",
                 navigationNextULRSelector: ".navBox .navBoxContainer a.nextFixed",
                 navigationPageNumberSelector: "",
                 sectionToBeAttached: "#multiGalleryContent #galleryText", // sekcja komentarza i obrazek
@@ -1212,24 +1212,24 @@
                     "http://warszawa.naszemiasto.pl/artykul/zdjecia/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,artgal,9379796,t,id,tm,zid.html"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "#content #contents .content .media.full .media-gallery-title",
+                trigger: "#content #contents .content .media.full .jcarousel-wrapper",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
                 pageType: "54",
                 /* nazwa galerii */
-                name: "nowy kwejk listopad 2014",
+                name: "nowy kwejk styczen 2015",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: "div.media.full > div.object div.self",
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: "div.media.full > div.object div.self",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "#contents > div > div.media.full > div.object > a.nextg",
+                navigationNextULRSelector: "#contents div.media.full div.object a.next",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.nextg, .content .media.ad",
+                sectionToBeRemovedSelector: ".jcarousel-wrapper, a.next, a.prev, .content .media.ad",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -1239,6 +1239,7 @@
                 /* dowolne style css w postaci mapy */
                 customStyle: {".btn-goback": "float:left; width:100%",
                     ".actions": "position:static !important",
+                    ".media.full > div.object": "margin-top: 50px !important",
                     ".media-gallery-title": "margin: 30px 0",
                     ".imageContainerEliminatorSlajdow": "margin-top: 15px;"},
                 preIncludeCallback: function () {
@@ -1715,6 +1716,39 @@
                         });
                 },
                 regressionUrls: ["http://www.mmzielonagora.pl/fotogaleria/zdjecie-dr-misio-z-nowa-plyta-pogo-w-4-rozach-dla-lucienne"]
+            },
+            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: ".content.content-slideshow .single-entry #slideshow-contener .slideshow-paging a.slideshow-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "70",
+                /* nazwa galerii */
+                name: "pudelek.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#slideshow-contener",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#slideshow-contener",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#slideshow-contener .slideshow-paging a.slideshow-next:first",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: ".slideshow-current:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".slideshow-paging",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {
+                    ".slideshow-paging": "display:none"
+                },
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.pudelek.pl/artykul/75223/ile_zarabiaja_dziennie_kozuchowska_socha_i_musial_s/foto_1#s1",
+                "http://www.pudelek.pl/artykul/74003/jane_fonda_konczy_w_tym_miesiacu_77_lat_zdjecia_s/foto_1?utm_source=o2_SG&utm_medium=Pudelek&utm_campaign=o2#s1"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",

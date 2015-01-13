@@ -1,33 +1,33 @@
 {
-    "license": "GPL v3", 
-    "name": "eliminator_slajdow", 
-    "repository": {
-        "url": "git@github.com:maestr0/eliminator-slajdow-chrome.git", 
-        "type": "git"
-    }, 
-    "author": "Pawel Raszewski", 
-    "version": "3.1.38", 
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    }, 
-    "devDependencies": {
-        "grunt-contrib-compass": "~0.5.0", 
-        "grunt-contrib-nodeunit": "~0.2.0", 
-        "grunt-contrib-jshint": "~0.6.4", 
-        "grunt-contrib-uglify": "~0.2.2", 
-        "grunt-contrib-copy": "~0.4.1", 
-        "grunt-contrib-watch": "~0.5.3", 
-        "grunt-bump-build-git": "~1.1.1", 
-        "grunt-contrib-concat": "~0.3.0", 
-        "grunt-contrib-qunit": "~0.2.2", 
-        "grunt-contrib-clean": "~0.5.0", 
-        "grunt-contrib-compress": "~0.5.2", 
-        "grunt-cli": "~0.1.9", 
-        "grunt": "~0.4.1", 
-        "grunt-replace": "~0.4.4", 
-        "grunt-bump": "0.0.11"
-    }, 
-    "main": "background.js", 
-    "id": "jid1-MreqrBg6sFPr4Q", 
-    "description": "Eliminator Slajd\u00f3w - Chrome"
+  "license": "GPL v3",
+  "name": "eliminator_slajdow",
+  "repository": {
+    "url": "git@github.com:maestr0/eliminator-slajdow-chrome.git",
+    "type": "git"
+  },
+  "author": "Pawel Raszewski",
+  "version": "3.1.39",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-bump": "0.0.11",
+    "grunt-bump-build-git": "~1.1.1",
+    "grunt-cli": "~0.1.9",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-compass": "^1.0.1",
+    "grunt-contrib-compress": "~0.5.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-qunit": "~0.2.2",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-replace": "~0.4.4"
+  },
+  "main": "background.js",
+  "id": "jid1-MreqrBg6sFPr4Q",
+  "description": "Eliminator Slajdów - Chrome"
 }
