@@ -518,6 +518,12 @@
         },
         {
             "type": "bool",
+            "name": "pudelek.pl",
+            "value": true,
+            "title": "www.pudelek.pl"
+        },
+        {
+            "type": "bool",
             "name": "pudelekx.pl",
             "value": true,
             "title": "www.pudelekx.pl"

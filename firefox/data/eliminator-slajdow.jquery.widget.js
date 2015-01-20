@@ -2214,7 +2214,6 @@
             }
         },
         _logger: function () {
-            console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000
