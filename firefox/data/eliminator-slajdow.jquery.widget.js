@@ -5,9 +5,9 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.38/eliminator-slajdow.jquery.widget.js
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.39/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.38
+ *   Wersja: 3.1.39
  * */
 
 (function ($) {
@@ -20,7 +20,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.38",
+            version: "3.1.39",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -1992,10 +1992,31 @@
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
             }, "html").fail(function (a, b, c) {
-                that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                that._logger("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
+                that._tracking("ES_AJAX_error", that.pageOptions.pageType, nextPageURL);
+                that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
                 that._hideSpinner();
+                that._showErrorPanel();
             });
+        },
+        _showErrorPanel: function(error) {
+            var imageContainer = $("div.imageContainerEliminatorSlajdow");
+            imageContainer.append($("<div>", {"class": "esErrorPanel"})
+                    .append($("<p>", {text: "Błąd Eliminatora Slajdów", "class": "esErrorHeader"}))
+                    .append($("<p>", {text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
+                    " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
+                    "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"}))
+                    .append($("<a>", {href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
+                        text: "http://eliminator-slajdow.herokuapp.com", "class": "linkEs"}))
+                    .append($("<p>", {text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
+                        "class": "esErrorContentMore"}))
+                    .append($("<p>", {text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
+                        "class": "esErrorContentMore"}))
+                    .append($("<p>", {text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
+                    "parametr es=off do adresu URL. W tym przypadku będzie to " , "class": "esErrorContentMore"}))
+                    .append($("<a>", {href: this._appendDisableEsFlag(document.location.href),
+                        text: this._appendDisableEsFlag(document.location.href), "class": "linkEs"}))
+
+            );
         },
         _bind: function () {
             var that = this;

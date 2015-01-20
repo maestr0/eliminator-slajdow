@@ -1992,10 +1992,31 @@
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
             }, "html").fail(function (a, b, c) {
-                that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                that._logger("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
+                that._tracking("ES_AJAX_error", that.pageOptions.pageType, nextPageURL);
+                that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
                 that._hideSpinner();
+                that._showErrorPanel();
             });
+        },
+        _showErrorPanel: function(error) {
+            var imageContainer = $("div.imageContainerEliminatorSlajdow");
+            imageContainer.append($("<div>", {"class": "esErrorPanel"})
+                    .append($("<p>", {text: "Błąd Eliminatora Slajdów", "class": "esErrorHeader"}))
+                    .append($("<p>", {text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
+                    " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
+                    "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"}))
+                    .append($("<a>", {href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
+                        text: "http://eliminator-slajdow.herokuapp.com", "class": "esLink"}))
+                    .append($("<p>", {text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
+                        "class": "esErrorContentMore"}))
+                    .append($("<p>", {text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
+                        "class": "esErrorContentMore"}))
+                    .append($("<p>", {text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
+                    "parametr es=off do adresu URL. W tym przypadku będzie to " , "class": "esErrorContentMore"}))
+                    .append($("<a>", {href: this._appendDisableEsFlag(document.location.href),
+                        text: this._appendDisableEsFlag(document.location.href), "class": "esLink"}))
+
+            );
         },
         _bind: function () {
             var that = this;

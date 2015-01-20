@@ -189,6 +189,22 @@
       float: left;
       width: 100%;
     }
+    .esErrorPanel {
+      background: #e0e0e0;
+      min-width: 200px;
+      padding: 20px;
+      border-radius: 5px;
+      .esErrorHeader {
+        font-size: 20px;
+        color: red;
+        margin-bottom: 10px;
+      }
+      .esLink {
+        margin: 10px 0;
+        float: left;
+        width: 100%;
+      }
+    }
     .es_slide {
       float: left;
       margin-bottom: 15px;

@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.38 - 2015-01-13 */
+/*! eliminator_slajdow - v3.1.39 - 2015-01-20 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.38",
+            version: "3.1.39",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -11085,7 +11085,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 preIncludeCallback: function () {
                 },
-                regressionUrls: ["http://www.pudelek.pl/artykul/75223/ile_zarabiaja_dziennie_kozuchowska_socha_i_musial_s/foto_1#s1"]
+                regressionUrls: ["http://www.pudelek.pl/artykul/75223/ile_zarabiaja_dziennie_kozuchowska_socha_i_musial_s/foto_1#s1",
+                "http://www.pudelek.pl/artykul/74003/jane_fonda_konczy_w_tym_miesiacu_77_lat_zdjecia_s/foto_1?utm_source=o2_SG&utm_medium=Pudelek&utm_campaign=o2#s1"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
@@ -11329,10 +11330,28 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
             }, "html").fail(function (a, b, c) {
-                that._tracking("ES_error", that.pageOptions.pageType, nextPageURL);
-                that._logger("ES - Blad pobierania nastepnego slajdu: ", a, b, c, nextPageURL);
+                that._tracking("ES_AJAX_error", that.pageOptions.pageType, nextPageURL);
+                that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
                 that._hideSpinner();
+                that._showErrorPanel();
             });
+        },
+        _showErrorPanel: function(error) {
+            var imageContainer = $("div.imageContainerEliminatorSlajdow");
+            imageContainer.append($("<div>", {"class": "esErrorPanel"})
+                    .append($("<p>", {text: "Błąd Eliminatora Slajdów", "class": "esErrorHeader"}))
+                    .append($("<p>", {text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
+                    " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
+                    "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"}))
+                    .append($("<a>", {href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds", text: "http://eliminator-slajdow.herokuapp.com", "class": "linkEs"}))
+                    .append($("<p>", {text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:", "class": "esErrorContentMore"}))
+                    .append($("<p>", {text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.", "class": "esErrorContentMore"}))
+                    .append($("<p>", {text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
+                    "parametr es=off do adresu URL. W tym przypadku będzie to " , "class": "esErrorContentMore"}))
+                    .append($("<a>", {href: this._appendDisableEsFlag(document.location.href),
+                        text: this._appendDisableEsFlag(document.location.href), "class": "linkEs"}))
+
+            );
         },
         _bind: function () {
             var that = this;
@@ -11542,7 +11561,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     $("body").eliminatorSlajdow({
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         debug: false,
-        version: "3.1.38-safari",
+        version: "3.1.39-safari",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"
