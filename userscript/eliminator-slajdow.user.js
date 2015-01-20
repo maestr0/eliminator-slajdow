@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.39 - 2015-01-20 */
+/*! eliminator_slajdow - v3.1.40 - 2015-01-20 */
 
 
 // ==UserScript==
@@ -7,7 +7,7 @@
 // @name                        Eliminator Slajdow
 // @namespace                   Eliminator Slajdow
 // @description                 Eliminuje slajdy na stronach Agory
-// @version                     3.1.39
+// @version                     3.1.40
 // @grant                       none
 // @icon                        http://eliminator-slajdow.herokuapp.com/assets/images/es_logo.svg
 // @updateURL                   https://raw.githubusercontent.com/maestr0/eliminator-slajdow-chrome/master/userscript/eliminator-slajdow.user.js
@@ -9591,7 +9591,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.39",
+            version: "3.1.40",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -11518,6 +11518,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
             } else {
                 this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
+                this._showErrorPanel();
             }
         },
         _setCssOverwrite: function(content){
@@ -11569,7 +11570,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 that._showErrorPanel();
             });
         },
-        _showErrorPanel: function(error) {
+        _showErrorPanel: function() {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
                     .append($("<p>", {text: "Błąd Eliminatora Slajdów", "class": "esErrorHeader"}))
@@ -11577,7 +11578,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
                     "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"}))
                     .append($("<a>", {href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
-                        text: "http://eliminator-slajdow.herokuapp.com", "class": "linkEs"}))
+                        text: "http://eliminator-slajdow.herokuapp.com", "class": "esLink"}))
                     .append($("<p>", {text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
                         "class": "esErrorContentMore"}))
                     .append($("<p>", {text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
@@ -11585,7 +11586,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     .append($("<p>", {text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
                     "parametr es=off do adresu URL. W tym przypadku będzie to " , "class": "esErrorContentMore"}))
                     .append($("<a>", {href: this._appendDisableEsFlag(document.location.href),
-                        text: this._appendDisableEsFlag(document.location.href), "class": "linkEs"}))
+                        text: this._appendDisableEsFlag(document.location.href), "class": "esLink"}))
 
             );
         },
@@ -11798,7 +11799,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         cssPath: 'https://db.tt/Uz2u90pB',
         debug: false,
-        version: "3.1.39-userscript",
+        version: "3.1.40-userscript",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"
