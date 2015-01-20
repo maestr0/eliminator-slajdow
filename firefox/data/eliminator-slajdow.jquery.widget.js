@@ -1947,6 +1947,7 @@
 
             } else {
                 this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
+                this._showErrorPanel();
             }
         },
         _setCssOverwrite: function(content){
@@ -1998,7 +1999,7 @@
                 that._showErrorPanel();
             });
         },
-        _showErrorPanel: function(error) {
+        _showErrorPanel: function() {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
                     .append($("<p>", {text: "Błąd Eliminatora Slajdów", "class": "esErrorHeader"}))
@@ -2006,7 +2007,7 @@
                     " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
                     "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"}))
                     .append($("<a>", {href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
-                        text: "http://eliminator-slajdow.herokuapp.com", "class": "linkEs"}))
+                        text: "http://eliminator-slajdow.herokuapp.com", "class": "esLink"}))
                     .append($("<p>", {text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
                         "class": "esErrorContentMore"}))
                     .append($("<p>", {text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
@@ -2014,7 +2015,7 @@
                     .append($("<p>", {text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
                     "parametr es=off do adresu URL. W tym przypadku będzie to " , "class": "esErrorContentMore"}))
                     .append($("<a>", {href: this._appendDisableEsFlag(document.location.href),
-                        text: this._appendDisableEsFlag(document.location.href), "class": "linkEs"}))
+                        text: this._appendDisableEsFlag(document.location.href), "class": "esLink"}))
 
             );
         },

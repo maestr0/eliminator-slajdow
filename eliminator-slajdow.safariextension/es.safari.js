@@ -11343,9 +11343,12 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     .append($("<p>", {text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
                     " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
                     "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"}))
-                    .append($("<a>", {href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds", text: "http://eliminator-slajdow.herokuapp.com", "class": "linkEs"}))
-                    .append($("<p>", {text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:", "class": "esErrorContentMore"}))
-                    .append($("<p>", {text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.", "class": "esErrorContentMore"}))
+                    .append($("<a>", {href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
+                        text: "http://eliminator-slajdow.herokuapp.com", "class": "linkEs"}))
+                    .append($("<p>", {text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
+                        "class": "esErrorContentMore"}))
+                    .append($("<p>", {text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
+                        "class": "esErrorContentMore"}))
                     .append($("<p>", {text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
                     "parametr es=off do adresu URL. W tym przypadku będzie to " , "class": "esErrorContentMore"}))
                     .append($("<a>", {href: this._appendDisableEsFlag(document.location.href),

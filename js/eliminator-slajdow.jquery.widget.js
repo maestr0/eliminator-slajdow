@@ -1947,6 +1947,7 @@
 
             } else {
                 this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
+                this._showErrorPanel();
             }
         },
         _setCssOverwrite: function(content){
@@ -1998,7 +1999,7 @@
                 that._showErrorPanel();
             });
         },
-        _showErrorPanel: function(error) {
+        _showErrorPanel: function() {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
                     .append($("<p>", {text: "Błąd Eliminatora Slajdów", "class": "esErrorHeader"}))
