@@ -11374,8 +11374,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             if (this.nextPageURL) {
                 this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
                 this._tracking("ES_start", this.pageOptions.pageType);
-                $(this.pageOptions.sectionToBeEmptySelector).empty();
-                $(this.pageOptions.sectionToBeRemovedSelector).remove();
+                $(this.pageOptions.sectionToBeEmptySelector).children().hide();
+                $(this.pageOptions.sectionToBeRemovedSelector).hide();
                 this._createImageContainer();
                 this._bind();
                 this._showSpinnier();
@@ -11384,6 +11384,10 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             } else {
                 this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
             }
+        },
+        _undo: function(){
+            $(this.pageOptions.sectionToBeEmptySelector).children().show();
+            $(this.pageOptions.sectionToBeRemovedSelector).show();
         },
         _buildHeader: function (pageNumberLabel, pageNumber, url) {
             return $("<div>", {
@@ -11455,6 +11459,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     this._logger("ODWIEDZONE URLe", this.pageOptions.visitedSlideURLs);
                     this._logger("URL do zalaczanego slajdu", thisSlideURL);
                     this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
+                    this._undo();
                     return;
                 }
 
@@ -11518,7 +11523,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
             } else {
                 this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
-                this._showErrorPanel();
+                this._showErrorPanel("Niepoprawny selektor dla tej galerii");
+                this._undo();
             }
         },
         _setCssOverwrite: function(content){
@@ -11567,13 +11573,14 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 that._tracking("ES_AJAX_error", that.pageOptions.pageType, nextPageURL);
                 that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
                 that._hideSpinner();
-                that._showErrorPanel();
+                that._showErrorPanel("Coś zablokowało żądanie AJAX");
+                that._undo();
             });
         },
-        _showErrorPanel: function() {
+        _showErrorPanel: function(msg) {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
-                    .append($("<p>", {text: "Błąd Eliminatora Slajdów", "class": "esErrorHeader"}))
+                    .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
                     .append($("<p>", {text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
                     " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
                     "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"}))

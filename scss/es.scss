@@ -190,14 +190,15 @@
       width: 100%;
     }
     .esErrorPanel {
-      background: #e0e0e0;
-      min-width: 200px;
-      padding: 20px;
+      background: #e0e0e0 !important;
+      min-width: 200px !important;
+      padding: 20px !important;
       border-radius: 5px;
+      color: #000000 !important;
       .esErrorHeader {
-        font-size: 20px;
-        color: red;
-        margin-bottom: 10px;
+        font-size: 20px !important;
+        color: red !important;
+        margin-bottom: 10px !important;
       }
       .esLink {
         margin: 10px 0;

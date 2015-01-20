@@ -122,7 +122,6 @@ function updateAllowedDomainList() {
 
      błędy
      http://junior.przegladsportowy.pl/akademia-pilkarska-zaglebia-lubin-tak-trenuja-mlode-talenty,galeria,2,472568,12565.html
-
      */
     
     var allowedDomains = {};

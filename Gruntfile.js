@@ -144,7 +144,8 @@ module.exports = function (grunt) {
             },
             us: {
                 files: [
-                    {expand: true, flatten: true, src: ['images/es_logo.svg'], dest: 'userscript/'}
+                    {expand: true, flatten: true, src: ['images/es_logo.svg'], dest: 'userscript/'},
+                    {expand: true, flatten: true, src: ['userscript/es.css'], dest: 'firefox/data/'}
                 ]
             }
         },
