@@ -13,16 +13,7 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SMS8WQBP3DU
 
 Wszelkie sugestię proszę zgłaszać na
 
-https://eliminator-slajdow.sugester.pl/
-
-
-FAQ
-
-    Kiedy będzie wersja dla Operay i IE ?
-        - NIE zamierzam tworzyć ES dla innych przeglądarek niż Chrome i Firefox
-
-    Kiedy zostanie dodana obsługa nowych portali np. Onet lub WP ?
-        - pracuję nad tym. Nowe portale będą dodawane sukcesywnie w 2014 roku.
+https://eliminator-slajdow.herokuapp.com
 
 Autor: Paweł Raszewski (raszewski@gmail.com)
 
