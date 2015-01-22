@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.40 - 2015-01-20 */
+/*! eliminator_slajdow - v3.1.40 - 2015-01-22 */
 
 
 /*!
@@ -9832,23 +9832,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: "section.article_site div.gallery_art div.new_article_gallery .next",
-                name: "se.pl",
-                articleBodySelector: ".new_article_gallery",
-                navigationNextULRSelector: "div.new_article_gallery .next:first",
-                sectionToBeEmptySelector: "",
-                sectionToBeAttached: ".new_article_gallery",
-                sectionToBeRemovedSelector: ".new_article_pager, .prev, .next",
-                navigationPageNumberSelector: "",
-                sectionToBeRemovedFromAttachedSlidesSelector: "script, .howmany",
-                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px'},
-                hasSlideNumbers: false,
-                pageType: "27",
-                regressionUrls: ["http://www.se.pl/intymnie/super-eros/dzisiaj-dzien-bez-stanika_404053.html"],
-                preIncludeCallback: function () {
-
-                }
-            },
             {   trigger: "div#page div#main div.article-slideshow .article-matter .slideshow-wrapper",
                 name: "sfora.pl",
                 articleBodySelector: ".slideshow-wrapper",
@@ -9951,7 +9934,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 }
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "#pagewrap #ARTICLE_GALLERY_TOP_1",
+                trigger: "#pagewrap #ARTICLE_GALLERY_BOTTOM_1",
                 /* index */
                 pageType: "34",
                 /* nazwa galerii */
@@ -10116,7 +10099,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* index */
                 pageType: "39",
                 /* nazwa galerii */
-                name: "urzadzamy.pl",
+                name: "urzadzamy.pl i se.pl",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
                 articleBodySelector: ".flesh",
                 /* elementy ktora zostana dolaczone jako slajd*/
@@ -10139,8 +10122,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                     $(this.articleSection).find(".fullscreen").attr("onclick", "window.location.href='" + this.currentUrl + "?full=1'");
                 },
-                regressionUrls: ["http://www.urzadzamy.pl/galeria/uzytkownik/2560/komiksowy-pokoj/",
-                    "http://www.urzadzamy.pl/galeria/uzytkownik/3328/podswietlane-panele-crystal-led-w-azience/",
+                regressionUrls: ["http://www.se.pl/multimedia/galeria/156418/378369/kurski/",
                     "http://www.urzadzamy.pl/galeria/uzytkownik/2378/azienka-modern/"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
