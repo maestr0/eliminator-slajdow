@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.41 - 2015-02-08 */
+/*! eliminator_slajdow - v3.1.42 - 2015-02-08 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.41",
+            version: "3.1.42",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10525,11 +10525,13 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 customStyle: {},
                 beforeAllCallback: function () {
                     document.cookie="galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
-                    var canonicalUrl = $("link[rel=next]").attr("href");
-                    if(canonicalUrl.indexOf(document.location.hostname) === -1) {
-                        document.location.href = canonicalUrl;
+                    var link = $("link[rel=next]");
+                    if(link.length ===1) {
+                        var canonicalUrl = link.attr("href");
+                        if (canonicalUrl.indexOf(document.location.hostname) === -1) {
+                            document.location.href = canonicalUrl;
+                        }
                     }
-
                 },
                 preIncludeCallback: function () {
                 },
@@ -11560,7 +11562,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     $("body").eliminatorSlajdow({
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         debug: false,
-        version: "3.1.41-safari",
+        version: "3.1.42-safari",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"
