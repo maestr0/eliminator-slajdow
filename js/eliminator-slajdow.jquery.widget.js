@@ -1202,9 +1202,9 @@
                 /* nazwa galerii */
                 name: "nowy kwejk styczen 2015",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "div.media.full > div.object div.self",
+                articleBodySelector: "div.media.full > div.object div.self, div.media.full > div.object section.large",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "div.media.full > div.object div.self",
+                sectionToBeAttached: "div.media.full > div.object div.self, div.media.full > div.object section.large",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
                 navigationNextULRSelector: "#contents div.media.full div.object a.next",
                 /* false gdy nie ma skad wziac numeracji */
@@ -1213,13 +1213,14 @@
                 /* elementy do usuniecia z calej strony */
                 sectionToBeRemovedSelector: ".jcarousel-wrapper, a.next, a.prev, .content .media.ad",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
-                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .media.ad",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* Theme */
                 esTheme: "default",
                 /* dowolne style css w postaci mapy */
                 customStyle: {".btn-goback": "float:left; width:100%",
+                    "article.content .media.ad": "display:none !important",
                     ".actions": "position:static !important",
                     ".media.full > div.object": "margin-top: 50px !important",
                     ".media-gallery-title": "margin: 30px 0",
@@ -1453,7 +1454,7 @@
                     "http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "#stgMain .bxGaleriaPoj .stronicowanie .stgGaleriaNext img.fr",
+                trigger: "#stgMain .bxGaleriaPoj .stronicowanie .stgGaleriaNext.next:first",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
@@ -1461,7 +1462,7 @@
                 /* nazwa galerii */
                 name: "sport wp pl galeria pozioma 2",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: ".bxGaleriaPoj",
+                articleBodySelector: ".bxGaleriaPoj:first",
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: ".bxGaleriaPoj",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/

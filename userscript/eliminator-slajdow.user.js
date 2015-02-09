@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.40 - 2015-01-22 */
+/*! eliminator_slajdow - v3.1.41 - 2015-02-08 */
 
 
 // ==UserScript==
@@ -7,7 +7,7 @@
 // @name                        Eliminator Slajdow
 // @namespace                   Eliminator Slajdow
 // @description                 Eliminuje slajdy na stronach Agory
-// @version                     3.1.40
+// @version                     3.1.41
 // @grant                       none
 // @icon                        http://eliminator-slajdow.herokuapp.com/assets/images/es_logo.svg
 // @updateURL                   https://raw.githubusercontent.com/maestr0/eliminator-slajdow-chrome/master/userscript/eliminator-slajdow.user.js
@@ -9591,7 +9591,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.40",
+            version: "3.1.41",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10167,7 +10167,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 }
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "#pagewrap #ARTICLE_GALLERY_BOTTOM_1",
+                trigger: "#pagewrap article.imgGalleryArt #ARTICLE_GALLERY_BOTTOM_1",
                 /* index */
                 pageType: "34",
                 /* nazwa galerii */
@@ -10773,9 +10773,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* nazwa galerii */
                 name: "nowy kwejk styczen 2015",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "div.media.full > div.object div.self",
+                articleBodySelector: "div.media.full > div.object div.self, div.media.full > div.object section.large",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "div.media.full > div.object div.self",
+                sectionToBeAttached: "div.media.full > div.object div.self, div.media.full > div.object section.large",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
                 navigationNextULRSelector: "#contents div.media.full div.object a.next",
                 /* false gdy nie ma skad wziac numeracji */
@@ -10784,13 +10784,14 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* elementy do usuniecia z calej strony */
                 sectionToBeRemovedSelector: ".jcarousel-wrapper, a.next, a.prev, .content .media.ad",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
-                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .media.ad",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* Theme */
                 esTheme: "default",
                 /* dowolne style css w postaci mapy */
                 customStyle: {".btn-goback": "float:left; width:100%",
+                    "article.content .media.ad": "display:none !important",
                     ".actions": "position:static !important",
                     ".media.full > div.object": "margin-top: 50px !important",
                     ".media-gallery-title": "margin: 30px 0",
@@ -11024,7 +11025,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     "http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3"]
             },
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "#stgMain .bxGaleriaPoj .stronicowanie .stgGaleriaNext img.fr",
+                trigger: "#stgMain .bxGaleriaPoj .stronicowanie .stgGaleriaNext.next:first",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
@@ -11788,7 +11789,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         cssPath: 'https://db.tt/Uz2u90pB',
         debug: false,
-        version: "3.1.40-userscript",
+        version: "3.1.41-userscript",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"
