@@ -1187,6 +1187,13 @@
                 customStyle: {},
                 beforeAllCallback: function () {
                     document.cookie="galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
+                    var link = $("link[rel=next]");
+                    if(link.length ===1) {
+                        var canonicalUrl = link.attr("href");
+                        if (canonicalUrl.indexOf(document.location.hostname) === -1) {
+                            document.location.href = canonicalUrl;
+                        }
+                    }
                 },
                 preIncludeCallback: function () {
                 },
@@ -2204,7 +2211,7 @@
             }
         },
         _logger: function () {
-            console.log.apply(console, arguments);
+            //console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000

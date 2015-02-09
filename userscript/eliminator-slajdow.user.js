@@ -10758,6 +10758,11 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 customStyle: {},
                 beforeAllCallback: function () {
                     document.cookie="galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
+                    var canonicalUrl = $("link[rel=next]").attr("href");
+                    if(canonicalUrl.indexOf(document.location.hostname) === -1) {
+                        document.location.href = canonicalUrl;
+                    }
+
                 },
                 preIncludeCallback: function () {
                 },
@@ -11033,7 +11038,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* nazwa galerii */
                 name: "sport wp pl galeria pozioma 2",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: ".bxGaleriaPoj",
+                articleBodySelector: ".bxGaleriaPoj:first",
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: ".bxGaleriaPoj",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
@@ -11775,7 +11780,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             }
         },
         _logger: function () {
-            console.log.apply(console, arguments);
+            //console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000
