@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.42 - 2015-04-07 */
+/*! eliminator_slajdow - v3.1.43 - 2015-04-07 */
 
 
 // ==UserScript==
@@ -7,7 +7,7 @@
 // @name                        Eliminator Slajdow
 // @namespace                   Eliminator Slajdow
 // @description                 Eliminuje slajdy na stronach Agory
-// @version                     3.1.42
+// @version                     3.1.43
 // @grant                       none
 // @icon                        http://eliminator-slajdow.herokuapp.com/assets/images/es_logo.svg
 // @updateURL                   https://raw.githubusercontent.com/maestr0/eliminator-slajdow-chrome/master/userscript/eliminator-slajdow.user.js
@@ -9591,7 +9591,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.42",
+            version: "3.1.43",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -10913,7 +10913,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#wpMain  #wpCenter #galleryB div.pages span a",
                 /* zatrzymuje trigger*/
-                triggerStopper: "",
+                triggerStopper: ".photo .vdoPly",
                 /* index */
                 pageType: "58",
                 /* nazwa galerii */
@@ -11820,7 +11820,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         cssPath: 'https://db.tt/Uz2u90pB',
         debug: false,
-        version: "3.1.42-userscript",
+        version: "3.1.43-userscript",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"
