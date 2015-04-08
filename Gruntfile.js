@@ -176,7 +176,9 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['jshint']);
     grunt.registerTask('release', ['bump-only'], ['package'], ['bump-commit']);
     grunt.registerTask('default', ['jshint', 'concat', 'compass']);
-    grunt.registerTask('package', ['clean:package_dir', 'jshint', 'concat:main', 'compass:main', 'replace:main', 'copy:main']);
+
+    grunt.registerTask('chrome', ['clean:package_dir', 'jshint', 'concat:main', 'compass:main', 'replace:main', 'copy:main']);
+    grunt.registerTask('firefox', ['chrome', 'us']);
+    grunt.registerTask('safari', ['chrome', 'us']);
     grunt.registerTask('us', ['clean:us_dir', 'jshint', 'replace:us', 'concat:us', 'concat:safari', 'compass:us', 'clean:us_dir_temp', 'copy:us', 'clean:userscript']);
-    //grunt.registerTask('safari', ['clean:us_dir', 'jshint', 'replace:us', 'concat:safari', 'compass:us', 'clean:us_dir_temp', 'copy:us', 'clean:userscript']);
 };

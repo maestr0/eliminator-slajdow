@@ -10573,6 +10573,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     ".actions": "position:static !important",
                     ".es_slide img": "margin-bottom: 0 !important",
                     ".media.full > div.object": "margin-top: 50px !important",
+                    ".media.full > div.object .self img": "margin-bottom: 0 !important",
                     ".media-gallery-title": "margin: 30px 0",
                     ".imageContainerEliminatorSlajdow": "margin-top: 15px;"},
                 preIncludeCallback: function () {
