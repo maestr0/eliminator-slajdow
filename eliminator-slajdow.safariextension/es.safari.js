@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.42 - 2015-02-08 */
+/*! eliminator_slajdow - v3.1.42 - 2015-04-07 */
 
 
 /*!
@@ -9562,6 +9562,10 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 beforeAllCallback: function () {
                     $("#columns_wrap").after($("#article_comments"));
+                },
+                afterAllCallback: function(){
+                    $(this.pageOptions.sectionToBeRemovedSelector).hide();
+                    this._logger("afterAllCallback");
                 }
             },
             {   trigger: "div#page div#pageWrapper div#photo p#photoNavigation a#photoNavigationNext",
@@ -9837,7 +9841,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 articleBodySelector: ".slideshow-wrapper",
                 navigationNextULRSelector: ".article-matter .slideshow-next:first",
                 sectionToBeEmptySelector: "",
-                sectionToBeAttached: ".slideshow-wrapper",
+                sectionToBeAttached: ".slideshow-controls .slideshow-title, .slideshow-wrapper",
                 sectionToBeRemovedSelector: ".slideshow-paging",
                 navigationPageNumberSelector: ".slideshow-current:first",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
@@ -10567,6 +10571,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 customStyle: {".btn-goback": "float:left; width:100%",
                     "article.content .media.ad": "display:none !important",
                     ".actions": "position:static !important",
+                    ".es_slide img": "margin-bottom: 0 !important",
                     ".media.full > div.object": "margin-top: 50px !important",
                     ".media-gallery-title": "margin: 30px 0",
                     ".imageContainerEliminatorSlajdow": "margin-top: 15px;"},
@@ -11211,12 +11216,31 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     });
                 }
 
-                if (typeof thisSlideURL === "undefined" || thisSlideURL === this.nextPageURL || $.inArray(thisSlideURL, this.pageOptions.visitedSlideURLs) > -1) {
-                    this._logger("ERROR: URL do nastepnego slajdu zostal juz dodany do listy lub jest UNDEFINED");
-                    this._logger("ODWIEDZONE URLe", this.pageOptions.visitedSlideURLs);
-                    this._logger("URL do zalaczanego slajdu", thisSlideURL);
+                $(this.articleSection).find(this.pageOptions.sectionToBeEmptySelector).empty();
+                $(this.articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
+                $(this.articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
+
+                if (typeof thisSlideURL === "undefined") {
+                    this._logger("ERROR: URL tego slajdu jest nieznany");
+                    this._undo();
+                    this.pageOptions.afterAllCallback.call(this);
+                    return;
+                }
+                if(thisSlideURL === this.nextPageURL) {
+                    this._logger("WARNING: URL do następnego slajdu jest taki sam jak url tego slajdu");
+                    this._logger("URL do tego slajdu", thisSlideURL);
                     this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
                     this._undo();
+                    this.pageOptions.afterAllCallback.call(this);
+                    return;
+                }
+                if($.inArray(thisSlideURL, this.pageOptions.visitedSlideURLs) > -1) {
+                    this._logger("WARNING: URL następnego slajdu jest już załączony do galerii");
+                    this._logger("Załączone strony", this.pageOptions.visitedSlideURLs);
+                    this._logger("URL do tego slajdu", thisSlideURL);
+                    this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
+                    this._undo();
+                    this.pageOptions.afterAllCallback.call(this);
                     return;
                 }
 
