@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.43 - 2015-05-12 */
+/*! eliminator_slajdow - v3.1.44 - 2015-05-12 */
 
 
 /*!
@@ -9358,7 +9358,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.43",
+            version: "3.1.44",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -11730,7 +11730,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             }
         },
         _logger: function () {
-            console.log.apply(console, arguments);
+            //console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000
@@ -11743,7 +11743,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
     $("body").eliminatorSlajdow({
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         debug: false,
-        version: "3.1.43-safari",
+        version: "3.1.44-safari",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"

@@ -422,12 +422,6 @@
         },
         {
             "type": "bool",
-            "name": "motokiller.pl",
-            "value": true,
-            "title": "www.motokiller.pl"
-        },
-        {
-            "type": "bool",
             "name": "namonciaku.pl",
             "value": true,
             "title": "www.namonciaku.pl"
