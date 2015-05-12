@@ -10318,22 +10318,22 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "#left_column.gallery .comments h2.section-title ",
+                trigger: "#main .container #left_column #article .article-photo .photo-next-link",
                 /* index */
                 pageType: "37",
                 /* nazwa galerii */
                 name: "lovekrakow.pl",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "#content .container .clear:last",
+                articleBodySelector: "#main .container .row:first",
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: "#left_column, #right_column",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: ".photo-pagination a.next:first",
+                navigationNextULRSelector: ".article-photo .photo-next-link:first",
                 /* false gdy nie ma skad wziac numeracji */
                 hasSlideNumbers: true,
-                navigationPageNumberSelector: ".photo-pagination:first",
+                navigationPageNumberSelector: ".article-photo-pagination",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".thumbnails, .photo-pagination",
+                sectionToBeRemovedSelector: ".thumbnails, .photo-pagination, .col-md-12, .photo-next-link, .photo-prev-link, .article-photo-pagination",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .comments, h1.title",
                 /* dowolne style css w postaci mapy */
