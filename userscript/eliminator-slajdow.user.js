@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.43 - 2015-04-07 */
+/*! eliminator_slajdow - v3.1.43 - 2015-05-12 */
 
 
 // ==UserScript==
@@ -9621,7 +9621,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             }
         },
         pages: [
-            {   trigger: "body#oficjalna_strona_eliminatora_slajdow",
+            {
+                trigger: "body#oficjalna_strona_eliminatora_slajdow",
                 name: "OFICJALNA STRONA ELIMINATORA SLAJDÓW",
                 regressionUrls: ["http://eliminator-slajdow.herokuapp.com/"],
                 pageType: "0",
@@ -9632,7 +9633,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     this._tracking("ES_HOMEPAGE", this.options.version);
                 }
             },
-            {   trigger: "body#pagetype_photo",
+            {
+                trigger: "body#pagetype_photo",
                 triggerStopper: "body#pagetype_photo.simpleGallery #gazeta_gallery_popup .gs_navigation .gs_next, .photostoryNavigation .photostoryNextPage",
                 name: "galeria #pagetype_photo (1)",
                 regressionUrls: ["http://deser.pl/deser/51,111858,15435006.html?i=1",
@@ -9642,13 +9644,16 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeEmptySelector: "#gazeta_article_miniatures",
                 sectionToBeRemovedSelector: "#gazeta_article_top .navigation, #gazeta_article .navigation, #gazeta_article_image .overlayBright",
                 pageType: "1",
-                customStyle: {"#col_left": "width:auto", "#columns_wrap": "background:none",
-                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
+                customStyle: {
+                    "#col_left": "width:auto", "#columns_wrap": "background:none",
+                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"
+                },
                 preIncludeCallback: function () {
                     $("#col_left").width($("#gazeta_article_image").find("div a img").width());
                 }
             },
-            {   trigger: "body#pagetype_art_blog",
+            {
+                trigger: "body#pagetype_art_blog",
                 name: "galeria #pagetype_art_blog (2)",
                 regressionUrls: ["http://www.plotek.pl/plotek/56,78649,13096942,Kaja_Paschalska,,1.html",
                     "http://www.plotek.pl/plotek/56,79592,12829011,Jako_dzieci_byli_gwiazdami_seriali__Co_dzis_robia.html",
@@ -9657,14 +9662,17 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     "http://wyborcza.pl/duzy_kadr/5,97904,17068921,Ukraina__Syria__Chiny____Fotoreporterzy_Reutera_dokumentuja.html"],
                 sectionToBeAttached: "#gazeta_article_image img,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
                 pageType: "2",
-                customStyle: {".path_duzy_kadr #col_left": "width:auto",
-                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"},
+                customStyle: {
+                    ".path_duzy_kadr #col_left": "width:auto",
+                    ".path_duzy_kadr .imageContainerEliminatorSlajdow p.headerLogo, .path_duzy_kadr .slideTitle": "color: white"
+                },
                 classesToBeRemoved: ["gazetaVideoPlayer"],
                 preIncludeCallback: function () {
                     this._updateGalleryLink();
                 }
             },
-            {   trigger: "body#pagetype_art #gazeta_article_tools",
+            {
+                trigger: "body#pagetype_art #gazeta_article_tools",
                 name: "galeria body#pagetype_art #gazeta_article_image (3)",
                 regressionUrls: ["http://gazetapraca.pl/gazetapraca/56,90443,12057502,10_najdziwniejszych_powodow__dla_ktorych_rzucamy_prace.html"],
                 sectionToBeAttached: "#gazeta_article_image,#gazeta_article_body, div[id*='gazeta_article_image_']:not('#gazeta_article_image_overlay')",
@@ -9674,7 +9682,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     this._updateGalleryLink();
                 }
             },
-            {   trigger: "div#art div#container_gal",
+            {
+                trigger: "div#art div#container_gal",
                 name: "gazetapraca.pl ",
                 regressionUrls: [],
                 articleBodySelector: "#art",
@@ -9684,7 +9693,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeAttached: "div#container_gal",
                 pageType: "4"
             },
-            {   trigger: "div#article div#article_body",
+            {
+                trigger: "div#article div#article_body",
                 name: "galeria div#article div#article_body (5)",
                 regressionUrls: [""],
                 articleBodySelector: "#article_body",
@@ -9695,7 +9705,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 pageType: "5",
                 esTheme: "white"
             },
-            {   trigger: "div#k1 div#k1p div#gal_outer",
+            {
+                trigger: "div#k1 div#k1p div#gal_outer",
                 name: "galeria bez typu ('div#k1 div#k1p div#gal_outer') (6)",
                 regressionUrls: ["http://wyborcza.pl/51,75248,12537285.html?i:0"],
                 articleBodySelector: "div#gal_outer .description",
@@ -9707,7 +9718,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 pageType: "6"
 
             },
-            {   trigger: "div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc",
+            {
+                trigger: "div.PopupWielkosc div.ZdjecieGaleriaMaxWielkosc",
                 name: "autotrader.pl - galeria zdjec samochodu - 2013",
                 regressionUrls: [],
                 articleBodySelector: "div#Zawartosc div.Detale",
@@ -9719,7 +9731,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 classesToBeRemoved: ["ZdjecieGaleriaMaxWielkosc"],
                 pageType: "7"
             },
-            {   trigger: " #multiGallery #multiGalleryContent #gallery",
+            {
+                trigger: " #multiGallery #multiGalleryContent #gallery",
                 name: "MultiGallery na ONET.PL",
                 regressionUrls: ["http://wiadomosci.onet.pl/swiat/nieznane-zdjecia-z-okresu-i-wojny-swiatowej-ujrzaly-swiatlo-dzienne/5kmg0",
                     "http://wiadomosci.onet.pl/swiat/berlin-podzielony-murem-tak-wygladal-w-okresie-zimnej-wojny/64dph"],
@@ -9735,7 +9748,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 pageType: "8",
                 triggerStopper: "#multiGallery #multiGalleryContent #gallery .mainMediaImg img.after"
             },
-            {   trigger: "div#page div#pageWrapper div#photo div#photoContainer div.nav a",
+            {
+                trigger: "div#page div#pageWrapper div#photo div#photoContainer div.nav a",
                 name: "Galeria MediaRegionalne ",
                 regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20140209&Category=GALERIA01&ArtNo=209009997&Ref=PH&Params=Itemnr=1"],
                 pageType: "9",
@@ -9748,7 +9762,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 headerSectionSelector: "",
                 hasSlideNumbers: true
             },
-            {   trigger: "div#page div#pageWrapper div#article.photostory p.photoNavigation a.photoNavigationNext",
+            {
+                trigger: "div#page div#pageWrapper div#article.photostory p.photoNavigation a.photoNavigationNext",
                 name: "Galeria MediaRegionalne - artykul",
                 regressionUrls: [],
                 pageType: "10",
@@ -9761,7 +9776,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 headerSectionSelector: "",
                 hasSlideNumbers: true
             },
-            {   trigger: "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next",
+            {
+                trigger: "div#main-column div#photo.common-box div.inner div.photo-item div.photoElem a.next",
                 name: "Galeria MojeMiasto",
                 regressionUrls: ["http://www.mmbydgoszcz.pl/photo/1886182/Photo+Walk+Koronowo+2013"],
                 pageType: "11",
@@ -9775,7 +9791,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 hasSlideNumbers: true
 
             },
-            {   trigger: "#content_wrap .photostoryNavigation .photostoryNextPage",
+            {
+                trigger: "#content_wrap .photostoryNavigation .photostoryNextPage",
                 name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (12)",
                 regressionUrls: ["http://technologie.gazeta.pl/internet/56,104530,14940595,Panel_sterowania__gdzie_ja_do_diaska_jestem,,1.html",
                     "http://wiadomosci.gazeta.pl/wiadomosci/51,114881,16712264.html"],
@@ -9796,12 +9813,13 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 beforeAllCallback: function () {
                     $("#columns_wrap").after($("#article_comments"));
                 },
-                afterAllCallback: function(){
+                afterAllCallback: function () {
                     $(this.pageOptions.sectionToBeRemovedSelector).hide();
                     this._logger("afterAllCallback");
                 }
             },
-            {   trigger: "div#page div#pageWrapper div#photo p#photoNavigation a#photoNavigationNext",
+            {
+                trigger: "div#page div#pageWrapper div#photo p#photoNavigation a#photoNavigationNext",
                 name: "MediaRegionalne 1",
                 regressionUrls: ["http://www.wspolczesna.pl/apps/pbcs.dll/gallery?Site=GW&Date=20140131&Category=GALERIA01&ArtNo=131009996&Ref=PH",
                     "http://www.gazetalubuska.pl/apps/pbcs.dll/gallery?Site=GL&Date=20140201&Category=galeria&ArtNo=201009994&Ref=PH&Params=Itemnr=1"],
@@ -9816,7 +9834,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 hasSlideNumbers: true
 
             },
-            {   trigger: "div#wrapper > div > div#photo p#galleryNav a#galleryNavNext",
+            {
+                trigger: "div#wrapper > div > div#photo p#galleryNav a#galleryNavNext",
                 name: "MediaRegionalne 2",
                 regressionUrls: ["http://www.nowiny24.pl/apps/pbcs.dll/gallery?Site=NW&Date=20140126&Category=IMPREZY07&ArtNo=126009999&Ref=PH&Params=Itemnr=1"],
                 pageType: "14",
@@ -9830,7 +9849,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 hasSlideNumbers: true
 
             },
-            {   trigger: "div#LeftContent div#MainGallery img#PhotoInMainGallery",
+            {
+                trigger: "div#LeftContent div#MainGallery img#PhotoInMainGallery",
                 name: "Autotrader Legacy",
                 regressionUrls: [],
                 articleBodySelector: "div#MainGallery",
@@ -9842,7 +9862,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 classesToBeRemoved: ["ZdjecieGaleriaMaxWielkosc"],
                 pageType: "15"
             },
-            {   trigger: "div#bxGaleria div.podpisDuzaFotka div.przewijakZdjec div.slider",
+            {
+                trigger: "div#bxGaleria div.podpisDuzaFotka div.przewijakZdjec div.slider",
                 name: "Wiadomosci Wp.pl",
                 regressionUrls: ["http://wiadomosci.wp.pl/gid,16390562,gpage,4,img,16391154,kat,1356,title,Igrzyska-w-Soczi-i-nie-tylko,galeria.html"],
                 articleBodySelector: "div#bxGaleria",
@@ -9857,7 +9878,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 pageType: "16"
 
             },
-            {   trigger: "div#stgGaleria div.stgGaleriaCnt .stgGaleriaNext",
+            {
+                trigger: "div#stgGaleria div.stgGaleriaCnt .stgGaleriaNext",
                 name: "Facet wp.pl",
                 articleBodySelector: "div.bxArt",
                 navigationNextULRSelector: "div#stgGaleria a.stgGaleriaNext",
@@ -9871,7 +9893,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 pageType: "17"
 
             },
-            {   trigger: "div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext",
+            {
+                trigger: "div#stgMain article.stampGaleria div.stampBxNaglowek div.stampStronicowanie div.pIndex a.pNext",
                 name: "Finanse wp.pl",
                 articleBodySelector: "#stgMain article.stampGaleria",
                 navigationNextULRSelector: "div.stampStronicowanie div.pIndex a.pNext",
@@ -9889,7 +9912,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 preIncludeCallback: function () {
                 }
             },
-            {   trigger: "div#content div#largepic_wrapper div#largepic",
+            {
+                trigger: "div#content div#largepic_wrapper div#largepic",
                 name: "kwejk.pl",
                 articleBodySelector: "div#content div.content",
                 navigationNextULRSelector: "div#largepic_wrapper a.next_image",
@@ -9907,7 +9931,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 preIncludeCallback: function () {
                 }
             },
-            {   trigger: "body#strona-artykulu div#glowna-kolumna div#galeria-material-zdjecie",
+            {
+                trigger: "body#strona-artykulu div#glowna-kolumna div#galeria-material-zdjecie",
                 name: "gazetawroclawska.pl",
                 articleBodySelector: "#galeria-material",
                 navigationNextULRSelector: "#galeria-nastepne-2",
@@ -9925,7 +9950,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     $(".lazy.powiekszenie").attr("src", $(".lazy.powiekszenie").attr("data-original")).removeClass("lazy");
                 }
             },
-            {   trigger: "div#main_container div.demotivator.pic #royalSliderExtraNavigation a.navigate_right",
+            {
+                trigger: "div#main_container div.demotivator.pic #royalSliderExtraNavigation a.navigate_right",
                 name: "demotywatory.pl",
                 articleBodySelector: "#main_container .demotivator .demot_pic",
                 navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
@@ -9935,8 +9961,11 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 navigationPageNumberSelector: "",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets, .rsTmb",
                 headerSectionSelector: "",
-                customStyle: {'rsSlideContent h3': 'display:none', '#main_container article, #main_container .demotivator': 'float:left',
-                    '.rsSlideContent .relative': 'text-align: center;margin: 40px;'},
+                customStyle: {
+                    'rsSlideContent h3': 'display:none',
+                    '#main_container article, #main_container .demotivator': 'float:left',
+                    '.rsSlideContent .relative': 'text-align: center;margin: 40px;'
+                },
                 hasSlideNumbers: false,
                 pageType: "21",
                 regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
@@ -9950,7 +9979,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     $(".imageContainerEliminatorSlajdow .rsSlideContent").each(function (index) {
                         $(this).wrap("<div class='slide_" + index + " es_slide'></div>")
                             .parent().before(self._buildHeader('Slajd ' + (index + 2) + ' z ' +
-                                $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
+                            $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
                     });
 
                     $(this.pageOptions.sectionToBeEmptySelector).empty();
@@ -9963,11 +9992,11 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     $.get(thisPageUrl, function (nextPage) {
                         this.that = that;
                         var currentImg = $(".rsSlideContent").find("img").attr("src");
-                        $(nextPage).find(".rsSlideContent").each(function(index){
+                        $(nextPage).find(".rsSlideContent").each(function (index) {
                             $(this).find(".rsTmb").remove();
                             $(this).find(".fakeRsArrow").remove();
                             $(".fakeRsArrow").remove();
-                            if(currentImg !== $(this).find("img").attr("src")) {
+                            if (currentImg !== $(this).find("img").attr("src")) {
                                 var slideHeader = that._buildHeader("Slajd " + (index + 1), index, that.thisPageUrl + "#obrazek-" + index);
                                 $(".imageContainerEliminatorSlajdow").addClass("pics_gallery_unlogged").append(slideHeader);
                                 $(".imageContainerEliminatorSlajdow").append(this);
@@ -9983,7 +10012,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: "body#Fakt .pageContent .leftColumn .paginaHolder .paginator.panigaGalery",
+            {
+                trigger: "body#Fakt .pageContent .leftColumn .paginaHolder .paginator.panigaGalery",
                 name: "fakt.pl",
                 articleBodySelector: "body#Fakt .pageContent .leftColumn .Scroll-View-Gallery",
                 navigationNextULRSelector: ".pageContent .leftColumn .paginaHolder .paginator.panigaGalery a.next",
@@ -10000,7 +10030,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: "body#loneGallery #bigPicture",
+            {
+                trigger: "body#loneGallery #bigPicture",
                 name: "fakt.pl nowa",
                 articleBodySelector: "#bigPicture",
                 navigationNextULRSelector: "#imgHolder .paginator .next",
@@ -10017,7 +10048,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: ".glownyKontener #material-artykul .galeriaArtykulowa #material-galeria-nastepne",
+            {
+                trigger: ".glownyKontener #material-artykul .galeriaArtykulowa #material-galeria-nastepne",
                 name: "naszemiasto.pl",
                 articleBodySelector: ".galeriaArtykulowa",
                 navigationNextULRSelector: "#material-galeria-nastepne",
@@ -10034,7 +10066,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: ".glownyKontener .trescOpisu .paginacja #material-galeria-nastepne",
+            {
+                trigger: ".glownyKontener .trescOpisu .paginacja #material-galeria-nastepne",
                 name: "naszemiasto.pl szeroka",
                 articleBodySelector: "#galeria-z-opisem",
                 navigationNextULRSelector: "#material-galeria-nastepne",
@@ -10051,7 +10084,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: "div#page article.single-article .gallery .paging .next",
+            {
+                trigger: "div#page article.single-article .gallery .paging .next",
                 name: "wawalove.pl",
                 articleBodySelector: ".see-big",
                 navigationNextULRSelector: "article.single-article .gallery .paging .next",
@@ -10069,7 +10103,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: "div#page div#main div.article-slideshow .article-matter .slideshow-wrapper",
+            {
+                trigger: "div#page div#main div.article-slideshow .article-matter .slideshow-wrapper",
                 name: "sfora.pl",
                 articleBodySelector: ".slideshow-wrapper",
                 navigationNextULRSelector: ".article-matter .slideshow-next:first",
@@ -10086,7 +10121,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: "div#page div#main div.article-gallery .article-matter .gallery-content .gallery-img-big",
+            {
+                trigger: "div#page div#main div.article-gallery .article-matter .gallery-content .gallery-img-big",
                 name: "sfora.pl nowa",
                 articleBodySelector: ".article-matter",
                 navigationNextULRSelector: ".gallery-img-big .next:first",
@@ -10104,7 +10140,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: ".page .main-content .article--gallery .gallery .gallery__content .gallery__image-wrapper .next-btn",
+            {
+                trigger: ".page .main-content .article--gallery .gallery .gallery__content .gallery__image-wrapper .next-btn",
                 name: "biztok.pl",
                 articleBodySelector: ".gallery__content",
                 navigationNextULRSelector: ".gallery__image-wrapper .next-btn",
@@ -10121,7 +10158,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: "#ks_doc #ks_bd_left_col #ks_simple_pagging",
+            {
+                trigger: "#ks_doc #ks_bd_left_col #ks_simple_pagging",
                 name: "komputerswiat.pl",
                 articleBodySelector: "#ks_bd_cols",
                 navigationNextULRSelector: "#gallery_image a.next",
@@ -10129,7 +10167,11 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeRemovedSelector: "#ks_simple_pagging, #ks_bd_right_col div.next, #gallery_image .next",
                 navigationPageNumberSelector: "#ks_simple_pagging .numbers",
                 sectionToBeRemovedFromAttachedSlidesSelector: "#comments, script, .Nextclick_Widget_Container, #comment_form, #ks_bd_right_col div.next, #gallery_image .next, #gallery_image .prev",
-                customStyle: {'#gallery #ks_bd': 'float:left', '.imageContainerEliminatorSlajdow': 'margin-top:20px', ".comments": "width:720px"},
+                customStyle: {
+                    '#gallery #ks_bd': 'float:left',
+                    '.imageContainerEliminatorSlajdow': 'margin-top:20px',
+                    ".comments": "width:720px"
+                },
                 hasSlideNumbers: true,
                 pageType: "31",
                 regressionUrls: ["http://www.komputerswiat.pl/artykuly/redakcyjne/2014/05/komputery-apple-jakich-nie-widzieliscie-niezwykle-prototypy-z-lat-80.aspx"],
@@ -10137,7 +10179,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     $("#ks_bd_left_col .Nextclick_Widget_Container, #ks_bd_left_col #comment_form, #ks_bd_left_col #comments").insertAfter(".imageContainerEliminatorSlajdow");
                 }
             },
-            {   trigger: "body#screening #mainContainer #gallery .gallery_body .gallery_photo_desc_right",
+            {
+                trigger: "body#screening #mainContainer #gallery .gallery_body .gallery_photo_desc_right",
                 name: "dziennik.pl",
                 articleBodySelector: ".gallery_body",
                 navigationNextULRSelector: ".gallery_photo_desc_right .nastepne:first",
@@ -10154,7 +10197,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   trigger: "#miejsce2 .galeriaBig.forsalOnly .photoBg .next",
+            {
+                trigger: "#miejsce2 .galeriaBig.forsalOnly .photoBg .next",
                 name: "forsal.pl",
                 articleBodySelector: ".tpl_sgp_galeria_artykulowa",
                 navigationNextULRSelector: ".galeriaBig.forsalOnly .photoBg .next",
@@ -10170,7 +10214,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#pagewrap article.imgGalleryArt #ARTICLE_GALLERY_BOTTOM_1",
                 /* index */
                 pageType: "34",
@@ -10202,7 +10247,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 classesToBeRemoved: [],
                 regressionUrls: ["http://junior.przegladsportowy.pl/akademia-pilkarska-zaglebia-lubin-tak-trenuja-mlode-talenty,galeria,1,472568,12565.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: ".site .columns.columns-outer-double .box-gallery .gallery-image .gallery-controlls .gallery-image-zoom",
                 /* index */
                 pageType: "35",
@@ -10233,7 +10279,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 classesToBeRemoved: [],
                 regressionUrls: ["http://www.sportowefakty.pl/pilka-reczna/zdjecia/galeria/5411/polska-niemcy-2524/3-232928#photo-start"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#page_wrap #page #content #content-inner .box-inner .img-cnt-wrap .news-content",
                 /* index */
                 pageType: "36",
@@ -10249,11 +10296,14 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 hasSlideNumbers: false,
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".handle:not(.next-gal), .categ-list-cnt, .img-cnt div:first, .pluginConnectButton",
+                sectionToBeRemovedSelector: ".handle:not(.next-gal), .categ-list-cnt, .pluginConnectButton",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .like-bar, .bbz-cm-box",
                 /* dowolne style css w postaci mapy */
-                customStyle: {'.imageContainerEliminatorSlajdow': 'margin-top:20px', '.like-bar': 'float:left;width:100%'},
+                customStyle: {
+                    '.imageContainerEliminatorSlajdow': 'margin-top:20px',
+                    '.like-bar': 'float:left;width:100%'
+                },
                 /* naglowek slajdu */
                 headerSectionSelector: "",
                 /* $.empty() na elemencie*/
@@ -10263,10 +10313,11 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     $("html").addClass("eliminatorSlajdow");
                 },
                 classesToBeRemoved: [],
-                regressionUrls: ["http://bebzol.com/pl/koty-szykuja-sie-na-wojne.150870.html" ,
+                regressionUrls: ["http://bebzol.com/pl/koty-szykuja-sie-na-wojne.150870.html",
                     "http://bebzol.com/pl/20-trudnosci-z-ktorymi-musza-zmagac-sie-wlasciciele-kotow.151053.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#left_column.gallery .comments h2.section-title ",
                 /* index */
                 pageType: "37",
@@ -10298,7 +10349,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 classesToBeRemoved: [],
                 regressionUrls: ["http://lovekrakow.pl/galerie/zdjecie/id/27808"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "div#doc #body #trunk #main .k_galleryLarge .k_pagination",
                 /* index */
                 pageType: "38",
@@ -10325,13 +10377,14 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 sectionToBeEmptySelector: "",
                 /* callback uruchamiany przed dolaczeniem kazdgo slajdu do strony */
                 preIncludeCallback: function () {
-                    $("body").append($("<img>", { "src": this.nextPageURL, "style": "display:none"}));
+                    $("body").append($("<img>", {"src": this.nextPageURL, "style": "display:none"}));
                 },
                 classesToBeRemoved: [],
                 regressionUrls: ["http://biznes.pl/wiadomosci/raporty/wzrost-pkb-w-latach-2008-2013,5610529,1,5610147,535,foto-detal.html",
                     "http://biznes.pl/wiadomosci/kraj/jan-vincent-rostowski-gosciem-specjalnym-biznespl,5610578,0,foto-detal.html#photo16264113"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#gallery > div.content > div.flesh > div.main_img > div.big_img > div.fullscreen > div > img",//"div.wrapper div.site div.left_column div.article div.gallery_buttons div.next_btt a.next",
                 /* index */
                 pageType: "39",
@@ -10362,7 +10415,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://www.se.pl/multimedia/galeria/156418/378369/kurski/",
                     "http://www.urzadzamy.pl/galeria/uzytkownik/2378/azienka-modern/"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "div.all div#page #item > div.item-content > a.arrow-next-big",
                 /* index */
                 pageType: "40",
@@ -10389,7 +10443,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://pudelekx.pl/ten-pies-wygladal-jak-wor-na-smieci-27389-g2"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#wrap #article article.single-entry #photo-gallery .inner a.next",
                 /* index */
                 pageType: "41",
@@ -10417,7 +10472,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://www.snobka.pl/artykul/krok-po-kroku-polyskujacy-makijaz-w-stylu-magdaleny-mielcarz-19554",
                     "http://www.snobka.pl/artykul/emily-ratajkowski-znowu-sie-rozbiera-19646/1/4#photo-gallery"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "body#pagetype_photo.simpleGallery #gazeta_gallery_popup .gs_navigation .gs_next",
                 /* index */
                 pageType: "42",
@@ -10439,20 +10495,25 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
-                customStyle: {"body": "overflow: auto", ".gs_image_cointainer img": "position:relative;max-height:inherit;min-height:inherit",
-                    "#gazeta_gallery_popup": "position:absolute", "#page22": "height:0",
+                customStyle: {
+                    "body": "overflow: auto",
+                    ".gs_image_cointainer img": "position:relative;max-height:inherit;min-height:inherit",
+                    "#gazeta_gallery_popup": "position:absolute",
+                    "#page22": "height:0",
                     ".headerLogo, .icon-facebook-squared": "color:white",
-                    "#gazeta_gallery_popup .gs_image_cointainer": "height:auto"},
+                    "#gazeta_gallery_popup .gs_image_cointainer": "height:auto"
+                },
                 preIncludeCallback: function () {
                 },
                 beforeAllCallback: function () {
                     $('<style type="text/css">.simpleGallery #gazeta_gallery_popup.first_slide {display: none;} \n' +
-                        '.simpleGallery #gazeta_gallery_popup.show_slider_image {display: block;}\n' +
-                        'body {overflow: visible !important}</style>').appendTo($('head'));
+                    '.simpleGallery #gazeta_gallery_popup.show_slider_image {display: block;}\n' +
+                    'body {overflow: visible !important}</style>').appendTo($('head'));
                 },
                 regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/5,139575,16388712.html?i=0"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "div.wrap div.main div.article__content div.gallery div.gallery__image-big a.next",
                 /* index */
                 pageType: "43",
@@ -10480,7 +10541,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://www.fly4free.pl/top10-co-warto-zobaczyc-w-chinach/?pid=3404#galeria",
                     "http://www.fly4free.pl/w-kraju-inkow-czyli-co-warto-zobaczyc-w-peru/"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#stgMain .stampFototematRow .stampStronicowanieFototematu .stampStronicowanieFototematuContent .stampStronicowanieFototematuIndex",
                 /* index */
                 pageType: "44",
@@ -10507,7 +10569,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://pogoda.wp.pl/gid,16782131,kat,1035571,title,Prognoza-dlugoterminowa-kulminacja-upalnego-lata,galeria.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#page_wrapper #container #main .article-wraper .article-body .post-pages a.next-page.button",
                 /* index */
                 pageType: "45",
@@ -10534,7 +10597,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://gadzetomania.pl/1547,tragedie-w-przestworzach-ataki-na-samoloty-cywilne-znacznie-wiecej-wiecej-niz-podaja-media"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#main-wrap div#body .section-subcontent .photo-wrap a#next_link",
                 /* index */
                 pageType: "46",
@@ -10561,7 +10625,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://galeria.trojmiasto.pl/-452980.html?id_container=82203&pozycja=4#foto"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "body ul.k_controls .k_next, #photoZoom #imgNav",
                 /* index */
                 pageType: "47",
@@ -10588,7 +10653,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://ciekawe.onet.pl/fototematy/venus-kot-dwie-twarze,5649860,17024821,galeria-duzy.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "div#page div#main-content #content-region .node-article-image .navigation-links a.next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10626,7 +10692,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://regiomoto.pl/portal/porady/tuning/zdjecie-dopieszczone-wartburgi-chlopakow-z-wartburgradikalzcom"]
             },
-            {   trigger: "div#page div#main div.slideshow-header .slideshow-paging .slideshow-next",
+            {
+                trigger: "div#page div#main div.slideshow-header .slideshow-paging .slideshow-next",
                 name: "sportfan.pl",
                 articleBodySelector: ".slideshow, .slideshow-old",
                 navigationNextULRSelector: ".slideshow-paging .slideshow-next:first",
@@ -10643,7 +10710,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 }
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#main > div.article > div.gallery-booth > div.gallery-big > a.gallery-next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10672,7 +10740,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://www.sportfan.pl/artykul/erotyczne-euro-nagie-pilkarki-na-boisku-zdjecia-43386"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "body#Forbes #Page-Wrap .Block-Node a.Next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10696,14 +10765,17 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
-                customStyle: {".headerLogo, .icon-facebook-squared": "color:white",
-                    ".imageContainerEliminatorSlajdow": "margin-top:15px"},
+                customStyle: {
+                    ".headerLogo, .icon-facebook-squared": "color:white",
+                    ".imageContainerEliminatorSlajdow": "margin-top:15px"
+                },
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://kariera.forbes.pl/8-prostych-sposobow-na-poprawe-jakosci-pracy,artykuly,179168,1,1,4.html",
                     "http://kariera.forbes.pl/najbardziej-absurdalne-pytania-na-rozmowie-o-prace,artykuly,174074,1,1,2.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "div#root div#content section#articles #zdjecie.right .navigation a.next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10734,7 +10806,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     "http://www.geekweek.pl/galerie/4082/jak-sobie-radzic-w-upaly",
                     "http://www.geekweek.pl/galerie/4080/tego-nie-wiedzieliscie-o-mcdonalds"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#galeria-warstwa > div.boxPozycja.galeriaNaw > div #material-galeria-nastepne.btnNastepny",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10761,9 +10834,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 beforeAllCallback: function () {
-                    document.cookie="galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
+                    document.cookie = "galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
                     var link = $("link[rel=next]");
-                    if(link.length ===1) {
+                    if (link.length === 1) {
                         var canonicalUrl = link.attr("href");
                         if (canonicalUrl.indexOf(document.location.hostname) === -1) {
                             document.location.href = canonicalUrl;
@@ -10775,7 +10848,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://warszawa.naszemiasto.pl/artykul/zdjecia/muzeum-techniki-warszawa-wystawa-zabytkowych-kamer-i,2380679,artgal,10156975,t,id,tm,zid.html",
                     "http://warszawa.naszemiasto.pl/artykul/zdjecia/pogrzeb-jaruzelskiego-na-powazkach-wideo-zdjecia,2290964,artgal,9379796,t,id,tm,zid.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#content #contents .content .media.full .jcarousel-wrapper",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10801,20 +10875,23 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* Theme */
                 esTheme: "default",
                 /* dowolne style css w postaci mapy */
-                customStyle: {".btn-goback": "float:left; width:100%",
+                customStyle: {
+                    ".btn-goback": "float:left; width:100%",
                     "article.content .media.ad": "display:none !important",
                     ".actions": "position:static !important",
                     ".es_slide img": "margin-bottom: 0 !important",
                     ".media.full > div.object": "margin-top: 50px !important",
                     ".media.full > div.object .self img": "margin-bottom: 0 !important",
                     ".media-gallery-title": "margin: 30px 0",
-                    ".imageContainerEliminatorSlajdow": "margin-top: 15px;"},
+                    ".imageContainerEliminatorSlajdow": "margin-top: 15px;"
+                },
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://kwejk.pl/obrazek/2106118/0/9-typow-inteligencji-wedlug-howarda-gardnera.html",
                     "http://kwejk.pl/obrazek/2106116/0/inne-zastosowania-przedmiotow-gospodarstwa-domowego.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#stgMain #bxGaleria > div.content > div.picCol > div.bigPic > a",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10845,7 +10922,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://tech.wp.pl/gid,16799172,title,Czy-to-jeszcze-ludzie-Tak-czlowiek-zmienia-sie-w-cyborga,galeria.html?ticaid=113454&_ticrsn=3"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#wpMain div.bxCenterMain div.bxCont div.fotkaBx h1.galeria",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10880,7 +10958,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://nocoty.pl/gid,16823077,kat,1013703,title,Maria-Elena-Boschi-na-plazy-Seksowna-pani-minister,galeria.html?ticaid=6134e6"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "body.galleryblack #galleryImg > div.paginfixed > div > span.nextbox > a",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -10911,7 +10990,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://www.newsweek.pl/22-lipca-w-czasach-polski-ludowej-na-fotografiach-na-newsweek-p,galeria,106661,1,1,1.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#wpMain  #wpCenter #galleryB div.pages span a",
                 /* zatrzymuje trigger*/
                 triggerStopper: ".photo .vdoPly",
@@ -10943,7 +11023,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://film.wp.pl/idGallery,14811,idPhoto,398806,galeria.html?ticaid=113528&_ticrsn=3"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "body div.columns.columns-outer-double article.paggedArticle figure.article-image div.gallery-controlls a.gallery-image-next",
                 /* index */
                 pageType: "59",
@@ -10973,7 +11054,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://www.sportowefakty.pl/pilka-nozna/462036/az-dwunastu-polakow-na-starcie-bundesligi-kto-bedzie-gral-a-kto-siedzial-na-lawc/3"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#wrapper #article.photostory a.photoNavigationNext, #photoContainer div.nav a.next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11005,7 +11087,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://www.nowiny24.pl/apps/pbcs.dll/article?AID=/20140611/BIESZCZADY00/140619917&sectioncat=photostory2",
                     "http://www.nowiny24.pl/apps/pbcs.dll/article?AID=/20140611/BIESZCZADY00/140619917"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "div.main-content div.article--slideshow div.slideshow div.slideshow__header div.slidshow__nav a.button-next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11037,7 +11120,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3",
                     "http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#stgMain .bxGaleriaPoj .stronicowanie .stgGaleriaNext.next:first",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11069,7 +11153,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 regressionUrls: ["http://sport.wp.pl/gid,16900393,kat,39,title,Polacy-odebrali-zlote-medale-MS,galeria.html",
                     "http://sport.wp.pl/gid,16900642,kat,1912,page,2,title,Polscy-siatkarze-mistrzami-swiata,galeria.html?ticaid=113800&_ticrsn=3"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#all #page #slideshow-header .slideshow-paging a.slideshow-next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11100,7 +11185,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://wawalove.pl/Za-czym-ta-kolejka-STARE-ZDJECIA-sl16189"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: ".bx-galeria .bx-content #galleryNaviSide a.next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11131,7 +11217,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://ksiazki.wp.pl/gid,16963674,page,2,tytul,Rzadzac-swiatem-na-emeryturze,galeria.html?ticaid=113b14"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#allContentArea #webMainContent .wideColumn #galeriaFoto a.fotkiNavigationBig-next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11161,7 +11248,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://zdrowie.wp.pl/multimedia/galerie/go:2/art1463.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#doc #contentSection section#sectionmain article.gallery_detal div.gallery_detal div.next a.btn",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11191,7 +11279,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: [""]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "body#gallery #gallery_container #gallery_pagging .numbers a.next_small",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11221,7 +11310,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://gamezilla.komputerswiat.pl/publicystyka/2014/11/10-lat-temu-w-branzy-listopad-2004-miesiac-legendarnych-premier-i-branzowych-przemian,2"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "body#boks-galeria .kontener #glowna-kolumna section a.nastepne",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11251,7 +11341,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 regressionUrls: ["http://www.gazetawroclawska.pl/artykul/zdjecia/3662884,wroclaw-spielberg-skonczyl-krecic-zburzyli-stacje-metra-i-robia-parking-zdjecia,4542008,id,t,zid.html"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "#page #main  #content-region div.content-wrapper div.photo a.nav-photo.nav-right",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11278,13 +11369,14 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
-                        $(".photo img").each(function(){
-                            $(this).attr("src", $(this).attr("data-original"));
-                        });
+                    $(".photo img").each(function () {
+                        $(this).attr("src", $(this).attr("data-original"));
+                    });
                 },
                 regressionUrls: ["http://www.mmzielonagora.pl/fotogaleria/zdjecie-dr-misio-z-nowa-plyta-pogo-w-4-rozach-dla-lucienne"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: ".content.content-slideshow .single-entry #slideshow-contener .slideshow-paging a.slideshow-next",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11315,9 +11407,59 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://www.pudelek.pl/artykul/75223/ile_zarabiaja_dziennie_kozuchowska_socha_i_musial_s/foto_1#s1",
-                "http://www.pudelek.pl/artykul/74003/jane_fonda_konczy_w_tym_miesiacu_77_lat_zdjecia_s/foto_1?utm_source=o2_SG&utm_medium=Pudelek&utm_campaign=o2#s1"]
+                    "http://www.pudelek.pl/artykul/74003/jane_fonda_konczy_w_tym_miesiacu_77_lat_zdjecia_s/foto_1?utm_source=o2_SG&utm_medium=Pudelek&utm_campaign=o2#s1"]
             },
-            {   /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: " .glassInternal .glassContent.galleryContent",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "71",
+                /* nazwa galerii */
+                name: "onet slideshow 2015",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                beforeAllCallback: function () {
+                    var es = this;
+                    $("body").addClass("eliminatorSlajdow");
+                    $("*[data-content]").each(function(){
+                        $(this).text($(this).attr("data-content"));
+                    });
+                    $("img[data-src]").each(function(){
+                        $(this).attr("src", $(this).attr("data-src"));
+                    });
+                    $(".galleryContainer").css("width", "auto").css("left", "auto").addClass("imageContainerEliminatorSlajdow");
+                    $(".navigationGallery").remove();
+                    $(".galleryContainer .gallerySlide").each(function(index){
+                        $(this).before(es._buildHeader("Slide", index, $(this).attr("data-url")));
+                    });
+                    es._bind();
+                },
+                afterAllCallback: function () {
+                },
+                regressionUrls: ["http://wiadomosci.onet.pl/kraj/najlepsze-memy-z-wynikow-wyborow-prezydenckich/kn9qjs"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11381,7 +11523,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
             }
         },
-        _undo: function(){
+        _undo: function () {
             $(this.pageOptions.sectionToBeEmptySelector).children().show();
             $(this.pageOptions.sectionToBeRemovedSelector).show();
         },
@@ -11442,9 +11584,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                 this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
 
-                if(typeof this.nextPageURL === "undefined") {
-                    $.each($(galleryPage), function(){
-                        if($(this).is(that.pageOptions.navigationNextULRSelector)) {
+                if (typeof this.nextPageURL === "undefined") {
+                    $.each($(galleryPage), function () {
+                        if ($(this).is(that.pageOptions.navigationNextULRSelector)) {
                             that.nextPageURL = $(this).attr("href");
                         }
                     });
@@ -11460,7 +11602,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     this.pageOptions.afterAllCallback.call(this);
                     return;
                 }
-                if(thisSlideURL === this.nextPageURL) {
+                if (thisSlideURL === this.nextPageURL) {
                     this._logger("WARNING: URL do następnego slajdu jest taki sam jak url tego slajdu");
                     this._logger("URL do tego slajdu", thisSlideURL);
                     this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
@@ -11468,7 +11610,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     this.pageOptions.afterAllCallback.call(this);
                     return;
                 }
-                if($.inArray(thisSlideURL, this.pageOptions.visitedSlideURLs) > -1) {
+                if ($.inArray(thisSlideURL, this.pageOptions.visitedSlideURLs) > -1) {
                     this._logger("WARNING: URL następnego slajdu jest już załączony do galerii");
                     this._logger("Załączone strony", this.pageOptions.visitedSlideURLs);
                     this._logger("URL do tego slajdu", thisSlideURL);
@@ -11542,7 +11684,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 this._undo();
             }
         },
-        _setCssOverwrite: function(content){
+        _setCssOverwrite: function (content) {
             var appendNewStyle = function (elements, newStyle) {
                 elements.each(function () {
                     var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
@@ -11592,24 +11734,35 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 that._undo();
             });
         },
-        _showErrorPanel: function(msg) {
+        _showErrorPanel: function (msg) {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
                     .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
-                    .append($("<p>", {text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
-                    " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
-                    "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"}))
-                    .append($("<a>", {href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
-                        text: "http://eliminator-slajdow.herokuapp.com", "class": "esLink"}))
-                    .append($("<p>", {text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
-                        "class": "esErrorContentMore"}))
-                    .append($("<p>", {text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
-                        "class": "esErrorContentMore"}))
-                    .append($("<p>", {text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
-                    "parametr es=off do adresu URL. W tym przypadku będzie to " , "class": "esErrorContentMore"}))
-                    .append($("<a>", {href: this._appendDisableEsFlag(document.location.href),
-                        text: this._appendDisableEsFlag(document.location.href), "class": "esLink"}))
-
+                    .append($("<p>", {
+                        text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
+                        " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
+                        "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
+                    }))
+                    .append($("<a>", {
+                        href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
+                        text: "http://eliminator-slajdow.herokuapp.com", "class": "esLink"
+                    }))
+                    .append($("<p>", {
+                        text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
+                        "class": "esErrorContentMore"
+                    }))
+                    .append($("<p>", {
+                        text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
+                        "class": "esErrorContentMore"
+                    }))
+                    .append($("<p>", {
+                        text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
+                        "parametr es=off do adresu URL. W tym przypadku będzie to ", "class": "esErrorContentMore"
+                    }))
+                    .append($("<a>", {
+                        href: this._appendDisableEsFlag(document.location.href),
+                        text: this._appendDisableEsFlag(document.location.href), "class": "esLink"
+                    }))
             );
         },
         _bind: function () {
@@ -11777,7 +11930,10 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
             $("#start").click(function () {
                 do {
-                    $("body").append($("<a>", { "href": allRegressionUrls[lowerBound], "text": allRegressionUrls[lowerBound]})).append($("<br>"));
+                    $("body").append($("<a>", {
+                        "href": allRegressionUrls[lowerBound],
+                        "text": allRegressionUrls[lowerBound]
+                    })).append($("<br>"));
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
@@ -11807,7 +11963,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             }
         },
         _logger: function () {
-            //console.log.apply(console, arguments);
+            console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000
