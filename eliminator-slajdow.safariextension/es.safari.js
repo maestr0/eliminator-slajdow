@@ -9726,7 +9726,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
-                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats",
+                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats, .fakeRsArrow",
                 navigationPageNumberSelector: "",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets",
                 headerSectionSelector: "",
@@ -9765,28 +9765,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     });
 
                     that._setCssOverwrite();
-
-                    //$.get(thisPageUrl, function (nextPage) {
-                    //    this.that = that;
-                    //    var currentImg = $(".rsSlideContent").find("img").attr("src");
-                    //    $(nextPage).find(".rsSlideContent").each(function (index) {
-                    //        $(this).find(".rsTmb").remove();
-                    //        $(this).find(".fakeRsArrow").remove();
-                    //        $(".fakeRsArrow").remove();
-                    //        if (currentImg !== $(this).find("img").attr("src")) {
-                    //            var slideHeader = that._buildHeader("Slajd " + (index + 1), index, that.thisPageUrl + "#obrazek-" + index);
-                    //            $(".imageContainerEliminatorSlajdow").addClass("pics_gallery_unlogged").append(slideHeader);
-                    //            $(".imageContainerEliminatorSlajdow").append(this);
-                    //
-                    //        }
-                    //    });
-                    //
-                    ////}, "html").fail(function (a, b, c) {
-                    //    that._tracking("ES_error", that.pageOptions.pageType, that.thisPageUrl);
-                    //    this._logger("ES - Blad pobierania nastepnego slajdu w demotywatorach: ", a, b, c, that.thisPageUrl);
-                    //    that._hideSpinner();
-                    //});
-
                 }
             },
             {
