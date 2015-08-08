@@ -228,7 +228,7 @@
                 sectionToBeAttached: "#content_wrap",
                 articleBodySelector: "#columns_wrap",
                 sectionToBeEmptySelector: "script:not([src])",
-                sectionToBeRemovedSelector: "#gazeta_article_miniatures, #banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright, #gazeta_article .nextSlideWrapper, .galleryNavigation",
+                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures, #banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright, #gazeta_article .nextSlideWrapper, .galleryNavigation",
                 sectionToBeRemovedFromAttachedSlidesSelector: "#photo_comments, #article_comments, #col_right",
                 navigationNextULRSelector: "div#content .photostoryNavigation .photostoryNextPage",
                 navigationPageNumberSelector: "#gazeta_article_top .countPage",
@@ -241,10 +241,12 @@
                 },
                 beforeAllCallback: function () {
                     $("#columns_wrap").after($("#article_comments"));
+                    var that = this;
+                    setInterval(function () {
+                        $(that.pageOptions.sectionToBeRemovedSelector).hide();
+                    }, 500);
                 },
                 afterAllCallback: function () {
-                    $(this.pageOptions.sectionToBeRemovedSelector).hide();
-                    this._logger("afterAllCallback");
                 }
             },
             {
@@ -386,9 +388,9 @@
                 navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
-                sectionToBeRemovedSelector: "#pics_gallery_slider, #royalSliderExtraNavigation, .share-widgets, .demot_info_stats",
+                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats",
                 navigationPageNumberSelector: "",
-                sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets, .rsTmb",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets",
                 headerSectionSelector: "",
                 customStyle: {
                     'rsSlideContent h3': 'display:none',
@@ -418,27 +420,13 @@
 
                     var that = this;
 
-                    $.get(thisPageUrl, function (nextPage) {
-                        this.that = that;
-                        var currentImg = $(".rsSlideContent").find("img").attr("src");
-                        $(nextPage).find(".rsSlideContent").each(function (index) {
-                            $(this).find(".rsTmb").remove();
-                            $(this).find(".fakeRsArrow").remove();
-                            $(".fakeRsArrow").remove();
-                            if (currentImg !== $(this).find("img").attr("src")) {
-                                var slideHeader = that._buildHeader("Slajd " + (index + 1), index, that.thisPageUrl + "#obrazek-" + index);
-                                $(".imageContainerEliminatorSlajdow").addClass("pics_gallery_unlogged").append(slideHeader);
-                                $(".imageContainerEliminatorSlajdow").append(this);
-                                that._setCssOverwrite();
-                            }
-                        });
-
-                    }, "html").fail(function (a, b, c) {
-                        that._tracking("ES_error", that.pageOptions.pageType, that.thisPageUrl);
-                        this._logger("ES - Blad pobierania nastepnego slajdu w demotywatorach: ", a, b, c, that.thisPageUrl);
-                        that._hideSpinner();
+                    $.each($(".galleryThumbs .rsTmb"), function (index) {
+                        var src = $(this).attr("src").replace("_200.", ".");
+                        var slideHeader = that._buildHeader("Slajd " + (index + 1), index, thisPageUrl + "#obrazek-" + index + 1).append("<img src='" + src + "'></img>");
+                        $(".imageContainerEliminatorSlajdow").addClass("pics_gallery_unlogged").append(slideHeader);
                     });
 
+                    that._setCssOverwrite();
                 }
             },
             {
@@ -1864,24 +1852,38 @@
                 /* Theme */
                 esTheme: "default",
                 /* dowolne style css w postaci mapy */
-                customStyle: {},
+                customStyle: {
+                    ".glassFrame": "overflow: auto"
+                },
                 preIncludeCallback: function () {
                 },
                 beforeAllCallback: function () {
+                    try {
+                        $.each($(".containerLeft .media > div"), function () {
+                            $(this).append($(this).data("params").parameters.html);
+                        });
+                    } catch (e) {
+
+                    }
+
+
                     var es = this;
                     $("body").addClass("eliminatorSlajdow");
-                    $("*[data-content]").each(function(){
+                    $("*[data-content]").each(function () {
                         $(this).text($(this).attr("data-content"));
                     });
-                    $("img[data-src]").each(function(){
+                    $("img[data-src]").each(function () {
                         $(this).attr("src", $(this).attr("data-src"));
                     });
                     $(".galleryContainer").css("width", "auto").css("left", "auto").addClass("imageContainerEliminatorSlajdow");
                     $(".navigationGallery").remove();
-                    $(".galleryContainer .gallerySlide").each(function(index){
+                    $(".galleryContainer .gallerySlide").each(function (index) {
                         $(this).before(es._buildHeader("Slide", index, $(this).attr("data-url")));
                     });
                     es._bind();
+                    setInterval(function () {
+                        $(".glassFrame").css("cssText", "overflow: auto !important");
+                    }, 500);
                 },
                 afterAllCallback: function () {
                 },
@@ -2109,7 +2111,7 @@
 
             } else {
                 this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
-                this._showErrorPanel("Niepoprawny selektor dla tej galerii");
+                //this._showErrorPanel("Niepoprawny selektor dla tej galerii");
                 this._undo();
             }
         },
