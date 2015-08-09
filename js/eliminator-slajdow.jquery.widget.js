@@ -1922,6 +1922,47 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#galeria-warstwa > div.boxPozycja.galeriaNaw > #material-galeria-nastepne.btnNastepny",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "73",
+                /* nazwa galerii */
+                name: "naszemiasto.pl w overlay 2015",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#galeria-warstwa",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#galeria-warstwa",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: " #material-galeria-nastepne.btnNastepny",
+                /* false gdy nie ma skad wziac numeracji */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony*/
+                sectionToBeRemovedSelector: ".galeriaNaw",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow */
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "white",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                beforeAllCallback: function () {
+                    document.cookie = "galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
+                    var link = $("link[rel=next]");
+                    if (link.length === 1) {
+                        var canonicalUrl = link.attr("href");
+                        if (canonicalUrl.indexOf(document.location.hostname) === -1) {
+                            document.location.href = canonicalUrl;
+                        }
+                    }
+                },
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.mmbydgoszcz.pl/artykul/zdjecia/powstajacy-dworzec-pkp-w-bydgoszczy-coraz-piekniejszy,3459749,artgal,16513765,t,id,tm,zid.html"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -1962,6 +2003,12 @@
             $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
         },
         _start: function () {
+            var content = "";
+            for (var property in this.pageOptions) {
+                content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n";
+            }
+            $("#es_debug").val($("#es_debug").val() + "\n" + content);
+
             this.pageOptions.beforeAllCallback.call(this);
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
@@ -2324,7 +2371,7 @@
             this.pages.push(this.options.customPages);
 
             if (this.options.debug) {
-                this._debug();
+                this._createDebugConsole();
             }
 
             for (var i in this.pages) {
@@ -2369,7 +2416,7 @@
             }
         },
         regression: function () {
-            this._debug();
+            this._createDebugConsole();
             var setTimeoutFunction = function (urlToOpen, pi) {
                 var delay = 5 * 1000 * pi;
                 setTimeout(function () {
@@ -2413,11 +2460,8 @@
             this._create();
             this._showSpinnier();
         },
-        _debug: function () {
+        _createDebugConsole: function () {
             var content = "Eliminator Slajdów - Debug Console v" + this.options.version + "\n\n";
-            for (var property in this.pageOptions) {
-                content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n";
-            }
             $("<textarea>", {id: "es_debug", val: content}).appendTo($("body"));
         },
         _tracking: function (category, action, comment) {
