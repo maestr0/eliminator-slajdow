@@ -5,9 +5,9 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.44/eliminator-slajdow.jquery.widget.js
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.45/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.44
+ *   Wersja: 3.1.45
  * */
 
 (function ($) {
@@ -20,7 +20,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.44",
+            version: "3.1.45",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -399,7 +399,7 @@
                 },
                 hasSlideNumbers: false,
                 pageType: "21",
-                regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
+                regressionUrls: ["http://fdemotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
                     "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
                     var thisPageUrl = document.location.protocol + "//" + document.location.host + document.location.pathname;
@@ -1891,6 +1891,37 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "div#wrap .article-slideshow article.slideshow div.slideshow-controls .slideshow-paging .slideshow-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "72",
+                /* nazwa galerii */
+                name: "Snobka 2015",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".slideshow",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".slideshow",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.slideshow-controls .slideshow-paging .slideshow-next",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "span.slideshow-current:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".slideshow-controls, .slideshow-paging",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .slideshow-controls, .slideshow-paging",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.snobka.pl/artykul/gwiazdy-bez-makijazu-czesc-szosta-s_21743/2"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -1931,9 +1962,6 @@
             $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
         },
         _start: function () {
-            if (this.options.debug) {
-                this._debug();
-            }
             this.pageOptions.beforeAllCallback.call(this);
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
@@ -2294,6 +2322,11 @@
             };
             $.extend(true, this, this, customOptions);
             this.pages.push(this.options.customPages);
+
+            if (this.options.debug) {
+                this._debug();
+            }
+
             for (var i in this.pages) {
                 var trigger = this.pages[i].trigger;
                 var noOfSelectors = trigger && trigger.match(/,/g) ? trigger.match(/,/g).length : 1;

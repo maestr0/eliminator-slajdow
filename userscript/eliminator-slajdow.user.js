@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.44 - 2015-08-08 */
+/*! eliminator_slajdow - v3.1.45 - 2015-08-09 */
 
 
 // ==UserScript==
@@ -7,7 +7,7 @@
 // @name                        Eliminator Slajdow
 // @namespace                   Eliminator Slajdow
 // @description                 Eliminuje slajdy na stronach Agory
-// @version                     3.1.44
+// @version                     3.1.45
 // @grant                       none
 // @icon                        http://eliminator-slajdow.herokuapp.com/assets/images/es_logo.svg
 // @updateURL                   https://raw.githubusercontent.com/maestr0/eliminator-slajdow-chrome/master/userscript/eliminator-slajdow.user.js
@@ -9591,7 +9591,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.44",
+            version: "3.1.45",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -9959,7 +9959,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
-                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats, .fakeRsArrow",
+                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats, .fakeRsArrow, .rsSlideContent",
                 navigationPageNumberSelector: "",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets",
                 headerSectionSelector: "",
@@ -9970,7 +9970,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 hasSlideNumbers: false,
                 pageType: "21",
-                regressionUrls: ["http://demotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
+                regressionUrls: ["http://fdemotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
                     "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
                     var thisPageUrl = document.location.protocol + "//" + document.location.host + document.location.pathname;
@@ -11462,6 +11462,37 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "div#wrap .article-slideshow article.slideshow div.slideshow-controls .slideshow-paging .slideshow-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "72",
+                /* nazwa galerii */
+                name: "Snobka 2015",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".slideshow",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".slideshow",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "div.slideshow-controls .slideshow-paging .slideshow-next",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "span.slideshow-current:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".slideshow-controls",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .slideshow-controls",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.snobka.pl/artykul/gwiazdy-bez-makijazu-czesc-szosta-s_21743/2"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -11502,9 +11533,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
         },
         _start: function () {
-            if (this.options.debug) {
-                this._debug();
-            }
             this.pageOptions.beforeAllCallback.call(this);
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
             $("body").addClass("eliminatorSlajdow");
@@ -11865,6 +11893,11 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             };
             $.extend(true, this, this, customOptions);
             this.pages.push(this.options.customPages);
+
+            if (this.options.debug) {
+                this._debug();
+            }
+
             for (var i in this.pages) {
                 var trigger = this.pages[i].trigger;
                 var noOfSelectors = trigger && trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
@@ -11979,7 +12012,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         cssPath: 'https://db.tt/Uz2u90pB',
         debug: false,
-        version: "3.1.44-userscript",
+        version: "3.1.45-userscript",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"
