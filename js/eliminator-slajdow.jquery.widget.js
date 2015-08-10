@@ -35,6 +35,7 @@
             headerSectionSelector: ".navigation:first h1 span",
             sectionToBeRemovedFromAttachedSlidesSelector: "",
             hasSlideNumbers: true,
+            imageContainerPositionInRelationToArticleBody: "after",
             visitedSlideURLs: [],
             classesToBeRemoved: [],
             pageType: "Default",
@@ -1963,6 +1964,60 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body > div > div.galleryWrapper > div > button.slick-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "74",
+                /* nazwa galerii */
+                name: "Fakt 2015 slick",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".slick-slide ",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "before",
+                /* Theme */
+                esTheme: "white",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                    $(".slick-slider .slick-list").height("auto").css("margin-top","50px");
+                    $(".slick-slider").css("top","0");
+                    $(".slick-slider .slick-track").height("auto").attr("style","");
+                    $(".slick-slider .slick-slide").addClass("slick-center").css("padding-bottom","100px").css("width","100%");
+                    setInterval(function(){
+                        $(".slick-slider .slick-track").height("auto").attr("style","");
+                        $(".slick-slider .slick-slide").addClass("slick-center").css("padding-bottom","100px").css("width","100%");
+                    },1000);
+
+                    $.each($(".slick-gallery .imageWrapper .slick-loading"), function(){
+                        $(this).attr("src", $(this).data("lazy"));
+                    });
+
+                    $(".slick-ad").remove();
+                    $(".slick-ad").prev().remove();
+
+
+                    $(".slick-gallery button").remove();
+                    this._createImageContainer();
+                    $(".imageContainerEliminatorSlajdow").append(this._buildHeader("Slide", "", ""));
+                    this._bind();
+                },
+                regressionUrls: ["http://www.fakt.pl/wroclaw/30-latek-jechal-do-rodzacej-zony-zginal-w-wypadku,artykuly,564650,1,1,1.html"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -1984,6 +2039,8 @@
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
                 /* Theme */
                 esTheme: "default",
                 /* dowolne style css w postaci mapy */
@@ -2388,7 +2445,11 @@
         _createImageContainer: function () {
             var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
             this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
-            $(this.pageOptions.articleBodySelector).after(this.imageContainer);
+            if(this.pageOptions.imageContainerPositionInRelationToArticleBody === "before"){
+                $(this.pageOptions.articleBodySelector).before(this.imageContainer);
+            } else {
+                $(this.pageOptions.articleBodySelector).after(this.imageContainer);
+            }
         },
         _showSpinnier: function () {
             $("div.imageContainerEliminatorSlajdow").append(this.spinner);
@@ -2462,7 +2523,9 @@
         },
         _createDebugConsole: function () {
             var content = "Eliminator Slajdów - Debug Console v" + this.options.version + "\n\n";
-            $("<textarea>", {id: "es_debug", val: content}).appendTo($("body"));
+            var style = "width: 700px;height: 400px;z-index: 9999999;font-family: monospace;font-size: 13px;border: 1px solid;" +
+                "background: black;color: #3BFF00;padding: 10px;position: fixed;bottom: 0;right: 0";
+            $("<textarea>", {id: "es_debug", style: style, val: content}).appendTo($("body"));
         },
         _tracking: function (category, action, comment) {
             if ($.isFunction(this.options.trackingCallback)) {
