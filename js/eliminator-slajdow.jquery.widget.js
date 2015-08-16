@@ -408,33 +408,26 @@
                     "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
                     this._createImageContainer();
-
-                    //$(".imageContainerEliminatorSlajdow .rsSlideContent").appendTo($(".imageContainerEliminatorSlajdow"));
-                    //$(".imageContainerEliminatorSlajdow .el_slide, .imageContainerEliminatorSlajdow .slideHeader").remove();
                     var self = this;
-                    //$(".imageContainerEliminatorSlajdow .rsSlideContent:first").remove();
-
                     $.get(document.location.href, function (data) {
+                        if (data.length > 100) {
+                            $(data).find(".rsSlideContent").each(function (index) {
+                                var slide = $(this);
+                                slide.find(".rsTmb").remove();
+                                slide.find(".fakeRsArrow").remove();
+                                slide = slide.wrap("<div class='slide_" + index + " es_slide'></div>");
+                                $(".imageContainerEliminatorSlajdow").append(
+                                    self._buildHeader('Slajd ' + (index + 1) + ' z ' + $(data).find(".rsSlideContent").length, index + 2, document.location.href));
+                                $(".imageContainerEliminatorSlajdow").append(slide);
+                            });
 
-                        $(data).find(".rsSlideContent").each(function (index) {
-                            var slide = $(this);
-                            slide.find(".rsTmb").remove();
-                            slide.find(".fakeRsArrow").remove();
-                            slide = slide.wrap("<div class='slide_" + index + " es_slide'></div>");
 
-                            $(".imageContainerEliminatorSlajdow").append(
-                                self._buildHeader('Slajd ' + (index + 1) + ' z ' + $(data).find(".rsSlideContent").length, index + 2, document.location.href));
-                            $(".imageContainerEliminatorSlajdow").append(slide);
-                        });
-
-                        $(self.pageOptions.sectionToBeEmptySelector).empty();
-                        $(self.pageOptions.sectionToBeRemovedSelector).remove();
-                        self._setCssOverwrite();
-                        self._bind();
+                            $(self.pageOptions.sectionToBeEmptySelector).empty();
+                            $(self.pageOptions.sectionToBeRemovedSelector).remove();
+                            self._setCssOverwrite();
+                            self._bind();
+                        }
                     });
-
-
-
                 }
             },
             {
@@ -1548,15 +1541,6 @@
                 preIncludeCallback: function () {
                 },
                 loadMoreSlides: function () {
-                    //var split = this.thisSlideURL.split("/");
-                    //var slideName = split[split.length];
-                    //console.log("nazwa slajdu", slideName, split);
-                    //if ($.inArray(slideName, this.pageOptions.visitedSlideURLs) > -1) {
-                    //    return false;
-                    //} else {
-                    //    this.pageOptions.visitedSlideURLs.push(slideName);
-                    //    return true;
-                    //}
                     return this.nextPageURL.indexOf("slide_") > 0;
                 },
                 regressionUrls: ["http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3",
@@ -2054,11 +2038,11 @@
                 /* elementy ktora zostana dolaczone jako slajd*/
                 sectionToBeAttached: ".widget-box",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: ".bx-controls-direction .bx-next",
+                navigationNextULRSelector: "link[rel='next prefetch']",
                 /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "",
+                sectionToBeRemovedSelector: ".ggallery-pager-box, .bx-controls",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -2066,12 +2050,49 @@
                 /* gdzie umiescic imageContainer w stosunku do articleBody*/
                 imageContainerPositionInRelationToArticleBody: "after",
                 /* Theme */
-                esTheme: "default",
+                esTheme: "white",
                 /* dowolne style css w postaci mapy */
-                customStyle: {},
+                customStyle: {".imageContainerEliminatorSlajdow": "position: relative; z-index:1"},
+                preIncludeCallback: function () {
+                    var self = this;
+                    setInterval(function(){
+                        $(self.pageOptions.sectionToBeRemovedSelector).remove();
+                    },500);
+                },
+                regressionUrls: ["http://auto.dziennik.pl/aktualnosci/zdjecia/galeria/428180,5,byd-czyli-nowa-marka-samochodow-z-chin-wjezdza-do-polski-zdjecia.html"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#stgMain .stgInner .picNav .stampGlowneFoto span.stampGlowneFotoMain a.next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "76",
+                /* nazwa galerii */
+                name: "Wp.pl 2015",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#stgCol300",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".stampGlowneFoto ,#stgCol300",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "span.stampGlowneFotoMain a.next",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "#stgCol300 span.num",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".stampGlowneFotoMain a.arr, .minGal",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .stampGlowneFotoMain a.arr, .minGal",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "white",
+                /* dowolne style css w postaci mapy */
+                customStyle: {".stampGlowneFoto": "float:left;"},
                 preIncludeCallback: function () {
                 },
-                regressionUrls: [""]
+                regressionUrls: ["http://teleshow.wp.pl/gid,17632341,img,17632374,title,Beata-Tadla-obchodzi-40-urodziny-Jak-prezenterka-zmieniala-sie-przez-lata,tpl,7,galeria.html?es=debug"]
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
@@ -2199,6 +2220,7 @@
             }).append($("<i>", {"class": 'icon-facebook-squared'})));
         },
         _appendNextSlide: function (galleryPage, thisSlideURL) {
+            galleryPage = $('<div/>').append(galleryPage);
             var that = this;
             this._hideSpinner();
             this.currentUrl = thisSlideURL;
@@ -2527,12 +2549,15 @@
             $("div.imageContainerEliminatorSlajdow div.eliminatorSlajdowSpinner").remove();
         },
         _appendDisableEsFlag: function (url) {
+            return this._appendParamToUrl(url, "es=off");
+        },
+        _appendParamToUrl: function (url, param) {
             if (url.indexOf("?") > -1) {
-                return url.replace("?", "?es=off&");
+                return url.replace("?", "?" + param + "&");
             } else if (url.indexOf("#") > -1) {
-                return url.replace("#", "?es=off#");
+                return url.replace("#", "?" + param + "#");
             } else {
-                return url + "?es=off";
+                return url + "?" + param;
             }
         },
         _updateGalleryLink: function () {
