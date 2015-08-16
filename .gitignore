@@ -7,3 +7,4 @@ node_modules
 package/*
 .sass-cache/
 npm-debug.log
+firefox/eliminator-slajdow.xpi
