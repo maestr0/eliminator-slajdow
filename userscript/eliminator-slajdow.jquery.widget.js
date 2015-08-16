@@ -392,45 +392,49 @@
                 navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
-                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats, .fakeRsArrow, .rsSlideContent",
+                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats, .fakeRsArrow, #pics_gallery_slider, .demot_pic",
                 navigationPageNumberSelector: "",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets",
                 headerSectionSelector: "",
                 customStyle: {
                     'rsSlideContent h3': 'display:none',
                     '#main_container article, #main_container .demotivator': 'float:left',
-                    '.rsSlideContent .relative': 'text-align: center;margin: 40px;'
+                    '.rsSlideContent .relative': 'text-align: center;margin: 40px;',
+                    '.rsSlideContent': 'margin-bottom: 20px;color:white;font-size:16px'
                 },
                 hasSlideNumbers: false,
                 pageType: "21",
                 regressionUrls: ["http://fdemotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
                     "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
-                    var thisPageUrl = document.location.protocol + "//" + document.location.host + document.location.pathname;
-                    $(".imageContainerEliminatorSlajdow .rsSlideContent").appendTo($(".imageContainerEliminatorSlajdow"));
-                    $(".imageContainerEliminatorSlajdow .el_slide, .imageContainerEliminatorSlajdow .slideHeader").remove();
-                    var self = this;
-                    $(".imageContainerEliminatorSlajdow .rsSlideContent:first").remove();
-                    $(".imageContainerEliminatorSlajdow .rsSlideContent").each(function (index) {
-                        $(this).wrap("<div class='slide_" + index + " es_slide'></div>")
-                            .parent().before(self._buildHeader('Slajd ' + (index + 2) + ' z ' +
-                            $(".imageContainerEliminatorSlajdow .rsSlideContent").length, index + 2, document.location.href));
-                    });
-
-                    $(this.pageOptions.sectionToBeEmptySelector).empty();
-                    $(this.pageOptions.sectionToBeRemovedSelector).remove();
                     this._createImageContainer();
-                    this._bind();
 
-                    var that = this;
+                    //$(".imageContainerEliminatorSlajdow .rsSlideContent").appendTo($(".imageContainerEliminatorSlajdow"));
+                    //$(".imageContainerEliminatorSlajdow .el_slide, .imageContainerEliminatorSlajdow .slideHeader").remove();
+                    var self = this;
+                    //$(".imageContainerEliminatorSlajdow .rsSlideContent:first").remove();
 
-                    $.each($(".galleryThumbs .rsTmb"), function (index) {
-                        var src = $(this).attr("src").replace("_200.", ".");
-                        var slideHeader = that._buildHeader("Slajd " + (index + 1), index, thisPageUrl + "#obrazek-" + index + 1).append("<img src='" + src + "'></img>");
-                        $(".imageContainerEliminatorSlajdow").addClass("pics_gallery_unlogged").append(slideHeader);
+                    $.get(document.location.href, function (data) {
+
+                        $(data).find(".rsSlideContent").each(function (index) {
+                            var slide = $(this);
+                            slide.find(".rsTmb").remove();
+                            slide.find(".fakeRsArrow").remove();
+                            slide = slide.wrap("<div class='slide_" + index + " es_slide'></div>");
+
+                            $(".imageContainerEliminatorSlajdow").append(
+                                self._buildHeader('Slajd ' + (index + 1) + ' z ' + $(data).find(".rsSlideContent").length, index + 2, document.location.href));
+                            $(".imageContainerEliminatorSlajdow").append(slide);
+                        });
+
+                        $(self.pageOptions.sectionToBeEmptySelector).empty();
+                        $(self.pageOptions.sectionToBeRemovedSelector).remove();
+                        self._setCssOverwrite();
+                        self._bind();
                     });
 
-                    that._setCssOverwrite();
+
+
                 }
             },
             {
