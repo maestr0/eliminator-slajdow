@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.45 - 2015-08-09 */
+/*! eliminator_slajdow - v3.1.45 - 2015-08-15 */
 
 
 /*!
@@ -9385,6 +9385,9 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             },
             beforeAllCallback: function () {
             },
+            loadMoreSlides: function () {
+                return true;
+            },
             afterAllCallback: function () {
             }
         },
@@ -10316,12 +10319,17 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* elementy do usuniecia z calej strony */
                 sectionToBeRemovedSelector: ".pPaginSmall, .stampStronicowanieFototematu, .stampFototematBigFotoNxt, .stampFototematBigFotoPrv",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
-                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .pPaginSmall",
                 /* $.empty() na elemencie*/
                 sectionToBeEmptySelector: "",
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
+                },
+                afterAllCallback: function () {
+                    setInterval(function () {
+                        $(".pPaginSmall").remove();
+                    }, 500);
                 },
                 regressionUrls: ["http://pogoda.wp.pl/gid,16782131,kat,1035571,title,Prognoza-dlugoterminowa-kulminacja-upalnego-lata,galeria.html"]
             },
@@ -10873,6 +10881,18 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
+                loadMoreSlides: function () {
+                    //var split = this.thisSlideURL.split("/");
+                    //var slideName = split[split.length];
+                    //console.log("nazwa slajdu", slideName, split);
+                    //if ($.inArray(slideName, this.pageOptions.visitedSlideURLs) > -1) {
+                    //    return false;
+                    //} else {
+                    //    this.pageOptions.visitedSlideURLs.push(slideName);
+                    //    return true;
+                    //}
+                    return this.nextPageURL.indexOf("slide_") > 0;
+                },
                 regressionUrls: ["http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3",
                     "http://www.biztok.pl/biznes/reklamy-ktore-zmienily-swiat_s17408/slide_3"]
             },
@@ -11330,16 +11350,16 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
-                    $(".slick-slider .slick-list").height("auto").css("margin-top","50px");
-                    $(".slick-slider").css("top","0");
-                    $(".slick-slider .slick-track").height("auto").attr("style","");
-                    $(".slick-slider .slick-slide").addClass("slick-center").css("padding-bottom","100px").css("width","100%");
-                    setInterval(function(){
-                        $(".slick-slider .slick-track").height("auto").attr("style","");
-                        $(".slick-slider .slick-slide").addClass("slick-center").css("padding-bottom","100px").css("width","100%");
-                    },1000);
+                    $(".slick-slider .slick-list").height("auto").css("margin-top", "50px");
+                    $(".slick-slider").css("top", "0");
+                    $(".slick-slider .slick-track").height("auto").attr("style", "");
+                    $(".slick-slider .slick-slide").addClass("slick-center").css("padding-bottom", "100px").css("width", "100%");
+                    setInterval(function () {
+                        $(".slick-slider .slick-track").height("auto").attr("style", "");
+                        $(".slick-slider .slick-slide").addClass("slick-center").css("padding-bottom", "100px").css("width", "100%");
+                    }, 1000);
 
-                    $.each($(".slick-gallery .imageWrapper .slick-loading"), function(){
+                    $.each($(".slick-gallery .imageWrapper .slick-loading"), function () {
                         $(this).attr("src", $(this).data("lazy"));
                     });
 
@@ -11349,8 +11369,41 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
                     $(".slick-gallery button").remove();
                     this._createImageContainer();
-                    $(".imageContainerEliminatorSlajdow").append(this._buildHeader("Slide", "", ""));
+                    $(".imageContainerEliminatorSlajdow").append(this._buildHeader("Slajd", "", ""));
                     this._bind();
+                },
+                regressionUrls: ["http://www.fakt.pl/wroclaw/30-latek-jechal-do-rodzacej-zony-zginal-w-wypadku,artykuly,564650,1,1,1.html"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: ".articlepage .page-wrap .ggallery-slider-box #ggallery-slider",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "75",
+                /* nazwa galerii */
+                name: "Dziennik PL 2015",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".page-wrap .row .widget-ggallery-box",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".widget-box",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: ".bx-controls-direction .bx-next",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
                 },
                 regressionUrls: [""]
             },
@@ -11360,7 +11413,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
-                pageType: "48",
+                pageType: "76",
                 /* nazwa galerii */
                 name: "",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
@@ -11421,7 +11474,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 this.pageOptions.visitedSlideURLs.push(document.location.pathname + document.location.search);
                 this._requestNextSlide(this.nextPageURL);
             } else {
-                this._logger("Brak slajdow. Galeria typu " + this.pageOptions.pageType);
+                this._logger("Nie znaleziono linka do nastepnego slajdu. Galeria typu " + this.pageOptions.pageType);
             }
         },
         _undo: function () {
@@ -11443,17 +11496,21 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 "class": "scrollSwitch icon-resize-vertical " + (this.options.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
                 title: "Pasek przewijania"
             })).append(
-                $("<i>", {
-                    "class": "icon-bug",
-                    title: "Zgłoś problem"
-                })).append(
+                $("<span>", {
+                    "class": "bugreport"
+                }).append($("<a>", {
+                        title: "Zgłoś problem",
+                        text: "ZGŁOŚ PROBLEM"
+                    })
+                )).append(
                 $("<span>", {
                     "class": "directLink"
                 }).append($("<a>", {
-                        target: "_blank",
                         href: this._appendDisableEsFlag(url),
-                        title: "Bezpośredni link"
-                    }).append($("<i>", {"class": 'icon-link-ext'}))
+                        title: "Wyłącz ES na tym slajdzie",
+                        text: "WYŁĄCZ ES",
+                        "class": "disableEs"
+                    })
                 )).append(
                 $("<i>", {
                     "class": "icon-right-circle",
@@ -11572,7 +11629,15 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     )) {
                     this._logger("link do nastepnej storny", this.nextPageURL);
                     this._showSpinnier();
-                    this._requestNextSlide(this.nextPageURL);
+
+                    if (this.pageOptions.loadMoreSlides.call(this)) {
+                        this._requestNextSlide(this.nextPageURL);
+                    } else {
+                        this._logger("loadMoreSlides=false  ostatni slajd");
+                        this._hideSpinner();
+                        this.pageOptions.afterAllCallback.call(this);
+                        return;
+                    }
                 } else {
                     this._logger("Ostatni Slajd");
                     this._hideSpinner();
@@ -11695,7 +11760,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 that._tracking("scroll_ui", that.options.scrollableImageContainer ? "ON" : "OFF");
             });
 
-            imageContainer.on("click", "i.icon-bug", function () {
+            imageContainer.on("click", "a.bugreport", function () {
                 window.open(that.options.bugReportUrl);
                 that._tracking("bug_report_ui", "click");
             });
@@ -11783,7 +11848,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         _createImageContainer: function () {
             var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
             this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
-            if(this.pageOptions.imageContainerPositionInRelationToArticleBody === "before"){
+            if (this.pageOptions.imageContainerPositionInRelationToArticleBody === "before") {
                 $(this.pageOptions.articleBodySelector).before(this.imageContainer);
             } else {
                 $(this.pageOptions.articleBodySelector).after(this.imageContainer);

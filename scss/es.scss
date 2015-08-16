@@ -336,9 +336,15 @@
         }
 
         &.bugreport {
-          color: white;
-          cursor: pointer;
-          float: right;
+          a {
+            color: #000000;
+            float: right;
+            margin-left: 10px;
+            cursor: pointer;
+          }
+          a:hover {
+            color: white !important;
+          }
         }
         &.directLink {
           cursor: pointer;
@@ -346,7 +352,8 @@
           color: white;
           height: 16px;
           a {
-            color: white;
+            color: red;
+            margin-left: 20px;
             text-decoration: none;
             height: 14px;
             font: 11px Arial;
