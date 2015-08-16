@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.45 - 2015-08-16 */
+/*! eliminator_slajdow - v3.1.46 - 2015-08-16 */
 
 
 // ==UserScript==
@@ -7,7 +7,7 @@
 // @name                        Eliminator Slajdow
 // @namespace                   Eliminator Slajdow
 // @description                 Eliminuje slajdy na stronach Agory
-// @version                     3.1.45
+// @version                     3.1.46
 // @grant                       none
 // @icon                        http://eliminator-slajdow.herokuapp.com/assets/images/es_logo.svg
 // @updateURL                   https://raw.githubusercontent.com/maestr0/eliminator-slajdow-chrome/master/userscript/eliminator-slajdow.user.js
@@ -9591,7 +9591,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.45",
+            version: "3.1.46",
             customPages: {},
             trackingCallback: function (category, action) {
             }
@@ -9963,7 +9963,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 navigationNextULRSelector: "#royalSliderExtraNavigation a.navigate_right",
                 sectionToBeEmptySelector: "",
                 sectionToBeAttached: ".demotivator .demot_pic .rsSlideContent",
-                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats, .fakeRsArrow, #pics_gallery_slider",
+                sectionToBeRemovedSelector: "#royalSliderExtraNavigation, .share-widgets, .demot_info_stats, .fakeRsArrow, #pics_gallery_slider, .demot_pic",
                 navigationPageNumberSelector: "",
                 sectionToBeRemovedFromAttachedSlidesSelector: "script, .share-widgets",
                 headerSectionSelector: "",
@@ -12188,7 +12188,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
         imageBaseUrl: 'https://dl.dropboxusercontent.com/u/24730581/eliminator_slajdow_assets/',
         cssPath: 'https://db.tt/Uz2u90pB',
         debug: false,
-        version: "3.1.45-userscript",
+        version: "3.1.46-userscript",
         debug: (document.location.href.indexOf("es_debug=1") > -1),
         facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=safari.extension",
         bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=safari.extension"

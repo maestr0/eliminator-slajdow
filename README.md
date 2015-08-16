@@ -17,4 +17,15 @@ https://eliminator-slajdow.herokuapp.com
 
 Autor: Paweł Raszewski (raszewski@gmail.com)
 
+
+# build
+
+Chrome
+`grunt chrome`
+
+Firefox
+
+`grunt firefox`
+`cfx xpi --force-mobile` w katalogu firefox
+
 Licencja: GNU GPL v3 http://www.gnu.org/licenses/gpl.html

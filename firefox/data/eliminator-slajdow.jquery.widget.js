@@ -5,9 +5,9 @@
  *   Licencja: GPLv3
  *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.45/eliminator-slajdow.jquery.widget.js
+ *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/3.1.46/eliminator-slajdow.jquery.widget.js
  *
- *   Wersja: 3.1.45
+ *   Wersja: 3.1.46
  * */
 
 (function ($) {
@@ -20,7 +20,7 @@
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: false,
-            version: "3.1.45",
+            version: "3.1.46",
             customPages: {},
             trackingCallback: function (category, action) {
             }
