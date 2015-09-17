@@ -9567,7 +9567,8 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 triggerStopper: "body#pagetype_index .mod_suwakiRwd",
                 name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (12)",
                 regressionUrls: ["http://technologie.gazeta.pl/internet/56,104530,14940595,Panel_sterowania__gdzie_ja_do_diaska_jestem,,1.html",
-                    "http://wiadomosci.gazeta.pl/wiadomosci/51,114881,16712264.html"],
+                    "http://wiadomosci.gazeta.pl/wiadomosci/51,114881,16712264.html",
+                    "http://www.swiatmotocykli.pl/Motocykle/0,144835,18586700.html"],
                 sectionToBeAttached: "#content_wrap",
                 articleBodySelector: "#columns_wrap",
                 sectionToBeEmptySelector: "script:not([src])",
@@ -11463,6 +11464,39 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                 },
                 afterAllCallback: function () {
                 }
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "main.main--wide-col .main_article_container article.galery .galery--controls .galery--controls-next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "78",
+                /* nazwa galerii */
+                name: "gwiazdy wp.pl wrzesien 2015",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "article",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "article",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "article.galery .galery--controls .galery--controls-next",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: ".galery--counter:first",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".galery--controls",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://gwiazdy.wp.pl/galeria/5906783836624001,5/joanna-horodynska-o-agnieszce-kaczorowskiej-wiecznie-tanczaca-wiecznie-udajaca-diwe.html?es=debug"]
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
