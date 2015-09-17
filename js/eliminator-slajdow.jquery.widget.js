@@ -226,9 +226,11 @@
             },
             {
                 trigger: "#content_wrap .photostoryNavigation .photostoryNextPage",
+                triggerStopper: "body#pagetype_index .mod_suwakiRwd",
                 name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (12)",
                 regressionUrls: ["http://technologie.gazeta.pl/internet/56,104530,14940595,Panel_sterowania__gdzie_ja_do_diaska_jestem,,1.html",
-                    "http://wiadomosci.gazeta.pl/wiadomosci/51,114881,16712264.html"],
+                    "http://wiadomosci.gazeta.pl/wiadomosci/51,114881,16712264.html",
+                    "http://www.swiatmotocykli.pl/Motocykle/0,144835,18586700.html"],
                 sectionToBeAttached: "#content_wrap",
                 articleBodySelector: "#columns_wrap",
                 sectionToBeEmptySelector: "script:not([src])",
@@ -1836,40 +1838,10 @@
                     "http://www.pudelek.pl/artykul/74003/jane_fonda_konczy_w_tym_miesiacu_77_lat_zdjecia_s/foto_1?utm_source=o2_SG&utm_medium=Pudelek&utm_campaign=o2#s1"]
             },
             {
-                trigger: "nav.slideTop .photostoryNavigation .photostoryNextPage",
-                name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (Wrzesien 2015)",
-                regressionUrls: ["http://deser.gazeta.pl/deser/51,111858,12143042.html?i=2&es=debug",
-                    "http://wiadomosci.gazeta.pl/wiadomosci/51,114871,18818238.html",
-                    "http://www.plotek.pl/plotek/51,78649,18746955.html?i=4&es=debug"],
-                sectionToBeAttached: "#content_wrap",
-                articleBodySelector: "#columns_wrap",
-                sectionToBeEmptySelector: "script:not([src])",
-                sectionToBeRemovedSelector: "#bottom_wrap, .photostoryNavigation, #gazeta_article_miniatures, #banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright, #gazeta_article .nextSlideWrapper, .galleryNavigation",
-                sectionToBeRemovedFromAttachedSlidesSelector: "#photo_comments, #article_comments, #col_right",
-                navigationNextULRSelector: "nav.slideTop .photostoryNavigation .photostoryNextPage",
-                navigationPageNumberSelector: "#gazeta_article_top .countPage",
-                headerSectionSelector: "",
-                hasSlideNumbers: true,
-                pageType: "71",
-                customStyle: {"#article_comments": "float:left"},
-                preIncludeCallback: function () {
-                    this._updateGalleryLink();
-                },
-                beforeAllCallback: function () {
-                    $("#columns_wrap").after($("#article_comments"));
-                    var that = this;
-                    setInterval(function () {
-                        $(that.pageOptions.sectionToBeRemovedSelector).hide();
-                    }, 500);
-                },
-                afterAllCallback: function () {
-                }
-            },
-            {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: " .glassInternal .glassContent.galleryContent",
                 /* zatrzymuje trigger*/
-                triggerStopper: "",
+                triggerStopper: ".galleryContent .gallerySlide[data-type=video]",
                 /* index */
                 pageType: "71",
                 /* nazwa galerii */
@@ -1926,7 +1898,8 @@
                 },
                 afterAllCallback: function () {
                 },
-                regressionUrls: ["http://wiadomosci.onet.pl/kraj/najlepsze-memy-z-wynikow-wyborow-prezydenckich/kn9qjs"]
+                regressionUrls: ["http://wiadomosci.onet.pl/kraj/najlepsze-memy-z-wynikow-wyborow-prezydenckich/kn9qjs",
+                    "http://film.onet.pl/plebiscyt-onetu-wybierz-najlepszy-cytat-na-40-lecie-festiwalu-filmowego-w-gdyni/zctlry"]
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
@@ -2123,6 +2096,36 @@
                 preIncludeCallback: function () {
                 },
                 regressionUrls: ["http://teleshow.wp.pl/gid,17632341,img,17632374,title,Beata-Tadla-obchodzi-40-urodziny-Jak-prezenterka-zmieniala-sie-przez-lata,tpl,7,galeria.html?es=debug"]
+            },
+            {
+                trigger: "nav.slideTop .photostoryNavigation .photostoryNextPage",
+                name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (Wrzesien 2015)",
+                regressionUrls: ["http://deser.gazeta.pl/deser/51,111858,12143042.html?i=2&es=debug",
+                    "http://wiadomosci.gazeta.pl/wiadomosci/51,114871,18818238.html",
+                    "http://www.plotek.pl/plotek/51,78649,18746955.html?i=4&es=debug"],
+                sectionToBeAttached: "#content_wrap",
+                articleBodySelector: "#columns_wrap",
+                sectionToBeEmptySelector: "script:not([src])",
+                sectionToBeRemovedSelector: "#bottom_wrap, .photostoryNavigation, #gazeta_article_miniatures, #banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright, #gazeta_article .nextSlideWrapper, .galleryNavigation",
+                sectionToBeRemovedFromAttachedSlidesSelector: "#photo_comments, #article_comments, #col_right",
+                navigationNextULRSelector: "nav.slideTop .photostoryNavigation .photostoryNextPage",
+                navigationPageNumberSelector: "#gazeta_article_top .countPage",
+                headerSectionSelector: "",
+                hasSlideNumbers: true,
+                pageType: "77",
+                customStyle: {"#article_comments": "float:left"},
+                preIncludeCallback: function () {
+                    this._updateGalleryLink();
+                },
+                beforeAllCallback: function () {
+                    $("#columns_wrap").after($("#article_comments"));
+                    var that = this;
+                    setInterval(function () {
+                        $(that.pageOptions.sectionToBeRemovedSelector).hide();
+                    }, 500);
+                },
+                afterAllCallback: function () {
+                }
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
