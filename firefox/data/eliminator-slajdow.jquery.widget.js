@@ -1837,8 +1837,9 @@
             },
             {
                 trigger: "nav.slideTop .photostoryNavigation .photostoryNextPage",
-                name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (12)",
+                name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (Wrzesien 2015)",
                 regressionUrls: ["http://deser.gazeta.pl/deser/51,111858,12143042.html?i=2&es=debug",
+                    "http://wiadomosci.gazeta.pl/wiadomosci/51,114871,18818238.html",
                     "http://www.plotek.pl/plotek/51,78649,18746955.html?i=4&es=debug"],
                 sectionToBeAttached: "#content_wrap",
                 articleBodySelector: "#columns_wrap",
@@ -2084,9 +2085,9 @@
                 customStyle: {".imageContainerEliminatorSlajdow": "position: relative; z-index:1"},
                 preIncludeCallback: function () {
                     var self = this;
-                    setInterval(function(){
+                    setInterval(function () {
                         $(self.pageOptions.sectionToBeRemovedSelector).remove();
-                    },500);
+                    }, 500);
                 },
                 regressionUrls: ["http://auto.dziennik.pl/aktualnosci/zdjecia/galeria/428180,5,byd-czyli-nowa-marka-samochodow-z-chin-wjezdza-do-polski-zdjecia.html"]
             },
@@ -2194,8 +2195,8 @@
             }
         },
         _undo: function () {
-            $(this.pageOptions.sectionToBeEmptySelector).children().show();
-            $(this.pageOptions.sectionToBeRemovedSelector).show();
+            //document.location.href = this._appendDisableEsFlag(document.location.href);
+            this._logger("undoing,,");
         },
         _buildHeader: function (pageNumberLabel, pageNumber, url) {
             return $("<div>", {
@@ -2281,7 +2282,6 @@
                     this._logger("WARNING: URL do następnego slajdu jest taki sam jak url tego slajdu");
                     this._logger("URL do tego slajdu", thisSlideURL);
                     this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
-                    this._undo();
                     this.pageOptions.afterAllCallback.call(this);
                     return;
                 }
@@ -2290,7 +2290,6 @@
                     this._logger("Załączone strony", this.pageOptions.visitedSlideURLs);
                     this._logger("URL do tego slajdu", thisSlideURL);
                     this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
-                    this._undo();
                     this.pageOptions.afterAllCallback.call(this);
                     return;
                 }
@@ -2363,8 +2362,6 @@
 
             } else {
                 this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
-                //this._showErrorPanel("Niepoprawny selektor dla tej galerii");
-                this._undo();
             }
         },
         _setCssOverwrite: function (content) {
@@ -2414,7 +2411,6 @@
                 that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
                 that._hideSpinner();
                 that._showErrorPanel("Coś zablokowało żądanie AJAX");
-                that._undo();
             });
         },
         _showErrorPanel: function (msg) {
