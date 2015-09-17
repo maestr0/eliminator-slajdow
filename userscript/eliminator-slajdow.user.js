@@ -1,4 +1,4 @@
-/*! eliminator_slajdow - v3.1.47 - 2015-08-16 */
+/*! eliminator_slajdow - v3.1.47 - 2015-09-16 */
 
 
 // ==UserScript==
@@ -11407,6 +11407,35 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
                     "http://www.pudelek.pl/artykul/74003/jane_fonda_konczy_w_tym_miesiacu_77_lat_zdjecia_s/foto_1?utm_source=o2_SG&utm_medium=Pudelek&utm_campaign=o2#s1"]
             },
             {
+                trigger: "nav.slideTop .photostoryNavigation .photostoryNextPage",
+                name: "galeria #pagetype_art .photostoryNextPage NOWA GALERIA GAZETY (12)",
+                regressionUrls: ["http://deser.gazeta.pl/deser/51,111858,12143042.html?i=2&es=debug",
+                    "http://www.plotek.pl/plotek/51,78649,18746955.html?i=4&es=debug"],
+                sectionToBeAttached: "#content_wrap",
+                articleBodySelector: "#columns_wrap",
+                sectionToBeEmptySelector: "script:not([src])",
+                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures, #banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright, #gazeta_article .nextSlideWrapper, .galleryNavigation",
+                sectionToBeRemovedFromAttachedSlidesSelector: "#photo_comments, #article_comments, #col_right",
+                navigationNextULRSelector: "nav.slideTop .photostoryNavigation .photostoryNextPage",
+                navigationPageNumberSelector: "#gazeta_article_top .countPage",
+                headerSectionSelector: "",
+                hasSlideNumbers: true,
+                pageType: "71",
+                customStyle: {"#article_comments": "float:left"},
+                preIncludeCallback: function () {
+                    this._updateGalleryLink();
+                },
+                beforeAllCallback: function () {
+                    $("#columns_wrap").after($("#article_comments"));
+                    var that = this;
+                    setInterval(function () {
+                        $(that.pageOptions.sectionToBeRemovedSelector).hide();
+                    }, 500);
+                },
+                afterAllCallback: function () {
+                }
+            },
+            {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: " .glassInternal .glassContent.galleryContent",
                 /* zatrzymuje trigger*/
@@ -12199,7 +12228,6 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
             }
         },
         _logger: function () {
-            //console.log.apply(console, arguments);
             if (this.options.debug) {
                 $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
                     scrollTop: 10000000
