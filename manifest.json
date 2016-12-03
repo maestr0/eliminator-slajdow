@@ -1,46 +1,30 @@
 {
   "name": "Eliminator Slajdów",
   "manifest_version": 2,
-  "version": "@@version",
+  "version": "4.0.0",
+  "homepage_url": "https://github.com/maestr0/eliminator-slajdow-chrome",
   "description": "Dodatek eliminuje slajdy w galeriach zdjęć na większości polskich portali",
-  "page_action": {
+  "permissions": [
+    "activeTab"
+  ],
+  "options_ui": {
+    "page": "html/options.html"
+  },
+  "icons": {
+    "48": "images/es_logo.svg"
+  },
+  "browser_action": {
     "default_icon": "images/icon_48.png",
     "default_title": "Eliminator Slajdów",
-    "default_popup": "html/popup.html"
+    "default_popup": "html/options.html"
   },
-  "permissions": [
-    "tabs"
-  ],
-  "incognito": "spanning",
-  "options_page": "html/popup.html",
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-  "icons": {
-    "16": "images/icon_16.png",
-    "48": "images/icon_48.png",
-    "128": "images/icon_128.png"
-  },
-  "background": {
-    "page": "html/background.html"
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "http://*/*"
-      ],
-      "js": [
-        "js/jquery@@min.suffix.js",
-        "js/eliminator-slajdow.jquery.widget.js",
-        "js/contentscript.js"
-      ],
-      "run_at": "document_idle",
-      "all_frames": false,
-      "css": [
-        "css/es.css"
-      ]
-    }
-  ],
   "web_accessible_resources": [
     "images/DonateBitcoin.png",
     "images/es_logo.svg"
-  ]
+  ],
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ]
+  }
 }

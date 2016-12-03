@@ -13,19 +13,13 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SMS8WQBP3DU
 
 Wszelkie sugestię proszę zgłaszać na
 
-https://eliminator-slajdow.herokuapp.com
+http://eliminator-slajdow.herokuapp.com
 
 Autor: Paweł Raszewski (raszewski@gmail.com)
 
 
 # build
 
-Chrome
-`grunt chrome`
-
-Firefox
-
-`grunt firefox`
-`cfx xpi --force-mobile` w katalogu firefox
+TODO
 
 Licencja: GNU GPL v3 http://www.gnu.org/licenses/gpl.html

@@ -1,6 +1,0 @@
-.DS_Store
-.idea
-*.iml
-lib/*.iml
-*.xpi
-initSDK.sh
