@@ -11,6 +11,10 @@ function onMessageListener(request, sender, sendResponse) {
             "version": localStorage.version
         });
     }
+    if (request.status) {
+        localStorage.status = parseInt(request.status);
+        updateStatusIcon();
+    }
 }
 
 function browserActionListener() {

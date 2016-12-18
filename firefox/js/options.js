@@ -23,6 +23,10 @@
                 that.allowedDomains[text] = selected;
                 localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
             });
+
+            $('input[type=radio][name=status]').change(function () {
+                browser.runtime.sendMessage({"status": this.value});
+            });
         },
         fnGenerateDomainList: function () {
             var that = this;
@@ -41,13 +45,15 @@
             }
             return extensionStatus;
         },
-        updateVersionLabel: function () {
+        updateUI: function () {
             $("#version").text(localStorage.version);
+            $('input[type=radio][name=status]')
+            $("input:radio[value=" + localStorage.status + "]").attr("checked", true);
         },
         init: function () {
             this.fnGenerateDomainList();
             this.fnBindEvents();
-            this.updateVersionLabel();
+            this.updateUI();
         }
     };
     POPUP.init();

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Eliminator Slajdów - USTAWIENIA</title>
@@ -8,8 +8,18 @@
 
 <body>
 <div id="options">
-    <h3 class="domains">O autorze</h3>
+    <h3 class="domains">Status</h3>
+    <div>
+        <div class="statusPanel">
+            <input type="radio" id="radio1" name="status" value="1"/>
+            <label for="radio1">Aktywny</label>
 
+            <input type="radio" id="radio2" name="status" value="-1"/>
+            <label for="radio2">Wyłączony</label>
+        </div>
+    </div>
+
+    <h3 class="domains">O autorze</h3>
     <div>
         <p>Autor: Paweł Raszewski</p>
         <p>Email: <a href="mailto:raszewski@gmail.com?Subject=Lepsza%20Gazeta.PL">raszewski@gmail.com</a></p>
@@ -30,7 +40,7 @@
         <img src="../images/DonateBitcoin.png" alt="Donate Bitcoin" width="200" style="width: 166px;">
         <b style="vertical-align: 18px;margin-left: 45px;">1HszCEdt3qoqLHXD2t5k56Acuz4Yq4XLv1</b>
     </div>
-    <h3>Opcje - Eliminator Slajdów <span id="version"></span></h3>
+    <h3>Opcje - Eliminator Slajdów</h3>
     <div>
         <p class="extensionInfo"><span class="waning">Uwaga:</span> W chwili obecnej to rozszerzenie dziala TYLKO na
             portalach wymienionych poniżej.
@@ -43,7 +53,6 @@
     </div>
 </div>
 <script src="../js/jquery-2.0.3.js"></script>
-<script src="../js/jquery.iphone-switch.js"></script>
 <script src="../js/options.js"></script>
 </body>
 </html>

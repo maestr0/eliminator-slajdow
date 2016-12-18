@@ -5,6 +5,9 @@ body {
 a {
   color: #1e5799; }
 
+.statusPanel {
+  margin-bottom: 15px; }
+
 #options {
   width: 600px; }
   #options h3 {
