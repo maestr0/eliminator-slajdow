@@ -1,6 +1,8 @@
 // Listen for the content script to send a message to the background page.
 browser.runtime.onMessage.addListener(onMessageListener);
+browser.browserAction.onClicked.addListener(browserActionListener);
 
+// listeners
 function onMessageListener(request, sender, sendResponse) {
     if (location.hostname == sender.id && request.urlName !== undefined) {
         var activate = canRunOnCurrentUrl(request.urlName);
@@ -10,6 +12,29 @@ function onMessageListener(request, sender, sendResponse) {
         });
     }
 }
+
+function browserActionListener() {
+    localStorage.status = parseInt(localStorage.status) * -1;
+
+    var status = updateStatusIcon();
+    var currentStatus = status.currentStatus;
+    var icon = status.icon;
+
+    var title = "Eliminator Slajdów";
+    var content = currentStatus > 0 ? " AKTYWNY" : " WYŁĄCZONY";
+    browser.notifications.create({
+        "type": "basic",
+        "iconUrl": browser.extension.getURL(icon),
+        "title": title,
+        "message": content
+    });
+}
+
+// init
+
+updateStatusIcon();
+
+// helpers
 
 function canRunOnCurrentUrl(hostname) {
     var canRunHere = false;
@@ -29,6 +54,17 @@ function canRunOnCurrentUrl(hostname) {
     return canRunHere;
 }
 
+function updateStatusIcon() {
+    var enableIcon = "images/enableIcon.png";
+    var disableIcon = "images/disableIcon.png";
+    var currentStatus = parseInt(localStorage.status);
+    var icon = currentStatus > 0 ? enableIcon : disableIcon;
+    browser.browserAction.setIcon({path: icon});
+    return {currentStatus: currentStatus, icon: icon};
+}
+
+// onInstall hack
+
 var manifest = browser.runtime.getManifest();
 
 if (localStorage.version !== manifest.version) {
@@ -37,6 +73,7 @@ if (localStorage.version !== manifest.version) {
 
 function versionUpdate(newVersion) {
     setSupportedDomains();
+    localStorage.status = 1; // enable extension
     console.log("Updating Supported Domain config for ES v" + newVersion);
     localStorage.version = manifest.version;
 }

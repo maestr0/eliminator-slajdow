@@ -10,7 +10,7 @@
         });
 
     function log(msg) {
-        if (document.location.href.toLowerCase().indexOf("es=debug")) {
+        if (document.location.href.toLowerCase().indexOf("es=debug") > 0) {
             console.log(msg);
         }
     }

@@ -5,7 +5,8 @@
   "homepage_url": "https://github.com/maestr0/eliminator-slajdow-chrome",
   "description": "Dodatek eliminuje slajdy w galeriach zdjęć na większości polskich portali",
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "notifications"
   ],
   "options_ui": {
     "page": "html/options.html"
@@ -15,11 +16,9 @@
   },
   "browser_action": {
     "default_icon": "images/icon_48.png",
-    "default_title": "Eliminator Slajdów",
-    "default_popup": "html/options.html"
+    "default_title": "Eliminator Slajdów"
   },
   "web_accessible_resources": [
-    "images/DonateBitcoin.png",
     "images/es_logo.svg"
   ],
   "background": {
