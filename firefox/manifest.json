@@ -1,7 +1,7 @@
 {
   "name": "Eliminator Slajdów",
   "manifest_version": 2,
-  "version": "4.0.0",
+  "version": "4.0.1",
   "homepage_url": "https://github.com/maestr0/eliminator-slajdow-chrome",
   "description": "Dodatek eliminuje slajdy w galeriach zdjęć na większości polskich portali",
   "permissions": [
@@ -24,6 +24,7 @@
   ],
   "background": {
     "scripts": [
+      "js/jquery-2.0.3.js",
       "js/background.js"
     ]
   },

@@ -1,4 +1,5 @@
 (function ($) {
+    console.log("Eliminator Slajdow Content Script");
     browser.runtime.sendMessage({"urlName": window.location.href})
         .then(function (response) {
             if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
