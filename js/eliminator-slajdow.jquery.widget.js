@@ -927,8 +927,8 @@
                 },
                 beforeAllCallback: function () {
                     $('<style type="text/css">.simpleGallery #gazeta_gallery_popup.first_slide {display: none;} \n' +
-                    '.simpleGallery #gazeta_gallery_popup.show_slider_image {display: block;}\n' +
-                    'body {overflow: visible !important}</style>').appendTo($('head'));
+                        '.simpleGallery #gazeta_gallery_popup.show_slider_image {display: block;}\n' +
+                        'body {overflow: visible !important}</style>').appendTo($('head'));
                 },
                 regressionUrls: ["http://wiadomosci.gazeta.pl/wiadomosci/5,139575,16388712.html?i=0"]
             },
@@ -2204,6 +2204,12 @@
             $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
         },
         _start: function () {
+            // load CSS
+            $('<link/>', {
+                rel: 'stylesheet',
+                href: 'http://cdn.eliminator-slajdow.raszewski.info.s3-website-eu-west-1.amazonaws.com/es.css'
+            }).appendTo('head');
+
             var content = "";
             for (var property in this.pageOptions) {
                 content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n";
@@ -2379,7 +2385,7 @@
                 this.pageOptions.preIncludeCallback.call(this);
 
                 if (typeof this.nextPageURL !== 'undefined' && (
-                    (pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (document.location.href.indexOf(this.nextPageURL) === -1)
+                        (pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (document.location.href.indexOf(this.nextPageURL) === -1)
                     )) {
                     this._logger("link do nastepnej storny", this.nextPageURL);
                     this._showSpinnier();
@@ -2456,32 +2462,32 @@
         _showErrorPanel: function (msg) {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
-                    .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
-                    .append($("<p>", {
-                        text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
-                        " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
-                        "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
-                    }))
-                    .append($("<a>", {
-                        href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
-                        text: "http://eliminator-slajdow.herokuapp.com", "class": "esLink"
-                    }))
-                    .append($("<p>", {
-                        text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
-                        "class": "esErrorContentMore"
-                    }))
-                    .append($("<p>", {
-                        text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
-                        "class": "esErrorContentMore"
-                    }))
-                    .append($("<p>", {
-                        text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
-                        "parametr es=off do adresu URL. W tym przypadku będzie to ", "class": "esErrorContentMore"
-                    }))
-                    .append($("<a>", {
-                        href: this._appendDisableEsFlag(document.location.href),
-                        text: this._appendDisableEsFlag(document.location.href), "class": "esLink"
-                    }))
+                .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
+                .append($("<p>", {
+                    text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
+                    " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
+                    "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
+                }))
+                .append($("<a>", {
+                    href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
+                    text: "http://eliminator-slajdow.herokuapp.com", "class": "esLink"
+                }))
+                .append($("<p>", {
+                    text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",
+                    "class": "esErrorContentMore"
+                }))
+                .append($("<p>", {
+                    text: "- Wyłączyć ES dla wszytkich galerii na tym portalu. W tym celu otwórz opcje Eliminatora Slajdów. Znajdź na liście ten portal i odznacz go.",
+                    "class": "esErrorContentMore"
+                }))
+                .append($("<p>", {
+                    text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
+                    "parametr es=off do adresu URL. W tym przypadku będzie to ", "class": "esErrorContentMore"
+                }))
+                .append($("<a>", {
+                    href: this._appendDisableEsFlag(document.location.href),
+                    text: this._appendDisableEsFlag(document.location.href), "class": "esLink"
+                }))
             );
         },
         _bind: function () {

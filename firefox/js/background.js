@@ -5,7 +5,7 @@ browser.browserAction.onClicked.addListener(browserActionListener);
 // listeners
 function onMessageListener(request, sender, sendResponse) {
     if (location.hostname == sender.id && request.urlName !== undefined) {
-        var activate = canRunOnCurrentUrl(request.urlName);
+        var activate = canRunOnCurrentUrl(request.urlName) && parseInt(localStorage.status) > 0;
         sendResponse({
             "canRunOnCurrentUrl": activate,
             "version": localStorage.version
