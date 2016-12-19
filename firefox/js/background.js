@@ -40,11 +40,11 @@ updateStatusIcon();
 
 // helpers
 
-function canRunOnCurrentUrl(hostname) {
+function canRunOnCurrentUrl(url) {
     var canRunHere = false;
     var allowedDomains = JSON.parse(localStorage.allowedDomains);
     $.each(allowedDomains, function (allowedHost, enabled) {
-        if (hostname.indexOf(allowedHost) != -1) {
+        if (url.indexOf(allowedHost) != -1) {
             if (enabled) {
                 console.log('Eliminator Slajdow aktywny na: ' + allowedHost);
                 canRunHere = true;
@@ -55,7 +55,7 @@ function canRunOnCurrentUrl(hostname) {
             return false;
         }
     });
-    return canRunHere;
+    return canRunHere && url.toLowerCase().indexOf("es=off") === -1;
 }
 
 function updateStatusIcon() {

@@ -7,9 +7,12 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
-    "gulp-sass": "^2.3.2"
+    "gulp-sass": "^2.3.2",
+    "gulp-watch": "^4.3.11",
+    "gulp-webserver": "^0.9.1"
   },
   "scripts": {
     "test": "tap test/*.js"

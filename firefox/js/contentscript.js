@@ -24,7 +24,7 @@
             document.getElementsByTagName("head")[0].appendChild(script);
         }
 
-        var esScript = "http://cdn.eliminator-slajdow.raszewski.info.s3-website-eu-west-1.amazonaws.com/eliminator-slajdow.js";
+        var esScript = isDevMode() ? "http://localhost:8000/eliminator-slajdow.js" : "http://cdn.eliminator-slajdow.raszewski.info.s3-website-eu-west-1.amazonaws.com/eliminator-slajdow.js";
 
         loadScript(esScript, function () {
             console.log("Eliminator Slajdow script loaded!");
@@ -39,7 +39,7 @@
 
     browser.runtime.sendMessage({"urlName": window.location.href})
         .then(function (response) {
-            if (response.canRunOnCurrentUrl === true && document.location.href.toLowerCase().indexOf("es=off") === -1) {
+            if (response.canRunOnCurrentUrl) {
                 log("Loading Eliminator Slajdow Content Script...");
                 loadESScriptFromCDN();
             } else {
@@ -47,8 +47,12 @@
             }
         });
 
+    function isDevMode() {
+        return document.location.href.toLowerCase().indexOf("es=dev") > 0;
+    }
+
     function log(msg) {
-        if (document.location.href.toLowerCase().indexOf("es=debug") > 0) {
+        if (document.location.href.toLowerCase().indexOf("es=debug") > 0 || isDevMode()) {
             console.log(msg);
         }
     }

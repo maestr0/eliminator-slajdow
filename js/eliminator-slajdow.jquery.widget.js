@@ -2205,6 +2205,7 @@
         },
         _start: function () {
             // load CSS
+            alert("ES DEV");
             $('<link/>', {
                 rel: 'stylesheet',
                 href: 'http://cdn.eliminator-slajdow.raszewski.info.s3-website-eu-west-1.amazonaws.com/es.css'
