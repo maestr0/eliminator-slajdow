@@ -13,13 +13,28 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SMS8WQBP3DU
 
 Wszelkie sugestię proszę zgłaszać na
 
-http://eliminator-slajdow.herokuapp.com
+https://eliminator-slajdow.herokuapp.com
 
 Autor: Paweł Raszewski (raszewski@gmail.com)
 
 
 # build
 
-TODO
+Firefox
+=======
+
+`gulp scss`
+
+`web-ext run`
+
+TODO `gulp build-firefox`
+
+Chrome
+======
+
+`gulp scss`
+
+TODO `gulp build-chrome`
+
 
 Licencja: GNU GPL v3 http://www.gnu.org/licenses/gpl.html
