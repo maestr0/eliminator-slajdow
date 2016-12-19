@@ -23,11 +23,17 @@ Autor: Paweł Raszewski (raszewski@gmail.com)
 Firefox
 =======
 
-`gulp scss`
+`gulp watch`
 
 `web-ext run`
 
-TODO `gulp build-firefox`
+`gulp build-es` to build ES js file for CDN
+
+
+`gulp webserver` to server the JS from localhost for es=dev 
+
+http://localhost:8000/eliminator-slajdow.js
+
 
 Chrome
 ======

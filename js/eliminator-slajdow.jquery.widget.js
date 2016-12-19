@@ -11,7 +11,8 @@
  * */
 
 (function ($) {
-    $.widget("info_raszewski.eliminatorSlajdow", {
+    console.log("ES widget");
+    window.ES = {
         options: {
             imageBaseUrl: "",
             scrollableImageContainer: false,
@@ -19,7 +20,7 @@
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
-            debug: false,
+            debug: (document.location.href.indexOf("es=debug") > -1),
             version: "@@version",
             customPages: {},
             trackingCallback: function (category, action) {
@@ -2203,7 +2204,7 @@
             }
             $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
         },
-        _start: function () {
+        start: function () {
             // load CSS
             alert("ES DEV");
             $('<link/>', {
@@ -2706,5 +2707,5 @@
                 });
             }
         }
-    });
+    };
 })(jQuery);

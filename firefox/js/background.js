@@ -34,10 +34,6 @@ function browserActionListener() {
     });
 }
 
-// init
-
-updateStatusIcon();
-
 // helpers
 
 function canRunOnCurrentUrl(url) {
@@ -62,6 +58,7 @@ function updateStatusIcon() {
     var enableIcon = "images/enableIcon.png";
     var disableIcon = "images/disableIcon.png";
     var currentStatus = parseInt(localStorage.status);
+    console.log("Status " + currentStatus);
     var icon = currentStatus > 0 ? enableIcon : disableIcon;
     browser.browserAction.setIcon({path: icon});
     return {currentStatus: currentStatus, icon: icon};
@@ -77,7 +74,7 @@ if (localStorage.version !== manifest.version) {
 
 function versionUpdate(newVersion) {
     setSupportedDomains();
-    localStorage.status = 1; // enable extension
+    localStorage.status = "1"; // enable extension
     console.log("Updating Supported Domain config for ES v" + newVersion);
     localStorage.version = manifest.version;
 }
@@ -216,3 +213,7 @@ function setSupportedDomains() {
 
     localStorage.allowedDomains = JSON.stringify(allowedDomains);
 }
+
+// init
+
+updateStatusIcon();

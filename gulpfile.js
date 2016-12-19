@@ -13,7 +13,7 @@ gulp.task('scss', function () {
 });
 
 gulp.task('build-es', function () {
-    return gulp.src(['./js/jquery-2.0.3.js', './js/jquery-ui-1.10.3.widget-factory.js', './js/eliminator-slajdow.jquery.widget.js'])
+    return gulp.src(['./js/jquery-2.0.3.js', './js/eliminator-slajdow.jquery.widget.js'])
         .pipe(concat('eliminator-slajdow.js'))
         .pipe(gulp.dest('./build/'));
 });
