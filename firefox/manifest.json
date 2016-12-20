@@ -32,7 +32,9 @@
       "matches": [
         "<all_urls>"
       ],
-      "js": []
+      "js": [
+        "./js/contentscript.js"
+      ]
     }
   ]
 }

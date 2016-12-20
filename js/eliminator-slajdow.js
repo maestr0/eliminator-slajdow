@@ -13,14 +13,14 @@
 (function ($) {
     ES = {
         options: {
-            imageBaseUrl: "",
+            imageBaseUrl: extension.getUrl('images/'),
             scrollableImageContainer: false,
             esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: (document.location.href.indexOf("es=debug") > -1) || (document.location.href.indexOf("es=dev") > -1),
-            version: "@@version",
+            version: runtime.getManifes().version,
             customPages: {},
             preIncludeCallback: function () {
                 alert("ES dziala");
@@ -2213,10 +2213,10 @@
             }
             $("#es_debug").val($("#es_debug").val() + "\n" + content);
 
-            $('<link/>', {rel: 'stylesheet', href: 'https://es-latest.raszewski.info/es.css'}).appendTo('head');
+            $('<link/>', {rel: 'stylesheet', href: 'https://cdn.eliminator-slajdow.raszewski.info/es.css'}).appendTo('head');
 
             this.pageOptions.beforeAllCallback.call(this);
-            $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
+
             $("body").addClass("eliminatorSlajdow");
             this._theme(this.pageOptions.esTheme);
             this.nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
