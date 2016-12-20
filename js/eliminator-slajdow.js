@@ -11,8 +11,7 @@
  * */
 
 (function ($) {
-    console.log("ES widget");
-    window.ES = {
+    ES = {
         options: {
             imageBaseUrl: "",
             scrollableImageContainer: false,
@@ -20,9 +19,12 @@
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
-            debug: (document.location.href.indexOf("es=debug") > -1),
+            debug: (document.location.href.indexOf("es=debug") > -1) || (document.location.href.indexOf("es=dev") > -1),
             version: "@@version",
             customPages: {},
+            preIncludeCallback: function () {
+                alert("ES dziala");
+            },
             trackingCallback: function (category, action) {
             }
         },
@@ -2204,19 +2206,14 @@
             }
             $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
         },
-        start: function () {
-            // load CSS
-            alert("ES DEV");
-            $('<link/>', {
-                rel: 'stylesheet',
-                href: 'http://cdn.eliminator-slajdow.raszewski.info.s3-website-eu-west-1.amazonaws.com/es.css'
-            }).appendTo('head');
-
+        _start: function () {
             var content = "";
             for (var property in this.pageOptions) {
                 content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n";
             }
             $("#es_debug").val($("#es_debug").val() + "\n" + content);
+
+            $('<link/>', {rel: 'stylesheet', href: 'https://es-latest.raszewski.info/es.css'}).appendTo('head');
 
             this.pageOptions.beforeAllCallback.call(this);
             $("head").append($("<link>", {href: this.options.cssPath, type: "text/css", rel: "stylesheet"}));
@@ -2583,7 +2580,7 @@
             });
             // TODO: dodac obsluge spacji
         },
-        _create: function (customOptions) {
+        init: function (customOptions) {
             var self = this;
             window.onerror = function (err) {
                 self._tracking("ES_JS_ERROR", err, window.location.href);
@@ -2685,7 +2682,7 @@
             this.pageOptions.articleBodySelector = "#articleBodySelector";
             this._createImageContainer();
             this._appendNextSlide("body", "regression");
-            this._create();
+            this.init();
             this._showSpinnier();
         },
         _createDebugConsole: function () {
@@ -2708,4 +2705,9 @@
             }
         }
     };
+
+    browser.runtime.onMessage.addListener(function (options) {
+        ES.init(options);
+    });
+
 })(jQuery);

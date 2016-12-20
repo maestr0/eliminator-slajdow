@@ -11,7 +11,7 @@
     <script>
         (function ($) {
             $.widget( "custom.progressbar", {
-                _create: function() {
+                init: function() {
                     var progress = this.options.value + "%";
                     this.element
                             .addClass( "progressbar" )

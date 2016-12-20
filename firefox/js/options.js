@@ -1,7 +1,6 @@
 (function () {
     var POPUP = {
         self: this,
-        allowedDomains: JSON.parse(localStorage.allowedDomains),
         $domainList: $('#domainList'),
         fnSortAllowedDomainsList: function () {
             var that = this;
@@ -20,8 +19,14 @@
                 var selected = $(this).is(':checked');
                 $(this).parent().parent().toggleClass("disabled");
                 var text = $(this).parent().parent().attr("data-value");
-                that.allowedDomains[text] = selected;
-                localStorage.allowedDomains = JSON.stringify(that.allowedDomains);
+
+                browser.storage.local.get('allowedDomains').then((res)=> {
+                    var ad = JSON.parse(res.allowedDomains)
+                    ad[text] = selected;
+                    browser.storage.local.set({
+                        allowedDomains: JSON.stringify(ad)
+                    });
+                });
             });
 
             $('input[type=radio][name=status]').change(function () {
@@ -30,13 +35,15 @@
         },
         fnGenerateDomainList: function () {
             var that = this;
-            var allowedDomains = JSON.parse(localStorage.allowedDomains);
-            $.each(allowedDomains, function (allowedHost, enabled) {
-                that.$domainList.append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") +
-                    '" data-value="' + allowedHost + '">' + allowedHost + '<span><input type="checkbox" ' +
-                    (enabled ? ' checked ' : '') + '>Aktywna</input></span></li>');
+            browser.storage.local.get('allowedDomains').then((res)=> {
+                var allowedDomains = JSON.parse(res.allowedDomains);
+                $.each(allowedDomains, function (allowedHost, enabled) {
+                    that.$domainList.append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") +
+                        '" data-value="' + allowedHost + '">' + allowedHost + '<span><input type="checkbox" ' +
+                        (enabled ? ' checked ' : '') + '>Aktywna</input></span></li>');
+                });
+                that.fnSortAllowedDomainsList();
             });
-            this.fnSortAllowedDomainsList();
         },
         getStatus: function (key) {
             var extensionStatus = localStorage[key];
@@ -46,9 +53,11 @@
             return extensionStatus;
         },
         updateUI: function () {
-            $("#version").text(localStorage.version);
-            $('input[type=radio][name=status]')
-            $("input:radio[value=" + localStorage.status + "]").attr("checked", true);
+            browser.storage.local.get(['version', 'status']).then((res)=> {
+                $("#version").text(res.version);
+                $('input[type=radio][name=status]')
+                $("input:radio[value=" + res.status + "]").attr("checked", true);
+            });
         },
         init: function () {
             this.fnGenerateDomainList();

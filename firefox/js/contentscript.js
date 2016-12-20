@@ -15,7 +15,7 @@
         var esScript = isDevMode() ? "http://localhost:8000/eliminator-slajdow.js" : "http://cdn.eliminator-slajdow.raszewski.info.s3-website-eu-west-1.amazonaws.com/eliminator-slajdow.js";
 
         loadScript(esScript, function () {
-            ES.start();
+
             console.log("Eliminator Slajdow script loaded!");
         });
     }
@@ -24,7 +24,8 @@
         .then(function (response) {
             if (response.canRunOnCurrentUrl) {
                 log("Loading Eliminator Slajdow Content Script...");
-                loadESScriptFromCDN();
+                // loadESScriptFromCDN();
+                window.START_ES = true;
             } else {
                 log("Eliminator Slajdow is disabled on this URL");
             }

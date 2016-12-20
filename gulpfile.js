@@ -13,9 +13,9 @@ gulp.task('scss', function () {
 });
 
 gulp.task('build-es', function () {
-    return gulp.src(['./js/jquery-2.0.3.js', './js/eliminator-slajdow.jquery.widget.js'])
+    return gulp.src(['./js/jquery-2.0.3.js', './js/eliminator-slajdow.js'])
         .pipe(concat('eliminator-slajdow.js'))
-        .pipe(gulp.dest('./build/'));
+        .pipe(gulp.dest('./firefox/js/'));
 });
 
 gulp.task('webserver', function () {
@@ -36,7 +36,7 @@ gulp.task('clean', clean);
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
-    gulp.watch('js/eliminator-slajdow.jquery.widget.js', ['build-es']);
+    gulp.watch('js/eliminator-slajdow.js', ['build-es']);
     gulp.watch('scss/**.scss', ['scss']);
 });
 

@@ -4,84 +4,105 @@ browser.browserAction.onClicked.addListener(browserActionListener);
 
 // listeners
 function onMessageListener(request, sender, sendResponse) {
-    if (location.hostname == sender.id && request.urlName !== undefined) {
-        var activate = canRunOnCurrentUrl(request.urlName) && parseInt(localStorage.status) > 0;
-        sendResponse({
-            "canRunOnCurrentUrl": activate,
-            "version": localStorage.version
-        });
-    }
-    if (request.status) {
-        localStorage.status = parseInt(request.status);
-        updateStatusIcon();
-    }
+    browser.storage.local.get(['status', 'version']).then((res)=> {
+        if (location.hostname == sender.id && request.urlName !== undefined) {
+            canRunOnCurrentUrl(request.urlName).then((canRunHere)=> {
+                var activate = canRunHere && parseInt(res.status) > 0;
+                sendResponse({
+                    "canRunOnCurrentUrl": activate,
+                    "version": res.version
+                });
+            });
+        }
+        if (request.status) {
+            browser.storage.local.set({status: parseInt(request.status)}).then(()=> {
+                updateStatusIcon();
+            });
+        }
+    });
 }
 
 function browserActionListener() {
-    localStorage.status = parseInt(localStorage.status) * -1;
-
-    var status = updateStatusIcon();
-    var currentStatus = status.currentStatus;
-    var icon = status.icon;
-
-    var title = "Eliminator Slajdów";
-    var content = currentStatus > 0 ? " AKTYWNY" : " WYŁĄCZONY";
-    browser.notifications.create({
-        "type": "basic",
-        "iconUrl": browser.extension.getURL(icon),
-        "title": title,
-        "message": content
+    browser.storage.local.get('status').then((res)=> {
+        var currentStatus = parseInt(res.status) * -1;
+        browser.storage.local.set({status: currentStatus}).then(()=> {
+            updateStatusIcon()
+                .then(()=> {
+                    if (currentStatus < 0) {
+                        browser.browserAction.setBadgeText({text: "OFF"});
+                    } else {
+                        browser.browserAction.setBadgeText({text: ""});
+                    }
+                })
+        });
     });
 }
 
 // helpers
 
 function canRunOnCurrentUrl(url) {
-    var canRunHere = false;
-    var allowedDomains = JSON.parse(localStorage.allowedDomains);
-    $.each(allowedDomains, function (allowedHost, enabled) {
-        if (url.indexOf(allowedHost) != -1) {
-            if (enabled) {
-                console.log('Eliminator Slajdow aktywny na: ' + allowedHost);
-                canRunHere = true;
-            } else {
-                console.log('Eliminator Slajdow wylaczony na: ' + allowedHost);
-                canRunHere = -1; // flag indicating that the extension is disabled on the current url
+    return browser.storage.local.get('status').then((res)=> {
+        var canRunHere = false;
+        var allowedDomains = JSON.parse(res.status);
+        $.each(allowedDomains, function (allowedHost, enabled) {
+            if (url.indexOf(allowedHost) != -1) {
+                if (enabled) {
+                    console.log('Eliminator Slajdow aktywny na: ' + allowedHost);
+                    canRunHere = true;
+                } else {
+                    console.log('Eliminator Slajdow wylaczony na: ' + allowedHost);
+                    canRunHere = -1; // flag indicating that the extension is disabled on the current url
+                }
+                return false;
             }
-            return false;
-        }
+        });
+        return canRunHere && url.toLowerCase().indexOf("es=off") === -1;
     });
-    return canRunHere && url.toLowerCase().indexOf("es=off") === -1;
 }
 
 function updateStatusIcon() {
-    var enableIcon = "images/enableIcon.png";
-    var disableIcon = "images/disableIcon.png";
-    var currentStatus = parseInt(localStorage.status);
-    console.log("Status " + currentStatus);
-    var icon = currentStatus > 0 ? enableIcon : disableIcon;
-    browser.browserAction.setIcon({path: icon});
-    return {currentStatus: currentStatus, icon: icon};
+    return browser.storage.local
+        .get('status')
+        .then((res)=> {
+            var enableIcon = "images/enableIcon.png";
+            var disableIcon = "images/disableIcon.png";
+            var currentStatus = parseInt(res.status);
+            console.log("Status " + currentStatus);
+            var icon = currentStatus > 0 ? enableIcon : disableIcon;
+            browser.browserAction.setIcon({path: icon});
+            if (currentStatus < 0) {
+                browser.browserAction.setBadgeText({text: "OFF"});
+            }
+            return {currentStatus: currentStatus, icon: icon};
+        });
 }
 
 // onInstall hack
-
 var manifest = browser.runtime.getManifest();
 
-if (localStorage.version !== manifest.version) {
-    versionUpdate(manifest.version);
-}
+browser.storage.local.get('version').then((res)=> {
+    if (res.version !== manifest.version) {
+        versionUpdate(manifest.version).then(()=> {
+            // init
+            updateStatusIcon();
+        });
+    } else {
+        // init
+        updateStatusIcon();
+    }
+});
 
 function versionUpdate(newVersion) {
     setSupportedDomains();
-    localStorage.status = "1"; // enable extension
-    console.log("Updating Supported Domain config for ES v" + newVersion);
-    localStorage.version = manifest.version;
+    return browser.storage.local.set({
+        'status': "1",
+        'version': manifest.version
+    }).then(()=> {
+        console.log("Updating Supported Domain config for ES v" + newVersion);
+    });
 }
 
 function setSupportedDomains() {
-    localStorage.version = browser.runtime.getManifest().version;
-
     var supportedDomains = ["autotrader.pl",
         "avanti24.pl",
         "groszki.pl",
@@ -193,27 +214,26 @@ function setSupportedDomains() {
         "domiporta.pl",
         "newsweek.pl"];
 
-    var allowedDomains = {};
-    if (typeof localStorage.allowedDomains !== "undefined") {
-        allowedDomains = JSON.parse(localStorage.allowedDomains);
-    }
 
-    $.each(supportedDomains, function (index, domain) {
-        if (typeof allowedDomains[domain] === "undefined") {
-            allowedDomains[domain] = true;
+    browser.storage.local.get('allowedDomains').then((res)=> {
+        var allowedDomains = {};
+        if (typeof res.allowedDomains !== "undefined") {
+            allowedDomains = JSON.parse(res.allowedDomains);
         }
-    });
 
-    // usun nieobslugiwane domeny z listy
-    $.each(allowedDomains, function (domain, index) {
-        if ($.inArray(domain, supportedDomains) < 0) {
-            delete allowedDomains[domain];
-        }
-    });
+        $.each(supportedDomains, function (index, domain) {
+            if (typeof allowedDomains[domain] === "undefined") {
+                allowedDomains[domain] = true;
+            }
+        });
 
-    localStorage.allowedDomains = JSON.stringify(allowedDomains);
+        // usun nieobslugiwane domeny z listy
+        $.each(allowedDomains, function (domain, index) {
+            if ($.inArray(domain, supportedDomains) < 0) {
+                delete allowedDomains[domain];
+            }
+        });
+        browser.storage.local.set({allowedDomains: JSON.stringify(allowedDomains)})
+    });
 }
 
-// init
-
-updateStatusIcon();
