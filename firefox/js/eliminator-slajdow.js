@@ -8843,14 +8843,14 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
 (function ($) {
     ES = {
         options: {
-            imageBaseUrl: extension.getUrl('images/'),
+            imageBaseUrl: "",
             scrollableImageContainer: false,
             esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: (document.location.href.indexOf("es=debug") > -1) || (document.location.href.indexOf("es=dev") > -1),
-            version: runtime.getManifes().version,
+            version: 1,
             customPages: {},
             preIncludeCallback: function () {
                 alert("ES dziala");

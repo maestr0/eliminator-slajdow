@@ -6,7 +6,8 @@
   "description": "Dodatek eliminuje slajdy w galeriach zdjęć na większości polskich portali",
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "<all_urls>"
   ],
   "options_ui": {
     "page": "html/options.html"

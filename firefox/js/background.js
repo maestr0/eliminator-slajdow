@@ -4,22 +4,39 @@ browser.browserAction.onClicked.addListener(browserActionListener);
 
 // listeners
 function onMessageListener(request, sender, sendResponse) {
-    browser.storage.local.get(['status', 'version']).then((res)=> {
-        if (location.hostname == sender.id && request.urlName !== undefined) {
-            canRunOnCurrentUrl(request.urlName).then((canRunHere)=> {
-                var activate = canRunHere && parseInt(res.status) > 0;
-                sendResponse({
-                    "canRunOnCurrentUrl": activate,
-                    "version": res.version
+    browser.storage.local.get(['status', 'version'])
+        .then((res)=> {
+            // sendResponse({response: "Response from background script"});
+
+            if (location.hostname == sender.id && request.urlName !== undefined) {
+                canRunOnCurrentUrl(request.urlName)
+                    .then((canRunHere)=> {
+                        var activate = canRunHere && parseInt(res.status) > 0;
+                        browser.tabs.executeScript(null, {
+                            file: "./js/eliminator-slajdow.js"
+                        }).then(onExecuted, onError);
+
+                        function onExecuted(result) {
+                            console.log(`ES injected`);
+                        }
+
+                        function onError(error) {
+                            console.log(`ES Error: ${error}`);
+                        }
+
+                        browser.tabs.sendMessage(sender.tab.id,
+                            {
+                                "canRunOnCurrentUrl": activate,
+                                "version": res.version
+                            });
+                    });
+            }
+            if (request.status) {
+                browser.storage.local.set({status: parseInt(request.status)}).then(()=> {
+                    updateStatusIcon();
                 });
-            });
-        }
-        if (request.status) {
-            browser.storage.local.set({status: parseInt(request.status)}).then(()=> {
-                updateStatusIcon();
-            });
-        }
-    });
+            }
+        });
 }
 
 function browserActionListener() {
@@ -41,9 +58,9 @@ function browserActionListener() {
 // helpers
 
 function canRunOnCurrentUrl(url) {
-    return browser.storage.local.get('status').then((res)=> {
+    return browser.storage.local.get(['allowedDomains']).then((res)=> {
         var canRunHere = false;
-        var allowedDomains = JSON.parse(res.status);
+        var allowedDomains = JSON.parse(res.allowedDomains);
         $.each(allowedDomains, function (allowedHost, enabled) {
             if (url.indexOf(allowedHost) != -1) {
                 if (enabled) {
