@@ -1,10 +1,42 @@
-.bg-container {
-  width: 100px;
+body, html {
+  margin: 0;
 }
+
+.bg-container {
+  width: 50px;
+}
+
 button {
+  cursor: pointer;
+  border: 0;
   float: left;
-  width: 100px;
-  &:hover{
-    color: #0b97c4;
+  width: 50px;
+  height: 50px;
+  &:hover {
+    color: gray;
   }
+}
+
+
+#options {
+  background: url(../popup/ic_settings_black_48px.svg) no-repeat center;
+  background-size: 20px;
+}
+
+#tempDisable {
+  background: url(../popup/ic_pause_circle_outline_black_48px.svg) no-repeat center;
+  background-size: 20px;
+}
+
+#disable {
+  background: url(../popup/ic_power_settings_new_black_48px.svg) no-repeat center;
+  background-size: 20px;
+}
+
+.button-status1 {
+}
+
+#disable.button-status-1 {
+  background: url(../popup/ic_power_settings_new_black_48px.svg) #ffbeb0 no-repeat center;
+  background-size: 20px;
 }
