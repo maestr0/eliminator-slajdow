@@ -13,14 +13,14 @@
 (function ($) {
     ES = {
         options: {
-            imageBaseUrl: "",
+            imageBaseUrl: browser.extension.getURL('images/'),
             scrollableImageContainer: false,
             esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: (document.location.href.indexOf("es=debug") > -1) || (document.location.href.indexOf("es=dev") > -1),
-            version: 1,
+            version: browser.runtime.getManifest().version,
             customPages: {},
             preIncludeCallback: function () {
                 alert("ES dziala");

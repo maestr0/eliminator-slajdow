@@ -6,8 +6,6 @@ browser.browserAction.onClicked.addListener(browserActionListener);
 function onMessageListener(request, sender, sendResponse) {
     browser.storage.local.get(['status', 'version'])
         .then((res)=> {
-            // sendResponse({response: "Response from background script"});
-
             if (location.hostname == sender.id && request.urlName !== undefined) {
                 canRunOnCurrentUrl(request.urlName)
                     .then((canRunHere)=> {
