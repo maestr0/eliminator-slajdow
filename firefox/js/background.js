@@ -10,16 +10,19 @@ function onMessageListener(request, sender, sendResponse) {
                 canRunOnCurrentUrl(request.urlName)
                     .then((canRunHere)=> {
                         var activate = canRunHere && parseInt(res.status) > 0;
-                        browser.tabs.executeScript(null, {
-                            file: "./js/eliminator-slajdow.js"
-                        }).then(onExecuted, onError);
 
-                        function onExecuted(result) {
-                            console.log(`ES injected`);
-                        }
+                        if (activate) {
+                            browser.tabs.executeScript(null, {
+                                file: "./js/eliminator-slajdow.js"
+                            }).then(onExecuted, onError);
 
-                        function onError(error) {
-                            console.log(`ES Error: ${error}`);
+                            function onExecuted(result) {
+                                console.log(`ES injected`);
+                            }
+
+                            function onError(error) {
+                                console.log(`ES Error: ${error}`);
+                            }
                         }
 
                         browser.tabs.sendMessage(sender.tab.id,
@@ -66,7 +69,7 @@ function canRunOnCurrentUrl(url) {
                     canRunHere = true;
                 } else {
                     console.log('Eliminator Slajdow wylaczony na: ' + allowedHost);
-                    canRunHere = -1; // flag indicating that the extension is disabled on the current url
+                    canRunHere = false; // flag indicating that the extension is disabled on the current url
                 }
                 return false;
             }

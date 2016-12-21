@@ -24,7 +24,6 @@
             version: browser.runtime.getManifest().version,
             customPages: {},
             preIncludeCallback: function () {
-                alert("ES dziala");
             },
             trackingCallback: function (category, action) {
             }
