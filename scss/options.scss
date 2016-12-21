@@ -1,6 +1,9 @@
-body {
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 14px;
+body,h3 {
+  font-family: Geneva, sans-serif;
+  font-size: 13px;
+  color: #343434;
+  width: 100%;
+  margin: 0;
 }
 
 a {
@@ -12,32 +15,32 @@ a {
 }
 
 #options {
-  width: 600px;
+  padding: 5px;
   h3 {
-    background: -webkit-linear-gradient(top, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
-    padding: 2px 10px;
+    font-weight: 100;
     margin-top: 35px;
-    border-radius: 5px;
+    margin-bottom: 15px;
+    line-height: 35px;
     text-decoration: none;
-    color: #ffffff;
+    color: #343434;
+    border-bottom: 0.8px #959595 solid;
   }
   h3.domains {
     margin-top: 0;
+  }
+
+  .domainListWrapper {
+    maring: 0;
   }
   .label {
     display: inline;
     line-height: 28px;
   }
-  .switch {
-    float: right;
-    margin-right: 5px;
-    margin-top: 10px;
-  }
+
   .waning {
     color: red;
   }
   .extensionStatusMessage.label {
-    width: 472px;
     float: left;
     text-align: left;
     line-height: 18px;
@@ -49,17 +52,15 @@ a {
     margin-top: 37px;
   }
   #domainList {
-    list-style-type: none;
-    margin: 0;
     float: left;
-    padding: 0;
     width: 100%;
-    margin-bottom: 20px;
+    list-style-type: none;
+    padding: 0;
     li:nth-child(odd) {
-      background: #ccc;
+      background: #f6f6f6;
     }
     li:nth-child(even) {
-      background: #f6f6f6;
+
     }
     span {
       margin-top: -4px;
@@ -83,7 +84,6 @@ a {
       padding: 0.4em;
       font-size: 12px;
       height: 15px;
-      border-radius: 5px;
     }
   }
 }
