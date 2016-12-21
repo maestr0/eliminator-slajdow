@@ -1,6 +1,6 @@
 // Listen for the content script to send a message to the background page.
 browser.runtime.onMessage.addListener(onMessageListener);
-browser.browserAction.onClicked.addListener(browserActionListener);
+// browser.browserAction.onClicked.addListener(browserActionListener);
 
 // listeners
 function onMessageListener(request, sender, sendResponse) {
@@ -12,7 +12,7 @@ function onMessageListener(request, sender, sendResponse) {
                         var activate = canRunHere && parseInt(res.status) > 0;
 
                         if (activate) {
-                            browser.tabs.executeScript(null, {
+                            browser.tabs.executeScript(sender.tab.id, {
                                 file: "./js/eliminator-slajdow.js"
                             }).then(onExecuted, onError);
 
@@ -38,22 +38,6 @@ function onMessageListener(request, sender, sendResponse) {
                 });
             }
         });
-}
-
-function browserActionListener() {
-    browser.storage.local.get('status').then((res)=> {
-        var currentStatus = parseInt(res.status) * -1;
-        browser.storage.local.set({status: currentStatus}).then(()=> {
-            updateStatusIcon()
-                .then(()=> {
-                    if (currentStatus < 0) {
-                        browser.browserAction.setBadgeText({text: "OFF"});
-                    } else {
-                        browser.browserAction.setBadgeText({text: ""});
-                    }
-                })
-        });
-    });
 }
 
 // helpers
@@ -90,6 +74,8 @@ function updateStatusIcon() {
             browser.browserAction.setIcon({path: icon});
             if (currentStatus < 0) {
                 browser.browserAction.setBadgeText({text: "OFF"});
+            } else {
+                browser.browserAction.setBadgeText({text: ""});
             }
             return {currentStatus: currentStatus, icon: icon};
         });

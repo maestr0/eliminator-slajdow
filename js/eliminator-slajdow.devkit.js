@@ -1,6 +1,6 @@
 // Load the script
 var script = document.createElement("SCRIPT");
-script.src = 'http://code.jquery.com/jquery-2.1.1.min.js';
+script.src = 'http://code.jquery.com/jquery-3.1.1.min.js';
 script.type = 'text/javascript';
 document.getElementsByTagName("head")[0].appendChild(script);
 

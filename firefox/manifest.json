@@ -17,14 +17,15 @@
   },
   "browser_action": {
     "default_icon": "images/enableIcon.png",
-    "default_title": "Eliminator Slajdów"
+    "default_title": "Eliminator Slajdów",
+    "default_popup": "popup/popup.html"
   },
   "web_accessible_resources": [
     "images/es_logo.svg"
   ],
   "background": {
     "scripts": [
-      "js/jquery-2.0.3.js",
+      "js/jquery-3.1.1.js",
       "js/background.js"
     ]
   },

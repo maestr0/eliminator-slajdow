@@ -13,8 +13,6 @@
             });
         },
         fnBindEvents: function () {
-            var that = this;
-
             this.$domainList.on("click", "input", function () {
                 var selected = $(this).is(':checked');
                 $(this).parent().parent().toggleClass("disabled");
@@ -32,6 +30,18 @@
             $('input[type=radio][name=status]').change(function () {
                 browser.runtime.sendMessage({"status": this.value});
             });
+
+            function logStorageChange(changes, area) {
+                var changedItems = Object.keys(changes);
+                for (item of changedItems) {
+                    if (item === "status") {
+                        var newValue = changes[item].newValue;
+                        $("input:radio[value=" + newValue + "]").click();
+                    }
+                }
+            }
+
+            browser.storage.onChanged.addListener(logStorageChange);
         },
         fnGenerateDomainList: function () {
             var that = this;
@@ -55,7 +65,6 @@
         updateUI: function () {
             browser.storage.local.get(['version', 'status']).then((res)=> {
                 $("#version").text(res.version);
-                $('input[type=radio][name=status]')
                 $("input:radio[value=" + res.status + "]").attr("checked", true);
             });
         },

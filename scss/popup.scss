@@ -1,0 +1,10 @@
+.bg-container {
+  width: 100px;
+}
+button {
+  float: left;
+  width: 100px;
+  &:hover{
+    color: #0b97c4;
+  }
+}

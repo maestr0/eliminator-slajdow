@@ -49,8 +49,8 @@ a {
     #options #domainList li:nth-child(even) {
       background: #f6f6f6; }
     #options #domainList span {
-      float: right;
-      margin-top: -4px; }
+      margin-top: -4px;
+      float: right; }
     #options #domainList span button {
       margin-bottom: 3px; }
     #options #domainList .disabled {
