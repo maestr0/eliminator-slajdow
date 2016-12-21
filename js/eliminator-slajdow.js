@@ -1,13 +1,14 @@
 /*
- *   Eliminator Slajdów - jQuery widget dla przeglądarek Chrome i Firefox
+ *   Eliminator Slajdów
  *
  *   Autor: Paweł Raszewski
+ *
+ *   https://github.com/maestr0/eliminator-slajdow-chrome
  *   Licencja: GPLv3
- *   Strona Domowa: http://eliminator-slajdow.herokuapp.com
+ *   Strona Domowa: https://eliminator-slajdow.herokuapp.com
  *
- *   CDN: http://cdn.jsdelivr.net/jquery.eliminator-slajdow/@@version/eliminator-slajdow.jquery.widget.js
+ *   latest version on CDN: https://cdn.eliminator-slajdow.raszewski.info/eliminator-slajdow.js
  *
- *   Wersja: @@version
  * */
 
 (function ($) {
