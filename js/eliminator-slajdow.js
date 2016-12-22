@@ -2445,7 +2445,7 @@
                 that._hideSpinner();
                 return;
             }
-            $.get(nextPageURL, function (nextPage) {
+            $.get(nextPageURL, "html", function (nextPage) {
                 var redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {
                     that._requestNextSlide(redirectUrl);
@@ -2467,7 +2467,7 @@
                 .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
                 .append($("<p>", {
                     text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
-                    " który blokuje reklamy. np. AdBlock albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
+                    " który blokuje reklamy. np. uBloc albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
                     "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
                 }))
                 .append($("<a>", {
@@ -2483,12 +2483,8 @@
                     "class": "esErrorContentMore"
                 }))
                 .append($("<p>", {
-                    text: "- możesz zawsze jednorazowo wyłączyć działanie ES na każdej stronie dodająć " +
-                    "parametr es=off do adresu URL. W tym przypadku będzie to ", "class": "esErrorContentMore"
-                }))
-                .append($("<a>", {
-                    href: this._appendDisableEsFlag(document.location.href),
-                    text: this._appendDisableEsFlag(document.location.href), "class": "esLink"
+                    text: "- możesz zawsze jednorazowo wyłączyć działanie ES na tej stronie klikajac " +
+                    "PAUSE w menu ES obok paska adresu.", "class": "esErrorContentMore"
                 }))
             );
         },
