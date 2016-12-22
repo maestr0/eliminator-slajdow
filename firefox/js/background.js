@@ -13,7 +13,7 @@ function handleUpdated(tabId, changeInfo, tabInfo) {
 
 function updateBrowserActionIcon(canRunHere) {
     if (canRunHere) {
-        browser.browserAction.setIcon({path: "images/enableIcon.png"});
+        browser.browserAction.setIcon({path: "images/es_logo.svg"});
     } else {
         browser.browserAction.setIcon({path: "images/disableIcon.png"});
     }
