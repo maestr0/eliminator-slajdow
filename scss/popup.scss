@@ -12,25 +12,30 @@ button {
   float: left;
   width: 50px;
   height: 50px;
-  &:hover {
-    color: gray;
-  }
 }
-
 
 #options {
   background: url(../popup/ic_settings_black_48px.svg) no-repeat center;
   background-size: 20px;
+  &:hover {
+    background-color: gray;
+  }
 }
 
 #tempDisable {
   background: url(../popup/ic_pause_circle_outline_black_48px.svg) no-repeat center;
   background-size: 20px;
+  &:hover {
+    background-color: gray;
+  }
 }
 
 #disable {
   background: url(../popup/ic_power_settings_new_black_48px.svg) no-repeat center;
   background-size: 20px;
+  &:hover {
+    background-color: gray;
+  }
 }
 
 .button-status1 {

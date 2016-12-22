@@ -11,7 +11,8 @@ function onMessageListener(request, sender, sendResponse) {
                     .then((canRunHere)=> {
                         var activate = canRunHere && parseInt(res.status) > 0;
 
-                        if (activate) {
+                        // active and not from popup
+                        if (activate && sender.tab) {
                             browser.tabs.executeScript(sender.tab.id, {
                                 file: "./js/eliminator-slajdow.js"
                             }).then(onExecuted, onError);
@@ -25,7 +26,8 @@ function onMessageListener(request, sender, sendResponse) {
                             }
                         }
 
-                        browser.tabs.sendMessage(sender.tab.id,
+                        var id = sender.tab ? sender.tab.id : sender.contextId;
+                        browser.tabs.sendMessage(id,
                             {
                                 "canRunOnCurrentUrl": activate,
                                 "version": res.version

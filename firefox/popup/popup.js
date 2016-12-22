@@ -22,6 +22,18 @@ function init() {
         $("#disable").addClass("button-status" + res.status)
         $("#disable").removeClass("button-status" + (res.status * -1));
     });
+    getActiveTab().then((res)=> {
+        console.log(res)
+        browser.extension.getBackgroundPage().canRunOnCurrentUrl(res[0].url).then((canRunHere)=> {
+            if (canRunHere) {
+                console.log("OKOK");
+            } else {
+                $("#tempDisable").css("cursor", "not-allowed")
+                    .css("opacity", "0.1")
+                    .attr("disabled", "disabled");
+            }
+        });
+    });
 }
 
 init();
