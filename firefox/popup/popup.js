@@ -2,9 +2,28 @@ function getActiveTab() {
     return browser.tabs.query({active: true, currentWindow: true});
 }
 
+function appendParamToUrl(url, param) {
+    if (url.indexOf("?") > -1) {
+        return url.replace("?", "?" + param + "&");
+    } else if (url.indexOf("#") > -1) {
+        return url.replace("#", "?" + param + "#");
+    } else {
+        return url + "?" + param;
+    }
+}
+
 $("#options").click(()=> {
     browser.runtime.openOptionsPage();
     this.close();
+});
+
+$("#tempDisable").click(()=> {
+    getActiveTab().then((res)=> {
+        console.log(res)
+        browser.tabs.update(res[0].id, {url: appendParamToUrl(res[0].url, "es=off")}).then(()=> {
+            this.close();
+        });
+    });
 });
 
 $("#disable").click(()=> {
@@ -23,10 +42,9 @@ function init() {
         $("#disable").removeClass("button-status" + (res.status * -1));
     });
     getActiveTab().then((res)=> {
-        console.log(res)
         browser.extension.getBackgroundPage().canRunOnCurrentUrl(res[0].url).then((canRunHere)=> {
             if (canRunHere) {
-                console.log("OKOK");
+                // ok
             } else {
                 $("#tempDisable").css("cursor", "not-allowed")
                     .css("opacity", "0.1")
