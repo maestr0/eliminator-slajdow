@@ -1,7 +1,3 @@
-function getActiveTab() {
-    return browser.tabs.query({active: true, currentWindow: true});
-}
-
 function appendParamToUrl(url, param) {
     if (url.indexOf("?") > -1) {
         return url.replace("?", "?" + param + "&");
@@ -18,7 +14,7 @@ $("#options").click(()=> {
 });
 
 $("#tempDisable").click(()=> {
-    getActiveTab().then((res)=> {
+    browser.extension.getBackgroundPage().getActiveTab().then((res)=> {
         console.log(res)
         browser.tabs.update(res[0].id, {url: appendParamToUrl(res[0].url, "es=off")}).then(()=> {
             this.close();
@@ -41,7 +37,7 @@ function init() {
         $("#disable").addClass("button-status" + res.status)
         $("#disable").removeClass("button-status" + (res.status * -1));
     });
-    getActiveTab().then((res)=> {
+    browser.extension.getBackgroundPage().getActiveTab().then((res)=> {
         browser.extension.getBackgroundPage().canRunOnCurrentUrl(res[0].url).then((canRunHere)=> {
             if (canRunHere) {
                 // ok

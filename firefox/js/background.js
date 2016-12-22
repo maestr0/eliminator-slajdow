@@ -1,6 +1,30 @@
 // Listen for the content script to send a message to the background page.
 browser.runtime.onMessage.addListener(onMessageListener);
-// browser.browserAction.onClicked.addListener(browserActionListener);
+browser.tabs.onActivated.addListener(handleActivated);
+browser.tabs.onUpdated.addListener(handleUpdated);
+
+function handleUpdated(tabId, changeInfo, tabInfo) {
+    if (changeInfo.url) {
+        canRunOnCurrentUrl(changeInfo.url).then((canRunHere)=> {
+            updateBrowserActionIcon(canRunHere);
+        });
+    }
+}
+
+function updateBrowserActionIcon(canRunHere) {
+    if (canRunHere) {
+        browser.browserAction.setIcon({path: "images/enableIcon.png"});
+    } else {
+        browser.browserAction.setIcon({path: "images/disableIcon.png"});
+    }
+}
+function handleActivated(activeInfo) {
+    getActiveTab().then((tab) => {
+        canRunOnCurrentUrl(tab[0].url).then((canRunHere)=> {
+            updateBrowserActionIcon(canRunHere);
+        });
+    });
+}
 
 // listeners
 function onMessageListener(request, sender, sendResponse) {
@@ -64,6 +88,10 @@ function canRunOnCurrentUrl(url) {
     });
 }
 
+function getActiveTab() {
+    return browser.tabs.query({active: true, currentWindow: true});
+}
+
 function updateStatusIcon() {
     return browser.storage.local
         .get('status')
@@ -71,7 +99,6 @@ function updateStatusIcon() {
             var enableIcon = "images/enableIcon.png";
             var disableIcon = "images/disableIcon.png";
             var currentStatus = parseInt(res.status);
-            console.log("Status " + currentStatus);
             var icon = currentStatus > 0 ? enableIcon : disableIcon;
             browser.browserAction.setIcon({path: icon});
             if (currentStatus < 0) {
