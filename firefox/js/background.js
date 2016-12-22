@@ -270,3 +270,19 @@ function setSupportedDomains() {
     });
 }
 
+// match pattern for the URLs to redirect
+var pattern = "http://video.gazeta.pl/**autoplay=1";
+// match pattern for the URLs to redirect
+function redirect(requestDetails) {
+    return {
+        redirectUrl: requestDetails.url.replace("autoplay=1", "autoplay=0")
+    }
+}
+
+// add the listener,
+// passing the filter argument and "blocking"
+browser.webRequest.onBeforeRequest.addListener(
+    redirect,
+    {urls: [pattern]},
+    ["blocking"]
+);

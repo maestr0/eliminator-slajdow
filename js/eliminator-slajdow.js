@@ -2213,7 +2213,10 @@
             }
             $("#es_debug").val($("#es_debug").val() + "\n" + content);
 
-            $('<link/>', {rel: 'stylesheet', href: 'https://cdn.eliminator-slajdow.raszewski.info/es.css'}).appendTo('head');
+            $('<link/>', {
+                rel: 'stylesheet',
+                href: 'https://cdn.eliminator-slajdow.raszewski.info/es.css'
+            }).appendTo('head');
 
             this.pageOptions.beforeAllCallback.call(this);
 
@@ -2450,11 +2453,11 @@
                 } else {
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
-            }, "html").fail(function (a, b, c) {
+            }).fail(function (a, b, c) {
                 that._tracking("ES_AJAX_error", that.pageOptions.pageType, nextPageURL);
                 that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
                 that._hideSpinner();
-                that._showErrorPanel("Coś zablokowało żądanie AJAX");
+                that._showErrorPanel("Coś zablokowało żądanie AJAX ");
                 that._undo();
             });
         },

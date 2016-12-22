@@ -8,6 +8,8 @@
     "activeTab",
     "storage",
     "tabs",
+    "webRequest",
+    "webRequestBlocking",
     "<all_urls>"
   ],
   "options_ui": {
