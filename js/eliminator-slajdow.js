@@ -2168,6 +2168,42 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "#galeria.single_gallery_photo .gallery_main_photo .photo_story_navigation .next_photo",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "79",
+                /* nazwa galerii */
+                name: "Dziennik Wschodni",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".thumbnail_section:last",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#galeria",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#galeria.single_gallery_photo .gallery_main_photo .photo_story_navigation .next_photo",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".thumbnail_section, .photo_story_navigation, .box-separator",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, .photo_story_navigation",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                afterAllCallback: function () {
+                    $(this.pageOptions.sectionToBeRemovedSelector).remove();
+                },
+                regressionUrls: ["http://www.dziennikwschodni.pl/galeria.html?gal=999675772&art=1000191633"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -2713,8 +2749,6 @@
         }
     };
 
-    browser.runtime.onMessage.addListener(function (options) {
-        ES.init(options);
-    });
+    ES.init();
 
 })(jQuery);

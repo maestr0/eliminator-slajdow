@@ -38,16 +38,16 @@ function onMessageListener(request, sender, sendResponse) {
                         // active and not from popup
                         if (activate && sender.tab) {
                             browser.tabs.executeScript(sender.tab.id, {
-                                file: "./js/eliminator-slajdow.js"
-                            }).then(onExecuted, onError);
-
-                            function onExecuted(result) {
-                                console.log(`ES injected`);
-                            }
-
-                            function onError(error) {
+                                file: "./js/jquery-3.1.1.js"
+                            }).then((res)=> {
+                                console.log(`ES jQuery injected`);
+                                browser.tabs.executeScript(sender.tab.id, {
+                                    file: "./js/eliminator-slajdow.js"
+                                });
+                            }, (error)=> {
                                 console.log(`ES Error: ${error}`);
-                            }
+                            });
+
                         }
 
                         var id = sender.tab ? sender.tab.id : sender.contextId;
