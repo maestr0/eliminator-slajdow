@@ -237,7 +237,7 @@
                 sectionToBeAttached: "#content_wrap",
                 articleBodySelector: "#columns_wrap",
                 sectionToBeEmptySelector: "script:not([src])",
-                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures, #banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright, #gazeta_article .nextSlideWrapper, .galleryNavigation",
+                sectionToBeRemovedSelector: "#holder_404.holder_bottom, .relatedHolder, .photostoryNavigation, #gazeta_article_miniatures, #banP1, #banP2, #banP3, #banP4,#banP62,  .photostoryNextPage, .photostoryPrevPage, #gazeta_article_image div.overlayBright, #gazeta_article .nextSlideWrapper, .galleryNavigation",
                 sectionToBeRemovedFromAttachedSlidesSelector: "#photo_comments, #article_comments, #col_right",
                 navigationNextULRSelector: "div#content .photostoryNavigation .photostoryNextPage",
                 navigationPageNumberSelector: "#gazeta_article_top .countPage",
@@ -350,6 +350,9 @@
                     "http://finanse.wp.pl/gid,16350579,kat,1033695,title,Polska-wsrod-najatrakcyjniejszych-rynkow-Europy,galeria.html",
                     "http://kobieta.wp.pl/gid,16425464,img,16425465,kat,26405,title,Obledna-kreacja-Jennifer-Lopez,galeriazdjecie.html?ticaid=1124c8"],
                 preIncludeCallback: function () {
+                },
+                afterAllCallback: function () {
+                    $("#stgCol660").removeAttr('style');
                 }
             },
             {

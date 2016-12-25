@@ -202,6 +202,7 @@ function setSupportedDomains() {
         "mmmojemiasto.pl",
         "mmopole.pl",
         "mmzielonagora.pl",
+        "myfitness.pl",
         "foch.pl",
         "edulandia.pl",
         "wp.pl",
@@ -271,11 +272,12 @@ function setSupportedDomains() {
 }
 
 // match pattern for the URLs to redirect
-var pattern = "http://video.gazeta.pl/**autoplay=1";
+var pattern1 = "http://video.gazeta.pl/**autoplay=1";
+var pattern2 = "http://video.gazeta.pl/**autoplay=true";
 // match pattern for the URLs to redirect
 function redirect(requestDetails) {
     return {
-        redirectUrl: requestDetails.url.replace("autoplay=1", "autoplay=0")
+        redirectUrl: requestDetails.url.replace("autoplay=1", "autoplay=0").replace("autoplay=true", "autoplay=false")
     }
 }
 
@@ -283,6 +285,6 @@ function redirect(requestDetails) {
 // passing the filter argument and "blocking"
 browser.webRequest.onBeforeRequest.addListener(
     redirect,
-    {urls: [pattern]},
+    {urls: [pattern1, pattern2]},
     ["blocking"]
 );
