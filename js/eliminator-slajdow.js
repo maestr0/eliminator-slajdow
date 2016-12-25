@@ -2445,6 +2445,11 @@
                 that._hideSpinner();
                 return;
             }
+
+            if (nextPageURL.indexOf("http") !== 0) {
+                nextPageURL = document.location.origin + "/" + nextPageURL;
+            }
+
             $.get(nextPageURL, "html", function (nextPage) {
                 var redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {

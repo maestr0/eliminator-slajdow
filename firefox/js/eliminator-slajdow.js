@@ -11275,6 +11275,11 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
                 that._hideSpinner();
                 return;
             }
+
+            if (nextPageURL.indexOf("http") !== 0) {
+                nextPageURL = document.location.origin + "/" + nextPageURL;
+            }
+
             $.get(nextPageURL, "html", function (nextPage) {
                 var redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {
@@ -11314,7 +11319,7 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
                 }))
                 .append($("<p>", {
                     text: "- możesz zawsze jednorazowo wyłączyć działanie ES na tej stronie klikajac " +
-                    "PAUSE w menu ES obok paska adresu", "class": "esErrorContentMore"
+                    "PAUSE w menu ES obok paska adresu.", "class": "esErrorContentMore"
                 }))
             );
         },
