@@ -12,14 +12,15 @@
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^2.3.2",
     "gulp-watch": "^4.3.11",
-    "gulp-webserver": "^0.9.1"
+    "gulp-webserver": "^0.9.1",
+    "gulp-zip": "^3.2.0"
   },
   "scripts": {
     "test": "tap test/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maestr0/eliminator-slajdow-chrome.git"
+    "url": "git+https://github.com/maestr0/eliminator-slajdow.git"
   },
   "keywords": [
     "eliminator-slajdow",
@@ -28,7 +29,7 @@
   "author": "Pawel Raszewski",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/maestr0/eliminator-slajdow-chrome/issues"
+    "url": "https://github.com/maestr0/eliminator-slajdow/issues"
   },
-  "homepage": "https://github.com/maestr0/eliminator-slajdow-chrome#readme"
+  "homepage": "https://github.com/maestr0/eliminator-slajdow#readme"
 }

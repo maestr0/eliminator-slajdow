@@ -2287,33 +2287,23 @@
             }).append($("<p>", {
                 "class": "headerBar shadow_es"
             }).append($("<span>", {
-                "class": "pageNumber",
-                text: pageNumberLabel
-            })).append($("<span>", {
                 "class": "esLogo",
-                style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') no-repeat 0 0 /16px"
+                style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') white no-repeat 2px 0 /16px"
+            })).append($("<span>", {
+                "class": "pageNumber",
+                text: "Eliminator Slajdów"
             })).append($("<i>", {
-                "class": "scrollSwitch icon-resize-vertical " + (this.options.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
-                title: "Pasek przewijania"
+                "class": "scrollSwitch icon-resize-vertical icon-lock " + (this.options.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
+                title: "Zablokuj przewijanie"
             })).append(
                 $("<span>", {
                     "class": "bugreport"
-                }).append($("<a>", {
-                        title: "Zgłoś problem",
-                        text: "ZGŁOŚ PROBLEM"
-                    })
-                )).append(
+                })).append(
                 $("<span>", {
                     "class": "directLink"
-                }).append($("<a>", {
-                        href: this._appendDisableEsFlag(url),
-                        title: "Wyłącz ES na tym slajdzie",
-                        text: "WYŁĄCZ ES",
-                        "class": "disableEs"
-                    })
-                )).append(
+                })).append(
                 $("<i>", {
-                    "class": "icon-right-circle",
+                    "class": "icon-right-circle large",
                     title: "Następny Slajd"
                 })).append(
                 $("<i>", {
@@ -2327,10 +2317,7 @@
                 $("<i>", {
                     "class": "icon-down-circle",
                     title: "Ostatni Slajd"
-                }))).append($("<p>", {
-                "class": "headerLogo",
-                text: 'Eliminator Slajdów'
-            }).append($("<i>", {"class": 'icon-facebook-squared'})));
+                })));
         },
         _appendNextSlide: function (galleryPage, thisSlideURL) {
             galleryPage = $('<div/>').append(galleryPage);
@@ -2727,6 +2714,8 @@
             this._createImageContainer();
             this._appendNextSlide("body", "regression");
             this.init();
+            this.options.imageBaseUrl = "../chrome/images/";
+            $(".imageContainerEliminatorSlajdow").append(this._buildHeader("Slajd", 666, "https://test.com"));
             this._showSpinnier();
         },
         _createDebugConsole: function () {

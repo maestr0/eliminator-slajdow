@@ -43,9 +43,7 @@
     }
   ],
   "options_ui": {
-    // Required.
     "page": "html/options.html",
-    // Recommended.
     "chrome_style": true,
     "open_in_tab": true
   }

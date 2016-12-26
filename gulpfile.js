@@ -5,6 +5,13 @@ var webserver = require('gulp-webserver');
 var concat = require('gulp-concat');
 var watch = require('gulp-watch');
 var del = require('del');
+const zip = require('gulp-zip');
+
+gulp.task('chrome', () => {
+    return gulp.src('chrome/**')
+        .pipe(zip('chrome.zip'))
+        .pipe(gulp.dest('dist'));
+});
 
 gulp.task('scss', function () {
     return gulp.src('common/scss/*.scss')
