@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Eliminator Slajdów - USTAWIENIA</title>
+    <link rel="stylesheet" href="../css/options.css">
+</head>
+
+<body>
+<div id="options">
+    <h3 class="domains">Status</h3>
+    <div>
+        <div class="statusPanel">
+            <input type="radio" id="radio1" name="status" value="1"/>
+            <label for="radio1">Aktywny</label>
+
+            <input type="radio" id="radio2" name="status" value="-1"/>
+            <label for="radio2">Wyłączony</label>
+        </div>
+    </div>
+
+    <h3 class="domains">O autorze</h3>
+    <div>
+        <p>Autor: Paweł Raszewski</p>
+        <p>Email: <a href="mailto:raszewski@gmail.com?Subject=Lepsza%20Gazeta.PL">raszewski@gmail.com</a></p>
+        <p>Facebook: <a href="https://facebook.com/eliminator-slajdow?ref=option_popup" target="_new">https://facebook.com/eliminator-slajdow</a>
+        </p>
+        <p>Zgłoś błąd: <a href="https://eliminator-slajdow.herokuapp.com/" target="_new">https://eliminator-slajdow.herokuapp.com/</a>
+        </p>
+        <p>Licencja: GPL3</p>
+        <p>Jeśli podoba Ci się ten dodatek możesz przekazać mi parę złotych wspierająć rozwój ES.</p>
+        <a href="https://eliminator-slajdow.herokuapp.com/?darowizna" target="_blank"><img
+                src="https://www.paypalobjects.com/pl_PL/PL/i/btn/btn_donateCC_LG.gif" alt="Darowizna PayPal"></a>
+        <p>Jeśli chcesz podarować mi Bitcoiny, możesz je wysłać na adres:</p>
+        <img src="../images/DonateBitcoin.png" alt="Donate Bitcoin" width="200" style="width: 166px;">
+        <b style="vertical-align: 18px;margin-left: 45px;">1HszCEdt3qoqLHXD2t5k56Acuz4Yq4XLv1</b>
+    </div>
+    <h3>Opcje - Eliminator Slajdów</h3>
+    <div class="domainListWrapper">
+        <p class="extensionInfo"><span class="waning">Uwaga:</span> W chwili obecnej to rozszerzenie dziala TYLKO na
+            portalach wymienionych poniżej.
+            Jeśli myslisz, że na liscie brakuje jakiegoś portalu, zgłoś to na <a
+                    href="https://eliminator-slajdow.herokuapp.com/" target="_new">https://eliminator-slajdow.herokuapp.com/</a>
+        </p>
+        <br/>
+        <ol id="domainList" style="height:40px">
+        </ol>
+    </div>
+</div>
+<script src="../js/jquery-3.1.1.js"></script>
+<script src="../js/options.js"></script>
+</body>
+</html>
+

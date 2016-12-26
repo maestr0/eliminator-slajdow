@@ -7,19 +7,21 @@ var watch = require('gulp-watch');
 var del = require('del');
 
 gulp.task('scss', function () {
-    return gulp.src('scss/*.scss')
-        .pipe(sass()) // Using gulp-sass
+    return gulp.src('common/scss/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('chrome/css'))
         .pipe(gulp.dest('firefox/css'))
 });
 
 gulp.task('build-es', function () {
-    return gulp.src(['./js/eliminator-slajdow.js'])
+    return gulp.src(['common/js/eliminator-slajdow-common.js'])
         .pipe(concat('eliminator-slajdow.js'))
-        .pipe(gulp.dest('./firefox/js/'));
+        .pipe(gulp.dest('firefox/js/'))
+        .pipe(gulp.dest('chrome/js/'));
 });
 
 gulp.task('webserver', function () {
-    gulp.src('./build')
+    gulp.src('build')
         .pipe(webserver({
             livereload: false,
             directoryListing: true,
@@ -36,9 +38,14 @@ gulp.task('clean', clean);
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
-    gulp.watch('js/eliminator-slajdow.js', ['build-es']);
-    gulp.watch('scss/**.scss', ['scss']);
+    gulp.watch('common/js/eliminator-slajdow-common.js', ['build-es']);
+    gulp.watch('common/scss/**.scss', ['scss']);
 });
+
+// gulp.task('copy-tmp', function () {
+//     gulp.src('./tmp')
+//         .pipe(gulp.dest('./public/'));
+// });
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', ['scss']);
