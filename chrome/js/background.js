@@ -1,75 +1,72 @@
 // Listen for the content script to send a message to the background page.
-browser.runtime.onMessage.addListener(onMessageListener);
-browser.tabs.onActivated.addListener(handleActivated);
-browser.tabs.onUpdated.addListener(handleUpdated);
+chrome.runtime.onMessage.addListener(onMessageListener);
+chrome.tabs.onActivated.addListener(handleActivated);
+chrome.tabs.onUpdated.addListener(handleUpdated);
 
 function handleUpdated(tabId, changeInfo, tabInfo) {
     if (changeInfo.url) {
-        canRunOnCurrentUrl(changeInfo.url).then((canRunHere)=> {
-            updateBrowserActionIcon(canRunHere);
+        canRunOnCurrentUrl(changeInfo.url, (canRunHere)=> {
+            updatechromeActionIcon(canRunHere);
         });
     }
 }
 
-function updateBrowserActionIcon(canRunHere) {
+function updatechromeActionIcon(canRunHere) {
     if (canRunHere) {
-        browser.browserAction.setIcon({path: "images/es_logo.svg"});
+        chrome.browserAction.setIcon({path: "images/es_logo.svg"});
     } else {
-        browser.browserAction.setIcon({path: "images/disableIcon.png"});
+        chrome.browserAction.setIcon({path: "images/disableIcon.png"});
     }
 }
 function handleActivated(activeInfo) {
-    getActiveTab().then((tab) => {
-        canRunOnCurrentUrl(tab[0].url).then((canRunHere)=> {
-            updateBrowserActionIcon(canRunHere);
+    getActiveTab((tab) => {
+        canRunOnCurrentUrl(tab[0].url, (canRunHere)=> {
+            updatechromeActionIcon(canRunHere);
         });
     });
 }
 
 // listeners
 function onMessageListener(request, sender, sendResponse) {
-    browser.storage.local.get(['status', 'version'])
-        .then((res)=> {
-            if (location.hostname == sender.id && request.urlName !== undefined) {
-                canRunOnCurrentUrl(request.urlName)
-                    .then((canRunHere)=> {
-                        var activate = canRunHere && parseInt(res.status) > 0;
+    chrome.storage.sync.get(['status', 'version'], (res)=> {
+        if (location.hostname == sender.id && request.urlName !== undefined) {
+            canRunOnCurrentUrl(request.urlName), (canRunHere)=> {
+                var activate = canRunHere && parseInt(res.status) > 0;
 
-                        // active and not from popup
-                        if (activate && sender.tab) {
-                            browser.tabs.executeScript(sender.tab.id, {
-                                file: "./js/jquery-3.1.1.js"
-                            }).then((res)=> {
-                                console.log(`ES jQuery injected`);
-                                browser.tabs.executeScript(sender.tab.id, {
-                                    file: "./js/eliminator-slajdow.js"
-                                });
-                            }, (error)=> {
-                                console.log(`ES Error: ${error}`);
-                            });
-
-                        }
-
-                        var id = sender.tab ? sender.tab.id : sender.contextId;
-                        browser.tabs.sendMessage(id,
-                            {
-                                "canRunOnCurrentUrl": activate,
-                                "version": res.version
-                            });
+                // active and not from popup
+                if (activate && sender.tab) {
+                    chrome.tabs.executeScript(sender.tab.id, {
+                        file: "./js/jquery-3.1.1.js"
+                    }, (res)=> {
+                        console.log(`ES jQuery injected`);
+                        chrome.tabs.executeScript(sender.tab.id, {
+                            file: "./js/eliminator-slajdow.js"
+                        });
+                    }, (error)=> {
+                        console.log(`ES Error: ${error}`);
                     });
-            }
-            if (request.status) {
-                browser.storage.local.set({status: parseInt(request.status)}).then(()=> {
-                    updateStatusIcon();
-                });
-            }
-        });
+
+                }
+
+                var id = sender.tab ? sender.tab.id : sender.contextId;
+                chrome.tabs.sendMessage(id,
+                    {
+                        "canRunOnCurrentUrl": activate,
+                        "version": res.version
+                    });
+            };
+        } else if (request.status) {
+            chrome.storage.sync.set({status: parseInt(request.status)}, ()=> {
+                updateStatusIcon();
+            });
+        }
+    });
 }
 
 // helpers
 
-function canRunOnCurrentUrl(url) {
-    return browser.storage.local.get(['allowedDomains']).then((res)=> {
+function canRunOnCurrentUrl(url, callback) {
+    return chrome.storage.sync.get(['allowedDomains'], (res)=> {
         var canRunHere = false;
         var allowedDomains = JSON.parse(res.allowedDomains);
         $.each(allowedDomains, function (allowedHost, enabled) {
@@ -81,39 +78,38 @@ function canRunOnCurrentUrl(url) {
                     console.log('Eliminator Slajdow wylaczony na: ' + allowedHost);
                     canRunHere = false; // flag indicating that the extension is disabled on the current url
                 }
-                return false;
+                callback(false);
             }
         });
-        return canRunHere && url.toLowerCase().indexOf("es=off") === -1;
+        callback(canRunHere && url.toLowerCase().indexOf("es=off") === -1);
     });
 }
 
-function getActiveTab() {
-    return browser.tabs.query({active: true, currentWindow: true});
+function getActiveTab(callback) {
+    return chrome.tabs.query({active: true, currentWindow: true}, callback);
 }
 
 function updateStatusIcon() {
-    return browser.storage.local
-        .get('status')
-        .then((res)=> {
+    return chrome.storage.sync
+        .get('status', (res)=> {
             var enableIcon = "images/enableIcon.png";
             var disableIcon = "images/disableIcon.png";
             var currentStatus = parseInt(res.status);
             var icon = currentStatus > 0 ? enableIcon : disableIcon;
-            browser.browserAction.setIcon({path: icon});
+            chrome.browserAction.setIcon({path: icon});
             if (currentStatus < 0) {
-                browser.browserAction.setBadgeText({text: "OFF"});
+                chrome.browserAction.setBadgeText({text: "OFF"});
             } else {
-                browser.browserAction.setBadgeText({text: ""});
+                chrome.browserAction.setBadgeText({text: ""});
             }
             return {currentStatus: currentStatus, icon: icon};
         });
 }
 
 // onInstall hack
-var manifest = browser.runtime.getManifest();
+var manifest = chrome.runtime.getManifest();
 
-browser.storage.local.get('version').then((res)=> {
+chrome.storage.sync.get('version', (res)=> {
     if (res.version !== manifest.version) {
         versionUpdate(manifest.version).then(()=> {
             // init
@@ -127,10 +123,10 @@ browser.storage.local.get('version').then((res)=> {
 
 function versionUpdate(newVersion) {
     setSupportedDomains();
-    return browser.storage.local.set({
+    return chrome.storage.sync.set({
         'status': "1",
         'version': manifest.version
-    }).then(()=> {
+    }, ()=> {
         console.log("Updating Supported Domain config for ES v" + newVersion);
     });
 }
@@ -249,7 +245,7 @@ function setSupportedDomains() {
         "newsweek.pl"];
 
 
-    browser.storage.local.get('allowedDomains').then((res)=> {
+    chrome.storage.sync.get('allowedDomains', (res)=> {
         var allowedDomains = {};
         if (typeof res.allowedDomains !== "undefined") {
             allowedDomains = JSON.parse(res.allowedDomains);
@@ -267,7 +263,7 @@ function setSupportedDomains() {
                 delete allowedDomains[domain];
             }
         });
-        browser.storage.local.set({allowedDomains: JSON.stringify(allowedDomains)})
+        chrome.storage.sync.set({allowedDomains: JSON.stringify(allowedDomains)})
     });
 }
 
@@ -283,7 +279,7 @@ function redirect(requestDetails) {
 
 // add the listener,
 // passing the filter argument and "blocking"
-browser.webRequest.onBeforeRequest.addListener(
+chrome.webRequest.onBeforeRequest.addListener(
     redirect,
     {urls: [pattern1, pattern2]},
     ["blocking"]

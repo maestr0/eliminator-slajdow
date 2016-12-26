@@ -14,16 +14,17 @@ $("#options").click(()=> {
 });
 
 $("#tempDisable").click(()=> {
-    chrome.extension.getBackgroundPage().getActiveTab().then((res)=> {
+    chrome.extension.getBackgroundPage().getActiveTab(), ((res)=> {
         console.log(res)
-        chrome.tabs.update(res[0].id, {url: appendParamToUrl(res[0].url, "es=off")}).then(()=> {
-            this.close();
-        });
+        chrome.tabs.update(res[0].id, {url: appendParamToUrl(res[0].url, "es=off")},
+            ()=> {
+                this.close();
+            });
     });
 });
 
 $("#disable").click(()=> {
-    chrome.storage.local.get('status').then((res)=> {
+    chrome.storage.local.get('status', (res)=> {
         var newStatus = parseInt(res.status) * -1;
         $("#disable").addClass("button-status" + newStatus);
         $("#disable").removeClass("button-status" + (newStatus * -1));
@@ -33,12 +34,12 @@ $("#disable").click(()=> {
 });
 
 function init() {
-    chrome.storage.local.get('status').then((res)=> {
+    chrome.storage.sync.get('status', (res)=> {
         $("#disable").addClass("button-status" + res.status)
         $("#disable").removeClass("button-status" + (res.status * -1));
     });
-    chrome.extension.getBackgroundPage().getActiveTab().then((res)=> {
-        chrome.extension.getBackgroundPage().canRunOnCurrentUrl(res[0].url).then((canRunHere)=> {
+    chrome.extension.getBackgroundPage().getActiveTab((res)=> {
+        chrome.extension.getBackgroundPage().canRunOnCurrentUrl(res[0].url, (canRunHere)=> {
             if (canRunHere) {
                 // ok
             } else {
