@@ -44,9 +44,14 @@ function onMessageListener(request, sender, sendResponse) {
                             file: "./js/eliminator-slajdow.js"
                         }, ()=> {
                             console.log("ES injected");
+                            chrome.tabs.executeScript(sender.tab.id, {
+                                code: "ES.init({version : '" + chrome.runtime.getManifest().version +
+                                "', imageBaseUrl: '" + chrome.extension.getURL('images/') + "'});"
+                            }, ()=> {
+                                console.log("ES.init()");
+                            });
                         });
                     });
-
                 }
 
                 var id = sender.tab ? sender.tab.id : sender.contextId;

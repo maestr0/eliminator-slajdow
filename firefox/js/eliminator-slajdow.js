@@ -14,14 +14,14 @@
 (function ($) {
     ES = {
         options: {
-            imageBaseUrl: browser.extension.getURL('images/'),
+            imageBaseUrl: "",
             scrollableImageContainer: false,
             esLogoUrl: "es_logo.svg",
             cssPath: "",
             facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
             bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
             debug: (document.location.href.indexOf("es=debug") > -1) || (document.location.href.indexOf("es=dev") > -1),
-            version: browser.runtime.getManifest().version,
+            version: "dev",
             customPages: {},
             preIncludeCallback: function () {
             },
@@ -2628,7 +2628,8 @@
             window.onerror = function (err) {
                 self._tracking("ES_JS_ERROR", err, window.location.href);
             };
-            $.extend(true, this, this, customOptions);
+            $.extend(true, this.options, this.options, customOptions);
+
             this.pages.push(this.options.customPages);
 
             if (this.options.debug) {
@@ -2748,7 +2749,4 @@
             }
         }
     };
-
-    ES.init();
-
 })(jQuery);
