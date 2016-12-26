@@ -43,6 +43,11 @@ function onMessageListener(request, sender, sendResponse) {
                                 console.log(`ES jQuery injected`);
                                 browser.tabs.executeScript(sender.tab.id, {
                                     file: "./js/eliminator-slajdow.js"
+                                }).then(()=> {
+                                    browser.tabs.executeScript(sender.tab.id, {
+                                        code: "ES.init({version : '" + browser.runtime.getManifest().version +
+                                        "', imageBaseUrl: '" + browser.extension.getURL('images/') + "'});"
+                                    });
                                 });
                             }, (error)=> {
                                 console.log(`ES Error: ${error}`);
@@ -271,13 +276,28 @@ function setSupportedDomains() {
     });
 }
 
+function appendParamToUrl(url, param) {
+    if (url.indexOf("?") > -1) {
+        return url.replace("?", "?" + param + "&");
+    } else if (url.indexOf("#") > -1) {
+        return url.replace("#", "?" + param + "#");
+    } else {
+        return url + "?" + param;
+    }
+}
+
 // match pattern for the URLs to redirect
-var pattern1 = "http://video.gazeta.pl/**autoplay=1";
-var pattern2 = "http://video.gazeta.pl/**autoplay=true";
+var pattern1 = "http://video.gazeta.pl/player/**";
 // match pattern for the URLs to redirect
 function redirect(requestDetails) {
+
+    var redirectUrl = requestDetails.url.replace("autoplay=1", "autoplay=0").replace("autoplay=true", "autoplay=false");
+    if (redirectUrl.indexOf("autoplay") === -1) {
+        redirectUrl = appendParamToUrl(redirectUrl, "autoplay=false");
+    }
+
     return {
-        redirectUrl: requestDetails.url.replace("autoplay=1", "autoplay=0").replace("autoplay=true", "autoplay=false")
+        redirectUrl: redirectUrl
     }
 }
 
