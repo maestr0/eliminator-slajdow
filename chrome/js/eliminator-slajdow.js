@@ -2252,11 +2252,6 @@
             }
             $("#es_debug").val($("#es_debug").val() + "\n" + content);
 
-            $('<link/>', {
-                rel: 'stylesheet',
-                href: 'https://cdn.eliminator-slajdow.raszewski.info/es.css'
-            }).appendTo('head');
-
             this.pageOptions.beforeAllCallback.call(this);
 
             $("body").addClass("eliminatorSlajdow");
@@ -2583,7 +2578,7 @@
                     var offset = imageContainer.offset().top + imageContainer.height() - 50;
                     var thisSlide = $(this).parent().parent();
                     if (thisSlide.next().length > 0 && thisSlide.next().next().length > 0) {
-                        offset = thisSlide.next().next().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 62;
+                        offset = thisSlide.next().next().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 48;
                     }
                     $("body,html").animate({
                         scrollTop: offset
@@ -2599,7 +2594,7 @@
                     var offset = 0;
                     var thisSlide = $(this).parent().parent();
                     if (thisSlide.prev().length > 0) {
-                        offset = thisSlide.prev().prev().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 62;
+                        offset = thisSlide.prev().prev().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 48;
                     }
                     $("body,html").animate({
                         scrollTop: offset

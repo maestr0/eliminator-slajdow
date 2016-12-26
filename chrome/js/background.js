@@ -46,6 +46,7 @@ function onMessageListener(request, sender, sendResponse) {
                             file: "./js/eliminator-slajdow.js"
                         }, ()=> {
                             console.log("ES injected");
+                            chrome.tabs.insertCSS(sender.tab.id, {file: "css/es.css"});
                             chrome.tabs.executeScript(sender.tab.id, {
                                 code: "ES.init({version : '" + chrome.runtime.getManifest().version +
                                 "', imageBaseUrl: '" + chrome.extension.getURL('images/') + "'});"
