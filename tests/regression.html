@@ -2,16 +2,15 @@
 <html lang="pl">
 <head>
     <meta charset="utf-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="../common/js/jquery-ui-1.10.3.widget.factory.min.js"></script>
-    <script src="../common/js/eliminator-slajdow.jquery.widget.js"></script>
+    <script src="../common/js/jquery-3.1.1.js"></script>
+    <script src="../common/js/eliminator-slajdow-common.js"></script>
     <style>
         #articleBodySelector {
             width: 500px;
             height: 100px;
         }
     </style>
-    <link href="../package/css/es.css" type="text/css" rel="stylesheet">
+    <link href="../chrome/css/es.css" type="text/css" rel="stylesheet">
 </head>
 <body class='eliminatorSlajdow'>
 <button id="start">START</button>
@@ -22,8 +21,7 @@
 <div class='imageContainerEliminatorSlajdow'></div>
 
 <script>
-    var es = jQuery("body").eliminatorSlajdow({imageBaseUrl: '../images/', debug: true});
-    es.eliminatorSlajdow('regression');
+    ES.regression({imageBaseUrl: '../images/', debug: true});
     console.log(jQuery.fn.jquery, 'JQ ver');
 </script>
 </body>
