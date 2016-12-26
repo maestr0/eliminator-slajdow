@@ -2284,7 +2284,9 @@
             }).append($("<span>", {
                 "class": "esLogo",
                 style: "background:url('" + this.options.imageBaseUrl + this.options.esLogoUrl + "') white no-repeat 2px 0 /16px"
-            })).append($("<span>", {
+            })).append($("<a>", {
+                "href": "https://www.facebook.com/eliminator.slajdow/?ref=option_popup",
+                "target": "_blank",
                 "class": "pageNumber",
                 text: "Eliminator Slajdów"
             })).append($("<i>", {

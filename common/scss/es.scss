@@ -331,16 +331,22 @@
         margin-right: 10px !important;
       }
 
+      a.pageNumber {
+        float: left;
+        color: white !important;
+        line-height: auto !important;
+        font-family: Arial;
+        font-size: 11px;
+        line-height: 16px;
+        margin: 0 !important;
+        text-decoration: none;
+      }
+
       span {
         font-family: Arial;
         font-size: 11px;
         line-height: 16px;
         margin: 0 !important;
-        &.pageNumber {
-          float: left;
-          color: white !important;
-          line-height: auto !important;
-        }
         &.scrollSwitch {
           cursor: pointer;
           float: right;

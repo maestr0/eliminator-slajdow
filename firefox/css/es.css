@@ -248,15 +248,20 @@
     padding: 0 2px;
     float: left;
     margin-right: 10px !important; }
+  .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader a.pageNumber {
+    float: left;
+    color: white !important;
+    line-height: auto !important;
+    font-family: Arial;
+    font-size: 11px;
+    line-height: 16px;
+    margin: 0 !important;
+    text-decoration: none; }
   .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader span {
     font-family: Arial;
     font-size: 11px;
     line-height: 16px;
     margin: 0 !important; }
-    .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader span.pageNumber {
-      float: left;
-      color: white !important;
-      line-height: auto !important; }
     .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader span.scrollSwitch {
       cursor: pointer;
       float: right;
