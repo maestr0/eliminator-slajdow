@@ -20,9 +20,11 @@ function updateBrowserActionIcon(canRunHere) {
 }
 function handleActivated(activeInfo) {
     getActiveTab((tab) => {
-        canRunOnCurrentUrl(tab[0].url, (canRunHere)=> {
-            updateBrowserActionIcon(canRunHere);
-        });
+        if (tab && tab.length === 1 && tab[0].url) {
+            canRunOnCurrentUrl(tab[0].url, (canRunHere)=> {
+                updateBrowserActionIcon(canRunHere);
+            });
+        }
     });
 }
 
@@ -105,6 +107,7 @@ function updateStatusIcon() {
             chrome.browserAction.setIcon({path: icon});
             if (currentStatus < 0) {
                 chrome.browserAction.setBadgeText({text: "OFF"});
+                chrome.browserAction.setBadgeBackgroundColor({color: "red"});
             } else {
                 chrome.browserAction.setBadgeText({text: ""});
             }
@@ -273,13 +276,28 @@ function setSupportedDomains() {
     });
 }
 
+function appendParamToUrl(url, param) {
+    if (url.indexOf("?") > -1) {
+        return url.replace("?", "?" + param + "&");
+    } else if (url.indexOf("#") > -1) {
+        return url.replace("#", "?" + param + "#");
+    } else {
+        return url + "?" + param;
+    }
+}
+
 // match pattern for the URLs to redirect
-var pattern1 = "http://video.gazeta.pl/**autoplay=1";
-var pattern2 = "http://video.gazeta.pl/**autoplay=true";
+var pattern1 = "http://video.gazeta.pl/player/**";
 // match pattern for the URLs to redirect
 function redirect(requestDetails) {
+
+    var redirectUrl = requestDetails.url.replace("autoplay=1", "autoplay=0").replace("autoplay=true", "autoplay=false");
+    if (redirectUrl.indexOf("autoplay") === -1) {
+        redirectUrl = appendParamToUrl(redirectUrl, "autoplay=false");
+    }
+
     return {
-        redirectUrl: requestDetails.url.replace("autoplay=1", "autoplay=0").replace("autoplay=true", "autoplay=false")
+        redirectUrl: redirectUrl
     }
 }
 
@@ -287,6 +305,6 @@ function redirect(requestDetails) {
 // passing the filter argument and "blocking"
 chrome.webRequest.onBeforeRequest.addListener(
     redirect,
-    {urls: [pattern1, pattern2]},
+    {urls: [pattern1]},
     ["blocking"]
 );
