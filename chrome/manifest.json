@@ -16,7 +16,7 @@
     "page": "html/options.html"
   },
   "icons": {
-    "48": "images/es_logo.svg"
+    "128": "images/es_logo_large.png"
   },
   "browser_action": {
     "default_icon": "images/enableIcon.png",
@@ -41,5 +41,12 @@
         "js/contentscript.js"
       ]
     }
-  ]
+  ],
+  "options_ui": {
+    // Required.
+    "page": "html/options.html",
+    // Recommended.
+    "chrome_style": true,
+    "open_in_tab": true
+  }
 }

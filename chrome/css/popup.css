@@ -9,7 +9,8 @@ button {
   border: 0;
   float: left;
   width: 50px;
-  height: 50px; }
+  height: 50px;
+  outline: none; }
 
 #options {
   background: url(../popup/ic_settings_black_48px.svg) no-repeat center;

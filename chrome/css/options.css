@@ -13,6 +13,8 @@ a {
 
 #options {
   padding: 5px; }
+  #options.chrome {
+    margin: 0 20%; }
   #options h3 {
     font-weight: 100;
     margin-top: 35px;

@@ -18,17 +18,17 @@
                 $(this).parent().parent().toggleClass("disabled");
                 var text = $(this).parent().parent().attr("data-value");
 
-                browser.storage.local.get('allowedDomains').then((res)=> {
+                chrome.storage.sync.get('allowedDomains', (res)=> {
                     var ad = JSON.parse(res.allowedDomains)
                     ad[text] = selected;
-                    browser.storage.local.set({
+                    chrome.storage.sync.set({
                         allowedDomains: JSON.stringify(ad)
                     });
                 });
             });
 
             $('input[type=radio][name=status]').change(function () {
-                browser.runtime.sendMessage({"status": this.value});
+                chrome.runtime.sendMessage({"status": this.value});
             });
 
             function logStorageChange(changes, area) {
@@ -41,11 +41,11 @@
                 }
             }
 
-            browser.storage.onChanged.addListener(logStorageChange);
+            chrome.storage.onChanged.addListener(logStorageChange);
         },
         fnGenerateDomainList: function () {
             var that = this;
-            browser.storage.local.get('allowedDomains').then((res)=> {
+            chrome.storage.sync.get('allowedDomains', (res)=> {
                 var allowedDomains = JSON.parse(res.allowedDomains);
                 $.each(allowedDomains, function (allowedHost, enabled) {
                     that.$domainList.append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") +
@@ -56,7 +56,7 @@
             });
         },
         updateUI: function () {
-            browser.storage.local.get(['version', 'status']).then((res)=> {
+            chrome.storage.sync.get(['version', 'status'], (res)=> {
                 $("#version").text(res.version);
                 $("input:radio[value=" + res.status + "]").attr("checked", true);
             });

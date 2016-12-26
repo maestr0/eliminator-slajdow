@@ -24,7 +24,7 @@ $("#tempDisable").click(()=> {
 });
 
 $("#disable").click(()=> {
-    chrome.storage.local.get('status', (res)=> {
+    chrome.storage.sync.get('status', (res)=> {
         var newStatus = parseInt(res.status) * -1;
         $("#disable").addClass("button-status" + newStatus);
         $("#disable").removeClass("button-status" + (newStatus * -1));

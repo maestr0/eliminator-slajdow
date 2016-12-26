@@ -6,14 +6,14 @@ chrome.tabs.onUpdated.addListener(handleUpdated);
 function handleUpdated(tabId, changeInfo, tabInfo) {
     if (changeInfo.url) {
         canRunOnCurrentUrl(changeInfo.url, (canRunHere)=> {
-            updatechromeActionIcon(canRunHere);
+            updateBrowserActionIcon(canRunHere);
         });
     }
 }
 
-function updatechromeActionIcon(canRunHere) {
+function updateBrowserActionIcon(canRunHere) {
     if (canRunHere) {
-        chrome.browserAction.setIcon({path: "images/es_logo.svg"});
+        chrome.browserAction.setIcon({path: "images/enableIcon.png"});
     } else {
         chrome.browserAction.setIcon({path: "images/disableIcon.png"});
     }
@@ -21,7 +21,7 @@ function updatechromeActionIcon(canRunHere) {
 function handleActivated(activeInfo) {
     getActiveTab((tab) => {
         canRunOnCurrentUrl(tab[0].url, (canRunHere)=> {
-            updatechromeActionIcon(canRunHere);
+            updateBrowserActionIcon(canRunHere);
         });
     });
 }
@@ -30,20 +30,21 @@ function handleActivated(activeInfo) {
 function onMessageListener(request, sender, sendResponse) {
     chrome.storage.sync.get(['status', 'version'], (res)=> {
         if (location.hostname == sender.id && request.urlName !== undefined) {
-            canRunOnCurrentUrl(request.urlName), (canRunHere)=> {
+            canRunOnCurrentUrl(request.urlName, (canRunHere)=> {
                 var activate = canRunHere && parseInt(res.status) > 0;
 
                 // active and not from popup
                 if (activate && sender.tab) {
+                    console.log(sender.tab);
                     chrome.tabs.executeScript(sender.tab.id, {
                         file: "./js/jquery-3.1.1.js"
                     }, (res)=> {
                         console.log(`ES jQuery injected`);
                         chrome.tabs.executeScript(sender.tab.id, {
                             file: "./js/eliminator-slajdow.js"
+                        }, ()=> {
+                            console.log("ES injected");
                         });
-                    }, (error)=> {
-                        console.log(`ES Error: ${error}`);
                     });
 
                 }
@@ -54,7 +55,7 @@ function onMessageListener(request, sender, sendResponse) {
                         "canRunOnCurrentUrl": activate,
                         "version": res.version
                     });
-            };
+            });
         } else if (request.status) {
             chrome.storage.sync.set({status: parseInt(request.status)}, ()=> {
                 updateStatusIcon();
@@ -78,7 +79,7 @@ function canRunOnCurrentUrl(url, callback) {
                     console.log('Eliminator Slajdow wylaczony na: ' + allowedHost);
                     canRunHere = false; // flag indicating that the extension is disabled on the current url
                 }
-                callback(false);
+                return false;
             }
         });
         callback(canRunHere && url.toLowerCase().indexOf("es=off") === -1);
