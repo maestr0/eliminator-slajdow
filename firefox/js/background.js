@@ -248,7 +248,7 @@ function setSupportedDomains() {
         "sportfan.pl",
         "forbes.pl",
         "geekweek.pl",
-        "eliminator-slajdow.herokuapp.com",
+        "eliminator-slajdow.raszewski.info",
         "nocoty.pl",
         "domiporta.pl",
         "newsweek.pl"];

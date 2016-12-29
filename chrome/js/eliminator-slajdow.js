@@ -5,7 +5,7 @@
  *
  *   https://github.com/maestr0/eliminator-slajdow-chrome
  *   Licencja: GPLv3
- *   Strona Domowa: https://eliminator-slajdow.herokuapp.com
+ *   Strona Domowa: http://eliminator-slajdow.raszewski.info
  *
  *   latest version on CDN: https://cdn.eliminator-slajdow.raszewski.info/eliminator-slajdow.js
  *
@@ -18,8 +18,8 @@
             scrollableImageContainer: false,
             esLogoUrl: "es_logo.svg",
             cssPath: "",
-            facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=chrome.extension",
-            bugReportUrl: "http://eliminator-slajdow.herokuapp.com/?ref=chrome.extension",
+            facebookUrl: "https://www.facebook.com/eliminator-slajdow?ref=es.extension",
+            bugReportUrl: "http://eliminator-slajdow.raszewski.info/problem/nowy?ref=es.extension",
             debug: (document.location.href.indexOf("es=debug") > -1) || (document.location.href.indexOf("es=dev") > -1),
             version: "dev",
             customPages: {},
@@ -60,13 +60,12 @@
             {
                 trigger: "body#oficjalna_strona_eliminatora_slajdow",
                 name: "OFICJALNA STRONA ELIMINATORA SLAJDÓW",
-                regressionUrls: ["http://eliminator-slajdow.herokuapp.com/"],
+                regressionUrls: ["http://eliminator-slajdow.raszewski.info/"],
                 pageType: "0",
                 navigationNextULRSelector: "",
                 hasSlideNumbers: false,
                 beforeAllCallback: function () {
-                    $("body").attr("es-version-data", this.options.version);
-                    this._tracking("ES_HOMEPAGE", this.options.version);
+                    $("#issue_es_version").text(this.options.version);
                 }
             },
             {
@@ -2499,8 +2498,8 @@
                     "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
                 }))
                 .append($("<a>", {
-                    href: "http://eliminator-slajdow.herokuapp.com/?ref=error-panel-ds",
-                    text: "http://eliminator-slajdow.herokuapp.com", "class": "esLink"
+                    href: "http://eliminator-slajdow.raszewski.info/?ref=error-panel-ds",
+                    text: "http://eliminator-slajdow.raszewski.info", "class": "esLink"
                 }))
                 .append($("<p>", {
                     text: "Jako tymczasowe rozwiązanie problemu możesz zrobić którąś z poniższych rzeczy:",

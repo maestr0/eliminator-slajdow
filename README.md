@@ -13,7 +13,7 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SMS8WQBP3DU
 
 Wszelkie sugestię proszę zgłaszać na
 
-https://eliminator-slajdow.herokuapp.com
+http://eliminator-slajdow.raszewski.info/
 
 Autor: Paweł Raszewski (raszewski@gmail.com)
 

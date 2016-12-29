@@ -94,7 +94,7 @@ var defaultSupportedDomains = new Array("autotrader.pl", "avanti24.pl", "groszki
                                       "auto-swiat.pl", "sportowefakty.pl", "motokiller.pl",
                                       "bebzol.com", "lovekrakow.pl", "pudelekx.pl", "urzadzamy.pl", "snobka.pl",
                                       "fly4free.pl", "gadzetomania.pl", "trojmiasto.pl", "regiomoto.pl", "sportfan.pl",
-                                      "forbes.pl", "geekweek.pl", "eliminator-slajdow.herokuapp.com", "nocoty.pl", "domiporta.pl",
+                                      "forbes.pl", "geekweek.pl", "eliminator-slajdow.raszewski.info", "nocoty.pl", "domiporta.pl",
                                       "newsweek.pl");
 
 var ffCfg = new Array();
