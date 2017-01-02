@@ -65,7 +65,8 @@
                 navigationNextULRSelector: "",
                 hasSlideNumbers: false,
                 beforeAllCallback: function () {
-                    $("#issue_es_version").text(this.options.version);
+                    $("#issue_es_version").val(this.options.version);
+
                 }
             },
             {

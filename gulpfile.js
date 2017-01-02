@@ -7,7 +7,7 @@ var watch = require('gulp-watch');
 var del = require('del');
 const zip = require('gulp-zip');
 
-gulp.task('chrome', () => {
+gulp.task('chrome', ['build-es'], () => {
     return gulp.src('chrome/**')
         .pipe(zip('chrome.zip'))
         .pipe(gulp.dest('dist'));
