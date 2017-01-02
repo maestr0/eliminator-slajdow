@@ -2208,6 +2208,39 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "html.gr__bezuzyteczna_pl #content-nav a.next_image",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "80",
+                /* nazwa galerii */
+                name: "bezuzyteczna.pl",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "section.entry_gallery",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "section.entry_gallery",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#content-nav a.next_image",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "#content-nav, section.thumbs",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://bezuzyteczna.pl/galeria/na-facebooku-zaprosila-mnie-249472/10"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -2474,10 +2507,13 @@
             }
 
             if (nextPageURL.indexOf("http") !== 0) {
+                if (nextPageURL.indexOf("/") === 0) {
+                    nextPageURL = nextPageURL.substring(1);
+                }
                 nextPageURL = document.location.origin + "/" + nextPageURL;
             }
 
-            $.get(nextPageURL, "html", function (nextPage) {
+            $.get(this._appendParamToUrl(nextPageURL, "es=nextPage"), "html", function (nextPage) {
                 var redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {
                     that._requestNextSlide(redirectUrl);
@@ -2503,7 +2539,7 @@
                     "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
                 }))
                 .append($("<a>", {
-                    href: "http://eliminator-slajdow.raszewski.info/?ref=error-panel-ds",
+                    href: "http://eliminator-slajdow.raszewski.info/problem/nowy?ref=error-panel-ds",
                     text: "http://eliminator-slajdow.raszewski.info", "class": "esLink"
                 }))
                 .append($("<p>", {
