@@ -1870,7 +1870,9 @@
                 esTheme: "default",
                 /* dowolne style css w postaci mapy */
                 customStyle: {
-                    ".glassFrame": "overflow: auto"
+                    ".glassFrame": "overflow: auto",
+                    ".glassFrame .galleryContent .gallerySlide .containerRight": "padding: inherit",
+                    ".glassFrame .galleryContent .gallerySlide .containerRight h1.title": "position: initial"
                 },
                 preIncludeCallback: function () {
                 },
@@ -1900,7 +1902,9 @@
                     es._bind();
                     setInterval(function () {
                         $(".glassFrame").css("cssText", "overflow: auto !important");
+
                     }, 500);
+                    es._setCssOverwrite($("body"));
                 },
                 afterAllCallback: function () {
                 },

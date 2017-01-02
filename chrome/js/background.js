@@ -252,7 +252,10 @@ function setSupportedDomains() {
         "eliminator-slajdow.raszewski.info",
         "nocoty.pl",
         "domiporta.pl",
-        "newsweek.pl"];
+        "newsweek.pl",
+        "topgarage.com.pl",
+        "bezuzyteczna.pl"
+    ];
 
 
     chrome.storage.sync.get('allowedDomains', (res)=> {
