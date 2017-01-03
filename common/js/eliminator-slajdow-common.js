@@ -2529,7 +2529,7 @@
                 that._undo();
             });
         },
-        _showErrorPanel: function (msg) {
+        _showErrorPanel: function (msg, ajaxUrl) {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
                 .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))

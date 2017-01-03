@@ -2522,21 +2522,21 @@
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
             }).fail(function (a, b, c) {
-                that._tracking("ES_AJAX_error", that.pageOptions.pageType, nextPageURL);
                 that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
                 that._hideSpinner();
-                that._showErrorPanel("Coś zablokowało żądanie AJAX ");
+                that._showErrorPanel("Coś zablokowało żądanie AJAX ", nextPageURL);
                 that._undo();
             });
         },
-        _showErrorPanel: function (msg) {
+        _showErrorPanel: function (msg, ajaxUrl) {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
                 .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
                 .append($("<p>", {
                     text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
-                    " który blokuje reklamy. np. uBloc albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
-                    "Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
+                    " który blokuje reklamy. np. uBloc, Ablocker, NoScript. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
+                        "Zablokowane żądanie AJAX GET: " + ajaxUrl +
+                    " Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
                 }))
                 .append($("<a>", {
                     href: "http://eliminator-slajdow.raszewski.info/problem/nowy?ref=error-panel-ds",

@@ -254,6 +254,7 @@ function setSupportedDomains() {
         "domiporta.pl",
         "newsweek.pl",
         "topgarage.com.pl",
+        "plejada.pl",
         "bezuzyteczna.pl"
     ];
 
