@@ -255,6 +255,7 @@ function setSupportedDomains() {
         "newsweek.pl",
         "topgarage.com.pl",
         "plejada.pl",
+        "www.24opole.pl",
         "bezuzyteczna.pl"
     ];
 

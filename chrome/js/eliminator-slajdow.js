@@ -2241,6 +2241,72 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "html.gr__24opole_pl #p_box .p_box_nav_b3 .pop_nav_font",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "81",
+                /* nazwa galerii */
+                name: "",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#p_box",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "#p_box",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#p_box .p_box_nav_b3 .pop_nav_font",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "white",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://www.24opole.pl/galeria,7558,465993,l,Bora_Bora_BEFORE_SYLWESTER,fotka.html"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "WORK IN PROGRESS article .article__navbutton--next",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "81",
+                /* nazwa galerii */
+                name: "http://sportowefakty.wp.pl/",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "article",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "article",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "article nav.article__innernav a.article__navbutton.article__navbutton--next:first",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".article__innernav",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, #Skomentuj, address.articletags, address.indicator, h1.title, .liketag, .articleteasers, div.brick.tabs.tabs--social",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://sportowefakty.wp.pl/sportowybar/584230/sensible-soccer-deluxe-ski-jump-20-lat-temu-kazdy-mial-te-gry-mial-na-swoim-komp?es=dev"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -2501,7 +2567,7 @@
         },
         _requestNextSlide: function (nextPageURL) {
             var that = this;
-            if (typeof nextPageURL === 'undefined') {
+            if (typeof nextPageURL === 'undefined' || nextPageURL.trim() === "") {
                 that._hideSpinner();
                 return;
             }
@@ -2522,6 +2588,7 @@
                     that._appendNextSlide(nextPage, nextPageURL);
                 }
             }).fail(function (a, b, c) {
+                that._tracking("ES_AJAX_error", that.pageOptions.pageType, nextPageURL);
                 that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
                 that._hideSpinner();
                 that._showErrorPanel("Coś zablokowało żądanie AJAX ", nextPageURL);
@@ -2534,8 +2601,8 @@
                 .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
                 .append($("<p>", {
                     text: "Możliwe, że problem wynika z konfliktu ES z innym dodatkiem do przeglądarki," +
-                    " który blokuje reklamy. np. uBloc, Ablocker, NoScript. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
-                        "Zablokowane żądanie AJAX GET: " + ajaxUrl +
+                    " który blokuje reklamy. np. uBloc albo Ablocker. Wyłącz tymczasowo ten dodatek i zobacz czy ES działa. " +
+                    "Zablokowane żądanie AJAX GET: " + ajaxUrl +
                     " Jeśli problem pozostał zgłoś go na", "class": "esErrorContent"
                 }))
                 .append($("<a>", {
