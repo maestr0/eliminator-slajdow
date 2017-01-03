@@ -77,6 +77,12 @@
     -webkit-transform: rotate(359deg);
     transform: rotate(359deg); } }
 
+.es-theme-white .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader a.pageNumber {
+  color: black !important; }
+
+.es-theme-white .imageContainerEliminatorSlajdow div.slideHeader p.headerBar.shadow_es {
+  background: white; }
+
 .eliminatorSlajdow {
   /*
      Animation example, for spinners

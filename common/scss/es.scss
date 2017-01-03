@@ -102,6 +102,16 @@
   }
 }
 
+.es-theme-white .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader a.pageNumber {
+  color: black !important;
+}
+
+.es-theme-white .imageContainerEliminatorSlajdow {
+  div.slideHeader p.headerBar.shadow_es {
+    background: white;
+  }
+}
+
 .eliminatorSlajdow {
   #es_debug {
     width: 700px;

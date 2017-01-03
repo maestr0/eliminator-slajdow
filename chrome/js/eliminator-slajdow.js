@@ -2257,7 +2257,7 @@
                 /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "",
+                sectionToBeRemovedSelector: "#p_box_nav .p_box_nav_b3, #p_box_nav .p_box_nav_b1",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -2342,11 +2342,7 @@
         spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'})),
         imageContainer: null,
         _theme: function (theme) {
-            var style = "";
-            if (theme === "white") {
-                style = '.headerLogo, .eliminatorSlajdow div.imageContainerEliminatorSlajdow div.slideHeader p.headerLogo i {color:white}';
-            }
-            $('<style>', {"type": "text/css", "text": style}).appendTo($('head'));
+            $("html").addClass("es-theme-" + theme);
         },
         _start: function () {
             var content = "";
