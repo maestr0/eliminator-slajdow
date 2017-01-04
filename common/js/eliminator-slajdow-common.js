@@ -425,7 +425,7 @@
                                 slide.find(".fakeRsArrow").remove();
                                 slide = slide.wrap("<div class='slide_" + index + " es_slide'></div>");
                                 $(".imageContainerEliminatorSlajdow").append(
-                                    self._buildHeader('Slajd ' + (index + 1) + ' z ' + $(data).find(".rsSlideContent").length, index + 2, document.location.href));
+                                    self._buildHeader((index + 1), index + 2, document.location.href));
                                 $(".imageContainerEliminatorSlajdow").append(slide);
                             });
 
@@ -1897,7 +1897,7 @@
                     $(".galleryContainer").css("width", "auto").css("left", "auto").addClass("imageContainerEliminatorSlajdow");
                     $(".navigationGallery").remove();
                     $(".galleryContainer .gallerySlide").each(function (index) {
-                        $(this).before(es._buildHeader("Slide", index, $(this).attr("data-url")));
+                        $(this).before(es._buildHeader(index, $(this).attr("data-url")));
                     });
                     es._bind();
                     setInterval(function () {
@@ -2032,7 +2032,7 @@
 
                     $(".slick-gallery button").remove();
                     this._createImageContainer();
-                    $(".imageContainerEliminatorSlajdow").append(this._buildHeader("Slajd", "", ""));
+                    $(".imageContainerEliminatorSlajdow").append(this._buildHeader("", ""));
                     this._bind();
                 },
                 regressionUrls: ["http://www.fakt.pl/wroclaw/30-latek-jechal-do-rodzacej-zony-zginal-w-wypadku,artykuly,564650,1,1,1.html"]
@@ -2336,6 +2336,39 @@
                 customStyle: {},
                 preIncludeCallback: function () {
                 },
+                regressionUrls: ["http://wyborcza.pl/56,140981,21172188,swiat-widok-z-lotu-drona-zdjecia-roku-serwisu-dronestagr-am,,1.html"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "76",
+                /* nazwa galerii */
+                name: "",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
                 regressionUrls: [""]
             }
         ],
@@ -2345,6 +2378,7 @@
             $("html").addClass("es-theme-" + theme);
         },
         _start: function () {
+            pageNumber = 1;
             var content = "";
             for (var property in this.pageOptions) {
                 content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n";
@@ -2375,7 +2409,7 @@
             $(this.pageOptions.sectionToBeEmptySelector).children().show();
             $(this.pageOptions.sectionToBeRemovedSelector).show();
         },
-        _buildHeader: function (pageNumberLabel, pageNumber, url) {
+        _buildHeader: function (pageNumber, url) {
             return $("<div>", {
                 "class": "slideHeader slideHeader_" + pageNumber
             }).append($("<p>", {
@@ -2387,7 +2421,7 @@
                 "href": "https://www.facebook.com/eliminator.slajdow/?ref=option_popup",
                 "target": "_blank",
                 "class": "pageNumber",
-                text: "Eliminator Slajdów"
+                text: "Eliminator Slajdów - Slajd " + pageNumber
             })).append($("<i>", {
                 "class": "scrollSwitch icon-resize-vertical icon-lock " + (this.options.scrollableImageContainer ? "esIconEnabled" : "esIconDisabled"),
                 title: "Zablokuj przewijanie"
@@ -2464,19 +2498,13 @@
 
                 var pageNumberContent = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector);
 
-                var pageNumber = [];
+                pageNumber = pageNumber + 1;
                 if (pageNumberContent.length > 0) {
                     pageNumber = pageNumberContent.text().match(/(\d+)/g);
                     this._logger("numer strony", pageNumber);
                 }
 
-                var pageNumberLabel = "Slajd";
-
-                if (pageNumber.length > 1) {
-                    pageNumberLabel = "Slajd " + pageNumber[0] + " z " + pageNumber[1];
-                }
-
-                var slideHeader = this._buildHeader(pageNumberLabel, pageNumber, thisSlideURL);
+                var slideHeader = this._buildHeader(pageNumber, thisSlideURL);
 
                 $(this.imageContainer).append(slideHeader);
 
@@ -2815,7 +2843,7 @@
             this._appendNextSlide("body", "regression");
             this.init();
             this.options.imageBaseUrl = "../chrome/images/";
-            $(".imageContainerEliminatorSlajdow").append(this._buildHeader("Slajd", 666, "https://test.com"));
+            $(".imageContainerEliminatorSlajdow").append(this._buildHeader(666, "https://test.com"));
             this._showSpinnier();
         },
         _createDebugConsole: function () {
@@ -2832,7 +2860,12 @@
         },
         _logger: function () {
             if (this.options.debug) {
-                $("#es_debug").val($("#es_debug").val() + "\n" + JSON.stringify(arguments)).animate({
+                var msg = "";
+                for (let obj of arguments) {
+                    msg = msg + obj + ", ";
+                }
+
+                $("#es_debug").val($("#es_debug").val() + "\n" + msg + "\n\n").animate({
                     scrollTop: 10000000
                 });
             }
