@@ -2803,6 +2803,11 @@
             // TODO: dodac obsluge spacji
         },
         init: function (customOptions) {
+
+            if ($("div.imageContainerEliminatorSlajdow").length > 0) {
+                return;
+            }
+
             var self = this;
             window.onerror = function (err) {
                 self._tracking("ES_JS_ERROR", err, window.location.href);
