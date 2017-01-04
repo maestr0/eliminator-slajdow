@@ -5,8 +5,9 @@ chrome.tabs.onUpdated.addListener(handleUpdated);
 
 function handleUpdated(tabId, changeInfo, tabInfo) {
     console.log("handleUpdated()");
-    if (changeInfo.url) {
-        canRunOnCurrentUrl(changeInfo.url, (canRunHere) => {
+    console.log("handleUpdated url" + tabInfo.url);
+    if (tabInfo.url) {
+        canRunOnCurrentUrl(tabInfo.url, (canRunHere) => {
             if (canRunHere) {
                 console.log("start ES from tab url change");
                 injectEsScripts(tabId);
