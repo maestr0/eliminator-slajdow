@@ -32,16 +32,6 @@
       "js/background.js"
     ]
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "js/contentscript.js"
-      ]
-    }
-  ],
   "options_ui": {
     "page": "html/options.html",
     "chrome_style": true,

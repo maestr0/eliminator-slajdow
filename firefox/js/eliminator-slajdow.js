@@ -2373,7 +2373,7 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "html.gr__tech_wp_pl article.gallery a[data-st-area=gallery-next]",
+                trigger: "html.fonts-loaded-plain article.gallery a[data-st-area=gallery-next]",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */

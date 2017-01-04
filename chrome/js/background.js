@@ -4,8 +4,13 @@ chrome.tabs.onActivated.addListener(handleActivated);
 chrome.tabs.onUpdated.addListener(handleUpdated);
 
 function handleUpdated(tabId, changeInfo, tabInfo) {
+    console.log("handleUpdated()");
     if (changeInfo.url) {
-        canRunOnCurrentUrl(changeInfo.url, (canRunHere)=> {
+        canRunOnCurrentUrl(changeInfo.url, (canRunHere) => {
+            if (canRunHere) {
+                console.log("start ES from tab url change");
+                injectEsScripts(tabId);
+            }
             updateBrowserActionIcon(canRunHere);
         });
     }
@@ -19,9 +24,15 @@ function updateBrowserActionIcon(canRunHere) {
     }
 }
 function handleActivated(activeInfo) {
+    console.log("handleActivated()");
     getActiveTab((tab) => {
         if (tab && tab.length === 1 && tab[0].url) {
-            canRunOnCurrentUrl(tab[0].url, (canRunHere)=> {
+            canRunOnCurrentUrl(tab[0].url, (canRunHere) => {
+                if (canRunHere) {
+                    console.log("start ES from tab url change");
+                    injectEsScripts(tab.id);
+                }
+
                 updateBrowserActionIcon(canRunHere);
             });
         }
@@ -29,32 +40,35 @@ function handleActivated(activeInfo) {
 }
 
 // listeners
+function injectEsScripts(tabId) {
+    chrome.tabs.executeScript(tabId, {
+        file: "./js/jquery-3.1.1.js"
+    }, (res) => {
+        console.log(`ES jQuery injected`);
+        chrome.tabs.executeScript(tabId, {
+            file: "./js/eliminator-slajdow.js"
+        }, () => {
+            console.log("ES injected");
+            chrome.tabs.insertCSS(tabId, {file: "css/es.css"});
+            chrome.tabs.executeScript(tabId, {
+                code: "ES.init({version : '" + chrome.runtime.getManifest().version +
+                "', imageBaseUrl: '" + chrome.extension.getURL('images/') + "'});"
+            }, () => {
+                console.log("ES.init()");
+            });
+        });
+    });
+}
 function onMessageListener(request, sender, sendResponse) {
-    chrome.storage.sync.get(['status', 'version'], (res)=> {
+    chrome.storage.sync.get(['status', 'version'], (res) => {
         if (location.hostname == sender.id && request.urlName !== undefined) {
-            canRunOnCurrentUrl(request.urlName, (canRunHere)=> {
+            canRunOnCurrentUrl(request.urlName, (canRunHere) => {
                 var activate = canRunHere && parseInt(res.status) > 0;
 
                 // active and not from popup
                 if (activate && sender.tab) {
                     console.log(sender.tab);
-                    chrome.tabs.executeScript(sender.tab.id, {
-                        file: "./js/jquery-3.1.1.js"
-                    }, (res)=> {
-                        console.log(`ES jQuery injected`);
-                        chrome.tabs.executeScript(sender.tab.id, {
-                            file: "./js/eliminator-slajdow.js"
-                        }, ()=> {
-                            console.log("ES injected");
-                            chrome.tabs.insertCSS(sender.tab.id, {file: "css/es.css"});
-                            chrome.tabs.executeScript(sender.tab.id, {
-                                code: "ES.init({version : '" + chrome.runtime.getManifest().version +
-                                "', imageBaseUrl: '" + chrome.extension.getURL('images/') + "'});"
-                            }, ()=> {
-                                console.log("ES.init()");
-                            });
-                        });
-                    });
+                    injectEsScripts(sender.tab.id);
                 }
 
                 var id = sender.tab ? sender.tab.id : sender.contextId;
@@ -65,7 +79,7 @@ function onMessageListener(request, sender, sendResponse) {
                     });
             });
         } else if (request.status) {
-            chrome.storage.sync.set({status: parseInt(request.status)}, ()=> {
+            chrome.storage.sync.set({status: parseInt(request.status)}, () => {
                 updateStatusIcon();
             });
         }
@@ -75,7 +89,7 @@ function onMessageListener(request, sender, sendResponse) {
 // helpers
 
 function canRunOnCurrentUrl(url, callback) {
-    return chrome.storage.sync.get(['allowedDomains'], (res)=> {
+    return chrome.storage.sync.get(['allowedDomains'], (res) => {
         var canRunHere = false;
         var allowedDomains = JSON.parse(res.allowedDomains);
         $.each(allowedDomains, function (allowedHost, enabled) {
@@ -100,7 +114,7 @@ function getActiveTab(callback) {
 
 function updateStatusIcon() {
     return chrome.storage.sync
-        .get('status', (res)=> {
+        .get('status', (res) => {
             var enableIcon = "images/enableIcon.png";
             var disableIcon = "images/disableIcon.png";
             var currentStatus = parseInt(res.status);
@@ -119,9 +133,9 @@ function updateStatusIcon() {
 // onInstall hack
 var manifest = chrome.runtime.getManifest();
 
-chrome.storage.sync.get('version', (res)=> {
+chrome.storage.sync.get('version', (res) => {
     if (res.version !== manifest.version) {
-        versionUpdate(manifest.version).then(()=> {
+        versionUpdate(manifest.version).then(() => {
             // init
             updateStatusIcon();
         });
@@ -136,7 +150,7 @@ function versionUpdate(newVersion) {
     return chrome.storage.sync.set({
         'status': "1",
         'version': manifest.version
-    }, ()=> {
+    }, () => {
         console.log("Updating Supported Domain config for ES v" + newVersion);
     });
 }
@@ -260,7 +274,7 @@ function setSupportedDomains() {
     ];
 
 
-    chrome.storage.sync.get('allowedDomains', (res)=> {
+    chrome.storage.sync.get('allowedDomains', (res) => {
         var allowedDomains = {};
         if (typeof res.allowedDomains !== "undefined") {
             allowedDomains = JSON.parse(res.allowedDomains);
