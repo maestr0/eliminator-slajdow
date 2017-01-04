@@ -2340,11 +2340,44 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body#pagetype_photo section.article-and-social .galleryNavigation a.galleryNextPage",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "83",
+                /* nazwa galerii */
+                name: "wyborcza.pl nowa slick kwadratowa",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "#article_body",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "section.article-and-social",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "section.article-and-social .galleryNavigation a.galleryNextPage",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".galleryNavigation, #gazeta_article_miniatures",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script, div.social",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {"article.mod_comments": "float:left"},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://wyborcza.pl/5,140981,20821506.html?i=0&es=debug"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
-                pageType: "76",
+                pageType: "83",
                 /* nazwa galerii */
                 name: "",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
@@ -2501,10 +2534,6 @@
                 var pageNumberContent = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector);
 
                 pageNumber = pageNumber + 1;
-                if (pageNumberContent.length > 0) {
-                    pageNumber = pageNumberContent.text().match(/(\d+)/g);
-                    this._logger("numer strony", pageNumber);
-                }
 
                 var slideHeader = this._buildHeader(pageNumber, thisSlideURL);
 
