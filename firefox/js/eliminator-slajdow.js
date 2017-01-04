@@ -2429,9 +2429,6 @@
                 $("<span>", {
                     "class": "bugreport"
                 })).append(
-                $("<span>", {
-                    "class": "directLink"
-                })).append(
                 $("<i>", {
                     "class": "icon-right-circle large",
                     title: "Następny Slajd"
@@ -2447,6 +2444,11 @@
                 $("<i>", {
                     "class": "icon-down-circle",
                     title: "Ostatni Slajd"
+                })).append(
+                $("<i>", {
+                    "class": "icon-link-ext-alt",
+                    "data-url": url,
+                    title: "Bezpośredni link"
                 })));
         },
         _appendNextSlide: function (galleryPage, thisSlideURL) {
@@ -2686,8 +2688,8 @@
                 that._tracking("facebook_ui", "click");
             });
 
-            imageContainer.on("click", "span.directLink a", function () {
-                that._tracking("direct_link_ui", "click");
+            imageContainer.on("click", ".icon-link-ext-alt", function () {
+                window.open(that._appendParamToUrl($(this).data('url'), "es=off"), '_blank');
             });
 
             imageContainer.on("click", "i.icon-up-circle", function () {
