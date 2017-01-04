@@ -2307,23 +2307,23 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "",
+                trigger: "html.gr__wyborcza_pl header#art-header a.photostoryNextPage",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
-                pageType: "76",
+                pageType: "82",
                 /* nazwa galerii */
-                name: "",
+                name: "wyborcza.pl 2017 duza galeria",
                 /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
-                articleBodySelector: "",
+                articleBodySelector: "header#art-header",
                 /* elementy ktora zostana dolaczone jako slajd*/
-                sectionToBeAttached: "",
+                sectionToBeAttached: "header#art-header",
                 /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
-                navigationNextULRSelector: "",
+                navigationNextULRSelector: "header#art-header a.photostoryNextPage",
                 /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: "",
+                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
