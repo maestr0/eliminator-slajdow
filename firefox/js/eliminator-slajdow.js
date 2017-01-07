@@ -2208,7 +2208,7 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "html.gr__bezuzyteczna_pl #content-nav a.next_image",
+                trigger: "html.bezuzyteczna_pl #content-nav a.next_image",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
@@ -2241,7 +2241,7 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "html.gr__24opole_pl #p_box .p_box_nav_b3 .pop_nav_font",
+                trigger: "#p_box .p_box_nav_b3 .pop_nav_font",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
@@ -2307,7 +2307,7 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "html.gr__wyborcza_pl header#art-header a.photostoryNextPage",
+                trigger: "body#photostory header#art-header .photostoryNavigation a.photostoryNextPage",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
