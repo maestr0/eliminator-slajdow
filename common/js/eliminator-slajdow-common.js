@@ -54,6 +54,9 @@
                 return true;
             },
             afterAllCallback: function () {
+            },
+            isNextPageUrlCorrect: function (url) {
+                return (typeof url !== 'undefined') && document.location.href.indexOf(url) === -1;
             }
         },
         pages: [
@@ -2406,6 +2409,42 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body > div.container .content .row div.gallery-media #gallery-thumbnails",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "85",
+                /* nazwa galerii */
+                name: "national geographic",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: ".gallery-media",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: ".gallery-media",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "#next-item",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: "#gallery-thumbnails, a.next.btn.btn-fix.next-fix, #next-item",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                isNextPageUrlCorrect: function (url) {
+                    return typeof url !== 'undefined';
+                },
+                regressionUrls: ["http://www.national-geographic.pl/galeria/te-10-miast-uznano-za-najbardziej-niebezpieczne-w-polsce-ranking/niebezpieczne-miasta-ranking-788036"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
                 trigger: "",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
@@ -2517,19 +2556,19 @@
                     title: "Bezpośredni link"
                 })));
         },
-        _appendNextSlide: function (galleryPage, thisSlideURL) {
-            galleryPage = $('<div/>').append(galleryPage);
+        _appendNextSlide: function (entirSlidePage, thisSlideURL) {
+            entirSlidePage = $('<div/>').append(entirSlidePage);
             var that = this;
             this._hideSpinner();
             this.currentUrl = thisSlideURL;
-            this.articleSection = $(galleryPage).find(this.pageOptions.sectionToBeAttached);
+            this.articleSection = $(entirSlidePage).find(this.pageOptions.sectionToBeAttached);
             // ARTICLE BODY CHECK
             if ($(this.articleSection).length > 0) {
 
-                this.nextPageURL = $(galleryPage).find(this.pageOptions.navigationNextULRSelector).attr("href");
+                this.nextPageURL = $(entirSlidePage).find(this.pageOptions.navigationNextULRSelector).attr("href");
 
                 if (typeof this.nextPageURL === "undefined") {
-                    $.each($(galleryPage), function () {
+                    $.each($(entirSlidePage), function () {
                         if ($(this).is(that.pageOptions.navigationNextULRSelector)) {
                             that.nextPageURL = $(this).attr("href");
                         }
@@ -2564,7 +2603,7 @@
                     return;
                 }
 
-                var pageNumberContent = $(galleryPage).find(this.pageOptions.navigationPageNumberSelector);
+                var pageNumberContent = $(entirSlidePage).find(this.pageOptions.navigationPageNumberSelector);
 
                 pageNumber = pageNumber + 1;
 
@@ -2580,8 +2619,8 @@
                     "class": "slide_" + pageNumber + " es_slide"
                 })).children().last();
 
-                if ($(galleryPage).find(this.pageOptions.headerSectionSelector).length === 1) {
-                    var desc = $(galleryPage).find(this.pageOptions.headerSectionSelector).html();
+                if ($(entirSlidePage).find(this.pageOptions.headerSectionSelector).length === 1) {
+                    var desc = $(entirSlidePage).find(this.pageOptions.headerSectionSelector).html();
                     $(slideWrapper).append($("<p>", {
                         "class": "slideTitle",
                         text: desc
@@ -2600,9 +2639,7 @@
 
                 this.pageOptions.preIncludeCallback.call(this);
 
-                if (typeof this.nextPageURL !== 'undefined' && (
-                        (pageNumber.length === 2 && pageNumber[0] !== pageNumber[1]) || (document.location.href.indexOf(this.nextPageURL) === -1)
-                    )) {
+                if (this.pageOptions.isNextPageUrlCorrect.call(this, this.nextPageURL)) {
                     this._logger("link do nastepnej storny", this.nextPageURL);
                     this._showSpinnier();
 
@@ -2615,7 +2652,7 @@
                         return;
                     }
                 } else {
-                    this._logger("Ostatni Slajd");
+                    this._logger("Ostatni Slajd. NextPageUrl=" + this.nextPageURL);
                     this._hideSpinner();
                     this.pageOptions.afterAllCallback.call(this);
                 }

@@ -271,6 +271,7 @@ function setSupportedDomains() {
         "topgarage.com.pl",
         "plejada.pl",
         "www.24opole.pl",
+        "national-geographic.pl",
         "bezuzyteczna.pl"
     ];
 
