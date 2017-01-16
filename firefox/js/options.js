@@ -2,24 +2,27 @@
     var POPUP = {
         self: this,
         $domainList: $('#domainList'),
-        fnSortAllowedDomainsList: function () {
-            var that = this;
-            var listitems = this.$domainList.children('li').get();
-            listitems.sort(function (a, b) {
-                return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
+        sortProperties: function (obj) {
+            // convert object into array
+            var sortable = [];
+            for (var key in obj)
+                if (obj.hasOwnProperty(key))
+                    sortable.push([key, obj[key]]); // each item is an array in format [key, value]
+
+            // sort items by key
+            sortable.sort(function (a, b) {
+                return a[0] > b[0]; // compare strings
             });
-            $.each(listitems, function (idx, itm) {
-                that.$domainList.append(itm);
-            });
+            return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
         },
         fnBindEvents: function () {
-            this.$domainList.on("click", "input", function () {
-                var selected = $(this).is(':checked');
-                $(this).parent().parent().toggleClass("disabled");
-                var text = $(this).parent().parent().attr("data-value");
+            this.$domainList.on("click", "input", (e) => {
+                var selected = $(e.currentTarget).is(':checked');
+                $(e.currentTarget).parent().parent().toggleClass("disabled");
+                var text = $(e.currentTarget).parent().parent().attr("data-value");
 
-                browser.storage.local.get('allowedDomains').then((res)=> {
-                    var ad = JSON.parse(res.allowedDomains)
+                browser.storage.local.get('allowedDomains').then((res) => {
+                    var ad = JSON.parse(res.allowedDomains);
                     ad[text] = selected;
                     browser.storage.local.set({
                         allowedDomains: JSON.stringify(ad)
@@ -45,18 +48,31 @@
         },
         fnGenerateDomainList: function () {
             var that = this;
-            browser.storage.local.get('allowedDomains').then((res)=> {
+            browser.storage.local.get('allowedDomains').then((res) => {
                 var allowedDomains = JSON.parse(res.allowedDomains);
-                $.each(allowedDomains, function (allowedHost, enabled) {
-                    that.$domainList.append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") +
-                        '" data-value="' + allowedHost + '">' + allowedHost + '<span><input type="checkbox" ' +
-                        (enabled ? ' checked ' : '') + '>Aktywna</input></span></li>');
+                allowedDomains = this.sortProperties(allowedDomains);
+
+                $.each(allowedDomains, (index, values) => {
+                    let checkboxConfig = {
+                        "type": "checkbox",
+                        "text": "Aktywna"
+                    };
+
+                    if (values[1]) {
+                        checkboxConfig["checked"] = "checked";
+                    }
+
+                    that.$domainList.append($("<li>", {
+                        "class": "ui-widget-content " + (values[1] ? "" : "disabled"),
+                        "data-value": values[0],
+                        "text": values[0]
+                    }).append($("<span>")
+                        .append($("<input>", checkboxConfig))));
                 });
-                that.fnSortAllowedDomainsList();
             });
         },
         updateUI: function () {
-            browser.storage.local.get(['version', 'status']).then((res)=> {
+            browser.storage.local.get(['version', 'status']).then((res) => {
                 $("#version").text(res.version);
                 $("input:radio[value=" + res.status + "]").attr("checked", true);
             });

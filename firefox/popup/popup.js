@@ -15,7 +15,6 @@ $("#options").click(()=> {
 
 $("#tempDisable").click(()=> {
     browser.extension.getBackgroundPage().getActiveTab().then((res)=> {
-        console.log(res)
         browser.tabs.update(res[0].id, {url: appendParamToUrl(res[0].url, "es=off")}).then(()=> {
             this.close();
         });

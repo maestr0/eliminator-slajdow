@@ -1,7 +1,7 @@
 (function () {
     log("Eliminator Slajdow Content Script Firefox edition");
 
-    browser.runtime.sendMessage({"urlName": window.location.href});
+    // browser.runtime.sendMessage({"urlName": window.location.href});
 
     browser.runtime.onMessage.addListener(function (response) {
         if (response.canRunOnCurrentUrl) {

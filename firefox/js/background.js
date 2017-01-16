@@ -5,7 +5,11 @@ browser.tabs.onUpdated.addListener(handleUpdated);
 
 function handleUpdated(tabId, changeInfo, tabInfo) {
     if (changeInfo.url) {
-        canRunOnCurrentUrl(changeInfo.url).then((canRunHere)=> {
+        canRunOnCurrentUrl(changeInfo.url).then((canRunHere) => {
+            if (canRunHere) {
+                console.log("start ES from tab url change");
+                injectEsScripts(tabId);
+            }
             updateBrowserActionIcon(canRunHere);
         });
     }
@@ -20,39 +24,48 @@ function updateBrowserActionIcon(canRunHere) {
 }
 function handleActivated(activeInfo) {
     getActiveTab().then((tab) => {
-        canRunOnCurrentUrl(tab[0].url).then((canRunHere)=> {
-            updateBrowserActionIcon(canRunHere);
-        });
+        if (tab && tab.length === 1 && tab[0].url) {
+            canRunOnCurrentUrl(tab[0].url).then((canRunHere) => {
+                if (canRunHere) {
+                    console.log("start ES from tab url change");
+                    injectEsScripts(tab.id);
+                }
+
+                updateBrowserActionIcon(canRunHere);
+            });
+        }
     });
 }
 
 // listeners
+function injectEsScripts(tabId) {
+    browser.tabs.executeScript(sender.tab.id, {
+        file: "./js/jquery-3.1.1.js"
+    }).then((res) => {
+        browser.tabs.executeScript(sender.tab.id, {
+            file: "./js/eliminator-slajdow.js"
+        })
+    }).then(() => {
+        browser.tabs.insertCSS(tabId, {file: "css/es.css"});
+    }).then(() => {
+        browser.tabs.executeScript(sender.tab.id, {
+            code: "ES.init({version : '" + browser.runtime.getManifest().version +
+            "', imageBaseUrl: '" + browser.extension.getURL('images/') + "'});"
+        });
+    });
+}
+
 function onMessageListener(request, sender, sendResponse) {
     browser.storage.local.get(['status', 'version'])
-        .then((res)=> {
+        .then((res) => {
             if (location.hostname == sender.id && request.urlName !== undefined) {
                 canRunOnCurrentUrl(request.urlName)
-                    .then((canRunHere)=> {
+                    .then((canRunHere) => {
                         var activate = canRunHere && parseInt(res.status) > 0;
 
                         // active and not from popup
                         if (activate && sender.tab) {
-                            browser.tabs.executeScript(sender.tab.id, {
-                                file: "./js/jquery-3.1.1.js"
-                            }).then((res)=> {
-                                console.log(`ES jQuery injected`);
-                                browser.tabs.executeScript(sender.tab.id, {
-                                    file: "./js/eliminator-slajdow.js"
-                                }).then(()=> {
-                                    browser.tabs.executeScript(sender.tab.id, {
-                                        code: "ES.init({version : '" + browser.runtime.getManifest().version +
-                                        "', imageBaseUrl: '" + browser.extension.getURL('images/') + "'});"
-                                    });
-                                });
-                            }, (error)=> {
-                                console.log(`ES Error: ${error}`);
-                            });
-
+                            injectEsScripts(sender.tab.id);
                         }
 
                         var id = sender.tab ? sender.tab.id : sender.contextId;
@@ -64,7 +77,7 @@ function onMessageListener(request, sender, sendResponse) {
                     });
             }
             if (request.status) {
-                browser.storage.local.set({status: parseInt(request.status)}).then(()=> {
+                browser.storage.local.set({status: parseInt(request.status)}).then(() => {
                     updateStatusIcon();
                 });
             }
@@ -74,7 +87,7 @@ function onMessageListener(request, sender, sendResponse) {
 // helpers
 
 function canRunOnCurrentUrl(url) {
-    return browser.storage.local.get(['allowedDomains']).then((res)=> {
+    return browser.storage.local.get(['allowedDomains']).then((res) => {
         var canRunHere = false;
         var allowedDomains = JSON.parse(res.allowedDomains);
         $.each(allowedDomains, function (allowedHost, enabled) {
@@ -100,7 +113,7 @@ function getActiveTab() {
 function updateStatusIcon() {
     return browser.storage.local
         .get('status')
-        .then((res)=> {
+        .then((res) => {
             var enableIcon = "images/enableIcon.png";
             var disableIcon = "images/disableIcon.png";
             var currentStatus = parseInt(res.status);
@@ -118,9 +131,9 @@ function updateStatusIcon() {
 // onInstall hack
 var manifest = browser.runtime.getManifest();
 
-browser.storage.local.get('version').then((res)=> {
+browser.storage.local.get('version').then((res) => {
     if (res.version !== manifest.version) {
-        versionUpdate(manifest.version).then(()=> {
+        versionUpdate(manifest.version).then(() => {
             // init
             updateStatusIcon();
         });
@@ -135,7 +148,7 @@ function versionUpdate(newVersion) {
     return browser.storage.local.set({
         'status': "1",
         'version': manifest.version
-    }).then(()=> {
+    }).then(() => {
         console.log("Updating Supported Domain config for ES v" + newVersion);
     });
 }
@@ -251,10 +264,16 @@ function setSupportedDomains() {
         "eliminator-slajdow.raszewski.info",
         "nocoty.pl",
         "domiporta.pl",
-        "newsweek.pl"];
+        "newsweek.pl",
+        "topgarage.com.pl",
+        "plejada.pl",
+        "www.24opole.pl",
+        "national-geographic.pl",
+        "bezuzyteczna.pl"
+    ];
 
 
-    browser.storage.local.get('allowedDomains').then((res)=> {
+    browser.storage.local.get('allowedDomains').then((res) => {
         var allowedDomains = {};
         if (typeof res.allowedDomains !== "undefined") {
             allowedDomains = JSON.parse(res.allowedDomains);
