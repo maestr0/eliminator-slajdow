@@ -31,7 +31,7 @@ function handleActivated(activeInfo) {
             canRunOnCurrentUrl(tab[0].url, (canRunHere) => {
                 if (canRunHere) {
                     console.log("start ES from tab url change");
-                    injectEsScripts(tab.id);
+                    injectEsScripts(tab[0].id);
                 }
 
                 updateBrowserActionIcon(canRunHere);

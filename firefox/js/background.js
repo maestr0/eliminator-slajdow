@@ -4,6 +4,7 @@ browser.tabs.onActivated.addListener(handleActivated);
 browser.tabs.onUpdated.addListener(handleUpdated);
 
 function handleUpdated(tabId, changeInfo, tabInfo) {
+    console.log("UPDATE");
     if (changeInfo.url) {
         canRunOnCurrentUrl(changeInfo.url).then((canRunHere) => {
             if (canRunHere) {
@@ -23,12 +24,14 @@ function updateBrowserActionIcon(canRunHere) {
     }
 }
 function handleActivated(activeInfo) {
+    console.log("ACTIVATED");
+
     getActiveTab().then((tab) => {
         if (tab && tab.length === 1 && tab[0].url) {
             canRunOnCurrentUrl(tab[0].url).then((canRunHere) => {
                 if (canRunHere) {
                     console.log("start ES from tab url change");
-                    injectEsScripts(tab.id);
+                    injectEsScripts(tab[0].id);
                 }
 
                 updateBrowserActionIcon(canRunHere);
@@ -39,16 +42,16 @@ function handleActivated(activeInfo) {
 
 // listeners
 function injectEsScripts(tabId) {
-    browser.tabs.executeScript(sender.tab.id, {
+    browser.tabs.executeScript(tabId, {
         file: "./js/jquery-3.1.1.js"
     }).then((res) => {
-        browser.tabs.executeScript(sender.tab.id, {
+        browser.tabs.executeScript(tabId, {
             file: "./js/eliminator-slajdow.js"
         })
     }).then(() => {
         browser.tabs.insertCSS(tabId, {file: "css/es.css"});
     }).then(() => {
-        browser.tabs.executeScript(sender.tab.id, {
+        browser.tabs.executeScript(tabId, {
             code: "ES.init({version : '" + browser.runtime.getManifest().version +
             "', imageBaseUrl: '" + browser.extension.getURL('images/') + "'});"
         });
@@ -56,6 +59,7 @@ function injectEsScripts(tabId) {
 }
 
 function onMessageListener(request, sender, sendResponse) {
+    console.log("MESSAGE");
     browser.storage.local.get(['status', 'version'])
         .then((res) => {
             if (location.hostname == sender.id && request.urlName !== undefined) {

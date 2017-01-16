@@ -1,7 +1,7 @@
 {
   "name": "Eliminator Slajdów",
   "manifest_version": 2,
-  "version": "4.0.16",
+  "version": "4.0.17",
   "homepage_url": "http://eliminator-slajdow.raszewski.info/",
   "description": "Dodatek eliminuje slajdy w galeriach zdjęć na większości polskich portali",
   "permissions": [
@@ -31,15 +31,5 @@
       "js/jquery-3.1.1.js",
       "js/background.js"
     ]
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "js/contentscript.js"
-      ]
-    }
-  ]
+  }
 }
