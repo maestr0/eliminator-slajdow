@@ -43,4 +43,8 @@ Chrome
 TODO `gulp build-chrome`
 
 
+# DOMPurify
+https://github.com/cure53/DOMPurify/releases
+
+
 Licencja: GNU GPL v3 http://www.gnu.org/licenses/gpl.html

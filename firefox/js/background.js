@@ -44,14 +44,18 @@ function handleActivated(activeInfo) {
 function injectEsScripts(tabId) {
     browser.tabs.executeScript(tabId, {
         file: "./js/jquery-3.1.1.js"
-    }).then((res) => {
-        browser.tabs.executeScript(tabId, {
+    }).then(() => {
+        return browser.tabs.executeScript(tabId, {
+            file: "./js/purify-0.8.4.js"
+        })
+    }).then(() => {
+        return browser.tabs.executeScript(tabId, {
             file: "./js/eliminator-slajdow.js"
         })
     }).then(() => {
-        browser.tabs.insertCSS(tabId, {file: "css/es.css"});
+        return browser.tabs.insertCSS(tabId, {file: "css/es.css"});
     }).then(() => {
-        browser.tabs.executeScript(tabId, {
+        return browser.tabs.executeScript(tabId, {
             code: "ES.init({version : '" + browser.runtime.getManifest().version +
             "', imageBaseUrl: '" + browser.extension.getURL('images/') + "'});"
         });
@@ -328,6 +332,6 @@ function redirect(requestDetails) {
 // passing the filter argument and "blocking"
 browser.webRequest.onBeforeRequest.addListener(
     redirect,
-    {urls: [pattern1, pattern2]},
+    {urls: [pattern1]},
     ["blocking"]
 );

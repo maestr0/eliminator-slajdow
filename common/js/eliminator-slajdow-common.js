@@ -423,7 +423,16 @@
                     $.get(document.location.href, function (data) {
                         if (data.length > 100) {
                             $(data).find(".rsSlideContent").each(function (index) {
-                                var slide = $(this);
+                                /**
+                                 * remove <script> tags only
+                                 */
+                                var slide = $(DOMPurify.sanitize(this), {
+                                    SAFE_FOR_JQUERY: true,
+                                    WHOLE_DOCUMENT: true,
+                                    RETURN_DOM: true,
+                                    FORBID_TAGS: ['script'],
+                                    SANITIZE_DOM: false
+                                });
                                 slide.find(".rsTmb").remove();
                                 slide.find(".fakeRsArrow").remove();
                                 slide = slide.wrap("<div class='slide_" + index + " es_slide'></div>");
@@ -2556,19 +2565,31 @@
                     title: "Bezpośredni link"
                 })));
         },
-        _appendNextSlide: function (entirSlidePage, thisSlideURL) {
-            entirSlidePage = $('<div/>').append(entirSlidePage);
+        _appendNextSlide: function (dirtyPage, thisSlideURL) {
+            /**
+             * remove <script> tags only
+             *
+             * SANITIZE_DOM=false is intentional as duplicated IDs must stay even if that is not correct according to HTML spec
+             */
+            var entireSlidePage = DOMPurify.sanitize(dirtyPage, {
+                SAFE_FOR_JQUERY: true,
+                WHOLE_DOCUMENT: true,
+                RETURN_DOM: true,
+                FORBID_TAGS: ['script'],
+                SANITIZE_DOM: false
+            });
             var that = this;
+
             this._hideSpinner();
             this.currentUrl = thisSlideURL;
-            this.articleSection = $(entirSlidePage).find(this.pageOptions.sectionToBeAttached);
+            this.articleSection = $(entireSlidePage).find(this.pageOptions.sectionToBeAttached);
             // ARTICLE BODY CHECK
             if ($(this.articleSection).length > 0) {
 
-                this.nextPageURL = $(entirSlidePage).find(this.pageOptions.navigationNextULRSelector).attr("href");
+                this.nextPageURL = $(entireSlidePage).find(this.pageOptions.navigationNextULRSelector).attr("href");
 
                 if (typeof this.nextPageURL === "undefined") {
-                    $.each($(entirSlidePage), function () {
+                    $.each($(entireSlidePage), function () {
                         if ($(this).is(that.pageOptions.navigationNextULRSelector)) {
                             that.nextPageURL = $(this).attr("href");
                         }
@@ -2603,8 +2624,6 @@
                     return;
                 }
 
-                var pageNumberContent = $(entirSlidePage).find(this.pageOptions.navigationPageNumberSelector);
-
                 pageNumber = pageNumber + 1;
 
                 var slideHeader = this._buildHeader(pageNumber, thisSlideURL);
@@ -2619,8 +2638,8 @@
                     "class": "slide_" + pageNumber + " es_slide"
                 })).children().last();
 
-                if ($(entirSlidePage).find(this.pageOptions.headerSectionSelector).length === 1) {
-                    var desc = $(entirSlidePage).find(this.pageOptions.headerSectionSelector).html();
+                if ($(entireSlidePage).find(this.pageOptions.headerSectionSelector).length === 1) {
+                    var desc = $(entireSlidePage).find(this.pageOptions.headerSectionSelector).html();
                     $(slideWrapper).append($("<p>", {
                         "class": "slideTitle",
                         text: desc

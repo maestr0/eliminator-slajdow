@@ -42,23 +42,21 @@ function handleActivated(activeInfo) {
 
 // listeners
 function injectEsScripts(tabId) {
-    chrome.tabs.executeScript(tabId, {
-        file: "./js/jquery-3.1.1.js"
-    }, (res) => {
-        console.log(`ES jQuery injected`);
-        chrome.tabs.executeScript(tabId, {
-            file: "./js/eliminator-slajdow.js"
-        }, () => {
-            console.log("ES injected");
-            chrome.tabs.insertCSS(tabId, {file: "css/es.css"});
-            chrome.tabs.executeScript(tabId, {
-                code: "ES.init({version : '" + chrome.runtime.getManifest().version +
-                "', imageBaseUrl: '" + chrome.extension.getURL('images/') + "'});"
-            }, () => {
-                console.log("ES.init()");
-            });
-        });
-    });
+    chrome.tabs.executeScript(tabId, {file: "./js/jquery-3.1.1.js"}, () => {
+        chrome.tabs.executeScript(tabId, {file: "./js/purify-0.8.4.js"}, () => {
+            console.log('ES jQuery injected');
+            chrome.tabs.executeScript(tabId, {file: "./js/eliminator-slajdow.js"}, () => {
+                console.log("ES injected");
+                chrome.tabs.insertCSS(tabId, {file: "css/es.css"});
+                chrome.tabs.executeScript(tabId, {
+                    code: "ES.init({version : '" + chrome.runtime.getManifest().version +
+                    "', imageBaseUrl: '" + chrome.extension.getURL('images/') + "'});"
+                }, () => {
+                    console.log("ES.init()");
+                });
+            })
+        })
+    })
 }
 function onMessageListener(request, sender, sendResponse) {
     chrome.storage.sync.get(['status', 'version'], (res) => {
