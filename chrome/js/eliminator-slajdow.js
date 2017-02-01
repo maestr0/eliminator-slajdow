@@ -2319,7 +2319,7 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "body#photostory header#art-header .photostoryNavigation a.photostoryNextPage",
+                trigger: "body#photostory header#art-header #gazeta_article_image_new img",
                 /* zatrzymuje trigger*/
                 triggerStopper: "",
                 /* index */
@@ -2451,6 +2451,39 @@
                     return typeof url !== 'undefined';
                 },
                 regressionUrls: ["http://www.national-geographic.pl/galeria/te-10-miast-uznano-za-najbardziej-niebezpieczne-w-polsce-ranking/niebezpieczne-miasta-ranking-788036"]
+            },
+            {
+                /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
+                trigger: "body#photostory.classicPhotostory section.article-and-social > #gazeta_article_image_new img",
+                /* zatrzymuje trigger*/
+                triggerStopper: "",
+                /* index */
+                pageType: "86",
+                /* nazwa galerii */
+                name: "wyborcza.pl 2017 duza galeria 2",
+                /* ZA tym elementem bedzie dolaczony DIV ze slajdami */
+                articleBodySelector: "main.content.container-inner",
+                /* elementy ktora zostana dolaczone jako slajd*/
+                sectionToBeAttached: "main.content.container-inner",
+                /* selektor do jednego elementu z linkiem do nastepnego slajdu*/
+                navigationNextULRSelector: "header#art-header a.photostoryNextPage",
+                /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
+                navigationPageNumberSelector: "",
+                /* elementy do usuniecia z calej strony */
+                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures, div.social, .nextSlideWrapper",
+                /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
+                sectionToBeRemovedFromAttachedSlidesSelector: "script",
+                /* $.empty() na elemencie*/
+                sectionToBeEmptySelector: "",
+                /* gdzie umiescic imageContainer w stosunku do articleBody*/
+                imageContainerPositionInRelationToArticleBody: "after",
+                /* Theme */
+                esTheme: "default",
+                /* dowolne style css w postaci mapy */
+                customStyle: {},
+                preIncludeCallback: function () {
+                },
+                regressionUrls: ["http://lublin.wyborcza.pl/lublin/56,48724,21304819,wstydliwa-strona-starego-miasta,,2.html?es=debug"]
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
