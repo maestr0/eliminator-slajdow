@@ -28,7 +28,7 @@
             trackingCallback: function (category, action) {
             }
         },
-        pageOptions: {
+        defaultPageConfig: {
             sectionToBeEmptySelector: ".navigation div, .navigation span.page, #gal_navi_wrp, #gazeta_article_image_overlay",
             sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
             navigationNextULRSelector: ".navigation .next:first",
@@ -59,7 +59,7 @@
                 return (typeof url !== 'undefined') && document.location.href.indexOf(url) === -1;
             }
         },
-        pages: [
+        pageConfigs: [
             {
                 trigger: "body#oficjalna_strona_eliminatora_slajdow",
                 name: "OFICJALNA STRONA ELIMINATORA SLAJDÓW",
@@ -107,7 +107,7 @@
                 },
                 classesToBeRemoved: ["gazetaVideoPlayer"],
                 preIncludeCallback: function () {
-                    this._updateGalleryLink();
+                    this.updateGalleryLink();
                 }
             },
             {
@@ -118,7 +118,7 @@
                 sectionToBeRemovedSelector: "#gazeta_article_image div.overlayBright",
                 pageType: "3",
                 preIncludeCallback: function () {
-                    this._updateGalleryLink();
+                    this.updateGalleryLink();
                 }
             },
             {
@@ -249,13 +249,13 @@
                 pageType: "12",
                 customStyle: {"#article_comments": "float:left"},
                 preIncludeCallback: function () {
-                    this._updateGalleryLink();
+                    this.updateGalleryLink();
                 },
                 beforeAllCallback: function () {
                     $("#columns_wrap").after($("#article_comments"));
                     var that = this;
                     setInterval(function () {
-                        $(that.pageOptions.sectionToBeRemovedSelector).hide();
+                        $(that.defaultPageConfig.sectionToBeRemovedSelector).hide();
                     }, 500);
                 },
                 afterAllCallback: function () {
@@ -418,7 +418,7 @@
                 regressionUrls: ["http://fdemotywatory.pl/4339879/Najciekawsze-fakty-o-ktorych-prawdopodobnie-nie-miales-pojecia#obrazek-1",
                     "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
-                    this._createImageContainer();
+                    this.createImageContainer();
                     var self = this;
                     $.get(document.location.href, function (dirtyPage) {
                         if (dirtyPage.length > 100) {
@@ -440,15 +440,15 @@
                                 slide.find(".fakeRsArrow").remove();
                                 slide = slide.wrap("<div class='slide_" + index + " es_slide'></div>");
                                 $(".imageContainerEliminatorSlajdow").append(
-                                    self._buildHeader((index + 1), index + 2, document.location.href));
+                                    self.buildHeader((index + 1), index + 2, document.location.href));
                                 $(".imageContainerEliminatorSlajdow").append(slide);
                             });
 
 
-                            $(self.pageOptions.sectionToBeEmptySelector).empty();
-                            $(self.pageOptions.sectionToBeRemovedSelector).remove();
-                            self._setCssOverwrite();
-                            self._bind();
+                            $(self.defaultPageConfig.sectionToBeEmptySelector).empty();
+                            $(self.defaultPageConfig.sectionToBeRemovedSelector).remove();
+                            self.setCssOverwrite();
+                            self.bind();
                         }
                     });
                 }
@@ -1912,14 +1912,14 @@
                     $(".galleryContainer").css("width", "auto").css("left", "auto").addClass("imageContainerEliminatorSlajdow");
                     $(".navigationGallery").remove();
                     $(".galleryContainer .gallerySlide").each(function (index) {
-                        $(this).before(es._buildHeader(index, $(this).attr("data-url")));
+                        $(this).before(es.buildHeader(index, $(this).attr("data-url")));
                     });
-                    es._bind();
+                    es.bind();
                     setInterval(function () {
                         $(".glassFrame").css("cssText", "overflow: auto !important");
 
                     }, 500);
-                    es._setCssOverwrite($("body"));
+                    es.setCssOverwrite($("body"));
                 },
                 afterAllCallback: function () {
                 },
@@ -2046,9 +2046,9 @@
 
 
                     $(".slick-gallery button").remove();
-                    this._createImageContainer();
-                    $(".imageContainerEliminatorSlajdow").append(this._buildHeader("", ""));
-                    this._bind();
+                    this.createImageContainer();
+                    $(".imageContainerEliminatorSlajdow").append(this.buildHeader("", ""));
+                    this.bind();
                 },
                 regressionUrls: ["http://www.fakt.pl/wroclaw/30-latek-jechal-do-rodzacej-zony-zginal-w-wypadku,artykuly,564650,1,1,1.html"]
             },
@@ -2084,7 +2084,7 @@
                 preIncludeCallback: function () {
                     var self = this;
                     setInterval(function () {
-                        $(self.pageOptions.sectionToBeRemovedSelector).remove();
+                        $(self.defaultPageConfig.sectionToBeRemovedSelector).remove();
                     }, 500);
                 },
                 regressionUrls: ["http://auto.dziennik.pl/aktualnosci/zdjecia/galeria/428180,5,byd-czyli-nowa-marka-samochodow-z-chin-wjezdza-do-polski-zdjecia.html"]
@@ -2140,13 +2140,13 @@
                 pageType: "77",
                 customStyle: {"#article_comments": "float:left"},
                 preIncludeCallback: function () {
-                    this._updateGalleryLink();
+                    this.updateGalleryLink();
                 },
                 beforeAllCallback: function () {
                     $("#columns_wrap").after($("#article_comments"));
                     var that = this;
                     setInterval(function () {
-                        $(that.pageOptions.sectionToBeRemovedSelector).hide();
+                        $(that.defaultPageConfig.sectionToBeRemovedSelector).hide();
                     }, 500);
                 },
                 afterAllCallback: function () {
@@ -2217,7 +2217,7 @@
                 preIncludeCallback: function () {
                 },
                 afterAllCallback: function () {
-                    $(this.pageOptions.sectionToBeRemovedSelector).remove();
+                    $(this.defaultPageConfig.sectionToBeRemovedSelector).remove();
                 },
                 regressionUrls: ["http://www.dziennikwschodni.pl/galeria.html?gal=999675772&art=1000191633"]
             },
@@ -2524,42 +2524,181 @@
         ],
         spinner: $("<div>", {"class": "eliminatorSlajdowSpinner"}).append($("<i>", {class: 'icon-spin3 animate-spin'})),
         imageContainer: null,
-        _theme: function (theme) {
-            $("html").addClass("es-theme-" + theme);
-        },
-        _start: function () {
-            pageNumber = 1;
-            var content = "";
-            for (var property in this.pageOptions) {
-                content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n";
-            }
-            $("#es_debug").val($("#es_debug").val() + "\n" + content);
+        init: function (customOptions) {
 
-            this.pageOptions.beforeAllCallback.call(this);
+            if ($("div.imageContainerEliminatorSlajdow").length > 0) {
+                return; // ES already initialized
+            }
+
+            $.extend(true, this.options, this.options, customOptions);
+
+            this.pageConfigs.push(this.options.customPages);
+
+            if (this.options.debug) {
+                this.createDebugConsole();
+            }
+
+            for (var i in this.pageConfigs) {
+                var trigger = this.pageConfigs[i].trigger;
+                var noOfSelectors = trigger && trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
+                if ($(trigger).length >= noOfSelectors && $(this.pageConfigs[i].triggerStopper).length === 0) {
+                    $.extend(true, this.defaultPageConfig, this.defaultPageConfig, this.pageConfigs[i]);
+                    this.logger("ES START konfiguracja " + this.defaultPageConfig.pageType + " dla " + this.defaultPageConfig.name);
+                    this.start();
+                    break;
+                }
+            }
+        },
+        start: function () {
+            if (this.options.debug) {
+                var content = "";
+                for (var property in this.defaultPageConfig) {
+                    content += property + "=" + JSON.stringify(this.defaultPageConfig[property]) + "\n";
+                }
+                $("#es_debug").val($("#es_debug").val() + "\n" + content);
+            }
+
+            pageNumber = 1;
+            this.defaultPageConfig.beforeAllCallback.call(this);
 
             $("body").addClass("eliminatorSlajdow");
-            this._theme(this.pageOptions.esTheme);
-            this.nextPageURL = $(this.pageOptions.navigationNextULRSelector).attr("href");
-            this.pageOptions.preIncludeCallback.call(this);
+            this.theme(this.defaultPageConfig.esTheme);
+            this.nextPageURL = $(this.defaultPageConfig.navigationNextULRSelector).attr("href");
+            this.defaultPageConfig.preIncludeCallback.call(this);
             if (this.nextPageURL) {
-                this._logger("link do nastepnej storny", this.nextPageURL, this.pageOptions.navigationNextULRSelector);
-                this._tracking("ES_start", this.pageOptions.pageType);
-                $(this.pageOptions.sectionToBeEmptySelector).children().hide();
-                $(this.pageOptions.sectionToBeRemovedSelector).hide();
-                this._createImageContainer();
-                this._bind();
-                this._showSpinnier();
-                this.pageOptions.visitedSlideURLs.push(document.location.pathname + document.location.search);
-                this._requestNextSlide(this.nextPageURL);
+                this.logger("link do nastepnej storny", this.nextPageURL, this.defaultPageConfig.navigationNextULRSelector);
+                $(this.defaultPageConfig.sectionToBeEmptySelector).children().hide();
+                $(this.defaultPageConfig.sectionToBeRemovedSelector).hide();
+                this.createImageContainer();
+                this.bind();
+                this.showSpinnier();
+                this.defaultPageConfig.visitedSlideURLs.push(document.location.pathname + document.location.search);
+                this.requestNextSlide(this.nextPageURL);
             } else {
-                this._logger("Nie znaleziono linka do nastepnego slajdu. Galeria typu " + this.pageOptions.pageType);
+                this.logger("Nie znaleziono linka do nastepnego slajdu. Galeria typu " + this.defaultPageConfig.pageType);
             }
         },
-        _undo: function () {
-            $(this.pageOptions.sectionToBeEmptySelector).children().show();
-            $(this.pageOptions.sectionToBeRemovedSelector).show();
+        appendNextSlide: function (dirtyPage, thisSlideURL) {
+            /**
+             * remove <script> tags only
+             *
+             * SANITIZE_DOM=false is intentional as duplicated IDs must stay even if that is not correct according to HTML spec
+             */
+            var entireSlidePage = DOMPurify.sanitize(dirtyPage, {
+                SAFE_FOR_JQUERY: true,
+                WHOLE_DOCUMENT: true,
+                RETURN_DOM: true,
+                FORBID_TAGS: ['script'],
+                SANITIZE_DOM: false
+            });
+            var that = this;
+
+            this.hideSpinner();
+            this.currentUrl = thisSlideURL;
+            this.articleSection = $(entireSlidePage).find(this.defaultPageConfig.sectionToBeAttached);
+            // ARTICLE BODY CHECK
+            if ($(this.articleSection).length > 0) {
+
+                this.nextPageURL = $(entireSlidePage).find(this.defaultPageConfig.navigationNextULRSelector).attr("href");
+
+                if (typeof this.nextPageURL === "undefined") {
+                    $.each($(entireSlidePage), function () {
+                        if ($(this).is(that.defaultPageConfig.navigationNextULRSelector)) {
+                            that.nextPageURL = $(this).attr("href");
+                        }
+                    });
+                }
+
+                $(this.articleSection).find(this.defaultPageConfig.sectionToBeEmptySelector).empty();
+                $(this.articleSection).find(this.defaultPageConfig.sectionToBeRemovedSelector).remove();
+                $(this.articleSection).find(this.defaultPageConfig.sectionToBeRemovedFromAttachedSlidesSelector).remove();
+
+                if (typeof thisSlideURL === "undefined") {
+                    this.logger("ERROR: URL tego slajdu jest nieznany");
+                    this.undo();
+                    this.defaultPageConfig.afterAllCallback.call(this);
+                    return;
+                }
+                if (thisSlideURL === this.nextPageURL) {
+                    this.logger("WARNING: URL do następnego slajdu jest taki sam jak url tego slajdu");
+                    this.logger("URL do tego slajdu", thisSlideURL);
+                    this.logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
+                    this.undo();
+                    this.defaultPageConfig.afterAllCallback.call(this);
+                    return;
+                }
+                if ($.inArray(thisSlideURL, this.defaultPageConfig.visitedSlideURLs) > -1) {
+                    this.logger("WARNING: URL następnego slajdu jest już załączony do galerii");
+                    this.logger("Załączone strony", this.defaultPageConfig.visitedSlideURLs);
+                    this.logger("URL do tego slajdu", thisSlideURL);
+                    this.logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
+                    this.undo();
+                    this.defaultPageConfig.afterAllCallback.call(this);
+                    return;
+                }
+
+                pageNumber = pageNumber + 1;
+
+                var slideHeader = this.buildHeader(pageNumber, thisSlideURL);
+
+                $(this.imageContainer).append(slideHeader);
+
+                $(this.articleSection).find(this.defaultPageConfig.sectionToBeEmptySelector).empty();
+                $(this.articleSection).find(this.defaultPageConfig.sectionToBeRemovedSelector).remove();
+                $(this.articleSection).find(this.defaultPageConfig.sectionToBeRemovedFromAttachedSlidesSelector).remove();
+
+                var slideWrapper = $(this.imageContainer).append($("<div>", {
+                    "class": "slide_" + pageNumber + " es_slide"
+                })).children().last();
+
+                if ($(entireSlidePage).find(this.defaultPageConfig.headerSectionSelector).length === 1) {
+                    var desc = $(entireSlidePage).find(this.defaultPageConfig.headerSectionSelector).html();
+                    $(slideWrapper).append($("<p>", {
+                        "class": "slideTitle",
+                        text: desc
+                    }));
+                }
+
+                $(slideWrapper).append(this.articleSection);
+
+                this.setCssOverwrite(this.articleSection);
+
+                for (var i in this.defaultPageConfig.classesToBeRemoved) {
+                    $("." + this.defaultPageConfig.classesToBeRemoved[i]).removeClass(this.defaultPageConfig.classesToBeRemoved[i]);
+                }
+
+                this.defaultPageConfig.visitedSlideURLs.push(thisSlideURL);
+
+                this.defaultPageConfig.preIncludeCallback.call(this);
+
+                if (this.defaultPageConfig.isNextPageUrlCorrect.call(this, this.nextPageURL)) {
+                    this.logger("link do nastepnej storny", this.nextPageURL);
+                    this.showSpinnier();
+
+                    if (this.defaultPageConfig.loadMoreSlides.call(this)) {
+                        this.requestNextSlide(this.nextPageURL);
+                    } else {
+                        this.logger("loadMoreSlides=false  ostatni slajd");
+                        this.hideSpinner();
+                        this.defaultPageConfig.afterAllCallback.call(this);
+                        return;
+                    }
+                } else {
+                    this.logger("Ostatni Slajd. NextPageUrl=" + this.nextPageURL);
+                    this.hideSpinner();
+                    this.defaultPageConfig.afterAllCallback.call(this);
+                }
+
+            } else {
+                this.logger("Niepoprawny selektor CSS dla ARTYKULU", this.defaultPageConfig.articleBodySelector);
+                this.undo();
+            }
         },
-        _buildHeader: function (pageNumber, url) {
+        undo: function () {
+            $(this.defaultPageConfig.sectionToBeEmptySelector).children().show();
+            $(this.defaultPageConfig.sectionToBeRemovedSelector).show();
+        },
+        buildHeader: function (pageNumber, url) {
             return $("<div>", {
                 "class": "slideHeader slideHeader_" + pageNumber
             }).append($("<p>", {
@@ -2601,123 +2740,7 @@
                     title: "Bezpośredni link"
                 })));
         },
-        _appendNextSlide: function (dirtyPage, thisSlideURL) {
-            /**
-             * remove <script> tags only
-             *
-             * SANITIZE_DOM=false is intentional as duplicated IDs must stay even if that is not correct according to HTML spec
-             */
-            var entireSlidePage = DOMPurify.sanitize(dirtyPage, {
-                SAFE_FOR_JQUERY: true,
-                WHOLE_DOCUMENT: true,
-                RETURN_DOM: true,
-                FORBID_TAGS: ['script'],
-                SANITIZE_DOM: false
-            });
-            var that = this;
-
-            this._hideSpinner();
-            this.currentUrl = thisSlideURL;
-            this.articleSection = $(entireSlidePage).find(this.pageOptions.sectionToBeAttached);
-            // ARTICLE BODY CHECK
-            if ($(this.articleSection).length > 0) {
-
-                this.nextPageURL = $(entireSlidePage).find(this.pageOptions.navigationNextULRSelector).attr("href");
-
-                if (typeof this.nextPageURL === "undefined") {
-                    $.each($(entireSlidePage), function () {
-                        if ($(this).is(that.pageOptions.navigationNextULRSelector)) {
-                            that.nextPageURL = $(this).attr("href");
-                        }
-                    });
-                }
-
-                $(this.articleSection).find(this.pageOptions.sectionToBeEmptySelector).empty();
-                $(this.articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
-                $(this.articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
-
-                if (typeof thisSlideURL === "undefined") {
-                    this._logger("ERROR: URL tego slajdu jest nieznany");
-                    this._undo();
-                    this.pageOptions.afterAllCallback.call(this);
-                    return;
-                }
-                if (thisSlideURL === this.nextPageURL) {
-                    this._logger("WARNING: URL do następnego slajdu jest taki sam jak url tego slajdu");
-                    this._logger("URL do tego slajdu", thisSlideURL);
-                    this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
-                    this._undo();
-                    this.pageOptions.afterAllCallback.call(this);
-                    return;
-                }
-                if ($.inArray(thisSlideURL, this.pageOptions.visitedSlideURLs) > -1) {
-                    this._logger("WARNING: URL następnego slajdu jest już załączony do galerii");
-                    this._logger("Załączone strony", this.pageOptions.visitedSlideURLs);
-                    this._logger("URL do tego slajdu", thisSlideURL);
-                    this._logger("URL do nastepnego zalaczanego slajdu", this.nextPageURL);
-                    this._undo();
-                    this.pageOptions.afterAllCallback.call(this);
-                    return;
-                }
-
-                pageNumber = pageNumber + 1;
-
-                var slideHeader = this._buildHeader(pageNumber, thisSlideURL);
-
-                $(this.imageContainer).append(slideHeader);
-
-                $(this.articleSection).find(this.pageOptions.sectionToBeEmptySelector).empty();
-                $(this.articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
-                $(this.articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
-
-                var slideWrapper = $(this.imageContainer).append($("<div>", {
-                    "class": "slide_" + pageNumber + " es_slide"
-                })).children().last();
-
-                if ($(entireSlidePage).find(this.pageOptions.headerSectionSelector).length === 1) {
-                    var desc = $(entireSlidePage).find(this.pageOptions.headerSectionSelector).html();
-                    $(slideWrapper).append($("<p>", {
-                        "class": "slideTitle",
-                        text: desc
-                    }));
-                }
-
-                $(slideWrapper).append(this.articleSection);
-
-                this._setCssOverwrite(this.articleSection);
-
-                for (var i in this.pageOptions.classesToBeRemoved) {
-                    $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
-                }
-
-                this.pageOptions.visitedSlideURLs.push(thisSlideURL);
-
-                this.pageOptions.preIncludeCallback.call(this);
-
-                if (this.pageOptions.isNextPageUrlCorrect.call(this, this.nextPageURL)) {
-                    this._logger("link do nastepnej storny", this.nextPageURL);
-                    this._showSpinnier();
-
-                    if (this.pageOptions.loadMoreSlides.call(this)) {
-                        this._requestNextSlide(this.nextPageURL);
-                    } else {
-                        this._logger("loadMoreSlides=false  ostatni slajd");
-                        this._hideSpinner();
-                        this.pageOptions.afterAllCallback.call(this);
-                        return;
-                    }
-                } else {
-                    this._logger("Ostatni Slajd. NextPageUrl=" + this.nextPageURL);
-                    this._hideSpinner();
-                    this.pageOptions.afterAllCallback.call(this);
-                }
-
-            } else {
-                this._logger("Niepoprawny selektor CSS dla ARTYKULU", this.pageOptions.articleBodySelector);
-                this._undo();
-            }
-        },
-        _setCssOverwrite: function (content) {
+        setCssOverwrite: function (content) {
             var appendNewStyle = function (elements, newStyle) {
                 elements.each(function () {
                     var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
@@ -2727,15 +2750,18 @@
                 });
             };
 
-            for (var selector in this.pageOptions.customStyle) {
+            for (var selector in this.defaultPageConfig.customStyle) {
                 var elements = $(content).find(selector);
                 if (elements.length === 0) { // try to find the elements in the whole page
                     elements = $(selector);
                 }
-                appendNewStyle(elements, this.pageOptions.customStyle[selector]);
+                appendNewStyle(elements, this.defaultPageConfig.customStyle[selector]);
             }
         },
-        _getPaywallRedirectUrl: function (nextPage) {
+        theme: function (theme) {
+            $("html").addClass("es-theme-" + theme);
+        },
+        getPaywallRedirectUrl: function (nextPage) {
             if (nextPage.length > 1000 && nextPage.length < 1500 && $(nextPage).length == 11 &&
                 $($(nextPage)[3]).is("meta") && $($(nextPage)[3]).attr("http-equiv") == "refresh" &&
                 $($(nextPage)[3]).attr("content") &&
@@ -2745,10 +2771,10 @@
             }
             return "";
         },
-        _requestNextSlide: function (nextPageURL) {
+        requestNextSlide: function (nextPageURL) {
             var that = this;
             if (typeof nextPageURL === 'undefined' || nextPageURL.trim() === "") {
-                that._hideSpinner();
+                that.hideSpinner();
                 return;
             }
 
@@ -2759,23 +2785,22 @@
                 nextPageURL = document.location.origin + "/" + nextPageURL;
             }
 
-            $.get(this._appendParamToUrl(nextPageURL, "es=nextPage"), "html", function (nextPage) {
-                var redirectUrl = that._getPaywallRedirectUrl(nextPage);
+            $.get(this.appendParamToUrl(nextPageURL, "es=nextPage"), "html", function (nextPage) {
+                var redirectUrl = that.getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {
-                    that._requestNextSlide(redirectUrl);
-                    that._tracking("paywall_redirect", redirectUrl);
+                    that.requestNextSlide(redirectUrl);
+                    that.tracking("paywall_redirect", redirectUrl);
                 } else {
-                    that._appendNextSlide(nextPage, nextPageURL);
+                    that.appendNextSlide(nextPage, nextPageURL);
                 }
             }).fail(function (a, b, c) {
-                that._tracking("ES_AJAX_error", that.pageOptions.pageType, nextPageURL);
-                that._logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
-                that._hideSpinner();
-                that._showErrorPanel("Coś zablokowało żądanie AJAX ", nextPageURL);
-                that._undo();
+                that.logger("ES - AJAX request error. Code " + a.status, a, b, c, nextPageURL);
+                that.hideSpinner();
+                that.showErrorPanel("Coś zablokowało żądanie AJAX ", nextPageURL);
+                that.undo();
             });
         },
-        _showErrorPanel: function (msg, ajaxUrl) {
+        showErrorPanel: function (msg, ajaxUrl) {
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
                 .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
@@ -2803,20 +2828,20 @@
                 }))
             );
         },
-        _bind: function () {
+        bind: function () {
             var that = this;
             var imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.on("click", "i.icon-resize-vertical", function () {
                 var currentOffset = $(this)[0].getBoundingClientRect().bottom - $(this)[0].getBoundingClientRect().height;
                 imageContainer.toggleClass("noScroll").toggleClass("scroll");
                 if (that.options.scrollableImageContainer) {
-                    that._logger("scroll switch OFF");
+                    that.logger("scroll switch OFF");
                     $('html, body').animate({
                         scrollTop: $(this).offset().top - currentOffset
                     }, 500);
                     that.options.scrollableImageContainer = false;
                 } else {
-                    that._logger("scroll switch ON");
+                    that.logger("scroll switch ON");
                     $('html, body').animate({
                         scrollTop: $(".imageContainerEliminatorSlajdow").offset().top - 25
                     }, 500);
@@ -2829,35 +2854,35 @@
                     that.options.scrollableImageContainer = true;
                 }
                 imageContainer.find("i.icon-resize-vertical").toggleClass("esIconEnabled").toggleClass("esIconDisabled");
-                that._tracking("scroll_ui", that.options.scrollableImageContainer ? "ON" : "OFF");
+                that.tracking("scroll_ui", that.options.scrollableImageContainer ? "ON" : "OFF");
             });
 
             imageContainer.on("click", ".bugreport a", function () {
                 window.open(that.options.bugReportUrl);
-                that._tracking("bug_report_ui", "click");
+                that.tracking("bug_report_ui", "click");
             });
 
             imageContainer.on("click", "p.headerLogo", function () {
                 window.open(that.options.facebookUrl);
-                that._tracking("facebook_ui", "click");
+                that.tracking("facebook_ui", "click");
             });
 
             imageContainer.on("click", ".icon-link-ext-alt", function () {
-                window.open(that._appendParamToUrl($(this).data('url'), "es=off"), '_blank');
+                window.open(that.appendParamToUrl($(this).data('url'), "es=off"), '_blank');
             });
 
             imageContainer.on("click", "i.icon-up-circle", function () {
                 $("body,html").animate({
                     scrollTop: 0
                 }, 500);
-                that._tracking("go_top_link", "click");
+                that.tracking("go_top_link", "click");
             });
 
             imageContainer.on("click", "i.icon-down-circle", function () {
                 $("body,html").animate({
                     scrollTop: imageContainer.offset().top + imageContainer.height() - 50
                 }, 500);
-                that._tracking("go_end_link", "click");
+                that.tracking("go_end_link", "click");
             });
 
             imageContainer.on("click", "i.icon-right-circle", function () {
@@ -2873,7 +2898,7 @@
                         scrollTop: offset
                     }, 0);
                 }
-                that._tracking("go_next_link", "click");
+                that.tracking("go_next_link", "click");
             });
 
             imageContainer.on("click", "i.icon-left-circle", function () {
@@ -2890,58 +2915,29 @@
                     }, 0);
 
                 }
-                that._tracking("go_prev_link", "click");
+                that.tracking("go_prev_link", "click");
             });
             // TODO: dodac obsluge spacji
         },
-        init: function (customOptions) {
-
-            if ($("div.imageContainerEliminatorSlajdow").length > 0) {
-                return;
-            }
-
-            var self = this;
-            window.onerror = function (err) {
-                self._tracking("ES_JS_ERROR", err, window.location.href);
-            };
-            $.extend(true, this.options, this.options, customOptions);
-
-            this.pages.push(this.options.customPages);
-
-            if (this.options.debug) {
-                this._createDebugConsole();
-            }
-
-            for (var i in this.pages) {
-                var trigger = this.pages[i].trigger;
-                var noOfSelectors = trigger && trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
-                if ($(trigger).length >= noOfSelectors && $(this.pages[i].triggerStopper).length === 0) {
-                    $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
-                    this._logger("ES START konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
-                    this._start();
-                    break;
-                }
-            }
-        },
-        _createImageContainer: function () {
+        createImageContainer: function () {
             var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
             this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
-            if (this.pageOptions.imageContainerPositionInRelationToArticleBody === "before") {
-                $(this.pageOptions.articleBodySelector).before(this.imageContainer);
+            if (this.defaultPageConfig.imageContainerPositionInRelationToArticleBody === "before") {
+                $(this.defaultPageConfig.articleBodySelector).before(this.imageContainer);
             } else {
-                $(this.pageOptions.articleBodySelector).after(this.imageContainer);
+                $(this.defaultPageConfig.articleBodySelector).after(this.imageContainer);
             }
         },
-        _showSpinnier: function () {
+        showSpinnier: function () {
             $("div.imageContainerEliminatorSlajdow").append(this.spinner);
         },
-        _hideSpinner: function () {
+        hideSpinner: function () {
             $("div.imageContainerEliminatorSlajdow div.eliminatorSlajdowSpinner").remove();
         },
-        _appendDisableEsFlag: function (url) {
-            return this._appendParamToUrl(url, "es=off");
+        appendDisableEsFlag: function (url) {
+            return this.appendParamToUrl(url, "es=off");
         },
-        _appendParamToUrl: function (url, param) {
+        appendParamToUrl: function (url, param) {
             if (url.indexOf("?") > -1) {
                 return url.replace("?", "?" + param + "&");
             } else if (url.indexOf("#") > -1) {
@@ -2950,7 +2946,7 @@
                 return url + "?" + param;
             }
         },
-        _updateGalleryLink: function () {
+        updateGalleryLink: function () {
             var galleryLink = $("#gazeta_article_miniatures .moreImg a, #gazeta_article_image a.next ");
             if (galleryLink.length > 0) {
                 var href = galleryLink.attr("href");
@@ -2961,7 +2957,7 @@
             }
         },
         regression: function () {
-            this._createDebugConsole();
+            this.createDebugConsole();
             var setTimeoutFunction = function (urlToOpen, pi) {
                 var delay = 5 * 1000 * pi;
                 setTimeout(function () {
@@ -2971,8 +2967,8 @@
 
             var self = this;
             var allRegressionUrls = [];
-            for (var pi in  self.pages) {
-                var pageConfig = this.pages[self.pages.length - pi - 1];
+            for (var pi in  self.pageConfigs) {
+                var pageConfig = this.pageConfigs[self.pageConfigs.length - pi - 1];
                 for (var i in pageConfig.regressionUrls) {
                     var regressionUrl = pageConfig.regressionUrls[i];
                     if (regressionUrl.length > 0)
@@ -2993,33 +2989,33 @@
                     var urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
-                    self._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
+                    self.logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
                 } while (lowerBound < topBound && lowerBound < allRegressionUrls.length);
                 topBound = topBound + step;
             });
 
-            this.pageOptions.sectionToBeAttached = "#toBeAttached";
-            this.pageOptions.articleBodySelector = "#articleBodySelector";
-            this._createImageContainer();
-            this._appendNextSlide("body", "regression");
+            this.defaultPageConfig.sectionToBeAttached = "#toBeAttached";
+            this.defaultPageConfig.articleBodySelector = "#articleBodySelector";
+            this.createImageContainer();
+            this.appendNextSlide("body", "regression");
             this.init();
             this.options.imageBaseUrl = "../chrome/images/";
-            $(".imageContainerEliminatorSlajdow").append(this._buildHeader(666, "https://test.com"));
-            this._showSpinnier();
+            $(".imageContainerEliminatorSlajdow").append(this.buildHeader(666, "https://test.com"));
+            this.showSpinnier();
         },
-        _createDebugConsole: function () {
+        createDebugConsole: function () {
             var content = "Eliminator Slajdów - Debug Console v" + this.options.version + "\n\n";
             var style = "width: 700px;height: 400px;z-index: 9999999;font-family: monospace;font-size: 13px;border: 1px solid;" +
                 "background: black;color: #3BFF00;padding: 10px;position: fixed;bottom: 0;right: 0";
             $("<textarea>", {id: "es_debug", style: style, val: content}).appendTo($("body"));
         },
-        _tracking: function (category, action, comment) {
+        tracking: function (category, action, comment) {
             if ($.isFunction(this.options.trackingCallback)) {
                 comment = comment || window.location.host;
                 this.options.trackingCallback.call(this, category, action, comment);
             }
         },
-        _logger: function () {
+        logger: function () {
             if (this.options.debug) {
                 var msg = "";
                 for (let obj of arguments) {
