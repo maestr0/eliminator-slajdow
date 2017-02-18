@@ -21,8 +21,12 @@ gulp.task('scss', function () {
 });
 
 gulp.task('build-es', function () {
-    return gulp.src(['common/js/eliminator-slajdow-common.js'])
+    gulp.src(['common/js/eliminator-slajdow-common.js'])
         .pipe(concat('eliminator-slajdow.js'))
+        .pipe(gulp.dest('firefox/js/'))
+        .pipe(gulp.dest('chrome/js/'));
+
+    return gulp.src(['common/js/eliminator-slajdow-page-configs.js'])
         .pipe(gulp.dest('firefox/js/'))
         .pipe(gulp.dest('chrome/js/'));
 });
