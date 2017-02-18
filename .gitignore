@@ -9,3 +9,6 @@ package/*
 npm-debug.log
 firefox/eliminator-slajdow.xpi
 secrets.txt
+firefox/web-ext-artifacts/*
+dist/*
+userscript/*

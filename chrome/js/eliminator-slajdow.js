@@ -420,19 +420,22 @@
                 preIncludeCallback: function () {
                     this._createImageContainer();
                     var self = this;
-                    $.get(document.location.href, function (data) {
-                        if (data.length > 100) {
-                            $(data).find(".rsSlideContent").each(function (index) {
+                    $.get(document.location.href, function (dirtyPage) {
+                        if (dirtyPage.length > 100) {
+                            var sanitizedDOM = $(DOMPurify.sanitize(dirtyPage), {
+                                SAFE_FOR_JQUERY: true,
+                                WHOLE_DOCUMENT: true,
+                                RETURN_DOM: true,
+                                FORBID_TAGS: ['script'],
+                                SANITIZE_DOM: false
+                            });
+
+                            $(sanitizedDOM).find(".rsSlideContent").each(function (index) {
                                 /**
                                  * remove <script> tags only
                                  */
-                                var slide = $(DOMPurify.sanitize(this), {
-                                    SAFE_FOR_JQUERY: true,
-                                    WHOLE_DOCUMENT: true,
-                                    RETURN_DOM: true,
-                                    FORBID_TAGS: ['script'],
-                                    SANITIZE_DOM: false
-                                });
+                                var slide = $(this);
+
                                 slide.find(".rsTmb").remove();
                                 slide.find(".fakeRsArrow").remove();
                                 slide = slide.wrap("<div class='slide_" + index + " es_slide'></div>");
@@ -2335,7 +2338,7 @@
                 /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures",
+                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures, section.ads",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
@@ -2470,7 +2473,7 @@
                 /* selktor ktorego text() zwroci numer strony w formacie 1/12 */
                 navigationPageNumberSelector: "",
                 /* elementy do usuniecia z calej strony */
-                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures, div.social, .nextSlideWrapper",
+                sectionToBeRemovedSelector: ".photostoryNavigation, #gazeta_article_miniatures, div.social, .nextSlideWrapper, section.ads",
                 /* elementy do usuniecia TYLKO z dolaczanych slajdow*/
                 sectionToBeRemovedFromAttachedSlidesSelector: "script",
                 /* $.empty() na elemencie*/
