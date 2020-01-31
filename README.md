@@ -36,4 +36,4 @@ https://github.com/cure53/DOMPurify/releases
 
 # Licencja
 
-[GNU GPL v3(LICENSE)]
+[GNU GPL v3](LICENSE)
