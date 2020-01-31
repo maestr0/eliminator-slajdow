@@ -131,5 +131,3 @@ for (var url in defaultSupportedDomains) {
     else
         console.log("<string>*." + defaultSupportedDomains[url] + "</string>" )
 }
-
-

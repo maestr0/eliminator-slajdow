@@ -7,15 +7,15 @@ const watch = require('gulp-watch');
 const del = require('del');
 const zip = require('gulp-zip');
 
-gulp.task('build-es', function () {
+gulp.task('build', function () {
     return gulp.src(['common/js/eliminator-slajdow-common.js'])
         .pipe(concat('eliminator-slajdow.js'))
         .pipe(gulp.dest('firefox/js/'))
         .pipe(gulp.dest('chrome/js/'));
 });
 
-gulp.task('chrome', gulp.series('build-es', () => {
-    gulp.src('chrome/**')
+gulp.task('chrome', gulp.series('build', () => {
+    return gulp.src('chrome/**')
         .pipe(zip('chrome.zip'))
         .pipe(gulp.dest('dist'));
 }));
@@ -43,7 +43,7 @@ gulp.task('clean', clean);
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
-    gulp.watch('common/js/eliminator-slajdow-common.js', ['build-es']);
+    gulp.watch('common/js/eliminator-slajdow-common.js', ['build']);
     gulp.watch('common/scss/**.scss', ['scss']);
 });
 

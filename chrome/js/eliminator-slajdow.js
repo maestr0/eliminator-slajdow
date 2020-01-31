@@ -3,11 +3,8 @@
  *
  *   Autor: Paweł Raszewski
  *
- *   https://github.com/maestr0/eliminator-slajdow-chrome
+ *   https://github.com/maestr0/eliminator-slajdow
  *   Licencja: GPLv3
- *   Strona Domowa: http://eliminator-slajdow.raszewski.info
- *
- *   latest version on CDN: https://cdn.eliminator-slajdow.raszewski.info/eliminator-slajdow.js
  *
  * */
 

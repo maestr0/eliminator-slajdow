@@ -1,7 +1,7 @@
 Eliminator Slajdow - Chrome extension
 =========================
 
-Fanpage na Facebooku https://www.facebook.com/eliminator.slajdow?ref=github.com/maestr0/eliminator-slajdow-chrome
+Fanpage na Facebooku https://www.facebook.com/eliminator.slajdow?ref=github.com/maestr0/eliminator-slajdow
 
 Jeśli podoba Ci się ten dodatek możesz przekazać mi parę złotych w nagrodę poprzez PayPal
 
@@ -19,7 +19,7 @@ Autor: Paweł Raszewski (raszewski@gmail.com)
 
 `web-ext run`
 
-`gulp build-es` to build ES js file for CDN
+`gulp build` to build ES js file for CDN
 
 `gulp connect` to server the JS from localhost for es-dev
 
@@ -29,7 +29,7 @@ http://localhost:8080/eliminator-slajdow.js
 
 `gulp scss`
 
-TODO `gulp build-chrome`
+`gulp chrome`
 
 # DOMPurify
 https://github.com/cure53/DOMPurify/releases
