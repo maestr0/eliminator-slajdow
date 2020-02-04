@@ -1,10 +1,10 @@
 (function () {
-    var POPUP = {
+    let POPUP = {
         self: this,
         $domainList: $('#domainList'),
         fnSortAllowedDomainsList: function () {
-            var that = this;
-            var listitems = this.$domainList.children('li').get();
+            let that = this;
+            let listitems = this.$domainList.children('li').get();
             listitems.sort(function (a, b) {
                 return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
             });
@@ -14,12 +14,12 @@
         },
         fnBindEvents: function () {
             this.$domainList.on("click", "input", function () {
-                var selected = $(this).is(':checked');
+                let selected = $(this).is(':checked');
                 $(this).parent().parent().toggleClass("disabled");
-                var text = $(this).parent().parent().attr("data-value");
+                let text = $(this).parent().parent().attr("data-value");
 
-                chrome.storage.sync.get('allowedDomains', (res)=> {
-                    var ad = JSON.parse(res.allowedDomains)
+                chrome.storage.sync.get('allowedDomains', (res) => {
+                    let ad = JSON.parse(res.allowedDomains)
                     ad[text] = selected;
                     chrome.storage.sync.set({
                         allowedDomains: JSON.stringify(ad)
@@ -32,10 +32,10 @@
             });
 
             function logStorageChange(changes, area) {
-                var changedItems = Object.keys(changes);
-                for (item of changedItems) {
+                let changedItems = Object.keys(changes);
+                for (let item of changedItems) {
                     if (item === "status") {
-                        var newValue = changes[item].newValue;
+                        let newValue = changes[item].newValue;
                         $("input:radio[value=" + newValue + "]").click();
                     }
                 }
@@ -44,9 +44,9 @@
             chrome.storage.onChanged.addListener(logStorageChange);
         },
         fnGenerateDomainList: function () {
-            var that = this;
-            chrome.storage.sync.get('allowedDomains', (res)=> {
-                var allowedDomains = JSON.parse(res.allowedDomains);
+            let that = this;
+            chrome.storage.sync.get('allowedDomains', (res) => {
+                let allowedDomains = JSON.parse(res.allowedDomains);
                 $.each(allowedDomains, function (allowedHost, enabled) {
                     that.$domainList.append('<li class="ui-widget-content ' + (enabled ? "" : "disabled") +
                         '" data-value="' + allowedHost + '">' + allowedHost + '<span><input type="checkbox" ' +
@@ -56,7 +56,7 @@
             });
         },
         updateUI: function () {
-            chrome.storage.sync.get(['version', 'status'], (res)=> {
+            chrome.storage.sync.get(['version', 'status'], (res) => {
                 $("#version").text(res.version);
                 $("input:radio[value=" + res.status + "]").attr("checked", true);
             });

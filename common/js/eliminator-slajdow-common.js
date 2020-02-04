@@ -250,7 +250,7 @@
                 },
                 beforeAllCallback: function () {
                     $("#columns_wrap").after($("#article_comments"));
-                    var that = this;
+                    let that = this;
                     setInterval(function () {
                         $(that.pageOptions.sectionToBeRemovedSelector).hide();
                     }, 500);
@@ -416,10 +416,10 @@
                     "http://demotywatory.pl/4344639/14-najglupszych-sposobow-na-zerwanie-z-kims"],
                 preIncludeCallback: function () {
                     this._createImageContainer();
-                    var self = this;
+                    let self = this;
                     $.get(document.location.href, function (dirtyPage) {
                         if (dirtyPage.length > 100) {
-                            var sanitizedDOM = $(DOMPurify.sanitize(dirtyPage), {
+                            let sanitizedDOM = $(DOMPurify.sanitize(dirtyPage), {
                                 SAFE_FOR_JQUERY: true,
                                 WHOLE_DOCUMENT: true,
                                 RETURN_DOM: true,
@@ -431,7 +431,7 @@
                                 /**
                                  * remove <script> tags only
                                  */
-                                var slide = $(this);
+                                let slide = $(this);
 
                                 slide.find(".rsTmb").remove();
                                 slide.find(".fakeRsArrow").remove();
@@ -440,7 +440,6 @@
                                     self._buildHeader((index + 1), index + 2, document.location.href));
                                 $(".imageContainerEliminatorSlajdow").append(slide);
                             });
-
 
                             $(self.pageOptions.sectionToBeEmptySelector).empty();
                             $(self.pageOptions.sectionToBeRemovedSelector).remove();
@@ -823,7 +822,7 @@
             },
             {
                 /* css selektor ktory uaktywnia eliminacje slajdow na danej stronie*/
-                trigger: "#gallery > div.content > div.flesh > div.main_img > div.big_img > div.fullscreen > div > img",//"div.wrapper div.site div.left_column div.article div.gallery_buttons div.next_btt a.next",
+                trigger: "#gallery > div.content > div.flesh > div.main_img > div.big_img > div.fullscreen > div > img", //"div.wrapper div.site div.left_column div.article div.gallery_buttons div.next_btt a.next",
                 /* index */
                 pageType: "39",
                 /* nazwa galerii */
@@ -1278,9 +1277,9 @@
                 customStyle: {},
                 beforeAllCallback: function () {
                     document.cookie = "galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
-                    var link = $("link[rel=next]");
+                    let link = $("link[rel=next]");
                     if (link.length === 1) {
-                        var canonicalUrl = link.attr("href");
+                        let canonicalUrl = link.attr("href");
                         if (canonicalUrl.indexOf(document.location.hostname) === -1) {
                             document.location.href = canonicalUrl;
                         }
@@ -1394,7 +1393,7 @@
                 /* dowolne style css w postaci mapy */
                 customStyle: {},
                 preIncludeCallback: function () {
-                    var body = $(this.articleSection).find(".galeriaZdjecieBx");
+                    let body = $(this.articleSection).find(".galeriaZdjecieBx");
                     if (body.length == 2) {
                         body[1].remove();
                     }
@@ -1897,8 +1896,7 @@
 
                     }
 
-
-                    var es = this;
+                    let es = this;
                     $("body").addClass("eliminatorSlajdow");
                     $("*[data-content]").each(function () {
                         $(this).text($(this).attr("data-content"));
@@ -1983,9 +1981,9 @@
                 customStyle: {},
                 beforeAllCallback: function () {
                     document.cookie = "galeria_opis_reklama=2445847%7C35;path=/artykul/zdjecia";
-                    var link = $("link[rel=next]");
+                    let link = $("link[rel=next]");
                     if (link.length === 1) {
-                        var canonicalUrl = link.attr("href");
+                        let canonicalUrl = link.attr("href");
                         if (canonicalUrl.indexOf(document.location.hostname) === -1) {
                             document.location.href = canonicalUrl;
                         }
@@ -2041,7 +2039,6 @@
                     $(".slick-ad").remove();
                     $(".slick-ad").prev().remove();
 
-
                     $(".slick-gallery button").remove();
                     this._createImageContainer();
                     $(".imageContainerEliminatorSlajdow").append(this._buildHeader("", ""));
@@ -2079,7 +2076,7 @@
                 /* dowolne style css w postaci mapy */
                 customStyle: {".imageContainerEliminatorSlajdow": "position: relative; z-index:1"},
                 preIncludeCallback: function () {
-                    var self = this;
+                    let self = this;
                     setInterval(function () {
                         $(self.pageOptions.sectionToBeRemovedSelector).remove();
                     }, 500);
@@ -2141,7 +2138,7 @@
                 },
                 beforeAllCallback: function () {
                     $("#columns_wrap").after($("#article_comments"));
-                    var that = this;
+                    let that = this;
                     setInterval(function () {
                         $(that.pageOptions.sectionToBeRemovedSelector).hide();
                     }, 500);
@@ -2526,8 +2523,8 @@
         },
         _start: function () {
             pageNumber = 1;
-            var content = "";
-            for (var property in this.pageOptions) {
+            let content = "";
+            for (let property in this.pageOptions) {
                 content += property + "=" + JSON.stringify(this.pageOptions[property]) + "\n";
             }
             $("#es_debug").val($("#es_debug").val() + "\n" + content);
@@ -2604,14 +2601,14 @@
              *
              * SANITIZE_DOM=false is intentional as duplicated IDs must stay even if that is not correct according to HTML spec
              */
-            var entireSlidePage = DOMPurify.sanitize(dirtyPage, {
+            let entireSlidePage = DOMPurify.sanitize(dirtyPage, {
                 SAFE_FOR_JQUERY: true,
                 WHOLE_DOCUMENT: true,
                 RETURN_DOM: true,
                 FORBID_TAGS: ['script'],
                 SANITIZE_DOM: false
             });
-            var that = this;
+            let that = this;
 
             this._hideSpinner();
             this.currentUrl = thisSlideURL;
@@ -2659,7 +2656,7 @@
 
                 pageNumber = pageNumber + 1;
 
-                var slideHeader = this._buildHeader(pageNumber, thisSlideURL);
+                let slideHeader = this._buildHeader(pageNumber, thisSlideURL);
 
                 $(this.imageContainer).append(slideHeader);
 
@@ -2667,12 +2664,12 @@
                 $(this.articleSection).find(this.pageOptions.sectionToBeRemovedSelector).remove();
                 $(this.articleSection).find(this.pageOptions.sectionToBeRemovedFromAttachedSlidesSelector).remove();
 
-                var slideWrapper = $(this.imageContainer).append($("<div>", {
+                let slideWrapper = $(this.imageContainer).append($("<div>", {
                     "class": "slide_" + pageNumber + " es_slide"
                 })).children().last();
 
                 if ($(entireSlidePage).find(this.pageOptions.headerSectionSelector).length === 1) {
-                    var desc = $(entireSlidePage).find(this.pageOptions.headerSectionSelector).html();
+                    let desc = $(entireSlidePage).find(this.pageOptions.headerSectionSelector).html();
                     $(slideWrapper).append($("<p>", {
                         "class": "slideTitle",
                         text: desc
@@ -2683,7 +2680,7 @@
 
                 this._setCssOverwrite(this.articleSection);
 
-                for (var i in this.pageOptions.classesToBeRemoved) {
+                for (let i in this.pageOptions.classesToBeRemoved) {
                     $("." + this.pageOptions.classesToBeRemoved[i]).removeClass(this.pageOptions.classesToBeRemoved[i]);
                 }
 
@@ -2715,17 +2712,17 @@
             }
         },
         _setCssOverwrite: function (content) {
-            var appendNewStyle = function (elements, newStyle) {
+            let appendNewStyle = function (elements, newStyle) {
                 elements.each(function () {
-                    var current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
+                    let current = $(this).attr("style") ? $(this).attr("style") + ";" : "";
                     if (current.indexOf(newStyle) === -1) {
                         $(this).attr("style", current + newStyle);
                     }
                 });
             };
 
-            for (var selector in this.pageOptions.customStyle) {
-                var elements = $(content).find(selector);
+            for (let selector in this.pageOptions.customStyle) {
+                let elements = $(content).find(selector);
                 if (elements.length === 0) { // try to find the elements in the whole page
                     elements = $(selector);
                 }
@@ -2737,13 +2734,13 @@
                 $($(nextPage)[3]).is("meta") && $($(nextPage)[3]).attr("http-equiv") == "refresh" &&
                 $($(nextPage)[3]).attr("content") &&
                 $($(nextPage)[3]).attr("content").indexOf("5;URL=") === 0) {
-                var c = $($(nextPage)[3]).attr("content");
+                let c = $($(nextPage)[3]).attr("content");
                 return c.substring(7, c.length - 1);
             }
             return "";
         },
         _requestNextSlide: function (nextPageURL) {
-            var that = this;
+            let that = this;
             if (typeof nextPageURL === 'undefined' || nextPageURL.trim() === "") {
                 that._hideSpinner();
                 return;
@@ -2757,7 +2754,7 @@
             }
 
             $.get(this._appendParamToUrl(nextPageURL, "es=nextPage"), "html", function (nextPage) {
-                var redirectUrl = that._getPaywallRedirectUrl(nextPage);
+                let redirectUrl = that._getPaywallRedirectUrl(nextPage);
                 if (redirectUrl) {
                     that._requestNextSlide(redirectUrl);
                     that._tracking("paywall_redirect", redirectUrl);
@@ -2773,7 +2770,7 @@
             });
         },
         _showErrorPanel: function (msg, ajaxUrl) {
-            var imageContainer = $("div.imageContainerEliminatorSlajdow");
+            let imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.append($("<div>", {"class": "esErrorPanel"})
                 .append($("<p>", {text: "Błąd Eliminatora Slajdów. " + msg, "class": "esErrorHeader"}))
                 .append($("<p>", {
@@ -2801,10 +2798,10 @@
             );
         },
         _bind: function () {
-            var that = this;
-            var imageContainer = $("div.imageContainerEliminatorSlajdow");
+            let that = this;
+            let imageContainer = $("div.imageContainerEliminatorSlajdow");
             imageContainer.on("click", "i.icon-resize-vertical", function () {
-                var currentOffset = $(this)[0].getBoundingClientRect().bottom - $(this)[0].getBoundingClientRect().height;
+                let currentOffset = $(this)[0].getBoundingClientRect().bottom - $(this)[0].getBoundingClientRect().height;
                 imageContainer.toggleClass("noScroll").toggleClass("scroll");
                 if (that.options.scrollableImageContainer) {
                     that._logger("scroll switch OFF");
@@ -2861,8 +2858,8 @@
                 if (that.options.scrollableImageContainer) {
                     // maybe will implement it one day
                 } else {
-                    var offset = imageContainer.offset().top + imageContainer.height() - 50;
-                    var thisSlide = $(this).parent().parent();
+                    let offset = imageContainer.offset().top + imageContainer.height() - 50;
+                    let thisSlide = $(this).parent().parent();
                     if (thisSlide.next().length > 0 && thisSlide.next().next().length > 0) {
                         offset = thisSlide.next().next().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 48;
                     }
@@ -2877,8 +2874,8 @@
                 if (that.options.scrollableImageContainer) {
                     // maybe will implement it one day
                 } else {
-                    var offset = 0;
-                    var thisSlide = $(this).parent().parent();
+                    let offset = 0;
+                    let thisSlide = $(this).parent().parent();
                     if (thisSlide.prev().length > 0) {
                         offset = thisSlide.prev().prev().offset().top - thisSlide[0].getBoundingClientRect().bottom - thisSlide[0].getBoundingClientRect().height + 48;
                     }
@@ -2897,7 +2894,7 @@
                 return;
             }
 
-            var self = this;
+            let self = this;
             window.onerror = function (err) {
                 self._tracking("ES_JS_ERROR", err, window.location.href);
             };
@@ -2909,9 +2906,9 @@
                 this._createDebugConsole();
             }
 
-            for (var i in this.pages) {
-                var trigger = this.pages[i].trigger;
-                var noOfSelectors = trigger && trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
+            for (let i in this.pages) {
+                let trigger = this.pages[i].trigger;
+                let noOfSelectors = trigger && trigger.match(/,/g) ? trigger.match(/,/g).length : 1;
                 if ($(trigger).length >= noOfSelectors && $(this.pages[i].triggerStopper).length === 0) {
                     $.extend(true, this.pageOptions, this.pageOptions, this.pages[i]);
                     this._logger("ES START konfiguracja " + this.pageOptions.pageType + " dla " + this.pageOptions.name);
@@ -2921,7 +2918,7 @@
             }
         },
         _createImageContainer: function () {
-            var icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
+            let icClass = this.options.scrollableImageContainer ? 'scroll' : 'noScroll';
             this.imageContainer = $("<div>", {"class": icClass + ' imageContainerEliminatorSlajdow'});
             if (this.pageOptions.imageContainerPositionInRelationToArticleBody === "before") {
                 $(this.pageOptions.articleBodySelector).before(this.imageContainer);
@@ -2941,17 +2938,19 @@
         _appendParamToUrl: function (url, param) {
             if (url.indexOf("?") > -1) {
                 return url.replace("?", "?" + param + "&");
-            } else if (url.indexOf("#") > -1) {
-                return url.replace("#", "?" + param + "#");
-            } else {
-                return url + "?" + param;
             }
+
+            if (url.indexOf("#") > -1) {
+                return url.replace("#", "?" + param + "#");
+            }
+
+            return url + "?" + param;
         },
         _updateGalleryLink: function () {
-            var galleryLink = $("#gazeta_article_miniatures .moreImg a, #gazeta_article_image a.next ");
+            let galleryLink = $("#gazeta_article_miniatures .moreImg a, #gazeta_article_image a.next ");
             if (galleryLink.length > 0) {
-                var href = galleryLink.attr("href");
-                var suffix = "?i=1";
+                let href = galleryLink.attr("href");
+                let suffix = "?i=1";
                 if (href && (href.indexOf(suffix, href.length - suffix.length) !== -1)) {
                     galleryLink.attr("href", href.substring(0, href.length - suffix.length));
                 }
@@ -2959,27 +2958,29 @@
         },
         regression: function () {
             this._createDebugConsole();
-            var setTimeoutFunction = function (urlToOpen, pi) {
-                var delay = 5 * 1000 * pi;
+            let setTimeoutFunction = function (urlToOpen, pi) {
+                let delay = 5 * 1000 * pi;
                 setTimeout(function () {
                     window.open(urlToOpen, '_blank');
                 }, delay);
             };
 
-            var self = this;
-            var allRegressionUrls = [];
-            for (var pi in  self.pages) {
-                var pageConfig = this.pages[self.pages.length - pi - 1];
-                for (var i in pageConfig.regressionUrls) {
-                    var regressionUrl = pageConfig.regressionUrls[i];
-                    if (regressionUrl.length > 0)
+            let self = this;
+            let allRegressionUrls = [];
+
+            for (let pi in self.pages) {
+                let pageConfig = this.pages[self.pages.length - pi - 1];
+                for (let i in pageConfig.regressionUrls) {
+                    let regressionUrl = pageConfig.regressionUrls[i];
+                    if (regressionUrl.length > 0) {
                         allRegressionUrls.push(regressionUrl + "###es=debug###-PAGETYPE=" + pageConfig.pageType);
+                    }
                 }
             }
 
-            var step = 5;
-            var lowerBound = 0;
-            var topBound = lowerBound + step;
+            let step = 5;
+            let lowerBound = 0;
+            let topBound = lowerBound + step;
 
             $("#start").click(function () {
                 do {
@@ -2987,7 +2988,7 @@
                         "href": allRegressionUrls[lowerBound],
                         "text": allRegressionUrls[lowerBound]
                     })).append($("<br>"));
-                    var urlToOpen = allRegressionUrls[lowerBound];
+                    let urlToOpen = allRegressionUrls[lowerBound];
                     setTimeoutFunction(urlToOpen, 0);
                     lowerBound++;
                     self._logger("Remaining URLs ", allRegressionUrls.length - lowerBound);
@@ -3005,8 +3006,8 @@
             this._showSpinnier();
         },
         _createDebugConsole: function () {
-            var content = "Eliminator Slajdów - Debug Console v" + this.options.version + "\n\n";
-            var style = "width: 700px;height: 400px;z-index: 9999999;font-family: monospace;font-size: 13px;border: 1px solid;" +
+            let content = "Eliminator Slajdów - Debug Console v" + this.options.version + "\n\n";
+            let style = "width: 700px;height: 400px;z-index: 9999999;font-family: monospace;font-size: 13px;border: 1px solid;" +
                 "background: black;color: #3BFF00;padding: 10px;position: fixed;bottom: 0;right: 0";
             $("<textarea>", {id: "es_debug", style: style, val: content}).appendTo($("body"));
         },
@@ -3018,7 +3019,7 @@
         },
         _logger: function () {
             if (this.options.debug) {
-                var msg = "";
+                let msg = "";
                 for (let obj of arguments) {
                     msg = msg + obj + ", ";
                 }
