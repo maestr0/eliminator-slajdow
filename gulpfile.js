@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 // Requires the gulp-sass plugin
 const sass = require('gulp-sass');
-var connect = require('gulp-connect');
+const connect = require('gulp-connect');
 const concat = require('gulp-concat');
 const watch = require('gulp-watch');
 const del = require('del');
@@ -29,8 +29,8 @@ gulp.task('scss', function () {
 
 gulp.task('connect', function() {
     connect.server({
-      root: 'build',
-      livereload: false
+        root: 'build',
+        livereload: false
     });
 });
 

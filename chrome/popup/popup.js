@@ -1,30 +1,32 @@
 function appendParamToUrl(url, param) {
     if (url.indexOf("?") > -1) {
         return url.replace("?", "?" + param + "&");
-    } else if (url.indexOf("#") > -1) {
-        return url.replace("#", "?" + param + "#");
-    } else {
-        return url + "?" + param;
     }
+
+    if (url.indexOf("#") > -1) {
+        return url.replace("#", "?" + param + "#");
+    }
+
+    return url + "?" + param;
 }
 
-$("#options").click(()=> {
+$("#options").click(() => {
     chrome.runtime.openOptionsPage();
     this.close();
 });
 
-$("#tempDisable").click(()=> {
-    chrome.extension.getBackgroundPage().getActiveTab((res)=> {
+$("#tempDisable").click(() => {
+    chrome.extension.getBackgroundPage().getActiveTab((res) => {
         chrome.tabs.update(res[0].id, {url: appendParamToUrl(res[0].url, "es=off")},
-            ()=> {
+            () => {
                 this.close();
             });
     });
 });
 
-$("#disable").click(()=> {
-    chrome.storage.sync.get('status', (res)=> {
-        var newStatus = parseInt(res.status) * -1;
+$("#disable").click(() => {
+    chrome.storage.sync.get('status', (res) => {
+        let newStatus = parseInt(res.status) * -1;
         $("#disable").addClass("button-status" + newStatus);
         $("#disable").removeClass("button-status" + (newStatus * -1));
         chrome.runtime.sendMessage({"status": newStatus});
@@ -33,12 +35,12 @@ $("#disable").click(()=> {
 });
 
 function init() {
-    chrome.storage.sync.get('status', (res)=> {
+    chrome.storage.sync.get('status', (res) => {
         $("#disable").addClass("button-status" + res.status)
         $("#disable").removeClass("button-status" + (res.status * -1));
     });
-    chrome.extension.getBackgroundPage().getActiveTab((res)=> {
-        chrome.extension.getBackgroundPage().canRunOnCurrentUrl(res[0].url, (canRunHere)=> {
+    chrome.extension.getBackgroundPage().getActiveTab((res) => {
+        chrome.extension.getBackgroundPage().canRunOnCurrentUrl(res[0].url, (canRunHere) => {
             if (canRunHere) {
                 // ok
             } else {

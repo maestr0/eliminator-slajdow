@@ -62,7 +62,7 @@ function onMessageListener(request, sender, sendResponse) {
     chrome.storage.sync.get(['status', 'version'], (res) => {
         if (location.hostname == sender.id && request.urlName !== undefined) {
             canRunOnCurrentUrl(request.urlName, (canRunHere) => {
-                var activate = canRunHere && parseInt(res.status) > 0;
+                let activate = canRunHere && parseInt(res.status) > 0;
 
                 // active and not from popup
                 if (activate && sender.tab) {
@@ -70,7 +70,7 @@ function onMessageListener(request, sender, sendResponse) {
                     injectEsScripts(sender.tab.id);
                 }
 
-                var id = sender.tab ? sender.tab.id : sender.contextId;
+                let id = sender.tab ? sender.tab.id : sender.contextId;
                 chrome.tabs.sendMessage(id,
                     {
                         "canRunOnCurrentUrl": activate,
@@ -89,8 +89,8 @@ function onMessageListener(request, sender, sendResponse) {
 
 function canRunOnCurrentUrl(url, callback) {
     return chrome.storage.sync.get(['allowedDomains'], (res) => {
-        var canRunHere = false;
-        var allowedDomains = JSON.parse(res.allowedDomains);
+        let canRunHere = false;
+        let allowedDomains = JSON.parse(res.allowedDomains);
         $.each(allowedDomains, function (allowedHost, enabled) {
             if (url.indexOf(allowedHost) != -1) {
                 if (enabled) {
@@ -114,10 +114,10 @@ function getActiveTab(callback) {
 function updateStatusIcon() {
     return chrome.storage.sync
         .get('status', (res) => {
-            var enableIcon = "images/enableIcon.png";
-            var disableIcon = "images/disableIcon.png";
-            var currentStatus = parseInt(res.status);
-            var icon = currentStatus > 0 ? enableIcon : disableIcon;
+            let enableIcon = "images/enableIcon.png";
+            let disableIcon = "images/disableIcon.png";
+            let currentStatus = parseInt(res.status);
+            let icon = currentStatus > 0 ? enableIcon : disableIcon;
             chrome.browserAction.setIcon({path: icon});
             if (currentStatus < 0) {
                 chrome.browserAction.setBadgeText({text: "OFF"});
@@ -130,7 +130,7 @@ function updateStatusIcon() {
 }
 
 // onInstall hack
-var manifest = chrome.runtime.getManifest();
+let manifest = chrome.runtime.getManifest();
 
 chrome.storage.sync.get('version', (res) => {
     if (res.version !== manifest.version) {
@@ -155,7 +155,8 @@ function versionUpdate(newVersion) {
 }
 
 function setSupportedDomains() {
-    var supportedDomains = ["autotrader.pl",
+    let supportedDomains = [
+        "autotrader.pl",
         "avanti24.pl",
         "groszki.pl",
         "ugotuj.to",
@@ -273,9 +274,8 @@ function setSupportedDomains() {
         "bezuzyteczna.pl"
     ];
 
-
     chrome.storage.sync.get('allowedDomains', (res) => {
-        var allowedDomains = {};
+        let allowedDomains = {};
         if (typeof res.allowedDomains !== "undefined") {
             allowedDomains = JSON.parse(res.allowedDomains);
         }
@@ -299,19 +299,21 @@ function setSupportedDomains() {
 function appendParamToUrl(url, param) {
     if (url.indexOf("?") > -1) {
         return url.replace("?", "?" + param + "&");
-    } else if (url.indexOf("#") > -1) {
-        return url.replace("#", "?" + param + "#");
-    } else {
-        return url + "?" + param;
     }
+
+    if (url.indexOf("#") > -1) {
+        return url.replace("#", "?" + param + "#");
+    }
+
+    return url + "?" + param;
 }
 
 // match pattern for the URLs to redirect
-var pattern1 = "http://video.gazeta.pl/player/**";
+let pattern1 = "http://video.gazeta.pl/player/**";
 // match pattern for the URLs to redirect
 function redirect(requestDetails) {
 
-    var redirectUrl = requestDetails.url.replace("autoplay=1", "autoplay=0").replace("autoplay=true", "autoplay=false");
+    let redirectUrl = requestDetails.url.replace("autoplay=1", "autoplay=0").replace("autoplay=true", "autoplay=false");
     if (redirectUrl.indexOf("autoplay") === -1) {
         redirectUrl = appendParamToUrl(redirectUrl, "autoplay=false");
     }

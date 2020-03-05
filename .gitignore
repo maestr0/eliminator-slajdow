@@ -1,6 +1,25 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# IDEs and editors
+/.idea
+
+# Created by https://www.gitignore.io/api/visualstudiocode
+# Edit at https://www.gitignore.io/?templates=visualstudiocode
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.gitignore.io/api/visualstudiocode
+
 .DS_Store
-.idea
-jquery-1.8.3.js
 *.iml
 test.js
 node_modules
@@ -12,3 +31,6 @@ secrets.txt
 firefox/web-ext-artifacts/*
 dist/*
 userscript/*
+
+package-lock.json
+yarn.lock

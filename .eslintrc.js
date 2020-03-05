@@ -1,0 +1,42 @@
+module.exports = {
+	env: {
+		browser: true,
+		commonjs: true,
+		es2017: true,
+		jest: true,
+		node: true,
+		webextensions: true,
+		jquery: true
+	},
+	extends: 'eslint:recommended',
+	parserOptions: {
+		ecmaVersion: 2018,
+		sourceType: 'module'
+	},
+	rules: {
+		indent: ['error', 4],
+		//quotes: ['warn', 'single'],
+		semi: ['off', 'never'],
+		'no-multi-spaces': ['error', { ignoreEOLComments: true }],
+		'curly': 'error',
+		'comma-spacing': 'error',
+		'brace-style': 'error',
+		'no-var': 'error',
+		'key-spacing': 'warn',
+		'keyword-spacing': 'warn',
+		'space-infix-ops': 'warn',
+		'arrow-spacing': 'warn',
+		'no-trailing-spaces': 'warn',
+		'space-before-blocks': 'warn',
+		'no-console': 'warn',
+		'no-extra-boolean-cast': 'off',
+		'no-multiple-empty-lines': ['warn', { 'max': 1, 'maxBOF': 0 }],
+		'lines-between-class-members': ['warn', 'always', { exceptAfterSingleLine: true }],
+		'no-unneeded-ternary': 'error',
+		'no-else-return': ['error', { 'allowElseIf': false }],
+		'array-bracket-newline': ['error', 'consistent'],
+		'eol-last': ['error', 'always'],
+		//'prefer-template': 'error',
+		//'comma-dangle': ['warn', 'always-multiline'],
+	},
+}
